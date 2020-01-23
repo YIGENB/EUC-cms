@@ -1,0 +1,114 @@
+﻿#**
+ * 功能描述：后台框架模板
+ * 创建时间：2010-01-11 12:23:45
+ * 最后修改时间：2010-01-14 9:43:22
+ * 作者：gudufy
+ * ============================================================================
+ * 2009-2015 小K版权所有，并保留所有权利
+ * 联系邮箱：421643133@qq.com、QQ：421643133
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
+ * 使用；不允许对程序代码以任何形式任何目的的再发布。
+ * ============================================================================
+ *#
+ 
+#macro(GoodsCatSelectUI $select_id)
+#foreach($row in $Caches.GoodsCat().Rows)
+<option value="$row.cat_id" #if($select_id == $row.cat_id)selected="selected"#end>$SiteUtils.MakeSpace($row.cat_level)$row.cat_name</option>
+#end
+#end
+
+
+#macro(TlpSelect $fname)
+#if($fname=="cms")
+(内容列表页)
+#elseif($fname=="cms-detail")
+(内容详细页)
+#elseif($fname=="cms-search")
+(内容搜索页)
+#elseif($fname=="goods")
+(产品列表页)
+#elseif($fname=="goods-detail")
+(产品详细页)
+#elseif($fname=="page")
+(单页)
+#elseif($fname=="anli")
+(案例列表页)
+#elseif($fname=="anli_details")
+(案例详细页)
+#end
+#end
+
+#macro(CMSCatSelectUI $select_id)
+#foreach($row in $Caches.CMSCatFormat(0).Rows)
+<option value="$row.cat_id" #if($select_id == $row.cat_id)selected="selected"#end>$row.cat_name</option>
+#end
+#end
+
+#macro(DownLoadCatSelectUI $select_id)
+#foreach($row in $Caches.DownloadCatFormat(0).Rows)
+<option value="$row.cat_id" #if($select_id == $row.cat_id)selected="selected"#end>$row.cat_name</option>
+#end
+#end
+
+#macro(GoodsBrandSelectUI $select_id)
+#foreach($row in $Goods.GetGoodsBrand())
+<option value="$row.brand_id" #if($select_id == $row.brand_id)selected="selected"#end>$row.brand_name</option>
+#end
+#end
+
+#**
+ *================================================================================
+ * 功能：树列表引用文件
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(TreeFile)
+#if($act=="list")<script src="/include/Hplus/ligerUI/js/jquery-1.3.2.min.js" type="text/javascript"></script>#end
+    <link href="/include/Hplus/ligerUI/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <script src="/include/Hplus/ligerUI/js/base.js" type="text/javascript"></script>
+    <script src="/include/Hplus/ligerUI/js/ligerGrid.js" type="text/javascript"></script>
+	<script src="/include/Hplus/ligerUI/js/ligerTree.js" type="text/javascript"></script>
+#end
+
+#**
+ *================================================================================
+ * 功能：列表链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(CMSCatLink)
+/article/#if(${row.urlrewriter} == "")${row.cat_id}#else${row.urlrewriter}#end$!{html}#end
+
+#**
+ *================================================================================
+ * 功能：详细文章链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(CMSLink)
+#if($config.EnableHtml)/html/article/detail/#if(${row.urlrewriter}=="")${row.article_id}#else${row.urlrewriter}#end$!{html}#else/article/detail/#if(${row.urlrewriter}=="")${row.article_id}#else${row.urlrewriter}#end$!{html}#end#end
+
+#**
+ *================================================================================
+ * 功能：页面链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(PageLink)
+#if ($config.EnableHtml)/html/${row.urlrewriter}$!{html}#else/page/${row.urlrewriter}$!{html}#end#end
+
+
+#**
+ *================================================================================
+ * 功能：详细产品链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(ProductLink)
+#if($config.EnableHtml)/html/product/detail/${row.goods_id}$!{html}#else/product/detail/${row.goods_id}$!{html}#end#end
+#end
+
+#macro(GoodsLink $id)
+#if($config.EnableHtml)/html/product/detail/$id$!{html}#else/product/detail/$id$!{html}#end#end
+

@@ -1,0 +1,14 @@
+﻿             #foreach($row in $list)
+			<div class="serve_a">
+                <a href="javascript:;">
+                    <div class="serve_aa">
+                    <b>问</b>
+                    <p>$row.title</p>
+                    </div>
+                    <div class="serve_ab">
+                    <b>答</b>
+                    <p>$SiteUtils.GetTopic($row.des,242)</p>
+                    </div>
+                </a>
+            </div>
+            #end

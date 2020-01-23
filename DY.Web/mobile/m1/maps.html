@@ -1,0 +1,15 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<div id="box_content" style="min-height: 484px;">
+$body
+
+			</div>
+			<div name="bottom" id="elem-PublicConfig_showBottom01-001" class="columnSpace">
+	#parse("include/addr.html")
+			</div>
+			#parse("include/search.html")
+			</div>
+			<div style="position: absolute; z-index: 100; width: 7px; bottom: 2px; top: 2px; right: 1px; pointer-events: none; transition-property: opacity; overflow: hidden; opacity: 0;"><div style="position: absolute; z-index: 100; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.9); -moz-box-sizing: border-box; width: 100%; border-radius: 3px 3px 3px 3px; pointer-events: none; transition-property: -Moz-transform; transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); transform: translate(0px, 0px); height: 586px;"></div></div>
+			</div>
+			#end
+#parse("include/page_foot.html")

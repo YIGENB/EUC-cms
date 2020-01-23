@@ -1,0 +1,153 @@
+﻿#parse("include/page_head.html") #if(!$uc_ua)
+<div id="content">
+    <script type="text/javascript">
+        function buys() {
+            store.MiniCart();
+            var goodId = $("#goodId").val();
+            var quantity = $("#quantity").val();
+
+            if (quantity == '') {
+                alert('请输入购买数量');
+                return;
+            }
+            if (parseInt(quantity) < 1) {
+                alert("购买数量不能小于1");
+                return;
+            }
+            if (isNaN(quantity)) {
+                alert("请输入数字!");
+                return;
+            }
+            add_cart(goodId, quantity);
+        }
+
+        function slideUp_fn() {
+            $('.ware_cen').slideUp('slow');
+        }
+
+        function add_cart(goodId, goods_number)//商品ID，购买数量
+        {
+
+            var url = "/cart.aspx?act=add_to_cart&is_ajax=1&goods_number="+goods_number+"&goods_id="+goodId;
+            jQuery.post(url, function (data) {
+                if (data.error == 0) {
+
+                    $('.dialog_title').html(data.msg);
+                    $('.bold_num').text(data.count);
+                    $('.bold_mly').html(data.sumPrice);
+                    $('.ware_cen').slideDown('slow');
+                    setTimeout(slideUp_fn, 5000);
+                } else {
+                    $('.ware_center').html(data.message);
+                    $('.dialog_title').html(data.msg);
+                    $('.bold_num').text(data.count);
+                    $('.bold_mly').html(data.sumPrice);
+                    $('.ware_cen').slideDown('slow');
+                    setTimeout(slideUp_fn, 5000);
+                }
+            }, 'json');
+        }
+    
+    </script>
+    <script>        
+    $(document).ready(function () {
+
+            $(".group1").colorbox({ rel: 'group1', width: "100%", height: "100%" });
+
+        });
+    </script>
+    <div class="ware_info">
+        <div class="ware_pic">
+        </div>
+        <div class="slider" id="slider">
+            <ul class="sliderlist" id="sliderlist">
+                #foreach($row in $Goods.GetGoodsGalleryList($goodsinfo.goods_id)) #set($index=$velocityCount+1)
+                <li><a href="$row.info_img" class="group1 cboxElement">
+                    <img width="90%" height="85%" src="$row.info_img"></a>
+                    </li>
+                    #end
+                    </ul>
+            <div id="pagenavi">
+                #foreach($row in $Goods.GetGoodsGalleryList($goodsinfo.goods_id)) #set($index=$velocityCount+1)
+                <a class="active" href="javascript:void(0);">$index</a>
+                #end
+                </div>
+        </div>
+        <script type="text/javascript">            
+        var active=0,
+                as=document.getElementById('pagenavi').getElementsByTagName('a');
+                
+            for(var i=0;i<as.length;i++){
+                (function(){
+                    var j=i;
+                    as[i].onclick=function(){
+                        t2.slide(j);
+                        return false;
+                    }
+                })();
+            }
+            var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:6000, before:function(index){
+                    as[active].className='';
+                    active=index;
+                    as[active].className='active';
+                }});
+        </script>
+        <input type="hidden" id="goodId" value="$goodsinfo.goods_id">
+        <div class="ware_text">
+            <div class="rate">
+                <h2 class="ware_title">
+                    $goodsinfo.goods_name</h2>
+                <span class="letterprice">现价: </span><span class="fontColor3" ectype="goods_price">¥$goodsinfo.shop_price</span><br>
+               <!-- <span class="letter1">品牌: </span>彩彩美衣<br>
+                销售情况: 售出 0 件<br>
+                所在地区: 中国-->
+            </div>
+            <div class="handle">
+                <ul>
+                    <li class="handle_title">购买数量: </li>
+                    <li>
+                        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"
+                            class="text width1" name="" id="quantity" value="1">
+                        件（库存<span class="stock" ectype="goods_stock">9954</span>件） </li>
+                </ul>
+            </div>
+            <ul class="ware_btn">
+                <div class="ware_cen" style="display: none;">
+                    <div class="ware_center">
+                        <h1>
+                            <span class="dialog_title"></span><span class="close_link" title="关闭" onmouseover="this.className = 'close_hover'"
+                                onmouseout="this.className = 'close_link'" onclick="slideUp_fn();"></span>
+                        </h1>
+                        <div class="ware_cen_btn">
+                            <p class="ware_text_p">
+                                购物车内共有 <span class="bold_num" id="mini_cart"></span>件商品 共计 <span class="bold_mly"></span>
+                            </p>
+                            <p class="ware_text_btn">
+                                <a href="/cart.htm"><input type="submit" class="btn1" name="" value="查看购物车" onclick="#"></a>
+                                    <input type="submit" class="btn2" name="" value="继续挑选商品" onclick="$('.ware_cen').css({'display':'none'});"></p>
+                        </div>
+                    </div>
+                    <div class="ware_cen_bottom">
+                    </div>
+                </div>
+                <li class="enter" title="立刻购买" onclick="javascript:buys();">立刻购买</li></ul>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <a name="module"></a>
+    <ul class="user_menu">
+        <div class="ornament1">
+        </div>
+        <div class="ornament2">
+        </div>
+        <li><a class="active" href="#"><span>商品详情</span></a></li></ul>
+    <div class="option_box">
+        <div class="default">
+$goodsinfo.goods_content
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+#end #parse("include/page_foot.html") 

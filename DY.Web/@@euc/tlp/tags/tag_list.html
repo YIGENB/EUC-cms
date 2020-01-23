@@ -1,0 +1,72 @@
+﻿#if (!$isajax) #parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            标签库</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>设置</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加Tag</a>
+                        <a href="?act=write" class="btn btn-primary ">写入本地词库</a>
+                    </div>
+                    <form method="post" action="?act=del" name="listForm" id="listForm">
+                    <div id="listDiv" class="ibox-content">
+                        #end
+                        <table id='list-table' class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                   <th><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox"></th>
+                                    <th>$SiteUtils.GetSortImg("tag_name","Tag名称")</th>
+                                    <th>Tag描述</th>
+                                    <th>$SiteUtils.GetSortImg("urlrewriter","自定义url")</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            #foreach($row in $list)
+                            <tr>
+                                 <td><span><input name="checkboxes" type="checkbox" value="${row.tag_id}" /></span></td>
+                                <td nowrap="true"><span onclick="listTable.edit(this, 'tag_name', ${row.tag_id});">${row.tag_name}</span></td>
+                                <td>${row.tag_desc}</td>
+                                <td><span onclick="listTable.edit(this, 'urlrewriter', ${row.tag_id});">${row.urlrewriter}</span></td>
+                                <td nowrap="true">
+                                    <a href="?act=edit&id=${row.tag_id}">修改</a>
+                                    <a href="javascript:;" onclick="listTable.remove(${row.tag_id}, '你确认要删除当前Tag吗？')" title="删除">删除</a>
+                                </td>
+                            </tr>
+                            #end
+                        </table>
+                        <!-- 分页 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info">
+                                    <!--<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选"
+                                        class="selectall" />--></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    ${pager}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 批量 -->
+                        <div class="row" id="page-batch">
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacthAction('CompletelyDelete')"><i class="fa fa-trash"></i>&nbsp;永久删除</button>
+                        </div>
+                        #if (!$isajax)
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html") #end 

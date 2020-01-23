@@ -1,0 +1,54 @@
+﻿#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">#if($id == 0)添加#else修改#end奖品</span> 
+    </div>
+    <div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=list"><span class="left"></span><em><cite class="icon"></cite><cite>刮刮卡列表</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>	
+<!-- start goods form -->
+<div class="tab-div">
+  <div id="tabbody-div">
+    <form method="post" name="theForm" id="theForm" onsubmit="return validate();">
+    <table width="90%" id="general-table">
+      <tr>
+        <td class="label">奖品类型</td>
+        <td><input type="text" id="type" name="type" value="$!{entity.type}" size="30" maxlength="50" class="required" /><span class="require-field">*</span></td>
+      </tr>
+     <tr>
+        <td class="label">奖品名称</td>
+        <td><input type="text" id="name" name="name" value="$!{entity.name}" size="30" maxlength="50" class="required" /></td>
+      </tr>
+     <tr>
+        <td class="label">奖品数量</td>
+        <td><input type="text" id="count" name="count" value="$!{entity.count}" size="30" maxlength="50" class="required"  #if($id != 0) readonly="readonly" #end/></td>
+      </tr>
+          <tr>
+            <td class="label">奖品描述</td>
+            <td><textarea name="des" cols="60" rows="5">$!{entity.des}</textarea></td>
+          </tr>
+    </table>
+    <div class="button-div">
+      <input type="submit" value=" 确定 " class="button"  />
+      <input type="reset" value=" 重置 " class="button" />
+    </div>
+    </form>
+  </div>
+
+</div>
+<script type="text/javascript" src="js/tab.js"></script>
+<script type="text/javascript">
+    var type = "请输入奖品类型";
+function validate()
+{
+  var validator = new Validator('theForm');
+  validator.required('type', no_card_num);
+  return validator.passed();
+}
+
+</script>
+#parse("pagefooter.html")

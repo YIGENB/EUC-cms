@@ -1,0 +1,51 @@
+﻿#if (!$isajax)
+#parse("pageheader.vm")
+<script type="text/javascript" src="js/listtable.js"></script>
+<h1>
+<span class="action-span"><a href="?act=add&travel_id=${travel_id}">添加出发时间</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">出发时间</label> </span>
+<div style="clear:both"></div>
+</h1>
+<form method="post" action="" name="listForm" id="listForm">
+<div class="list-div" id="listDiv">
+#end
+<table cellpadding="3" cellspacing="1">
+  <col style="width:20px;" />
+  <tr>
+    <th><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选" class="selectall" /></th>
+    <th>$SiteUtils.GetSortImg("start_time","行程日期")</th>
+    <th>成人价</th>
+    <th>儿童价</th>
+    <th>$SiteUtils.GetSortImg("is_show","显示")</th>
+    <th>$SiteUtils.GetSortImg("sort_order","排序")</th>
+    <th>$SiteUtils.GetSortImg("add_time","时间")</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+  <tr>
+    <td><input type="checkbox" name="checkboxes" value="${row.departure_date_id}" /></td>
+    <td><span onclick="listTable.edit(this, 'start_time', ${row.departure_date_id})">${row.start_time}</span></td>
+    <td>${row.adult_price}</td>
+    <td>${row.child_price}</td>
+	<td align="center"><img src="images/${row.is_show}.gif" onclick="listTable.toggle(this, 'is_show', ${row.departure_date_id})" /></td>
+    <td align="center"><span onclick="listTable.edit(this, 'sort_order', ${row.departure_date_id})">${row.sort_order}</span></td>
+    <td align="center">${row.add_time}</td>
+    <td align="center">
+        <a href="?act=edit&id=${row.departure_date_id}&travel_id=${row.travel_id}" title="修改">查看</a>
+        <a href="?act=list&travel_id=${travel_id}" onclick="listTable.remove(${row.departure_date_id}, '删除的数据不能恢复，确定执行吗？')" title="删除">删除</a>
+    </td>
+  </tr>
+  #end
+  </table>
+  <!-- 分页 -->
+  <table id="page-table" cellspacing="0">
+    <tr>
+      <td align="left"><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选" class="selectall" /></td>
+      <td align="right">${pager}</td>
+    </tr>
+  </table>
+#if (!$isajax)
+</div>
+</form>
+#parse("pagefooter.vm")
+#end

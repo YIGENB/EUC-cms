@@ -1,0 +1,16 @@
+﻿<div id="testad">
+</div>
+<link href="css/suoqu.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/add.js"></script>
+<script>
+    $(function () {
+        $('#testad').quickAd({
+            html: '<div class="five"><div class="home_tklist"><ul><li><img width="27" height="27" alt="网站设计" src="images/home_tkic1.png"/>网站设计</li><li><img width="27" height="27" alt="网站改版" src="images/home_tkic2.png"/>网站改版</li><li><img width="27" height="27" alt="电子商务网站" src="images/home_tkic3.png"/>电子商务网站</li><li><img width="27" height="27" alt="平台开发" src="images/home_tkic4.png">平台开发</li><li><img width="27" height="27" alt="全网营销网站" src="images/home_tkic5.png"/>全网营销网站</li><li><img width="27" height="27" alt="微信营销" src="images/home_tkic6.png"/>微信营销</li></ul></div><a class="home_qq" href="tencent://message/?uin=2168130868&amp;Menu=yes" target="" title="马上点击咨询"  rel="nofollow">马上点击咨询</a><div class="home_tel"><span>咨询热线：</span>4009-023-090</div></div>'
+        });
+        /*首页广告*/
+        $(window).load(function () {
+            $('#testad').stop(true, false).fadeTo(1000, 1)
+
+        })
+    })
+</script>

@@ -1,0 +1,163 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end活动</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>刮刮卡</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list&atype=$atype" class="btn btn-primary ">活动列表</a>
+                    </div>
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                         <label class="col-sm-1 control-label">
+                               微信关键字：</label>
+                        <div class="col-sm-9">
+                        <input name="weixin_word" type="text" maxlength="50" class="form-control" required="" value="$!{entity.weixin_word}">
+                        </div>
+                       </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                名称：</label>
+                            <div class="col-sm-9">
+                                <input name="name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.name}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            活动展示图片：</label>
+                                        <div class="col-sm-9">
+                                                      <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.pic},"images/slt.jpg")' />
+                                        <input type="hidden" name="photo" id="photo" value="$!{entity.pic}" />
+                                        <span class="help-inline">
+                                            <button name="button" class="btn select_img btn-white btn-sm" type="button">
+                                                点击上传</button></span>
+                                    </div>
+                                        </div>
+                                    </div>
+                            <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            活动简述：</label>
+                                        <div class="col-sm-9">
+                                                 <textarea class="form-control" name="des" cols="70" rows="5">$!{entity.des}</textarea>
+                                                    
+                                        </div>
+                                    </div>
+                                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            每人每天参与次数：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="user_day_count" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.user_day_count},0)">
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            活动每天限制次数：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="day_users"  type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.day_users},0)">
+                                                    
+                                        </div>
+                                    </div>
+<!--                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            中奖概率：</label>
+                                        <div class="col-sm-9">
+                                                    <div class="input-group m-b">
+                                                <input name="winning_rate"  type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.winning_rate},0)"><span class="input-group-addon">%</span>
+                                            </div>
+                                                    
+                                        </div>
+                                    </div>-->
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                               活动时间范围：</label>
+                            <div class="col-sm-9">
+                                <div class="input-daterange input-group" id="datepicker">
+                                        <input type="text" class="laydate-icon form-control layer-date" name="start_time" id="start_time"  value="$SiteUtils.DefaultValue($!{entity.start_time},"")" />
+                                        <span class="input-group-addon">到</span>
+                                        <input type="text" class="laydate-icon form-control layer-date" name="end_time" id="end_time" value="$SiteUtils.DefaultValue($!{entity.end_time},"")" />
+                                    </div>
+                            </div>
+                        </div>
+                          <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否有效：</label>
+                                        <div class="col-sm-9">
+                                        <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio" #if ($!{entity.is_enabled})checked#end $SiteUtils.DefaultValue($!{entity.is_enabled},"checked")  value="1" name="is_enabled"> <i></i> 是</label>
+                                                    <label>
+                                                    <input type="radio" #if (!$!{entity.is_enabled})checked#end  value="0" name="is_enabled"> <i></i> 否</label>
+                                    </div>
+                                        </div>
+                                    </div>
+                         <!-- <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否使用：</label>
+                                        <div class="col-sm-9">
+                                        <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio" #if ($!{entity.is_validated})checked#end $SiteUtils.DefaultValue($!{entity.is_validated},"checked")  value="1" name="is_validated" disabled> <i></i> 是</label>
+                                                    <label>
+                                                    <input type="radio" #if ($!{entity.is_validated})checked#end  value="0" name="is_validated"> <i></i> 否</label>
+                                    </div>
+                                        </div>
+                                    </div>-->
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                                <button class="btn btn-white" type="reset">
+                                    取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //日期范围限制
+    var start = {
+        elem: '#start_time',
+        format: 'YYYY/MM/DD hh:mm:ss',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#end_time',
+        format: 'YYYY/MM/DD hh:mm:ss',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+</script>
+
+#parse("pagefooter.html")

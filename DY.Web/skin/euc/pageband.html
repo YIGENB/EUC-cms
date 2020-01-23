@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html>
+<html style="overflow: hidden; height: 100%;">
+<head>
+#IncludeHead()
+#IncludeStyle()
+#IncludeScript()
+    <!--<link rel="stylesheet" href="css/global.css" />-->
+    <link rel="stylesheet" type="text/css" href="css/full.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/cehua.css">
+    <link rel="stylesheet" type="text/css" href="css/cehua.reset.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/main.css" />-->
+    <script type="text/javascript" src="js/main-banner.js"></script>
+    <script type="text/javascript" src="js/velocity.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/monitor-pub-min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fullPage.min.js"></script>
+    <script>
+        $(function () {
+            if (jQuery.browser.msie && jQuery.browser.version < 10) {
+                $('body').addClass('ltie10');
+            }
+            jQuery.fn.fullpage({
+                verticalCentered: false,
+                anchors: ['page1', 'page2', 'page3', 'page4', 'page5', 'page6'],
+                navigation: true,
+                navigationTooltips: ['', '', '', '', '', '']
+            });
+        });
+
+        function stop() {
+            return false;
+        }
+
+        document.onkeydown = function () {
+            if (event.ctrlKey) return false;
+        }
+        document.onkeydown = function () {
+            if (window.event && window.event.keyCode == 123) {
+                return false;
+            }
+
+        }
+
+    </script>
+    <script type="text/javascript">
+        document.onkeydown = function (event) {
+            if ((event.ctrlKey) && (event.keyCode == 115 || event.keyCode == 83)) {
+                event.returnValue = false;
+                return;
+            }
+        }
+ </script>
+</head>
+<body style="overflow: hidden; height: 100%;">
+    <div id="superContainer" style="top: 0px;">
+        <header class="hrader">
+            <!--头部公用-start-->
+    <div id="header" class="header">
+        <div class="logo fl">
+            <a href="/">
+                <img alt="$config.Name" src="$config.ShopLogo" /></a></div>
+        <div class="h_r fr">
+            <div class="nav fl">
+                <ul>
+                #foreach($row in $Caches.Nav())
+                    <li>
+                        <p>
+                            <a href="$row.url" #if($row.opennew) target="_blank" #end #if($navid==$row.id) class="cur" #end>$row.name<span>$row.en_name</span></a>
+                        </p>
+                    </li>
+                #end
+                </ul>
+            </div>
+            <div class="h_click fl">
+                <ul>
+                    <li class="h_tel">
+                        <img width="32" height="32" alt="" src="images/h_img1.png" /><span>$config.ShoppingTel</span></li>
+                    #foreach($row in $Caches.AllCsh(4))  
+                    <li><a href="$!{row.csh_con}" target="_blank" title="$row.csh_title"><img width="32" height="32" alt="$row.csh_title" src="$row.csh_pic" /></a></li>
+                    #end
+                    #foreach($row in $Caches.AllCsh(2)) 
+                    <li><a title="$row.csh_title" href="tencent://message/?uin=$!{row.csh_con}&amp;Menu=yes">
+                        <img width="32" height="32" alt="" src="images/QQ_QZ.png" /></a>
+                    </li>
+                    #end
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--头部公用-end-->
+</header>
+        <div class="side-kefu">
+            <ul>
+             #foreach($row in $Caches.AllPage($cat_id)) 
+            <li><a href="#PageLink()" title="$!cityname$row.title"><div class="sidebox" style="width:90px;padding-left: 7px;">$!cityname$row.title</div></a></li>
+                #end
+             #foreach($row in $Caches.AllCsh(2))  #set($index=$velocityCount+1)  
+            #if($index==1)
+                <li><a target="_blank" href="tencent://message/?uin=$!{row.csh_con}&Menu=yes">
+                    <div class="sidebox">
+                        <img src="images/side_icon03.png">QQ</div>
+                </a></li>
+                #end
+                #end
+                #foreach($row in $Caches.AllCsh(1))  #set($index=$velocityCount+1)  
+            #if($index==1)
+                <li><a href="javascript:;">
+                    <div class="sidebox1">
+                        <img src="images/side_icon01.png">微信</div>
+                </a>
+                    <div class="weixin">
+                        <img alt=" $row.csh_title" src="$row.csh_pic" width="180px" height="180px"></div>
+                </li>
+                #end
+                #end
+            </ul>
+        </div>
+        <div id="superContainer" style="top: 0px;">
+            <!--fullPage-->
+            <div class="section section1 active" data-anchor="page1">
+                <div class="slide-main" id="touchMain">
+                    <!--<a class="prev2" href="javascript:;" stat="prev1001">
+                        <img src="images/about_triangle1.png"></a>-->
+                    <div class="slide-box" id="slideContent">
+                        <div class="slide-info banAnimate" id="bgstyleb">
+                            <div class="banner-dh">
+                                <div class="banner-bg-line">
+                                </div>
+                            </div>
+                            <a stat="sslink-2" href="javascript:;" target="_blank">
+                                <div class="flick-height">
+                                    <div class="flick-title wow fadeInDown animated" data-wow-delay="1s">
+                                        拒绝扯淡 只为有效</div>
+                                    <div class="flick-sub-text">
+                                        <div class="flick-name wow fadeInLeft animated" data-wow-delay="1s">
+                                            <span>易优创</span>
+                                        </div>
+                                        <div class="flick-name-text wow fadeInRight animated" data-wow-delay="1s">
+                                            <span>互联网+时代/卓越的品牌整合传播服务商</span>全网营销运营专家
+                                        </div>
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                    <div class="flick-picture">
+                                        <div class="flick-pc">
+                                            <img src="images/banner1_pc.png">
+                                        </div>
+                                        <div class="flick-phone wow fadeInRight animated" data-wow-delay="1s">
+                                            <img src="images/banner1_phone.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+<!--                    <a class="next2" href="javascript:;" stat="next1002">
+                        <img src="images/about_triangle2.png"></a>
+                    <div class="item">
+                        <a class="cur" stat="item1001" href="javascript:;"></a>
+                    </div>-->
+                </div>
+            </div>
+            <div class="section section2" data-anchor="page2">
+                <div class="background">
+                </div>
+                <div class="plan">
+                    <div class="plan-title bg033">
+                        无品牌 不营销</div>
+                    <div class="plan-color bg2_04">
+                    </div>
+                    <div class="plan-subtitle bg2_06">
+                        $!cityname品牌策划</div>
+                    <div class="plan-text bg5_07">
+                        基于详尽的市场调研和大数据分析，进行互联网+时代的品牌革新活化或者全新品牌创建，通过专业的文案和视觉表现执行，使产品和品牌溢价增值，脱离同质化，扩大同竞品的差异化，从而进入竞争蓝海，实现企业持续盈利能力的增长</div>
+                    <div class="plan-link bg6_02">
+                        <a href="page/fuwu$html" target="_blank" class="fa-arrow-right">
+                        </a>
+                    </div>
+                </div>
+                <div class="plan-icon bg2_09">
+                    <div class="plan-position">
+                        <div class="icon-show">
+                            <div class="icon-show-1">
+                                <span>
+                                    <img src="images/plan_icon1.png">
+                                </span>
+                                <p>
+                                    诊断</p>
+                            </div>
+                            <div class="icon-show-2">
+                                <span>
+                                    <img src="images/plan_icon2.png">
+                                </span>
+                                <p>
+                                    洞见</p>
+                            </div>
+                            <div class="icon-show-3">
+                                <span>
+                                    <img src="images/plan_icon3.png">
+                                </span>
+                                <p>
+                                    定位</p>
+                            </div>
+                            <div class="icon-show-4">
+                                <span>
+                                    <img src="images/plan_icon4.png">
+                                </span>
+                                <p>
+                                    规划</p>
+                            </div>
+                            <div class="icon-show-5">
+                                <span>
+                                    <img src="images/plan_icon5.png">
+                                </span>
+                                <p>
+                                    视觉</p>
+                            </div>
+                            <div class="icon-show-6">
+                                <span>
+                                    <img src="images/plan_icon6.png">
+                                </span>
+                                <p>
+                                    传播</p>
+                            </div>
+                        </div>
+                        <div class="icon-bg">
+                            <img src="images/plan_icon_line.png">
+                        </div>
+                        <div class="icon-title">
+                            <img src="images/plan_text.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="plan-cloud1">
+                    <img src="images/plan_cloud.png">
+                </div>
+                <div class="plan-cloud2">
+                    <img src="images/plan_cloud2.png">
+                </div>
+            </div>
+            <div class="section section3" data-anchor="page3">
+                <div class="background">
+                </div>
+                <div class="station-decorate">
+                </div>
+                <div class="station">
+                    <div class="station-title bg033">
+                        无策划 不建站</div>
+                    <div class="station-color bg2_04">
+                    </div>
+                    <div class="station-subtitle bg2_10">
+                        $!cityname互动型营销网站策划</div>
+                    <div class="station-text bg5_13">
+                        通过6大策划系统，以及PC、平板、手机、微信多终端自动响应的H5技术方案，打造融合文案、视觉、动态、SEO等完美体验网站平台，全方位解决企业的营销、定位、品牌、传播等问题，实现全网营销，大幅提升企业价值和利润。</div>
+                    <div class="station-link bg6_11">
+                        <a href="page/fuwu$html" target="_blank" class="fa-arrow-right">
+                        </a>
+                    </div>
+                </div>
+                <div class="station-icon">
+                    <div class="station-phone bg2_11">
+                        <img src="images/station_phone.png">
+                    </div>
+                    <div class="station-flat bg5_09">
+                        <img src="images/station_flat.png">
+                    </div>
+                    <div class="station-pc">
+                        <img src="images/station_pc.png">
+                    </div>
+                </div>
+                <!--  	随鼠标移动  -->
+            </div>
+            <div class="section section4" data-anchor="page4">
+                <div class="background">
+                </div>
+                <div class="plan">
+                    <div class="plan-title bg033">
+                        无创意 不传播</div>
+                    <div class="plan-color bg2_04">
+                    </div>
+                    <div class="plan-subtitle bg2_08">
+                        $!cityname新媒体互动营销策划</div>
+                    <div class="plan-text bg5_07">
+                        基于受众、品牌、产品的360度矩阵扫描，以BIG创意为原点，结合网络流行制造手段，创造出具有话题性、新闻性、娱乐性、价值性等深度内容，通过整合微信、微博、社区等各种互动传播途径，实现小投入大传播的四两拨千斤的传播效果</div>
+                    <div class="plan-link bg6_02">
+                        <a href="page/fuwu$html" target="_blank" class="fa-arrow-right">
+                        </a>
+                    </div>
+                </div>
+                <div class="spread-icon bg2_09">
+                    <div class="spread-position">
+                        <div class="spread-show">
+                            <div class="spread-show-1">
+                                <span>
+                                    <img src="images/spread_icon1.png">
+                                </span>
+                                <p>
+                                    流行制造</p>
+                            </div>
+                            <div class="spread-show-2">
+                                <span>
+                                    <img src="images/spread_icon2.png">
+                                </span>
+                                <p>
+                                    病毒传播</p>
+                            </div>
+                            <div class="spread-show-3">
+                                <span>
+                                    <img src="images/spread_icon3.png">
+                                </span>
+                                <p>
+                                    娱乐至死</p>
+                            </div>
+                            <div class="spread-show-4">
+                                <span>
+                                    <img src="images/spread_icon4.png">
+                                </span>
+                                <p>
+                                    深度内容</p>
+                            </div>
+                        </div>
+                        <div class="spread-title-sub">
+                            <span>Big</span>创意
+                        </div>
+                        <div class="spread-bg">
+                            <img src="images/spread_tp.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="spread-cloud1 bg2_09">
+                    <img src="images/spread_decorate.jpg">
+                </div>
+            </div>
+            <div class="section section5" data-anchor="page5">
+                <div class="background">
+                </div>
+                <div class="system">
+                    <div class="system-title bg033">
+                        无系统 不运营</div>
+                    <div class="system-color bg2_04">
+                    </div>
+                    <div class="system-subtitle bg2_10">
+                        $!cityname全网营销年度外包</div>
+                    <div class="system-text bg5_13">
+                        融合品牌策划、产品策划、网站策划、传播策划执行、数据分析、运营管理于一体的全网营销整体外包服务，一揽子解决企业的全网营销难题，实现价值跨越，资产倍增。</div>
+                    <div class="system-link bg6_03">
+                        <a href="page/fuwu$html" target="_blank" class="fa-arrow-right">
+                        </a>
+                    </div>
+                </div>
+                <div class="system-icon bg18">
+                    <img src="images/system_icon.png">
+                </div>
+            </div>
+            <div class="section section6" data-anchor="page6">
+                <div class="background">
+                </div>
+                <div class="foot-weixin bg036">
+                #foreach($row in $Caches.AllCsh(1))  #set($index=$velocityCount+1)  
+                #if($index==1)
+                    <img width="188" height="188" alt=" $row.csh_title" src="$row.csh_pic" />
+                #end
+                #end
+                    <p>
+                        #foreach($row in $Caches.AllCsh(8)) $row.csh_title：$!{row.csh_con} #end</p>
+                </div>
+                <div class="foot-icon bg2_14">
+                    <a href="tel://83287366">
+                        <div class="foot-phone">
+                            <img src="images/foot_icon.png">
+                            <p>
+                                #foreach($row in $Caches.AllCsh(7)) $row.csh_title：$!{row.csh_con} #end</p>
+                        </div>
+                    </a>
+                    <div class="foot-Mailbox">
+                        <img src="images/foot_icon2.png">
+                        <p>
+                            $config.SmtpMail</p>
+                    </div>
+                </div>
+                <div class="foot-copyright">          
+                    Copyright &copy; $config.Copyright <a target="_blank" href="http://www.miitbeian.gov.cn">$config.IcpNumber</a> 
+                    $tongjiCode
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

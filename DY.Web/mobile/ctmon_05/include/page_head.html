@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    #if(!$uc_ua) #IncludeHead() #IncludeStyle() #IncludeScript() 
+    <script type="text/javascript">
+        $(function () {
+            $(".cimg img").css("width", "100%");
+            $(".page-logo").click(function () {
+                window.location.href = "/";
+            })
+        })
+</script>
+    #end
+</head>
+<body>
+#parse("include/notips.html")
+<div class="header" style="background:$!{mstyle.top_bg_color}">
+	<a href="#" class="show-navigation"></a>
+    <a href="#" class="hide-navigation"></a>
+    <img src="$config.MobileLogo" class="page-logo" alt="img">
+</div>
+#parse("include/share.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

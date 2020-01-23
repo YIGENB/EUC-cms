@@ -1,0 +1,355 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+#if(!$uc_ua)
+#IncludeHead()
+#IncludeStyle()
+#IncludeScript()
+#Language()
+<link rel="apple-touch-icon" href="/images/icon.png"/>
+#end
+</head>
+<body onload="init();" style="background:$!{mstyle.bg_color}">
+#if($uc_ua)
+<div style="background-color: #750B13;height: 100%;position: fixed;width: 100%;z-index: 99999;">
+    <div style="margin:20% auto;text-align:center;color:#FFFFFF; font-size:14px;line-height:20px">$Tip</div>
+</div>
+#end
+#if(!$uc_ua)
+<div id="box_root" class = "pageIndex">
+	<div id="box_mainBody" style="background:$!{mstyle.bg_color}">
+		<div id="box_main" >
+			<header id="box_header">
+				<div class="columnSpace" id="elem-PublicConfig_showLogo01-001" name="LOGO"> 
+<!-- 头部 -->
+<section class="PublicConfig_showLogo01-d1_c1" style="background:$mstyle.top_bg_color">
+<!-- 样式1 leftAndRight-->
+
+	<div class="showStyle1 whiteIcon grayIcon">
+		<!-- logo -->
+		<div class="active logoWrap">
+			<a href="/"><img src="$config.MobileLogo" width="320" height="92"  id="img_logo"/></a>
+		</div>
+		
+		<div class="toolWrap">
+			<span class="line"></span>
+			<!-- 搜索 -->
+<!--			<span class="toolItem active search" id="searchmoney" name="openT">
+				<a href="javascript:void(0)"></a>
+			</span>-->
+			<!-- 客户端下载 -->
+			
+				<span class="line"></span>
+				<!-- span class="toolItem active weibo" name="openT" onclick="openToolbar('t',this)"><a href="weibo.html?weiboId="></a></span><span href="javascript:void(0)" class="line"></span-->
+				<span class="toolItem active download" name="openT" style="position: relative"> 
+                    #foreach($row in $Caches.AllCsh(2)) #set($index=$velocityCount+1)
+					#if($index<2)
+					<a href="sms:$!{row.csh_con}" title="$SendSMS"></a>
+                    #end
+                    #end
+				</span>
+			
+			
+			<!-- 语言切换 -->
+			
+			
+			<!-- 浏览模式切换 -->
+			<!--<span id="hdLine" class="line"></span>
+			<span class="toolItem active hdmodeBtn"></span>
+			<span id="hdBtnTop" class="toolItem active hdmodeBtn"> 
+				<span class="z3g-changeBtn hd">HD</span>
+				<span class="z3g-changeBtn fluency"><img src="../images/z3g_fluency_icon.png" /></span>
+			</span>
+
+			--><div class="clea-both"></div>
+		</div>
+	</div>
+
+
+<!-- 样式2 middle-->
+
+<!-- 样式3 slide-->
+
+<!-- 样式4 concise-->
+
+<div class="clea-both"></div>
+
+	<div class="downloadDragList" id="download" style="display: none;">
+		<ul>
+			<li class="android">
+				<span class="contL"> <em class="name">Android</em> <em
+					class="info">最新版本:V1.06</em>
+				</span>
+				<span id="downloadAndroid" class="active contR"> <em
+					class="icon"><i class="icon01"></i><i class="icon02"></i><i class="icon03"></i></em> <em class="text">下载
+				</em> </span>
+			</li>
+			<!--  li class="iphone">
+									<span class="contL">
+										<em class="name">Iphone<img alt="" src="../images/z3g_mark01.gif" /></em>
+										<em class="info">最新版本：1.0.35</em>
+									</span>
+									<span class="active contR">
+										<em class="icon"></em>
+										<em class="text">下载</em>
+									</span>
+								</li-->
+		</ul>
+	</div>
+	
+	
+		
+		
+			<div class="langDragList" id="langurage" style="display: none; ">
+		
+	
+		<ul id="languageListHTML">
+		</ul>
+	</div>
+
+
+
+</section> 
+				</div>
+
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript">
+
+    var phoneScroll;
+    var ulwidth;
+function liresize() {
+    var w = $(".plist").width();
+    $(".bull").width(w / 4);
+	phoneScroll.refresh();
+}
+
+$(function () {
+    phoneScroll = new iScroll("plist", {
+	    zoom: false,
+	    hScrollbar: false,
+	    vScrollbar: false,
+	    bounce: false,
+	    snap: "li",
+	    momentum: false,
+	    vScroll: false,
+	    hScroll: true,
+	    onScrollEnd: disableArrow,
+	    onScrollMove: disableArrow1
+		});
+	$(window).load(function(e) {
+		liresize();
+    });
+	
+	$(window).resize(function(e) {
+        liresize();
+    });
+    $('#columnnext').click(function () {
+        phoneScroll.scrollToPage('next', 0); return false;
+    });
+    $('#columnprev').click(function () {
+        phoneScroll.scrollToPage('prev', 0); return false;
+    });
+});
+var disableArrow1 = function () {
+    var x = phoneScroll.x;
+
+    var bul_len = $(".bul li").length - 4;
+    var w = (parseFloat($(".bull").width()) + parseFloat(6)) * parseFloat(bul_len) * -1;
+    var wholeWidth = parseFloat($(".plist").width());
+    //        alert(wholeWidth);
+    //        alert(w);
+    if (x < w) {
+        $('#columnnext').addClass('disTap');
+        $('#columnnext').removeClass('active');
+        $('#columnprev').addClass('active');
+        $('#columnprev').removeClass('disTap');
+    }
+    else if (x < 0) {
+        $('#columnnext').removeClass('disTap');
+        $('#columnnext').addClass('active');
+        $('#columnprev').addClass('active');
+        $('#columnprev').removeClass('disTap');
+    }
+    if (x == 0) {
+        $('#columnprev').addClass('disTap');
+        $('#columnprev').removeClass('active');
+        $('#columnnext').removeClass('disTap');
+        $('#columnnext').addClass('active');
+    }
+};
+var disableArrow = function () {
+    var x = phoneScroll.x;
+
+    var bul_len = $(".bul li").length - 4;
+    var w = (parseFloat($(".bull").width()) + parseFloat(6)) * parseFloat(bul_len) * -1;
+    var wholeWidth = parseFloat($(".plist").width());
+    //        alert(wholeWidth);
+    //        alert(w);
+    if (x < w) {
+        $('#columnnext').addClass('disTap');
+        $('#columnnext').removeClass('active');
+        $('#columnprev').addClass('active');
+        $('#columnprev').removeClass('disTap');
+    }
+    else if (x < 0) {
+        $('#columnnext').removeClass('disTap');
+        $('#columnnext').addClass('active');
+        $('#columnprev').addClass('active');
+        $('#columnprev').removeClass('disTap');
+    } 
+    if (x == 0) {
+        $('#columnprev').addClass('disTap');
+        $('#columnprev').removeClass('active');
+        $('#columnnext').removeClass('disTap');
+        $('#columnnext').addClass('active');
+    }
+};
+</script>
+				<div class="columnSpace" id="elem-Columns_navigation01-001" name="栏目导航"> 
+<div id="Columns_navigation01-001" class="Columns_navigation01-d1">	
+		<nav class="Columns_navigation01-d1_c2" style="background:$mstyle.menu_bg_color">
+        <div>
+			<div class="navBarL disTap" id="columnprev">				
+				<span><em></em></span>
+			</div>
+			<div class="plist " id="plist" style="overflow: hidden; ">
+			        <ul class="bul">
+                     #foreach($row in $Caches.Nav()) #set($count=$Caches.Nav().Count)   #set($index=$velocityCount+1)  
+             	        <li class="bull" #if($index==$count) style="border:none" #end><a href="$row.url" style="color:$mstyle.menu_font_color">$row.name</a></li>
+                     #end
+
+			        </ul>
+			</div>
+			<div class="navBarR active" id="columnnext">
+				<span><em></em></span>
+			</div>
+            </div>
+<!--			<ul class="navBody">
+                    #set($count=$Caches.Nav().Count)  
+			        #foreach($row in $Caches.Nav()) 
+					<li><span #if($count>3)style=" margin-right:20px;"#end  class="active js_columngoto"><a href="$row.url" style="color:#$mstyle.menu_font_color">$row.name</a></span></li>
+					#end
+			</ul>-->
+		</nav>
+</div>
+<!--#if($count>3)
+<script type="text/javascript">
+    $('.navBody').promptumenu({
+        width: $(window).width(),   //自定义滚屏宽度
+        height: 46, //自定义滚屏搞定
+        rows: 1,     //自定义滚屏排列行数
+        columns: 3,  //自定义滚屏单行图标个数
+        direction: 'horizontal', //水平拖动效果
+        pages: false  //是否分页显示
+
+    });
+    $(function () {
+        $(".navBody li").eq(0).css("left", "45px");
+        $(".navBody li span").eq(0).css("margin-right", "25px");
+    })
+</script>
+#end-->
+				</div>
+			</header>
+<script type="text/javascript">
+    $(function() {
+        //        $(".controlBar").each(function() {
+        //            $(this).click(function() {
+        //                $(".borderCont ").eq($(this).index()).toggle();
+        //            })
+        //        })
+        $(".z3g-button").click(function() {
+            $("#msgSuccessAlertInfo").hide();
+        })
+        $("#list").click(function() {
+            $("#emit").removeClass("current");
+            $(this).addClass("current");
+            $("#borderContList").show();
+            $("#borderContEmit").hide();
+        })
+        $("#emit").click(function() {
+            $("#list").removeClass("current");
+            $(this).addClass("current");
+            $("#borderContEmit").show();
+            $("#borderContList").hide();
+        })
+        $(".textSizeBtn").click(function() {
+            var css = $(this).css("position");
+            if (css == "relative") {
+                $(this).css("position", "static");
+                $(".z3g-textSize").hide();
+            }
+            else {
+                $(this).css("position", "relative");
+                $(".z3g-textSize").show();
+            }
+        })
+        $(".cont li").click(function() {
+            var i = $(this).attr("data-ac-code");
+            $(".cont li").removeClass("current");
+            $(this).addClass("current");
+            $(".textSizeWrap").removeClass("textSizeSmall").removeClass("textSizeBig");
+            if (i == 1) {
+                $(".textSizeWrap").addClass("textSizeSmall");
+            } else if (i == 2) {
+                $(".textSizeWrap").removeClass("textSizeSmall").removeClass("textSizeBig");
+            } else {
+                $(".textSizeWrap").addClass("textSizeBig");
+            }
+        })
+    })
+    // <![CDATA[
+//    $(function() {
+//        $("#myController").jFlow({
+//            slides: "#slides",
+//            controller: ".jFlowControl",
+//            slideWrapper: "#jFlowSlide",
+//            selectedWrapper: "active",
+//            auto: true,
+//            duration: 600,
+//            width: "640px"
+//        });
+    //    });articleWrap
+    // ]]>textSizeWrap
+    function init() {
+        $(".articleWrap img").each(function() {
+            $(this).css("width", "100%");
+        })
+        $(".textSizeWrap img").each(function() {
+            $(this).css({ "width": "100%", "height": "auto" });
+        })
+        var w = document.body.clientWidth;
+        var pic = document.getElementsByTagName("img");
+        for (var i = 0; i < pic.length; i++) {
+            var width1 = pic[i].width;
+            var height1 = pic[i].height;
+            pic[i].width = w;
+            pic[i].height = height1 * w / width1;
+        }
+        $(".loading img").each(function () {
+            $(this).css("width", "100%");
+        })
+        $(".productListCont ,.bannerScrollWrap").css("width", w);
+        $("#img-captcha").css({ "width": "100px", "height": "30px" });
+        $("#sliderlist img").css({ "width": "90%", "height": "90%" });
+        $("#img_logo").css({ "width": "320px", "height": "92px" });
+    }
+
+    //phone隐藏浮动栏
+    var isiPhone = navigator.userAgent.toLowerCase().indexOf("iphone");
+    if (isiPhone > -1) {
+        $("input[type=text],textarea").each(function () {
+            $(this).focus(function () {
+                $(".foot").hide();
+            });
+            $(this).blur(function () {
+                $(".foot").show();
+            })
+        });
+    } 
+</script>
+<style>
+    .swipe #pagenavi a.active{background:$!{mstyle.b_menu_bg_color}}
+</style>
+#end

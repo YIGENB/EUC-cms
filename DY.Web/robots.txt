@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /@
+Disallow: /b
+Disallow: /c
+Disallow: /in
+Disallow: /s
+Disallow: /to
+Sitemap: /sitemap.xml

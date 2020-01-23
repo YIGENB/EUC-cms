@@ -1,0 +1,154 @@
+﻿#parse("pageheader.html")
+#TreeFile()
+<script src="/include/Hplus/js/fat_function.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        var tree = $("#tree").ligerTree({
+            url: 'tree/treelist.aspx?act=navigatorlisttree',
+            parentIDFieldName: 'parent_id', idFieldName: 'id', textFieldName: 'name', childIcon: null, parentIcon: null, checkbox: false, topParentIDValue: '0',
+            onClick: function (nodedata, target) { $(".fat_class").val(nodedata.data.name); $(".parent_id").val(nodedata.data.id); }
+        }); //分类树
+    });
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end自定义导航栏</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>基本设置</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list" class="btn btn-primary ">自定义导航列表</a>
+                    </div>
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                名称：</label>
+                            <div class="col-sm-9">
+                                <input name="name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.name}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                英文名称：</label>
+                            <div class="col-sm-9">
+                                <input name="en_name" maxlength="50" type="text" class="form-control" value="$!{entity.en_name}" />
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            链接地址：</label>
+                                        <div class="col-sm-9">
+                                                 <input name="url" type="text" class="form-control" required="" aria-required="true" value="$!{entity.url}" #if($!{entity.issystem})readonly="readonly"#end  placeholder="如果是本站的网址，可缩写为与商城根目录相对地址，如index.aspx；其他情况都应该输入完整的网址，如http://www.ctmon.com/"/>
+                                                    <span class="help-block m-b-none">#if($!{entity.issystem})本项由系统自动生成，不能更改#end</span>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            上级导航：</label>
+                                           <div class="col-sm-9 father_img">
+                                <i class="fa fa-caret-down i_img"></i>
+                                  <input   style="cursor:default; background-color:inherit; " type="text" readonly=readonly class="form-control fat_class" value="#if($!{entity.parent_id}>0)$!Caches.NavigatorInfos($!{entity.parent_id}).name #else 请选择分类... #end">
+                                  <input class="parent_id" name="parent_id" type="hidden" value="$!{entity.parent_id}" />
+                                    <div class="tree_class">
+                                        <ul id="tree">
+                                        </ul>
+                                    </div>
+                                </div>
+                                    </div>
+                                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            排序：</label>
+                                        <div class="col-sm-9">
+                                                     <input name="vieworder" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.vieworder},0)" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            标识图片：</label>
+                                        <div class="col-sm-9">
+                                                    <div class="upload_img">
+                                                    <img upload="image-single" class="img_show"  onerror="javascript:this.src='images/slt.jpg' " src='$SiteUtils.DefaultValue($!{entity.mobile_ico},"images/slt.jpg")' />
+                                                    <input type="hidden" name="photo" id="Hidden1" value="$!{entity.mobile_ico}" />
+                                                    <span class="help-inline"><button name="button" class="btn select_img btn-white btn-sm" type="button">点击上传</button></span>
+                                                    </div>
+                                        </div>
+                                    </div>
+                          <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否显示：</label>
+                                        <div class="col-sm-9">
+                                        <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio" #if ($!{entity.isshow})checked#end $SiteUtils.DefaultValue($!{entity.isshow},"checked")  value="1" name="isshow"> <i></i> 是</label>
+                                                    <label>
+                                                    <input type="radio" #if (!$!{entity.isshow})checked#end  value="0" name="isshow"> <i></i> 否</label>
+                                    </div>
+                                    <input type="hidden" name="issystem" value="$!{entity.issystem}" />
+                                        </div>
+                                    </div>
+                          <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否新窗口：</label>
+                                        <div class="col-sm-9">
+                                        <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio" #if ($!{entity.opennew})checked#end  value="1" name="opennew"> <i></i> 是</label>
+                                                    <label>
+                                                    <input type="radio" #if (!$!{entity.opennew})checked#end  value="0" name="opennew" $SiteUtils.DefaultValue($!{entity.opennew},"checked")> <i></i> 否</label>
+                                    </div>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否手机导航：</label>
+                                        <div class="col-sm-9">
+                                        <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio" #if ($!{entity.is_mobile})checked#end  value="1" name="is_mobile"> <i></i> 是</label>
+                                                    <label>
+                                                    <input type="radio" #if (!$!{entity.is_mobile})checked#end  value="0" name="is_mobile" $SiteUtils.DefaultValue($!{entity.is_mobile},"checked")> <i></i> 否</label>
+                                    </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            位置：</label>
+                                        <div class="col-sm-9">
+                                        <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio" #if($!{entity.type} == "主导航")checked#end  value="主导航" name="type" $SiteUtils.DefaultValue($!{entity.type},"checked")> <i></i> 主导航</label>
+                                                   <!-- <label>
+                                                    <input type="radio" #if($!{entity.type} == "快捷菜单")checked#end  value="快捷菜单" name="type"> <i></i> 快捷菜单</label>-->
+                                                    <label>
+                                                    <input type="radio" #if($!{entity.type} == "底部导航")checked#end  value="底部导航" name="type"> <i></i> 底部导航</label>
+                                    </div>
+                                        </div>
+                                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                                <button class="btn btn-white" type="reset">
+                                    取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+#parse("pagefooter.html")

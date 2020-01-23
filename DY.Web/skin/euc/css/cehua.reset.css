@@ -1,0 +1,994 @@
+﻿@charset "utf-8"; /* CSS Document */
+
+
+/*消除谷歌下input边框* /
+
+
+
+/* 清除内外边距 */  
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fieldset, lengend, button, input, textarea, th, td {
+	margin: 0;
+	padding: 0;
+   _background-image:url(about:blank);
+   _background-attachment:fixed;
+
+} 
+/*@font-face {
+	font-family: SYHT;
+	src: url(../fonts/SourceHanSansCN-ExtraLight.otf);
+	src: local('☺'), url(../fonts/SourceHanSansCN-ExtraLight.otf) format('woff'), url(../fonts/SourceHanSansCN-ExtraLight.otf) format('truetype'), url(../fonts/SourceHanSansCN-ExtraLight.otf) format('svg');
+	font-weight: 400;
+	font-style: normal
+}
+
+@font-face {
+    font-family: SYHT;
+    src: url(http://www2.res.meizu.com/zh_cn/fonts/SHSCN-ELight.eot?v=150608);
+    src: local('☺'),url(http://www2.res.meizu.com/zh_cn/fonts/SHSCN-ELight.woff?v=150608) format('woff'),url(http://www2.res.meizu.com/zh_cn/fonts/SHSCN-ELight.ttf?v=150608) format('truetype'),url(http://www2.res.meizu.com/zh_cn/fonts/SHSCN-ELight.svg?v=150608) format('svg');
+    font-weight: 400;
+    font-style: normal;
+}*/
+
+  
+/* 设置默认字体 */ 
+body, button, input, select, textarea {
+	font-family: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";
+	font-size: 12px;
+}
+
+.titleFont
+{
+    font-family: "Microsoft yahei","Tahoma","Verdana","Arial","sans-serif";
+}
+
+.contentFont
+{
+    font-family: "宋体","新宋体","Arial","sans-serif";
+}
+
+.enFont
+{
+    font-family: "Arial","sans-serif";
+}
+
+.yahei {
+	font-family: "微软雅黑","宋体","Arail";
+}
+
+.songti {
+	font-family: "宋体","微软雅黑","Arail";
+}
+
+.Arail {
+	font-family: "Arail","宋体","微软雅黑";
+}
+
+.Courier_New {
+	font-family: "Courier New", Courier, monospace
+}
+
+.Georgia {
+	font-family: Georgia, "Arail", Times, serif
+}
+
+
+/* 列表元素 */ 
+ul,ol,li {
+	list-style: none;
+}
+
+img {
+	border: none;
+}
+
+
+/* a标签 */ 
+a {
+	text-decoration: none ; color:#fff ;
+}
+
+a:hover {
+	text-decoration: none ;
+} 
+
+
+/* 定义浮动居中 */ 
+.fl {
+	float: left;
+	display: inline
+}
+
+.fr {
+	float: right;
+	display: inline
+}
+
+.center {
+	margin: 0 auto;
+}
+
+.clear {
+	clear: both;
+	height: 0px;
+	line-height: 0px;
+	font-size: 0px;
+}
+
+
+/* 重置h标签 */ 
+h1 {
+	font-size: 22px
+}
+
+h2 {
+	font-size: 20px
+}
+
+h3 {
+	font-size: 18px
+}
+
+h4 {
+	font-size: 16px
+}
+
+h5 {
+	font-size: 14px
+}
+
+h6 {
+	font-size: 12px
+}
+
+/*客服*/
+
+.side-kefu {
+	position: fixed;
+	width: 54px;
+	height: auto;
+	right: 0;
+	bottom: 20px;
+	z-index: 9998;
+}
+
+.side-kefu ul li {
+	width: 54px;
+	height: 54px;
+	float: left;
+	position: relative;
+	margin-top: 3px;
+}
+
+.side-kefu ul li .sidebox {
+	position: absolute;
+	width: 54px;
+	height: 54px;
+	top: 0;
+	right: 0;
+	transition: all 0.3s;
+	background: #333;
+	filter: Alpha(opacity=80);
+	color: #fff;
+	font: 14px/54px "Microsoft YaHei";
+	overflow: hidden;
+}
+
+.side-kefu ul li .sidetop {
+	width: 54px;
+	height: 54px;
+	line-height: 54px;
+	display: inline-block;
+	background: #333;
+	filter: Alpha(opacity=80);
+	transition: all 0.3s;
+	text-align: center;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+}
+
+.side-kefu ul li .sidetop:hover {
+	background: #c1141a;
+	opacity: 1;
+	filter: Alpha(opacity=100);
+}
+
+.side-kefu ul li img {
+	float: left;
+}
+
+.sidebox1 {
+	position: absolute;
+	width: 54px;
+	height: 54px;
+	top: 0;
+	right: 0;
+	background: #333;
+	color: #fff;
+	font: 14px/54px "Microsoft YaHei";
+	overflow: hidden;
+}
+
+.side-kefu ul li .sidebox1:hover {
+	background: #c1141a;
+}
+
+.side-kefu ul li:hover .weixin {
+	display: block;
+}
+
+.weixin {
+	position: absolute;
+	left: -205px;
+	top: -132px;
+	display: none;
+}
+
+@media (max-width: 480px) {
+	.side-kefu {
+		display: none;
+	}
+	.hrader {
+		position: relative;
+		top: 20px;
+		z-index: 9999;
+	}
+	.logo {
+		display: inline-block;
+		position: relative;
+		left: 2%;
+	}
+	.cd-nav-trigger {
+		position: relative;
+		display: inline-block;
+	}
+}
+
+@media (max-height: 460px) {
+	.side-kefu {
+		display: none;
+	}
+}
+
+
+/*头部*/
+
+.hrader {
+	position: fixed;
+	top: 20px;
+	z-index: 9999;
+}
+
+.logo {
+	display: inline-block;
+	position: fixed;
+	left: 2%;
+}
+
+.cd-nav-trigger {
+	position: fixed;
+	display: inline-block;
+	top: 23px;
+	right: 2%;
+	height: 44px;
+	width: 44px;
+	z-index: 99999;
+	/* image replacement */
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+	.hrader {
+		position: relative;
+		z-index: 9999;
+		top: 0px;
+	}
+	.logo {
+		display: inline-block;
+		position: absolute;
+		left: 10px;
+		top: 20px;
+	}
+	.cd-nav-trigger {
+		position: fixed;
+		display: inline-block;
+		top: 18px;
+		right: 10px;
+		height: 44px;
+		width: 44px;
+		z-index: 99999;
+		/* image replacement */
+		overflow: hidden;
+		text-indent: 100%;
+		white-space: nowrap;
+	}
+}
+
+.cd-nav-trigger .cd-icon {
+	/* icon created in CSS */
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	bottom: auto;
+	right: auto;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-o-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+	display: inline-block;
+	width: 18px;
+	height: 3px;
+	background-color: #ffffff;
+	z-index: 10;
+}
+
+.cd-nav-trigger .cd-icon::before,
+.cd-nav-trigger .cd-icon:after {
+	/* upper and lower lines of the menu icon */
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #ffffff;
+	/* Force Hardware Acceleration in WebKit */
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	/* apply transition to transform property */
+	-webkit-transition: -webkit-transform .3s;
+	-moz-transition: -moz-transform .3s;
+	transition: transform .3s;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger .cd-icon::before {
+	-webkit-transform: translateY(-6px) rotate(0deg);
+	-moz-transform: translateY(-6px) rotate(0deg);
+	-ms-transform: translateY(-6px) rotate(0deg);
+	-o-transform: translateY(-6px) rotate(0deg);
+	transform: translateY(-6px) rotate(0deg);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger .cd-icon::after {
+	-webkit-transform: translateY(6px) rotate(0deg);
+	-moz-transform: translateY(6px) rotate(0deg);
+	-ms-transform: translateY(6px) rotate(0deg);
+	-o-transform: translateY(6px) rotate(0deg);
+	transform: translateY(6px) rotate(0deg);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger::before,
+.cd-nav-trigger::after {
+	/* 2 rounded colored backgrounds for the menu icon */
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 50%;
+	height: 100%;
+	width: 100%;
+	/* Force Hardware Acceleration in WebKit */
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transition-property: -webkit-transform;
+	-moz-transition-property: -moz-transform;
+	transition-property: transform;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger::before {
+	background-color: #2c2e3f;
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-delay: 0.4s;
+	-moz-transition-delay: 0.4s;
+	transition-delay: 0.4s;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger::after {
+	background-color: #c1141a;
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	-ms-transform: scale(0);
+	-o-transform: scale(0);
+	transform: scale(0);
+	-webkit-transition-duration: 0s;
+	-moz-transition-duration: 0s;
+	transition-duration: 0s;
+	-webkit-transition-delay: 0s;
+	-moz-transition-delay: 0s;
+	transition-delay: 0s;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger.close-nav::before {
+	/* user clicks on the .cd-nav-trigger element - 1st rounded background disappears */
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	-ms-transform: scale(0);
+	-o-transform: scale(0);
+	transform: scale(0);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger.close-nav::after {
+	/* user clicks on the .cd-nav-trigger element - 2nd rounded background appears */
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-delay: 0.4s;
+	-moz-transition-delay: 0.4s;
+	transition-delay: 0.4s;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger.close-nav .cd-icon {
+	/* user clicks on the .cd-nav-trigger element - transform the icon */
+	background-color: rgba(255, 255, 255, 0);
+}
+
+.cd-nav-trigger.close-nav .cd-icon::before,
+.cd-nav-trigger.close-nav .cd-icon::after {
+	background-color: white;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger.close-nav .cd-icon::before {
+	-webkit-transform: translateY(0) rotate(45deg);
+	-moz-transform: translateY(0) rotate(45deg);
+	-ms-transform: translateY(0) rotate(45deg);
+	-o-transform: translateY(0) rotate(45deg);
+	transform: translateY(0) rotate(45deg);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-nav-trigger.close-nav .cd-icon::after {
+	-webkit-transform: translateY(0) rotate(-45deg);
+	-moz-transform: translateY(0) rotate(-45deg);
+	-ms-transform: translateY(0) rotate(-45deg);
+	-o-transform: translateY(0) rotate(-45deg);
+	transform: translateY(0) rotate(-45deg);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	content: '';
+}
+
+.cd-primary-nav {
+	/* by default it's hidden */
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 9999;
+	background-color: #2c2e3f;
+	overflow: auto;
+	/* this fixes the buggy scrolling on webkit browsers - mobile devices only - when overflow property is applied */
+	-webkit-overflow-scrolling: touch;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s, opacity 0.3s;
+	-moz-transition: visibility 0s, opacity 0.3s;
+	transition: visibility 0s, opacity 0.3s;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.cd-primary-nav li:first-child {
+	padding-top: 5%;
+}
+
+.cd-primary-nav li {
+	text-align: left;
+	text-transform: capitalize;
+}
+
+.cd-primary-nav li a {
+	display: block;
+	width: 100%;
+	height: 60px;
+	font-size: 30px;
+	line-height: 60px;
+	padding-left: 5%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-transition: color 0.2s;
+	-moz-transition: color 0.2s;
+	transition: color 0.2s;
+	color: #b4b4b4;
+	font-family: "microsoft yahei";
+}
+
+.cd-primary-nav li a:hover {
+	color: #FFFFFF;
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.service-submenu li:first-child {
+	padding-top: 0;
+}
+
+.service-submenu li {
+	text-align: left;
+	text-transform: capitalize;
+}
+
+.service-submenu li a {
+	display: block;
+	width: 100%;
+	height: 60px;
+	font-size: 30px;
+	line-height: 60px;
+	padding-left: 10%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-transition: color 0.2s;
+	-moz-transition: color 0.2s;
+	transition: color 0.2s;
+	color: #b4b4b4;
+	font-family: "microsoft yahei";
+}
+
+.service-submenu li a:hover {
+	color: #FFFFFF;
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.cd-primary-nav.fade-in {
+	/* navigation visible at the end of the circle animation */
+	visibility: visible;
+	opacity: 1;
+}
+
+.cd-overlay-nav,
+.cd-overlay-content {
+	/* containers of the 2 main rounded backgrounds - these containers are used to position the rounded bgs behind the menu icon */
+	position: fixed;
+	top: 18px;
+	right: 5%;
+	height: 4px;
+	width: 4px;
+	-webkit-transform: translateX(-20px) translateY(20px);
+	-moz-transform: translateX(-20px) translateY(20px);
+	-ms-transform: translateX(-20px) translateY(20px);
+	-o-transform: translateX(-20px) translateY(20px);
+	transform: translateX(-20px) translateY(20px);
+}
+
+.cd-overlay-nav span,
+.cd-overlay-content span {
+	display: inline-block;
+	position: absolute;
+	border-radius: 50%;
+	/* Force Hardware Acceleration in WebKit */
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	will-change: transform;
+	-webkit-transform-origin: 50% 50%;
+	-moz-transform-origin: 50% 50%;
+	-ms-transform-origin: 50% 50%;
+	-o-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	-ms-transform: scale(0);
+	-o-transform: scale(0);
+	transform: scale(0);
+}
+
+.cd-overlay-nav.is-hidden,
+.cd-overlay-content.is-hidden {
+	/* background fades out at the end of the animation */
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: opacity .3s 0s, visibility 0s .3s;
+	-moz-transition: opacity .3s 0s, visibility 0s .3s;
+	transition: opacity .3s 0s, visibility 0s .3s;
+}
+
+.cd-overlay-nav {
+	/* main rounded colored bg 1 */
+	z-index: 2;
+}
+
+.cd-overlay-nav span {
+	background-color: #2c2e3f;
+}
+
+.cd-overlay-content {
+	/* main rounded colored bg 2 */
+	z-index: 4;
+}
+
+.cd-overlay-content span {
+	background-color: #c1141a;
+}
+
+@media only screen and (max-height:500px ) {
+	.cd-primary-nav{
+		overflow-y: hidden;
+	}
+	.service-submenu{
+		display: none;
+	}
+}
+
+
+/* 字体大小 */ 
+.font12 {
+	font-size: 12px
+}
+
+.font14 {
+	font-size: 14px
+}
+
+.font16 {
+	font-size: 16px
+}
+
+.font18 {
+	font-size: 18px
+}
+
+.font20 {
+	font-size: 20px
+}
+
+.font22 {
+	font-size: 22px
+}
+
+.font24 {
+	font-size: 24px
+}
+
+.font26 {
+	font-size: 26px
+}
+
+.font28 {
+	font-size: 28px
+}
+
+
+.font30 {
+	font-size: 30px
+}
+
+
+/* 主色 */ 
+.zhuse{ color:#3fb560 }
+
+
+/* 所有颜色 */ 
+.chi {
+	color: #FF0000
+}
+
+.cheng {
+	color: #f65f04
+}
+
+.huang {
+	color: #f6e204
+}
+
+.lv {
+	color: #2cdf03
+}
+
+.qing {
+	color: #01ede5
+}
+
+
+.lan {
+	color: #27B4FD;
+}
+
+.zi {
+	color: #590afa
+}
+
+.hei {
+	color: #000
+}
+
+.bai {
+	color: #fff
+}
+
+.hui {
+	color: #999
+}
+
+
+/* 定义边距 */ 
+.mt5 {
+	margin-top: 5px
+}
+
+.mr5 {
+	margin-right: 5px
+}
+
+.mb5 {
+	margin-bottom: 5px
+}
+
+.ml5 {
+	margin-left: 5px
+}
+
+.mt10 {
+	margin-top: 10px
+}
+
+.mr10 {
+	margin-right: 10px
+}
+
+.mb10 {
+	margin-bottom: 10px
+}
+
+.ml10 {
+	margin-left: 10px
+}
+
+.mt15 {
+	margin-top: 15px
+}
+
+.mr15 {
+	margin-right: 15px
+}
+
+.mb15 {
+	margin-bottom: 15px
+}
+
+.ml15 {
+	margin-left: 15px
+}
+
+.mt20 {
+	margin-top: 20px
+}
+
+.mr20 {
+	margin-right: 20px
+}
+
+.mb20 {
+	margin-bottom: 20px
+}
+
+.ml20 {
+	margin-left: 20px
+}
+
+.mt25 {
+	margin-top: 25px
+}
+
+.mr25 {
+	margin-right: 25px
+}
+
+.mb25 {
+	margin-bottom: 25px
+}
+
+.ml25 {
+	margin-left: 25px
+}
+
+.mt30 {
+	margin-top: 30px
+}
+
+.mr30 {
+	margin-right: 30px
+}
+
+.mb30 {
+	margin-bottom: 30px
+}
+
+.ml30 {
+	margin-left: 30px
+}
+
+.mt35 {
+	margin-top: 35px
+}
+
+.mr35 {
+	margin-right: 35px
+}
+
+
+.mb35 {
+	margin-bottom: 35px
+}
+
+
+.ml35 {
+	margin-left: 35px
+}
+
+.mt40 {
+	margin-top: 40px
+}
+
+.mr40 {
+	margin-right: 40px
+}
+
+.mb40 {
+	margin-bottom: 40px
+}
+
+.ml40 {
+	margin-left: 40px
+}
+
+.mt50 {
+	margin-top: 50px;
+}
+
+.mr50 {
+	margin-right: 50px;
+}
+
+.mb50 {
+	margin-bottom: 50px;
+}
+
+.ml50 {
+	margin-left: 50px;
+}
+
+
+.pd10 {
+	padding:10px
+}
+
+.pd20 {
+	padding:20px
+}
+
+.pd30 {
+	padding:30px
+}
+
+.pd40 {
+	padding:40px
+}
+
+.pd50 {
+	padding:50px
+}
+
+
+/*
+
+CSS样式命名	说明
+
+#wrapper	页面外围控制整体布局宽度
+#container或#content	容器,用于最外层
+#layout	布局
+#head, #header	页头部分
+#foot, #footer	页脚部分
+#nav	主导航
+#subnav	二级导航
+#menu	菜单
+#submenu	子菜单
+#sideBar	侧栏
+#sidebar_a, #sidebar_b	左边栏或右边栏
+#main	页面主体
+#tag	标签
+#msg #message	提示信息
+#tips	小技巧
+#vote	投票
+#friendlink	友情连接
+#title	标题
+#summary	摘要
+#loginbar	登录条
+#searchInput	搜索输入框
+#hot	热门热点
+#search	搜索
+#search_output	搜索输出和搜索结果相似
+#searchBar	搜索条
+#search_results	搜索结果
+#copyright	版权信息
+#branding	商标
+#logo	网站LOGO标志
+#siteinfo	网站信息
+#siteinfoLegal	法律声明
+#siteinfoCredits	信誉
+#joinus	加入我们
+#partner	合作伙伴
+#service	服务
+#regsiter	注册
+arr/arrow	箭头
+#guild	指南
+#sitemap	网站地图
+#list	列表
+#homepage	首页
+#subpage	二级页面子页面
+#tool, #toolbar	工具条
+#drop	下拉
+#dorpmenu	下拉菜单
+#status	状态
+#scroll	滚动
+.tab	标签页
+.left .right .center	居左、中、右
+.news	新闻
+.download	下载
+.banner	广告条(顶部广告条)
+
+*/

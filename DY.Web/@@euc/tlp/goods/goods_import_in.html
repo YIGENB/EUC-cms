@@ -1,0 +1,49 @@
+﻿#parse("pageheader.html")
+<h1 id="Menu">
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">以下是分析结果</label> </span>
+<div style="clear:both"></div>
+</h1>
+<div class="list-div">
+  <form method="post" name="theForm" id="theForm">
+    <div style=" overflow:auto;">
+    <table cellspacing="1" cellpadding="3" width="100%">
+      <tr>
+        #foreach($dc in $dt.Columns)
+        <th>$SiteUtils.Remove($dc.ColumnName)</th>
+        #end
+      </tr>
+      #foreach($dr in $dt)
+      <tr>
+        #foreach($dc in $dt.Columns)
+        <td>
+        #set($IntValue = $SiteUtils.GetIntValue($dr,$dc))
+        #set($ColumnName = $SiteUtils.TrimRowValue($dc.ColumnName))
+        #if ($SiteUtils.IsContains($dc.ColumnName,"cat_id"))                                 ##如果是分类
+        <select name="$ColumnName">
+        <option value="0">请选择...</option>
+        #GoodsCatSelectUI($IntValue)
+        </select>
+        #elseif ($SiteUtils.IsContains($dc.ColumnName,"brand_id"))                           ##如果是品牌
+        <select name="$ColumnName">
+        <option value="0">请选择...</option>
+        #GoodsBrandSelectUI($IntValue)
+        </select>
+        #else                                                                                ##其它
+        <input type="text" name="$ColumnName" value="$SiteUtils.GetValue($dr,$dc)" size="10" />
+        #end
+        </td>
+        #end
+      </tr>
+      #end
+    </table>
+    </div>
+    <table cellspacing="1" cellpadding="3" width="100%">
+      <tr>
+        <td><center>
+        <p><input type="submit" value="保存到数据库" /></p>
+    </center></td>
+      </tr>
+    </table>
+  </form>
+</div>
+#parse("pagefooter.html")

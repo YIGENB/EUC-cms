@@ -1,0 +1,23 @@
+﻿#parse("pageheader.html")
+<div class="main-div">
+<form method="post" name="theForm" id="theForm" onsubmit="return validate()">
+<table width="100%">
+  <tr>
+    <td class="label">接收人: </td>
+    <td><label>所有订阅者</label></td>
+  </tr>
+  <tr>
+    <td class="label">邮件主题: </td>
+    <td><label>$!{entity.email_title}</label></td>
+  </tr>
+  <tr>
+    <td class="label">邮件内容: </td>
+    <td><label>$!{entity.email_content}</label></td>
+  </tr>
+    <tr>
+    <td class="label">发送时间: </td>
+    <td><label>$!{entity.date}</label></td>
+  </tr>
+</table>
+</form>
+</div>

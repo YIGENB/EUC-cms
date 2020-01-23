@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+#IncludeHead()
+
+<link rel="stylesheet" type="text/css" href="css/css.css">
+<link rel="stylesheet" type="text/css" href="css/appframework.css">
+<link rel="stylesheet" type="text/css" href="css/nm_icon.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<script type="text/javascript" charset="utf-8" src="js/appframework.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/appframework.ui.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/ax.carousel.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/af.css3animate.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/af.scroller.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/af.desktopBrowsers.js"></script>
+</head>
+<body>
+<div id="afui"><div id="content" style="background-image:url($!{mstyle.index_bg});background-size: 100% auto;background-repeat: no-repeat;background-position: center top;">
+<div id="index" class="panel">
+<div class="index_box">
+<div class="logo">
+<img src="$mstyle.index_logo" alt="logo" class=""> 
+          </div>
+</div>
+<div class="menuvice">
+#foreach($row in $Caches.Nav()) #set($count=$Caches.Nav().Count)   #set($index=$velocityCount+1)  
+<a href="$row.url" style="background-image:url($row.mobile_ico);" title="$row.name">
+<span>$row.name</span>
+</a>
+#end
+</div>
+</div>
+</div></div></body></html>

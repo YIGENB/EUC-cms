@@ -1,0 +1,233 @@
+﻿#**
+ * 功能描述：配送方式添加修改模板
+ * 创建时间：2010-01-11 12:23:45
+ * 最后修改时间：2010-01-14 9:43:22
+ * 作者：gudufy
+ * ============================================================================
+ * 2009-2015 小K版权所有，并保留所有权利
+ * 联系邮箱：421643133@qq.com、QQ：421643133
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
+ * 使用；不允许对程序代码以任何形式任何目的的再发布。
+ * ============================================================================
+ *#
+#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+          城际快递 - #if($id == 0)添加#else修改#end配送区域</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>配送区域</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a  href="delivery_area.aspx?act=list&delivery=$!{delivery.delivery_id}" class="btn btn-primary ">配送区域列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+           
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            配送区域名称：</label>
+                                        <div class="col-sm-9">
+                                                    <input  name="shipping_area_name" maxlength="60" size="30" value="$!{entity.shipping_area_name}"  type="text" class="form-control" required="" aria-required="true" >
+                                        </div>
+                                    </div>
+ 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            基本费用：</label>
+                                        <div class="col-sm-9">
+                                          <input  name="basic_fee" maxlength="60" size="30"  value="$SiteUtils.DefaultValue($!{entity.basic_fee},0)"  type="text" class="form-control" required="" aria-required="true" >
+                                   
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            免费额度：</label>
+                                        <div class="col-sm-9">
+                                       <input type="text" name="free_money"  class="form-control"  maxlength="60" size="20" value="$SiteUtils.DefaultValue($!{entity.free_money},0)" required="" aria-required="true" />
+      当购物金额满多少金额则不需支付配送价，为0则不提供免费额度
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            所辖地区：</label>
+                                        <div class="col-sm-9">
+                                     <table style="width:600px;margin: 0;" align="center" class="table table-striped table-bordered table-hover">
+  <tr>
+    <td id="regionCell">
+    #if($id > 0)
+    #foreach($row in $SystemConfig.GetRegion($!{entity.configure}))
+        <input type='checkbox' name='regions[]' value='$!{row.region_id}' checked='true' /> $!{row.region_name}&nbsp;&nbsp;
+        #end
+        #end
+          </td>
+  </tr>
+  <tr>
+    <td>
+    <div class="col-md-2">
+                <div class="form-group">
+        <span  style="vertical-align: top">国家： </span>
+        <select name="country" id="selCountries" onchange="region.changed(this, 1, 'selProvinces')" size="10" style="width:80px" >
+        #foreach($row in $SystemConfig.GetRegion(0,0))
+            <option value="$!{row.region_id}">$!{row.region_name}</option>
+            #end
+          </select>
+          </div></div>
+          <div class="col-md-2">
+                <div class="form-group">
+        <span  style="vertical-align: top">省份： </span>
+        <select name="province" id="selProvinces" onchange="region.changed(this, 2, 'selCities')"  size="10" style="width:80px">
+          <option value=''>请选择...</option>
+        </select>
+        </div>
+        </div>
+        <div class="col-md-2">
+                <div class="form-group">
+        <span  style="vertical-align: top">城市： </span>
+        <select name="city" id="selCities"  onchange="region.changed(this, 3, 'selDistricts')" size="10" style="width:80px">
+          <option value=''>请选择...</option>
+        </select>
+        </div>
+        </div>
+        <div class="col-md-2">
+                <div class="form-group">
+        <span  style="vertical-align: top">区/县：</span>
+        <select name="district" id="selDistricts"  size="10" style="width:130px">
+          <option value=''>请选择...</option>
+        </select>
+        </div></div>
+          <div class="col-md-2">
+                <div class="form-group">
+        <span  style="vertical-align: top;float: right;"><input type="button" value="+" class="button" onclick="addRegion()" /></span></div></div>
+    </td>
+  </tr>
+  </table >
+                                        </div>
+                                    </div>
+                        </div>
+
+
+                           
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+    <script type="text/javascript" src="js/region.js"></script>
+<script language="JavaScript">
+region.isAdmin = true;
+onload = function()
+{
+    document.forms['theForm'].elements['shipping_area_name'].focus();
+
+    var selCountry = document.forms['theForm'].elements['country'];
+    if (selCountry.selectedIndex <= 0)
+    {
+      selCountry.selectedIndex = 0;
+    }
+    
+    region.loadProvinces(selCountry.options[selCountry.selectedIndex].value);
+
+}
+
+/**
+ * 添加一个区域
+ */
+function addRegion()
+{
+    var selCountry  = document.forms['theForm'].elements['country'];
+    var selProvince = document.forms['theForm'].elements['province'];
+    var selCity     = document.forms['theForm'].elements['city'];
+    var selDistrict = document.forms['theForm'].elements['district'];
+    var regionCell  = document.getElementById("regionCell");
+
+    if (selDistrict.selectedIndex > 0)
+    {
+        regionId = selDistrict.options[selDistrict.selectedIndex].value;
+        regionName = selDistrict.options[selDistrict.selectedIndex].text;
+    }
+    else
+    {
+        if (selCity.selectedIndex > 0)
+        {
+            regionId = selCity.options[selCity.selectedIndex].value;
+            regionName = selCity.options[selCity.selectedIndex].text;
+        }
+        else
+        {
+            if (selProvince.selectedIndex > 0)
+            {
+                regionId = selProvince.options[selProvince.selectedIndex].value;
+                regionName = selProvince.options[selProvince.selectedIndex].text;
+            }
+            else
+            {
+                if (selCountry.selectedIndex >= 0)
+                {
+                    regionId = selCountry.options[selCountry.selectedIndex].value;
+                    regionName = selCountry.options[selCountry.selectedIndex].text;
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+    }
+
+    // 检查该地区是否已经存在
+    exists = false;
+    for (i = 0; i < document.forms['theForm'].elements.length; i++)
+    {
+      if (document.forms['theForm'].elements[i].type=="checkbox")
+      {
+        if (document.forms['theForm'].elements[i].value == regionId)
+        {
+          exists = true;
+          alert(region_exists);
+        }
+      }
+    }
+    // 创建checkbox
+    if (!exists)
+    {
+      regionCell.innerHTML += "<input type='checkbox' name='regions[]' value='" + regionId + "' checked='true' /> " + regionName + "&nbsp;&nbsp;";
+    }
+}
+</script>
+#parse("pagefooter.html")

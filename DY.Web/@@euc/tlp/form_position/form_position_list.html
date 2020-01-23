@@ -1,0 +1,91 @@
+﻿#**
+ * 功能描述：Tag列表模板
+ * 创建时间：2010-01-11 12:23:45
+ * 最后修改时间：2010-01-14 9:43:22
+ * 作者：gudufy
+ * ============================================================================
+ * 2009-2015 小K版权所有，并保留所有权利
+ * 联系邮箱：421643133@qq.com、QQ：421643133
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
+ * 使用；不允许对程序代码以任何形式任何目的的再发布。
+ * ============================================================================
+ *#
+#if (!$isajax)
+#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            表单分类</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            
+            <li><strong>    表单分类</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加表单</a>
+                    </div>
+                    <form method="post" action="" name="listForm" id="listForm">
+                    <div id="listDiv" class="ibox-content">
+                    #end
+                       <table cellspacing="1" cellpadding="3" class="table table-striped table-bordered table-hover">
+  <col style="width:20px;" />
+  <tr class="list_tr">
+    <th><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox"></th>
+    <th>$SiteUtils.GetSortImg("position_name","表单名称")</th>
+    <th>$SiteUtils.GetSortImg("position_classname","表单class")</th>
+    <th>$SiteUtils.GetSortImg("position_desc","表单描述")</th>
+    <th>投放代码</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+  <tr >
+    <td ><span><input name="checkboxes" type="checkbox" value="${row.position_id}" /></span></td>
+    <td nowrap="true"><span onclick="listTable.edit(this, 'position_name', ${row.position_id});">${row.position_name}</span></td>
+        <td nowrap="true"><span onclick="listTable.edit(this, 'position_classname', ${row.position_id});">${row.position_classname}</span></td>
+    <td ><span onclick="listTable.edit(this, 'position_desc', ${row.position_id});">${row.position_desc}</span></td>
+    <td ><input type="text" onclick="this.select();" value="<script type=&quot;text/javascript&quot; src=&quot;/tools/form.aspx?pid=${row.position_id}&quot;></script>" /></td>
+    <td  nowrap="true">
+        <a href="from_vaule.aspx?act=list&position_id=${row.position_id}">查看数据</a>
+        <a href="form_all.aspx?act=list&position_id=${row.position_id}">控件列表</a>
+        <a href="?act=edit&id=${row.position_id}">修改</a>
+        <a href="javascript:;" onclick="listTable.remove(${row.position_id}, '你确认要删除当前注册项吗？')" title="删除">删除</a>
+    </td>
+  </tr>
+  #end
+  </table>
+#if (!$isajax)
+                        <!-- 分页 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info">
+                                    <!--<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选"
+                                        class="selectall" />--></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    ${pager}
+                                </div>
+                            </div>
+                        </div>
+                   
+                      
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")
+#end

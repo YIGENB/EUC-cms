@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<installedplugins>
+  <plugin name="helloworld" version="1.02" assembly="helloworld20140319153622.dll" />
+  <plugin name="weixin" version="1.02" assembly="weixin20140319155518.dll" />
+</installedplugins>

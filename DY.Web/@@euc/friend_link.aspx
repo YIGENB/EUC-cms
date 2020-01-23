@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="friend_link.aspx.cs" Inherits="DY.Web.admin.friend_link" %>

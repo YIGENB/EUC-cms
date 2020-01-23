@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="false" EnableViewStateMac="false" Inherits="iflynet.Web.PayReturn.PayCenter_KQReceive" Codebehind="KQReceive.aspx.cs" %>

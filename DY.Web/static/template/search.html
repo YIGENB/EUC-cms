@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>$keyword - $config.Name - Powered by EUC!</title>
+    <meta name="keywords" content="$config.Keywords">
+    <meta name="description" content="$config.Desc">
+    <meta name="generator" content="EUC">
+    <meta name="author" content="EUC! Team">
+    <meta name="copyright" content="2016 EUC Inc.">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/search_common.css">
+    <script src="/include/js/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $("#showmenu_nav").hover(function () {
+                $("#navs_menu").stop(true, true).toggle();
+            }, function () {
+            })
+            $("#navs_menu").hover(function () { }, function () {
+                $(this).hide();
+            })
+            $("#quick_sch").hover(function () {
+                $("#quick_sch_menu").stop(true, true).toggle();
+            }, function () {
+            })
+            $("#quick_sch_menu").hover(function () { }, function () {
+                $(this).hide();
+            })
+        })
+    </script>
+</head>
+<body onkeydown="if(event.keyCode==27) return false;">
+    <div id="toptb" class="cl">
+        <div class="z">
+            <a href="/" id="showmenu_nav" class="showmenu xi2">
+                返回首页</a>
+        </div>
+                                    <div id="scform_tb" class="cl">
+                                <span class="y"><a href="javascript:;" id="quick_sch" class="showmenu">
+                                    快速</a></span>
+                               </div>
+    </div>
+    <ul class="p_pop h_pop" id="navs_menu" style="display: none">
+         #foreach($row in $Caches.Nav())
+        <li><a href="$row.url" #if($row.opennew) target="_blank" #end #if($navid==$row.id) class="cur" #end>$row.name</a></li>
+        #end
+    </ul>
+    <div class="cl w">
+        <div class="mw">
+            <table id="scform" class="mbm" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <h1>
+                                <a href="/search$!{html}" title="$config.Name">
+                                    <img src="$SiteUtils.DefaultValue($!{config.search_logo},"/static/images/logo.png")" alt="$config.Name" width="65" height="65"></a></h1>
+                        </td>
+                        <td>
+<!--                            <table id="scform_form" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td class="td_srchtxt">
+                                            <input type="text" class=" xg1" id="scform_srchtxt" name="kword" size="45" maxlength="40" value="$keyword"  tabindex="1" onkeypress="EnterPress(event)" onkeydown="EnterPress()" placeholder="请输入搜索内容">
+                                        </td>
+                                        <td class="td_srchbtn">
+                                            <button type="button" id="scform_submit" class="schbtn">
+                                                <strong>搜索</strong></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>-->
+                            <span class="bg s_ipt_wr quickdelete-wrap"><input id="kw" name="wd" class="s_ipt" maxlength="255" value="$keyword"  tabindex="1" onkeypress="EnterPress(event)" onkeydown="EnterPress()" placeholder="请输入搜索内容"/></span>
+                            <span class="bg s_btn_wr"><input type="button" id="su" value="搜  索" class="bg s_btn" /></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+             <ul id="quick_sch_menu" class="p_pop" style="display: none;  position: absolute; z-index: 301;right: 0px;top: 31px;">
+                <li><a href="/search-3600$!{html}">
+                    1 小时以内</a></li>
+                <li><a href="/search-14400$!{html}">
+                    4 小时以内</a></li>
+                <li><a href="/search-28800$!{html}">
+                    8 小时以内</a></li>
+                <li><a href="/search-86400$!{html}">
+                    24 小时以内</a></li>
+                <li><a href="/search-604800$!{html}">
+                    1 周内</a></li>
+                <li><a href="/search-2592000$!{html}">
+                    1 月内</a></li>
+                <li><a href="/search-15552000$!{html}">
+                    6 月内</a></li>
+                <li><a href="/search-31536000$!{html}">
+                    1 年内</a></li>
+            </ul>
+            <div class="tl">
+                <div class="sttl mbn">
+                    <h2>
+                        结果: <em>找到相关主题 $ResultCount 个</em></h2>
+                </div>
+                #if($ResultCount<=0)
+                 <div class="content_none"><div class="nors"><p>很抱歉，没有找到与<span style="font-family:宋体">“</span><em>$keyword</em><span style="font-family:宋体">”</span>相关的内容。</p>
+                 <br />
+                 <div class="tip_head">温馨提示：</div>
+                 <ul><li>请检查您的输入是否正确</li>
+                 <li>更多请<a href="/" target="_blank" style="color: -webkit-link;text-decoration: underline;cursor: auto;">访问首页</a></li>
+                 </ul>
+                 </div><br clear="all"></div>
+                 #else
+                <div class="slst mtw">
+                    <ul>
+                        #foreach($row in $list)
+                        <li class="pbw">
+                            <h3 class="xs3">
+                                <a href="#SearchLink()" target="_blank">$SiteUtils.KeyReplace($keyword,$row.title)</a>
+                            </h3>
+                            #if($row.photo.tostring().length<=0)
+                            <p class="xg1">$row.click_count 次查看</p>
+                            <p>$SiteUtils.KeyReplace($keyword,$SiteUtils.GetTopic($row.des,240))</p>
+                            #else
+                            <div class="c-row c-gap-top-small"><div class="general_image_pic"><a class="c-img6" style="height:75px" href="#SearchLink()" target="_blank"><img class="c-img c-img6" src="$row.photo" style="height:75px;width: 135px;"></a></div>
+                            <div class="c-span18 c-span-last"><div class="c-abstract">$SiteUtils.KeyReplace($keyword,$SiteUtils.GetTopic($row.des,240))</div><div class="f13">
+                            <p class="xg1">$row.click_count 次查看
+                            #if($cmsinfo.tag!="")#foreach($row in $CMS.GetTags($row.tag)) <a href="#TagLink()" id="tags" target="_blank">
+                        $row.tag_name</a> #end#end
+                            </p>
+                            </div></div></div>
+                            #end
+                            <p>
+                                
+                                <span>$SiteUtils.GetDomain()#SearchLink()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$row.date.tostring("yyyy-MM-dd")</span>
+                            </p>
+                        </li>
+                        #end
+                    </ul>
+                </div>
+                       #if($wordlist.count>0)
+                    <div id="rs">
+                    <div class="tt">相关搜索</div>
+                    <table cellpadding="0">
+                    <tbody>
+                    <tr>
+                    #foreach($row in $wordlist) #set($index=$velocityCount+1)  
+                    <th>
+                    <a href="/search/$row">$row</a></th>
+                    <td>
+                    </td>
+                    #if($index%3==0)
+                        </tr>
+                        <tr>
+                    #end
+                    #end
+                    </tr>
+                    <tr>
+                    </tr>
+                    </tbody>
+                    </table>
+                    </div>
+                    #end
+                #end
+                <div class="pgs cl mbm"><div class="pg">$pager</div></div>
+            </div>
+        </div>
+    </div>
+    <div class="w cl" id="ft">
+        <em>Powered by <strong><a href="http://www.eyouc.com/" target="_blank">EUC Net+!</a></strong>
+             <span class="pipe">|</span><a href="/sitemap.htm">SiteMap</a>
+             <span class="pipe">|</span>Copyright &copy; $config.Copyright
+        <a href="http://www.miibeian.gov.cn/" target="_blank">$config.IcpNumber</a> &nbsp;$tongjiCode $config.StatsCode
+                </div>
+        <script type="text/javascript">
+            $(function () {
+                $("#su").click(function () {
+                    var text = $("#kw").val().trim();
+                    if (text == "" || text == "请输入搜索内容") { alert("请输入搜索内容"); return };
+                    location.href = "/search/" + encodeURIComponent(stripscript(text)) + "$!{html}";
+                })
+
+            })
+
+            function EnterPress(e) {
+                //var e = e || window.event;
+                if (e.keyCode == 13) {
+                    var text = $("#kw").val().trim();
+                    if (text == "" || text == "请输入搜索内容") { return };
+                    location.href = "/search/" + encodeURIComponent(stripscript(text)) + "$!{html}";
+                }
+            }
+
+            function stripscript(s) {
+                var pattern = new RegExp("[`~!@#$^&*()<>《》‘’=|{}':;',\\[\\].<>/?~！@#￥……&*（）&mdash;—|{}【】‘；：”“'。，、？]");
+                var rs = "";
+                for (var i = 0; i < s.length; i++) {
+                    rs = rs + s.substr(i, 1).replace(pattern, '');
+                }
+                return rs;
+            }
+</script>
+</body>
+</html>

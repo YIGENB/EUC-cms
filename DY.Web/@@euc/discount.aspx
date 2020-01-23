@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="discount.aspx.cs" Inherits="DY.Web.admin.discount" %>

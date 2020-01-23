@@ -1,0 +1,344 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end自定义3g风格</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>3G风格</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="tlp.aspx?act=color" class="btn btn-primary ">3g风格列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                            <li><a data-toggle="tab" href="#color-tab">自定义颜色</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 #if($userid==0)
+                                      <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            标题：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="style_name" name="style_name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.style_name}">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            模板目录：</label>
+                                        <div class="col-sm-9">
+                                                    <select name="skin_path" id="skin_path" class="form-control m-b">
+                                                        #foreach($row in $pathlist) 
+                                                        <option value="$row.name" #if($row.name == $!entity.skin_path)selected #end>$row.name </option>
+                                                        #end
+                                                    </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            描述：</label>
+                                        <div class="col-sm-9">
+                                                    <textarea name="des" class="form-control" rows="5">$!{entity.des}</textarea>
+                                        </div>
+                                    </div>
+                                    #end
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            首页LOGO：</label>
+                                        <div class="col-sm-9">
+                                                      <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.index_logo},"images/slt.jpg")' />
+                                        <input type="hidden" name="index_logo" id="index_logo" value="$!{entity.index_logo}" />
+                                        <span class="help-inline"><button name="button" class="btn select_img" type="button">点击上传 </button></span>
+                                    </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            首页背景图：</label>
+                                        <div class="col-sm-9">
+                                                      <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.index_bg},"images/slt.jpg")' />
+                                        <input type="hidden" name="index_bg" id="index_bg" value="$!{entity.index_bg}" />
+                                        <span class="help-inline"><button name="button" class="btn select_img" type="button">点击上传 </button></span>
+                                    </div>
+                                        </div>
+                                    </div>
+                                    #if($userid==0)
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            排序：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="sort_order" id="sort_order" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.sort_order},0)"/>
+                                                    
+                                        </div>
+                                    </div>
+                             <!--维护模式进入-->
+                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            标识图片：</label>
+                                        <div class="col-sm-9">
+                                    <input type="text" name="style_img" value="$!{entity.style_img}" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否可编辑：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.is_custom})checked#end $SiteUtils.DefaultValue($!{entity.is_custom},"checked")  value="1" name="is_custom"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.is_custom} == false)checked#end  value="0" name="is_custom"> <i></i> 否</label>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否单一模板：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.is_sign})checked#end $SiteUtils.DefaultValue($!{entity.is_sign},"checked")  value="1" name="is_sign"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.is_sign} == false)checked#end  value="0" name="is_sign"> <i></i> 否</label>
+
+
+                                        </div>
+                                    </div>
+                                    #end
+
+                        </div>
+
+                        <div id="color-tab" class="tab-pane">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                顶部背景色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="top_bg_color" value="$!{entity.top_bg_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        #if(!$entity.is_sign)
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                导航背景色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="menu_bg_color" value="$!{entity.menu_bg_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                导航字体颜色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="menu_font_color" value="$!{entity.menu_font_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                全局分栏标题背景：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="b_menu_bg_color" value="$!{entity.b_menu_bg_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                全局分栏标题字体色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="b_menu_font_color" value="$!{entity.b_menu_font_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                全局背景颜色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="bg_color" value="$!{entity.bg_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                列表标题背景色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="list_bg_color" value="$!{entity.list_bg_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                列表标题字体色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="title_font_color" value="$!{entity.title_font_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                列表分类筛选分类边框色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="list_class_border_color" value="$!{entity.list_class_border_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                列表分类筛选分类字体颜色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="list_class_font_color" value="$!{entity.list_class_font_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                列表分类大边框颜色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="list_class_all_border_color" value="$!{entity.list_class_all_border_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                列表分类背景色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="list_class_bg_color" value="$!{entity.list_class_bg_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                列表分类筛选分类背景颜色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="list_class_ification_bg_color" value="$!{entity.list_class_ification_bg_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                版权背景色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="copyright_bg_color" value="$!{entity.copyright_bg_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                版权字体色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="copyright_font_color" value="$!{entity.copyright_font_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                底部背景色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="foot_bg_color" value="$!{entity.foot_bg_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                底部字体色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="foot_font_color" value="$!{entity.foot_font_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        #end
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                底部导航背景色：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group colorpicker-demo3">
+                                    <input type="text" name="in_foot_font_color" value="$!{entity.in_foot_font_color}" class="form-control" />
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+<!-- COLORPICKER -->
+<link href="css/plugins/colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<script>
+    $(function () {
+        $('.colorpicker-demo3').colorpicker();
+    })
+</script>
+#parse("pagefooter.html")

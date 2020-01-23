@@ -1,0 +1,18 @@
+﻿#if(!$uc_ua)
+    ﻿<div id="footer">
+        <p class="foot_nav">
+            <a href="/">商城首页</a> | <a href="/user/account.htm">
+                会员中心</a> | <a href="#">品牌介绍</a></p>
+    </div>
+#end
+<script>
+    $(function () {
+        $(".record_con li").click(function () {
+            $(".record_con_detail").hide(300);
+            $(this).find(".record_con_detail").stop(true,false).show(300);
+        })
+    })
+
+</script>
+</body>
+</html>

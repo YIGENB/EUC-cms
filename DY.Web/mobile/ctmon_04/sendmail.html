@@ -1,0 +1,64 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+<div class="page-header-clear"></div>
+<div class="content">
+<div class="one-half-responsive">
+        <h4>向我们发邮件</h4>
+        <div class="container no-bottom">
+            <div class="contact-form no-bottom"> 
+                <div id="formSuccessMessageWrap" class="formSuccessMessageWrap">
+                    <div class="big-notification green-notification">
+                        <h3 class="uppercase">提交成功 </h3>
+                        <a class="close-big-notification" href="#">x</a>
+                        <p>恭喜，您的信息已经递交成功，请等待我们的回复！ </p>
+                    </div>
+                </div>
+            
+                <form id="contactForm" class="contactForm" method="post" action="/tools/ajax.aspx?act=InsertEmailSlasher">
+                    <fieldset> 
+                        <div id="contactEmailFieldError" class="formValidationError">
+                            <div class="static-notification-red tap-dismiss-notification">
+                                <p class="center-text uppercase">请输入您的邮箱！</p>
+                            </div>
+                        </div> 
+                        <div id="contactEmailTitleFieldError" class="formValidationError">
+                            <div class="static-notification-red tap-dismiss-notification">
+                                <p class="center-text uppercase">请输入您的邮件标题！</p>
+                            </div>
+                        </div> 
+                        <div id="contactEmailFieldError2" class="formValidationError">
+                            <div class="static-notification-red tap-dismiss-notification">
+                                <p class="center-text uppercase">邮箱格式不正确！</p>
+                            </div>
+                        </div> 
+                        <div id="contactMessageTextareaError" class="formValidationError">
+                            <div class="static-notification-red tap-dismiss-notification">
+                                <p class="center-text uppercase">请输入内容！</p>
+                            </div>
+                        </div>   
+                        <div class="formFieldWrap">
+                            <label for="contactEmailField" class="field-title contactEmailField">您的邮箱: <span>(required)</span></label>
+                            <input type="text" id="contactEmailField" class="contactField requiredField requiredEmailField" value="" name="contactEmailField">
+                        </div>
+                        <div class="formFieldWrap">
+                            <label for="contactEmailTitleField" class="field-title contactEmailTitleField">您的邮件标题: <span>(required)</span></label>
+                            <input type="text" id="contactEmailTitleField" class="contactField requiredField requiredEmailTitleField" value="" name="contactEmailTitleField">
+                        </div>
+                        <div class="formTextareaWrap">
+                            <label for="contactMessageTextarea" class="field-title contactMessageTextarea">内容: <span>(required)</span></label>
+                            <textarea id="contactMessageTextarea" class="contactTextarea requiredField" name="contactMessageTextarea"></textarea>
+                        </div>
+                        <div class="formSubmitButtonErrorsWrap">
+                        <input type="hidden" name="comment_type" value="0" />
+                            <input type="submit" data-formid="contactForm" value="提交" id="contactSubmitButton" class="buttonWrap button button-green contactSubmitButton">
+                        </div>
+                    </fieldset>
+                </form>       
+            </div>
+        </div>
+    </div>
+</div>
+#end
+#parse("include/page_foot.html")

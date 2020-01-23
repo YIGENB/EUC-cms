@@ -1,0 +1,55 @@
+﻿<style type="text/css">
+    .feedback td{padding:5px;}
+</style>
+<form method="post" name="formMsg" action="/feedback.aspx?act=Submit" onSubmit="return AddFeedback(this)">
+<table class="feedback" width="100%" cellpadding="0" cellspacing="5">
+<col style=" text-align:right;" />
+ <tr>
+    <td align="right" style="width:100px;">留言类型：</td>
+    <td><input name="msg_type" type="radio" value="0" checked />
+      留言                  <input type="radio" name="msg_type" value="1"  />
+      投诉                  <input type="radio" name="msg_type" value="2" />
+      询问                  <input type="radio" name="msg_type" value="3" />
+      售后                  <input type="radio" name="msg_type" value="4" />
+      求购 </td>
+  </tr>
+                <tr>
+    <td align="right">主题：</td>
+    <td><input name="msg_title" type="text" size="35" /> <span class="red">*</span></td>
+  </tr>
+  <tr>
+    <td align="right">联系人：</td>
+    <td><input name="user_name" type="text" size="20" /> <span class="red">*</span></td>
+  </tr>
+   <tr>
+    <td align="right">联系电话：</td>
+    <td><input name="user_email" type="text" size="30" />  <span class="red">*</span></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top">留言内容：</td>
+    <td><textarea name="msg_content" cols="80" rows="6" style=" width:80%;"></textarea> <span class="red">*</span></td>
+  </tr>
+  
+    <tr>
+        <td align="right">
+            <label for="captcha">验证码：</label>
+        </td>
+        <td>
+            <input type="text" id="captcha" name="captcha" size="5" style="vertical-align:middle;"  /><img src="/tools/verifyimagepage.aspx" class="captcha" style="vertical-align:middle;"  />
+            <a href="javascript:ReloadCaptcha();">看不清？</a>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                ReloadCaptcha();
+                });
+            </script>
+        </td>
+    </tr>
+
+    <tr>
+    <td>&nbsp;</td>
+    <td><input type="hidden" name="act" value="act_add_message" />
+      <input type="image" src="/skin/TJ/images/cn_64.gif" name="submit_feedback" value="提交留言" class="btn" />
+    </td>
+  </tr>
+</table>
+</form>

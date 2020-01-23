@@ -1,0 +1,146 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end会员等级</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>会员等级</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">会员等级列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                         
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            会员等级名称：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="rank_name" name="rank_name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.rank_name}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            积分下限：</label>
+                                        <div class="col-sm-9">
+                                                    <input   name="min_points" value="$SiteUtils.DefaultValue($!{entity.min_points},0)" maxlength="50" type="text" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            积分上限：</label>
+                                        <div class="col-sm-9">
+                                           <input type="text"  class="form-control"  name="max_points" value="$SiteUtils.DefaultValue($!{entity.max_points},0)" size="10" maxlength="20" />
+                                        </div>
+                                    </div>
+                           
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                           特殊会员组:</label>
+                                        <div class="col-sm-9   ">
+                                             <label class="checkbox-inline i-checks">   
+                                    <input type="checkbox" class="checkbox"   name="special_rank" value="1"  onClick="javascript:doSpecial()" #if($!{entity.special_rank})checked#end /></label>  
+    <br /><span class="notice-span" style="display:block"  id="Span1">特殊会员组的会员不会随着积分的变化而变化。</span>
+                                        </div>
+                                    </div>
+                                     
+                                   
+                                 
+                                   
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+
+
+<script language="JavaScript">
+<!--
+    var rank_name_empty = "您没有输入会员等级名称。";
+    var integral_min_invalid = "您没有输入积分下限或者积分下限不是一个整数。";
+    var integral_max_invalid = "您没有输入积分上限或者积分上限不是一个整数。";
+    var integral_max_small = "积分上限必须大于积分下限。";
+    document.forms['theForm'].elements['rank_name'].focus();
+    /**
+    * 检查表单输入的数据
+    */
+    function validate() {
+        if (!document.forms['theForm'].elements['special_rank'].checked) {
+            if (Utils.trim(document.forms['theForm'].elements['min_points'].value) == '' ||
+            !Utils.isInt(document.forms['theForm'].elements['min_points'].value)) {
+                alert(integral_min_invalid);
+                return false;
+            }
+            if (Utils.trim(document.forms['theForm'].elements['max_points'].value) == '' ||
+            !Utils.isInt(document.forms['theForm'].elements['max_points'].value)) {
+                alert(integral_max_invalid);
+                return false;
+            }
+            if (!document.forms['theForm'].elements['special_rank'].checked &&
+            (parseInt(document.forms['theForm'].elements['max_points'].value) <=
+            parseInt(document.forms['theForm'].elements['min_points'].value))) {
+                alert(integral_max_small);
+                return false;
+            }
+        }
+        validator = new Validator("theForm");
+        validator.required('rank_name', rank_name_empty);
+        return validator.passed();
+    }
+function doSpecial()
+{
+  if(document.forms['theForm'].elements['special_rank'].checked)
+  {
+      document.forms['theForm'].elements['max_points'].disabled = "true";
+      document.forms['theForm'].elements['min_points'].disabled = "true";
+  }
+  else
+  {
+      document.forms['theForm'].elements['max_points'].disabled = "";
+      document.forms['theForm'].elements['min_points'].disabled = "";
+  }
+}
+
+
+
+//-->
+</script>
+#parse("pagefooter.html")

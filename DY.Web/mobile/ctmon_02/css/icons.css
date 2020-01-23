@@ -1,0 +1,213 @@
+.icon:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+li .icon:before {
+    position: relative;
+    width: 24px;
+    height: 100%;
+    top: 2px;
+    line-height: 0 !important;
+    margin-right: 4px;
+}
+
+.icon.mini:before {
+    font-size: .7em;
+}
+
+.icon.big:before {
+    font-size: 1.5em;
+}
+
+.icon.home:before {
+    background-image: url(../images/icon-36x36-home.png);
+}
+
+.icon.pencil:before {
+}
+
+.icon.picture:before {
+}
+
+.icon.camera:before {
+}
+
+.icon.headset:before {
+}
+
+.icon.paper:before {
+}
+
+.icon.stack:before {
+}
+
+.icon.folder:before {
+}
+
+.icon.tag:before {
+}
+
+.icon.basket:before {
+}
+
+.icon.phone:before {
+    background-image: url(../images/icon-36x36-phone.png);
+}
+
+.icon.mail:before {
+}
+
+.icon.location:before {
+}
+
+.icon.clock:before {
+}
+
+.icon.calendar:before {
+}
+
+.icon.message:before {
+}
+
+.icon.chat:before {
+}
+
+.icon.user:before {
+}
+
+.icon.loading:before {
+}
+
+.icon.refresh:before {
+}
+
+.icon.magnifier:before {
+}
+
+.icon.key:before {
+}
+
+.icon.settings:before {
+}
+
+.icon.graph:before {
+}
+
+.icon.trash:before {
+}
+
+.icon.download:before {
+}
+
+.icon.upload:before {
+}
+
+.icon.star:before {
+}
+
+.icon.heart:before {
+}
+
+.icon.warning:before {
+}
+
+.icon.add:before {
+}
+
+.icon.remove:before {
+}
+
+.icon.question:before {
+}
+
+.icon.info:before {
+}
+
+.icon.error:before {
+}
+
+.icon.check:before {
+}
+
+.icon.minimize:before {
+}
+
+.icon.close:before {
+}
+
+.icon.up:before {
+}
+
+.icon.right:before {
+}
+
+.icon.down:before {
+}
+
+.icon.left:before {
+}
+
+.icon.html5:before {
+}
+
+.icon.css:before {
+}
+
+.icon.js:before {
+}
+
+.icon.lamp:before {
+}
+
+.icon.tools:before {
+}
+
+.icon.new:before {
+}
+
+.icon.wifi:before {
+}
+
+.icon.mic:before {
+}
+
+.icon.database:before {
+}
+
+.icon.bug:before {
+}
+
+.icon.busy:before {
+}
+
+.icon.target:before {
+}
+
+.icon.tv:before {
+}
+
+.icon.cloud:before {
+}
+
+.icon.pin:before {
+}
+
+.icon.menu:before {
+    background-image: url(../images/icon-36x36-menu.png);
+}
+
+.icon.search:before {
+    background-image: url(../images/icon-36x36-search.png);
+}
+
+.icon.contactus:before {
+    background-image: url(../images/icon-36x36-contactus.png);
+}

@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="quick_menu.aspx.cs" Inherits="DY.Web.admin.quick_menu" %>

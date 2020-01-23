@@ -1,0 +1,88 @@
+   /*tk-add*/
+    /*弹出广告*/
+    #testad
+    {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -198px;
+        margin-left: -350px;
+        z-index: 100000;
+        width: 700px;
+        height: 396px;
+        opacity: 0;
+        overflow: hidden;
+    }
+    #testad .five
+    {
+        background: url(../images/home_tkbd.png) no-repeat;
+        width: 700px;
+        height: 396px;
+    }
+    .home_tklist
+    {
+        padding: 192px 0 0 76px;
+        height: auto;
+        overflow: hidden;
+        padding-bottom: 14px;
+    }
+    .home_tklist li
+    {
+        float: left;
+        margin-right: 20px;
+        color: #3a3a3a;
+        font-size: 20px;
+        width: 178px;
+        height: 27px;
+        line-height: 27px;
+        margin-bottom: 26px;
+        display: inline;
+    }
+    .home_tklist li img
+    {
+        vertical-align: bottom;
+        margin-right: 8px;
+    }
+    .home_qq
+    {
+        display: block;
+        background-color: #c70c1f;
+        color: #FFF;
+        font-size: 18px;
+        width: 138px;
+        height: 38px;
+        line-height: 36px;
+        text-align: center;
+        margin: 0 auto;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+    .home_tel
+    {
+        color: #dd6300;
+        font-size: 17px;
+        padding-right: 20px;
+        text-align: right;
+    }
+    .home_tel span
+    {
+        font-size: 13px;
+    }
+    #bitAdClose_700
+    {
+        top: 0;
+        right: 0;
+        width: 31px;
+        height: 31px;
+        cursor: pointer;
+    }
+    #__close_ad
+    {
+        background: url(../images/home_tkclose.png) no-repeat;
+        font-size: 0;
+        text-indent: -9999;
+        width: 31px;
+        height: 31px;
+        display: block;
+    }

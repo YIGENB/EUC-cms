@@ -1,0 +1,427 @@
+﻿#if (!$isajax) #parse("pageheader.html")
+<script type="text/javascript" src="js/region.js"></script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            订单信息</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>订单</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight order">
+    #end
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list" class="btn btn-primary ">订单列表</a>
+                    </div>
+                    <div class="title-action">
+                        <!--<a href="order.aspx?act=edit&id=${entity.order_id}&step=shipping" class="btn btn-white"><i class="fa fa-pencil"></i> 配送方式修改 </a>
+                        <a href="order.aspx?act=edit&id=${entity.order_id}&step=payment" class="btn btn-white"><i class="fa fa-pencil"></i> 支付方式修改 </a>
+                        <a href="order.aspx?act=edit&id=${entity.order_id}&step=other" class="btn btn-white"><i class="fa fa-pencil"></i> 其他信息 </a><input type="text" id="add_time" name="add_time" class="form-control layer-date laydate-icon" value="$!{entity.add_time}" size="20" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/>
+                        <a href="order.aspx?act=edit&id=${entity.order_id}&step=consignee" class="btn btn-white"><i class="fa fa-pencil"></i> 收货人信息 </a>-->
+                         <input name="prev" type="button" class="btn btn-white" onClick="location.href='order.aspx?act=info&order_id=$pre_id';" value="前一个订单" #if($pre_id == "") disabled#end />
+                         <input name="next" type="button" class="btn btn-white" onClick="location.href='order.aspx?act=info&order_id=$next_id';" value="下一个订单" #if($next_id == "") disabled#end />
+                        <a href="javascript:;" onclick="window.open('order.aspx?act=info&print=1&order_id=${entity.order_id}')" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> 打印订单 </a>
+                    </div>
+                    <form action="" method="post" name="theForm" class="form-horizontal">
+                    <div class="row well">
+                        <div class="col-lg-12">
+                            <table width="100%" class="table">
+  <tr>
+    <th colspan="4">基本信息</th>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>订单号：</strong></div></td>
+    <td>${entity.order_sn}</td>
+    <td><div align="right"><strong>订单状态：</strong></div></td>
+    <td>
+                                                <div class="col-md-4">
+                                                         <select name="order_status" class="form-control m-b">
+                                                        <option value="1" #if ($entity.pay_status == "1")selected="selected"#end >已确认</option>
+                                                        <option value="0" #if ($entity.pay_status == "0")selected="selected"#end >未确认</option>
+                                                        <option value="2" #if ($entity.pay_status == "2")selected="selected"#end >取消</option>
+                                                        <option value="3" #if ($entity.pay_status == "3")selected="selected"#end >已无效</option>
+                                                        <option value="4" #if ($entity.pay_status == "4")selected="selected"#end >已完成</option>
+                                                        </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                         <select name="pay_status" class="form-control m-b">
+                                                                <option value="0" #if ($entity.pay_status == "0")selected="selected"#end >未付款</option>
+                                                                <option value="1" #if ($entity.pay_status == "1")selected="selected"#end >已付款</option>
+                                                         </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                         <select name="delivery_status" class="form-control m-b">
+                                                            <option value="0" #if ($entity.delivery_status == "0")selected="selected"#end >未发货</option>
+                                                            <option value="1" #if ($entity.delivery_status == "1")selected="selected"#end >已发货</option>
+                                                     </select>
+                                                </div>
+
+
+   </td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>会员：</strong></div></td>
+    <td>#if($entity.user_id == 0)匿名#else $User.GetUserNameById($entity.user_id) #end</td>
+    <td><div align="right"><strong>下单时间：</strong></div></td>
+    <td><input type="text" id="add_time" name="add_time" class="form-control layer-date laydate-icon" value="$!{entity.add_time}" size="20" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>支付方式：</strong></div></td>
+    <td>
+    <div class="col-md-3">
+    <select name="payment" class="form-control m-b">
+            #foreach($row in $payment)
+            <option value="${row.pay_id}" #if ($row.pay_id == ${entity.pay_id})selected="selected"#end >${row.pay_name}</option>
+            #end
+     </select>
+     </div>
+    </td>
+    <td><div align="right"><strong>付款时间：</strong></div></td>
+    <td><input type="text" id="pay_time" name="pay_time" value="$!{entity.pay_time}" class="form-control layer-date laydate-icon" size="20" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" /></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>配送方式：</strong></div></td>
+    <td>
+    <div class="col-md-3">
+    <select name="delivery" class="form-control m-b">
+            #foreach($row in $delivery)
+            <option value="${row.delivery_id}" #if ($row.delivery_id == ${entity.delivery_id})selected="selected"#end >${row.delivery_name}</option>
+            #end
+    </select>
+    </div>
+    </td>
+    <td><div align="right"><strong>发货时间：</strong></div></td>
+    <td><input type="text" id="delivery_time" name="delivery_time" value="$!{entity.delivery_time}" class="form-control layer-date laydate-icon" size="20" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>发货单号：</strong></div></td>
+    <td><input type="text" id="invoice_no" name="invoice_no" value="$!{entity.invoice_no}" size="20" class="form-control"/></td>
+    <td><div align="right"><strong>订单来源：</strong></div></td>
+    <td><input type="text" id="referer" name="referer" value="$!{entity.referer}" size="20" class="form-control"/></td>
+  </tr>
+  <tbody style="display:none;">
+  <tr>
+    <th colspan="4">其他信息<!--<a href="order.aspx?act=edit&id=${entity.order_id}&step=other">修改</a>--></th>
+    </tr>
+  <tr>
+    <td><div align="right"><strong>发票类型：</strong></div></td>
+    <td></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>发票抬头：</strong></div></td>
+    <td></td>
+    <td><div align="right"><strong>发票内容：</strong></div></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>客户给商家的留言：</strong></div></td>
+    <td colspan="3"></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>缺货处理：</strong></div></td>
+    <td>等待所有商品备齐后再发</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>包装：</strong></div></td>
+    <td></td>
+    <td><div align="right"><strong>贺卡：</strong></div></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>贺卡祝福语：</strong></div></td>
+    <td colspan="3"></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>商家给客户的留言：</strong></div></td>
+    <td colspan="3"></td>
+  </tr>
+  </tbody>
+  <tr>
+    <th colspan="4">收货人信息<!--<a href="order.aspx?act=edit&id=${entity.order_id}&step=consignee">修改</a>--></th>
+    </tr>
+  <tr>    
+  <td><div align="right"><strong>地址：</strong></div></td>
+    <td>
+        $SystemConfig.GetRegionNameById($entity.country)
+    $SystemConfig.GetRegionNameById($entity.province) 
+    $SystemConfig.GetRegionNameById($entity.city) 
+    $SystemConfig.GetRegionNameById($entity.district)
+    <div class="col-md-3">
+        <select name="country" id="selProvinces_0" onchange="region.changed(this, 1, 'selCities_0')" class="form-control m-b">
+            <option value="0">请选国家</option>
+            #foreach($row in $SystemConfig.GetRegion(0,0))
+            <option value="$!{row.region_id}">$!{row.region_name}</option>
+            #end
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select name="province" id="selCities_0" onchange="region.changed(this, 2, 'selDistricts_0')" class="form-control m-b">
+            <option value="0">请选省份</option>
+            
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select name="city" id="selDistricts_0" onchange="region.changed(this, 3, 'selDistrict_0')" class="form-control m-b">
+            <option value="0">请选市区</option>
+        </select>
+     </div>
+        <select name="district" id="selDistrict_0" style="display: none">
+            <option value="0">请选地点</option>
+        </select>
+        
+        <script type="text/javascript">
+            $(function(){
+                $("form").submit(function(){
+                    if($("#selProvinces_0").val()==0){
+                        $("#selProvinces_0").val($!entity.country)
+                    }
+                    if($("#selCities_0").val()==0){
+                        $("#selCities_0 option").val($!entity.province)
+                    }
+                    if($("#selCities_0").val()==0){
+                        $("#selCities_0 option").val($!entity.province)
+                    }
+                    if($("#selDistricts_0").val()==0){
+                        $("#selDistricts_0 option").val($!entity.city)
+                    }
+                    if($("#selDistrict_0").val()==0){
+                        $("#selDistrict_0 option").val($!entity.district)
+                    }
+                });
+            });
+        </script>
+
+    <input type="text" id="address" name="address" value="$!{entity.address}" size="40" class="form-control" />
+    </td>
+    <td><div align="right"><strong>收货人：</strong></div></td>
+    <td><input type="text" id="consignee" name="consignee" value="$!{entity.consignee}" size="20" class="form-control"/></td>
+
+  </tr>
+  <tr>
+    <td><div align="right"><strong>电子邮件：</strong></div></td>
+    <td>
+        <input type="text" id="email" name="email" value="$!{entity.email}" size="20" class="form-control"/>
+    </td>
+    <td><div align="right"><strong>邮编：</strong></div></td>
+    <td><input type="text" id="zipcode" name="zipcode" value="$!{entity.zipcode}" size="10" class="form-control"/></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>电话：</strong></div></td>
+    <td><input type="text" id="tel" name="tel" value="$!{entity.tel}" size="20" class="form-control"/></td>
+    <td><div align="right"><strong>手机：</strong></div></td>
+    <td><input type="text" id="mobile" name="mobile" value="$!{entity.mobile}" size="20" class="form-control"/></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>标志建筑：</strong></div></td>
+    <td>
+    <input type="text" id="sign_building" name="sign_building" value="$!{entity.sign_building}" size="20" class="form-control"/>
+    </td>
+    <td><div align="right"><strong>到货日期及时间：</strong></div></td>
+    <td><input type="text" id="best_time" name="best_time" value="$!{entity.best_time}" size="20" class="form-control layer-date laydate-icon" size="20" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/></td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>订单附言：</strong></div></td>
+    <td>
+    <textarea id="postscript" name="postscript" class="form-control" rows="5">$!{entity.postscript}</textarea>
+    </td>
+    <td align="right"><strong>商家备注</strong></td>
+    <td>
+    <textarea id="to_buyer" name="to_buyer" class="form-control" rows="5">$!{entity.to_buyer}</textarea>
+    </td>
+  </tr>
+</table>
+                        </div>
+                                                         
+                                 
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox-content p-xl">
+                                <div class="table-responsive m-t">
+                                    <table class="table invoice-table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    商品名称
+                                                </th>
+                                                <th>
+                                                    货号
+                                                </th>
+                                                <th>
+                                                    规格
+                                                </th>
+                                                <th>
+                                                    价格
+                                                </th>
+                                                <th>
+                                                    数量
+                                                </th>
+                                                <th>
+                                                    小计
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         #foreach($row in $ordergoodslist)
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                        <strong>${row.goods_name}</strong>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    ${row.goods_sn}<input name="rec_id" type="hidden" value="${row.rec_id}" />
+                                                </td>
+                                                <td>
+                                                    ${row.goods_attr}
+                                                </td>
+                                                <td>
+                                                     &yen;${row.goods_price}  #*/${row.extension_code}*#
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="old_goods_number" value="${row.goods_number}" />
+                                                    ${row.goods_number}    #*/${row.extension_code}*#
+                                                </td>
+                                                <td>
+                                                    &yen;#set($xj = ${row.goods_price} * ${row.goods_number}) $xj
+                                                </td>
+                                            </tr>
+                                        #end
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /table-responsive -->
+                                <table class="table invoice-total">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <strong>总价：</strong>
+                                            </td>
+                                            <td>
+                                                &yen;$entity.goods_amount
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>商品总金额：</strong>
+                                            </td>
+                                            <td>
+                                                <input type="text" id="goods_amount" name="goods_amount" value="$!{entity.goods_amount}" size="6" class="form-control"/><br />
+    -已付费用&yen;${entity.integral_money}( 折扣算成已付)<br />
+      + 配送费用：<input type="text" id="delivery_fee" name="delivery_fee" value="$!{entity.delivery_fee}" size="6" class="form-control"/><br />
+      
+      -优惠券：&yen;${entity.bonus}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>订单总金额</strong>
+                                            </td>
+                                            <td>
+                                                #set($amount=${entity.goods_amount}-${entity.integral_money}+${entity.delivery_fee}-${entity.bonus})
+                                                &yen; $amount元
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row well">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                             <table class="table">
+  <tr>
+    <th>操作者：</th>
+    <th>操作时间</th>
+    <th>订单状态</th>
+    <th>付款状态</th>
+    <th>发货状态</th>
+    <th>备注</th>
+  </tr>
+  #foreach($row in $orderlogs)
+  <tr>
+    <td>${row.action_user}</td>
+    <td>${row.log_time}</td>
+    <td>
+        #if ($row.order_status == 1)
+    已确认
+    #elseif ($row.order_status == 0)
+    未确认
+    #elseif ($row.order_status == 2)
+    取消
+    #elseif ($row.order_status == 3)
+    已无效
+    #elseif ($row.order_status == 4)
+    已完成
+    #end
+    </td>
+    <td>#if ($row.pay_status == 1)已付款#else未付款#end</td>
+    <td>#if ($row.delivery_status == 1)已发货#else未发货#end</td>
+    <td>${row.action_note}</td>
+  </tr>
+  #end
+  </table>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    #if (!$isajax)
+</div>
+<script type="text/javascript">
+    function OrderState(field, val) {
+        if (val == 4) {
+            if (!confirm("订单完成后不能再进行其它任何操作，确定吗？")) {
+                return false;
+            }
+        }
+
+        Ajax.call('order.aspx?act=order_state&is_ajax=1', 'note=' + escape($('#action_note').val()) + '&field=' + field + '&val=' + val + '&id=$entity.order_id', function (data) {
+            if (data.error > 0) {
+                alert(data.message);
+            }
+            else {
+                $('.order').empty().html(data.content);
+            }
+        }, 'Get', 'json');
+    }
+
+    function OrderReset() {
+        if (!confirm("你确定要重置订单状态吗？")) {
+            return false;
+        }
+        Ajax.call('order.aspx?act=order_reset&is_ajax=1', 'id=$entity.order_id', function (data) {
+            if (data.error > 0) {
+                alert(data.message);
+            }
+            else {
+                $('.order').empty().html(data.content);
+            }
+        }, 'Get', 'json');
+    }
+</script>
+#parse("pagefooter.html") #end

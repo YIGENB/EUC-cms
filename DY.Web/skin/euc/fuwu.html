@@ -1,0 +1,122 @@
+﻿#parse("include/page_head.html")
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+    <div class="sevice_banner">
+        <a href="javascript:;" class="servic_pre"></a><a href="javascript:;" class="servic_next">
+        </a>
+        <div class="service_banimg">
+            <ul class="DB_bgSet">
+                <li style="background: url('/skin/euc/images/ser_bd1.jpg') no-repeat 49% 0">
+                </li>
+
+                <li style="background:url('/skin/euc/images/ser_bd2.jpg') no-repeat 49% 0"></li>
+                <li style="background:url('/skin/euc/images/ser_bd3.jpg') no-repeat 49% 0"></li>
+            </ul>
+            <ul class="DB_imgSet">
+                <li><a href="#" title="">
+                    <img class="DB_1_1" width="820" height="180" alt="" src="images/ser1_move1.png" />
+                    <img class="DB_1_2" width="1100" height="510" alt="" src="images/ser1_move2.png" />
+                </a>
+                </li>
+                <li>
+
+					<a href="#" title="">
+
+            			<img class="DB_2_1" width="820" height="180" alt="" src="images/ser2_move1.png"/>
+
+                		<img class="DB_2_2" width="890" height="500" alt="" src="images/ser2_move2.png"/>
+
+                        <img class="DB_2_3" width="460" height="80" alt="" src="images/ser2_move3.png"/>
+
+            		</a>
+
+				</li>
+                <li>
+
+					<a href="#" title="">
+
+            			<img class="DB_3_1" width="820" height="150" alt="" src="images/ser3_move1.png"/>
+
+                		<img class="DB_3_2" width="820" height="80" alt="" src="images/ser3_move2.png"/>
+
+                        <img class="DB_3_3" width="820" height="342" alt="" src="images/ser3_move3.png"/>
+
+            		</a>
+
+				</li>
+            </ul>
+        </div>
+    </div>
+    <div class="service_cen wd1100">
+        <div class="top">
+            <div class="top_en">
+                SERVICE</div>
+            <div class="top_cn">
+                <span><b>$!{pageinfo.title}-服务流程</b></span></div>
+            <div class="service_wel">
+                $pageinfo.des</div>
+        </div>
+        <div class="service_list">
+            <ul>
+                <li><span class="service_icon service_icon1"></span><span class="service_name">需求沟通</span>
+                    <span class="service_intro">倾听客户需求，了解用户使用环境和操作流程 </span></li>
+                <li><span class="service_icon service_icon2"></span><span class="service_name">项目策划</span>
+                    <span class="service_intro">头脑风景交互情景模拟原型设计 </span></li>
+                <li><span class="service_icon service_icon3"></span><span class="service_name">交互设计</span>
+                    <span class="service_intro">头脑风景交互情景模拟，原型设计 </span></li>
+                <li><span class="service_icon service_icon4"></span><span class="service_name">视觉创意</span>
+                    <span class="service_intro">色彩及平面元素设定，结构和布局规范确认 </span></li>
+                <li><span class="service_icon service_icon5"></span><span class="service_name">前端制作</span>
+                    <span class="service_intro">CSS3、JS、HTML5实现页面的动态展示 </span></li>
+                <li><span class="service_icon service_icon6"></span><span class="service_name">技术开发</span>
+                    <span class="service_intro">移动应用数据对接与开发 </span></li>
+                <li><span class="service_icon service_icon7"></span><span class="service_name">测试反馈</span>
+                    <span class="service_intro">修改调整，规范完善 </span></li>
+            </ul>
+        </div>
+    </div>
+        <!--服务公共浮动-start-->
+    <div class="ser_float">
+        <ul>
+            #foreach($row in $Caches.AllPage($cat_id)) 
+            <li class="ser_cur" data-more="$!cityname$row.title" data-less="$!cityname$row.title"><a href="#PageLink()" title="$!cityname$row.title">$!cityname$row.title</a></li>
+                #end
+        </ul>
+    </div>
+    <!--服务公共浮动-end-->
+    <script src="js/jquery.DB_tabMotionBanner.min.js"></script>
+    <script type="text/javascript">
+
+        $('.sevice_banner').DB_tabMotionBanner({
+
+            key: 'b28551',
+
+            autoRollingTime: 7000,
+
+            bgSpeed: 500,
+
+            motion: {
+
+                DB_1_1: { left: -50, opacity: 0, speed: 1000, delay: 800 },
+
+                DB_1_2: { left: -50, opacity: 0, speed: 1000, delay: 1200 },
+                DB_2_1:{top:-50,opacity:0,speed:1000,delay:800},
+
+		DB_2_2:{left:-50,opacity:0,speed:1000,delay:1200},
+
+		DB_2_3:{top:670,opacity:0,speed:3000,delay:400},
+
+		DB_3_1: { top: 700, opacity: 0, speed: 1000, delay: 800 },
+
+		DB_3_2: { left: -380, opacity: 0, speed: 1000, delay: 1200 },
+
+		DB_3_3: { top: 670, opacity: 0, speed: 3000, delay: 400 },
+                end: null
+
+            }
+
+        })
+
+    </script>
+    <script src="js/common.js"></script>
+    <script src="js/script.js"></script>
+#parse("include/page_foot.html")

@@ -1,0 +1,100 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end职位</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>职位</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">客服类型列表</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!---->
+                <div class="panel-body">
+                    <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                    <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    职位名称：</label>
+                                <div class="col-sm-9">
+                                    <input id="name" name="name" maxlength="50" type="text" class="form-control"
+                                        required="" aria-required="true" value="$!{entity.name}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    部门：</label>
+                                <div class="col-sm-9">
+                      <select name="department_id" onchange="show_type(this);"  class="form-control m-b"  required="" aria-required="true">
+        #foreach($row in $!{departmentlist})
+        <option value="$!{row.department_id}" #if($!{entity.department_id} == $row.department_id)selected#end>$!{row.department_name}</option>
+        #end
+        </select>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    招聘人数：</label>
+                                <div class="col-sm-9">
+                                    <input id="number" name="number" maxlength="50" type="text" class="form-control"
+                                        required="" aria-required="true" value="$SiteUtils.DefaultValue($!{entity.number},0)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    结束日期：</label>
+                                <div class="col-sm-9">
+                                      <input name="en_time"  required="" aria-required="true" type="text" size="22" value='$!{entity.en_time}' readonly="readonly" class="laydate-icon form-control layer-date" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    排序：</label>
+                                <div class="col-sm-9">
+                                  <input id="sort_order"  class="form-control" type="text" name="sort_order" maxlength="10" value="$SiteUtils.DefaultValue($!{entity.sort_order},0)" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    岗位描述：</label>
+                                <div class="col-sm-9">
+                                  <textarea name="content" class="content"  class="form-control" cols="60" rows="5">$!{entity.content}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2 col-sm-offset-2">
+                                    <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-check"></i>提交</button>
+                                    <button class="btn btn-white" type="reset">
+                                        取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")

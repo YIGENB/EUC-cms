@@ -1,0 +1,132 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>购物车 - $config.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="$config.Keywords" />
+    <meta name="Description" content="$config.Desc" />
+    <script src="/skin/new/js/jquery-min-1.7.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/include/js/common.js"></script>
+                <script type="text/javascript" src="/include/js/jquery/jquery.form.js"></script>
+                <script type="text/javascript" src="/include/js/utils.js"></script>
+                <script type="text/javascript" src="/include/js/validator.js"></script>
+                <script>
+                    function Insertly(form, formnae) {
+                        $(form).ajaxSubmit({
+                            beforeSubmit: lyvalidate1,
+                            url: '/submit_inquiry.aspx?act=cartsubmit',
+                            dataType: 'json',
+                            resetForm: false,
+                            success: function (data) {
+                               
+                                    alert("提交成功！");
+
+
+
+                                
+                            }
+                        });
+                        return false;
+                    }
+                    function lyvalidate1(formData, jqForm, options) {
+                        var lyvalidate1 = new Validator("lyForm1");
+
+                 
+                        lyvalidate1.required("tel", "电话不能为空！");
+                        return lyvalidate1.passed();
+                    }
+    </script>
+</head>
+ 
+
+<body>
+
+<form action="/tools/submit_inquiry.aspx?act=cartsubmit" id="lyForm1" method="post" onsubmit="return Insertly(this,'lyForm1')" class="sub">
+ #foreach($row in $cartlist)
+<input name="goods_id" type="checkbox" checked=checked style="display:none;" value="$row.goods_id" />
+<input name="goods_number" type="checkbox" checked=checked style="display:none;" value="$row.goods_number" />
+#end
+<input name="username" type="hidden" value="$username" />
+<input name="userid" type="hidden" value="$userid" />
+
+<table width="98%" border="0" cellpadding="4" cellspacing="2" style="border: 1px dotted #cccdcc;
+        position: relative;" align="left">
+        <tbody>
+        <tr><td colspan="2" align="left" class="black14a">&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+            <tr bgcolor="#FFFFFF">
+                <td colspan="2" align="center" bgcolor="#E4E4E4" class="black14a">
+                    <strong>留言框</strong></td>
+            </tr>
+        
+            <tr bgcolor="#FFFFFF">
+                <td align="center" bgcolor="#ebebeb" class="black14a" style="height: 32px">
+                    您的姓名：</td>
+                <td align="left" style="height: 32px">
+                    <font color="#ff0066">*<input class="textborder" size="16" name="name" id="name"><font class="addFont"></font>
+                    </font>
+                </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+                <td width="24%" align="center" bgcolor="#ebebeb" class="black14a">
+                    您的单位：</td>
+                <td width="76%" align="left" bgcolor="#F7F7F7">
+                    <font color="#ff0066">*<input class="textborder" size="42" name="company" id="company"><font class="addFont"></font>
+                    </font>
+                </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+                <td align="center" bgcolor="#ebebeb" class="black14a">
+                    联系电话：</td>
+                <td align="left" bgcolor="#F7F7F7">
+                    <font color="#ff0066">*<input class="textborder" size="30" name="tel" id="tel"><font class="addFont"></font>
+                    </font>
+                </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+                <td align="center" bgcolor="#ebebeb" class="black14a">
+                    详细地址：</td>
+                <td align="left">
+                    <font color="#000000">
+                        &nbsp;<input class="textborder" size="50" name="address" id="address"><font class="addFont"></font>
+                    </font>
+                </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+                <td align="center" bgcolor="#ebebeb" class="black14a">
+                    常用邮箱：</td>
+                <td align="left" bgcolor="#F7F7F7">
+                    &nbsp;<input class="textborder" size="30" name="email" id="email"><font class="addFont"></font>
+                </td>
+            </tr>
+            <tr align="center" bgcolor="#FFFFFF">
+                <td align="center" bgcolor="#ebebeb" class="black14a">
+                    您的任何要求、<br>意见或建议：</td>
+                <td valign="bottom" class="black14a" align="left">
+                    <font color="#ff0066">*<textarea class="areatext" name="advice" rows="8" cols="65" id="advice"></textarea><font class="addFont"></font></font>
+                </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+                <td align="center" bgcolor="#ebebeb" class="black14a">
+                    验证码：</td>
+                <td align="left" bgcolor="#F7F7F7">
+                   	<input type="text" maxlength="25" value="" name="captcha" id="captcha" class="txt1">
+						<img src="/tools/verifyimagepage.aspx" onclick="this.src='/tools/verifyimagepage.aspx?'+Math.random()" style="vertical-align:bottom;" alt="看不清？点击更换另一个验证码。" /></td>
+            </tr>
+            <tr align="center" bgcolor="#FFFFFF">
+                <td height="40" colspan="2" bgcolor="#F7F7F7">
+                    <font color="#000000">&nbsp; 
+                        <input type="hidden" id="ranNum" value="9642">
+                        <input type="hidden" id="cid" value="221084">
+                        <input type="hidden" id="proID_9642" name="proID_9642" value="0">
+                        <input type="submit" value="提交"  name="ok" id="ok">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="reset" value="重填" name="no" id="no">
+                    </font>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+</body>
+</html>

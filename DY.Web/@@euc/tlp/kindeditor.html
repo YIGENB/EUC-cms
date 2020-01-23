@@ -1,0 +1,115 @@
+﻿    <script src="/include/kindeditor/kindeditor.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/include/kindeditor/lang/zh_CN.js" type="text/javascript" charset="utf-8"></script>
+
+    <script>
+        //不能封装函数
+        KindEditor.ready(function (K) {
+            var editor = K.editor({
+                themeType: "simple",
+                allowFileManager: true
+            });
+
+
+            //上传图片
+            $(document).delegate('.upload_img button.select_img', "click", function (e) {
+                editor.loadPlugin('smimage', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: $(e.target).parent().prev().val(),
+                        clickFn: function (url, title, width, height, border, align) {
+                            $(e.target).parent().prev().val(url);
+                            if ('image-single' == $(e.target).parent().prev().prev().attr('upload')) {
+                                $(e.target).parent().prev().prev().attr('src', url);
+                                //$(e.target).parent().prev().prev().attr('alt', url)
+                            }
+
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+
+            //上传文件
+            $(document).delegate('.upload_file button.select_file', "click", function (e) {
+                editor.loadPlugin('insertfile', function () {
+                    editor.plugin.fileDialog({
+                        fileUrl: $(e.target).parent().prev().val(),
+                        clickFn: function (url, title) {
+
+                            if ('file-single' == $(e.target).parent().prev().attr('upload')) {
+
+                                $(e.target).parent().next("input").val(url);
+
+                                //$(e.target).parent().prev().prev().attr('alt', url)
+                            }
+
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+        });
+        //lbs插件
+        KindEditor.lang({
+            lbs: 'LBS地图'
+        });
+        KindEditor.plugin('lbs', function (K) {
+            var editor = this, name = 'lbs';
+            // 点击图标时执行
+            editor.clickToolbar(name, function () {
+                var lbsmap = "";
+                //lbsmap = '<div style="padding:20px;" ><div id="lbsmap" class="form-group"><div class="ke-dialog-row" ><label for="keWidth" style="width:60px;">lbs地图</label><select  name="" id="lbsxz" ><option value="0">请选择...</option>#foreach($row in $Caches.AllLBS())<option value="http://$!{SiteUtils.GetDomain()}/map/${row.id}$!{html}" >$row.title</option>#end</select>&nbsp;&nbsp;<a href="/admin/lbs.aspx?act=add">新增LBS地图</a></div><div class="ke-dialog-row"><label for="keWidth" style="width:60px;">宽度</label><input type="text" id="keWidth" class="ke-input-text ke-input-number" name="width" value="550" maxlength="4">&nbsp;&nbsp;<select  name="" id="xswidth" ><option value="px">像数</option><option value="%">百分比</option></select></div><div class="ke-dialog-row"><label for="keHeight" style="width:60px;">高度</label><input type="text" id="keHeight" class="ke-input-text ke-input-number" name="height" value="400" maxlength="4">&nbsp;&nbsp;<select  name="" id="xsheight" ><option value="px">像数</option><option value="%">百分比</option></select></div><div>';
+                lbsmap = '<div style="padding:20px;" ><div id="lbsmap" class="form-group"><div class="ke-dialog-row" ><label for="keWidth" style="width:60px;">lbs地图</label><select  name="" id="lbsxz" ><option value="0">请选择...</option>#foreach($row in $Caches.AllLBS())<option value="/map/${row.id}$!{html}" >$row.title</option>#end</select>&nbsp;&nbsp;<a href="/admin/lbs.aspx?act=add">新增LBS地图</a></div><div class="ke-dialog-row"><label for="keWidth" style="width:60px;">宽度</label><input type="text" id="keWidth" class="ke-input-text ke-input-number" name="width" value="550" maxlength="4">&nbsp;&nbsp;<select  name="" id="xswidth" ><option value="px">像数</option><option value="%">百分比</option></select></div><div class="ke-dialog-row"><label for="keHeight" style="width:60px;">高度</label><input type="text" id="keHeight" class="ke-input-text ke-input-number" name="height" value="400" maxlength="4">&nbsp;&nbsp;<select  name="" id="xsheight" ><option value="px">像数</option><option value="%">百分比</option></select></div><div>';
+                var dialog = KindEditor.dialog({
+                    width: 400,
+                    title: 'LBS地图',
+                    body: lbsmap,
+                    closeBtn: {
+                        name: '关闭',
+                        click: function (e) {
+                            dialog.remove();
+                        }
+                    },
+                    yesBtn: {
+                        name: '确定',
+                        click: function (e) {
+                            if ($("#lbsxz").val() != 0) {
+                                var width = $("#keWidth").val(), height = $("#keHeight").val(), xswidth = $("#xswidth").val(), xsheight = $("#xsheight").val();
+                                var html = '<iframe src="' + $("#lbsxz").val() + '"  width=' + width + xswidth + ' height=' + height + xsheight + ' frameborder="no"></iframe>';
+                                editor.insertHtml(html);
+                                dialog.remove();
+                            }
+                            else {
+                                alert("请选择lbs地图！");
+                            }
+
+                        }
+                    },
+                    noBtn: {
+                        name: '取消',
+                        click: function (e) {
+                            dialog.remove();
+                        }
+                    }
+                });
+            });
+        });
+
+        //公用加载编辑器
+        KindEditor.ready(function (K) {
+            editor = K.create('textarea[class="content"]', {
+                filterMode: false, //是否开启过滤模式
+                pasteType: 1,  //是否开启纯文本粘贴
+                afterBlur: function () { this.sync(); }, //同步内容到文本域
+                items: ['source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'lbs', 'pagebreak',
+        'anchor', 'link', 'unlink', '|', 'about']
+            }); //百度地图 'baidumap', 
+        });
+
+    </script>

@@ -1,0 +1,300 @@
+﻿#if (!$isajax)
+
+
+#parse("include/page_head.html")
+<script type="text/javascript" src="/include/js/store.js"></script>
+<script type="text/javascript" src="/include/js/region.js"></script>
+<div id="content">
+    <h4 class="add_title">
+        <a href="/delivery-list.htm" class="enter">管理收货地址</a></h4>
+    <ul class="cart_list" id="cart-content">
+     #set($goods_integral = 0)
+     #set($goods_number = 0)
+    #foreach($row in $cartlist)
+        <li id="cart_item_125">
+            <p class="goods_info">
+                #if($row.goods_img != "")<span class="img"><a href="#GoodsLinkc()">
+                    <img width="80" height="80" src="$row.goods_img"></a></span>
+                    #end
+                    #set($goods_integral = $row.give_integral + $goods_integral)
+                    #set($goods_number = $row.goods_number + $goods_number)
+                    <span class="tit">
+                    <a href="#GoodsLinkc()">$row.goods_name</a><br>
+                        <span>价格:</span><span class="price1">￥$row.goods_price</span><br>
+                        <span>数量:</span><span>$row.goods_number</span><br>
+                            </span>
+                            </p>
+            <p class="buy_info">
+                <span class="total"><span>小计:</span><span id="item125_subtotal" class="price2">#set($xj = ${row.goods_price} * ${row.goods_number}) ￥$xj</span></span></p>
+        </li>
+        #end
+    </ul>
+    <div class="order_address_list">
+        <h4 class="add_title">
+            收货人地址</h4>
+        <script type="text/javascript">
+        $(function(){
+       	$('#order_form').validate({
+       		errorPlacement: function(error, element){
+       			$(element).next("label").append(error);
+       		},
+       		success       : function(label){
+       			//label.addClass('validate_right').text('OK!');
+       		},
+       		onsubmit:true,// 是否在提交是验证
+       		onkeyup : false,
+       		rules : {
+       			consignee : {
+       				required : true,
+       			},
+       			address : {
+       				required : true
+       			},
+
+       		},
+       		messages : {
+       			consignee : {
+       				required : '您必须提供一个用户名',
+       				remote   : '用户名不存在！'
+       			},
+       			address  : {
+       				required : '请如实填写收货人详细地址'
+       			}
+       		}
+       	});
+       });
+        </script>
+            <script type="text/javascript" language="javascript">
+                var screenClass = function () {
+                    /// 解锁
+                    this.unlock = function () {
+                        var divLock = document.getElementById("divLock");
+                        if (divLock == null) return;
+                        document.body.removeChild(divLock);
+                    };
+
+                    /// 锁屏
+                    this.lock = function () {
+                        var sWidth, sHeight;
+                        var imgPath = "Images/WaitProcess.gif";
+                        sWidth = screen.width - 20;
+                        sHeight = screen.height - 170;
+
+                        var bgObj = document.createElement("div");
+                        bgObj.setAttribute("id", "divLock");
+                        bgObj.style.position = "absolute";
+                        bgObj.style.top = "0";
+                        bgObj.style.background = "#cccccc";
+                        bgObj.style.filter = "progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
+                        bgObj.style.opacity = "0.6";
+                        bgObj.style.left = "0";
+                        bgObj.style.width = sWidth + "px";
+                        bgObj.style.height = sHeight + "px";
+                        bgObj.style.zIndex = "100";
+                        document.body.appendChild(bgObj);
+                        var html = "<table border=\"0\" width=\"" + sWidth + "\" height=\"" + sHeight + "\"><tr><td valign=\"middle\" align=\"center\"><image src=\"" + imgPath + "\"></td></tr></table>";
+                        bgObj.innerHTML = html;
+                        // 解锁
+                        bgObj.onclick = function () {
+                            //new screenClass().unlock();
+                        }
+                    };
+                }
+    </script>
+
+
+
+        <script>            
+        $(function () {
+
+                $('input[name=address_options]').change(function () {
+                    if ($(this).val() == 0) {
+                        $('#address_form').show();
+                    } else {
+                        $('#address_form').hide();
+                        $("#delivery_address_id").val($(this).val());
+                    }
+                });
+                set_address();
+            })
+
+            function set_address() {
+                var addr_id = $("input[name='address_options']:checked").val();
+                if (addr_id == 0) {
+                    $('#address_form').show();
+                }
+                else {
+                    $('#address_form').hide();
+                    $("#delivery_address_id").val(addr_id);
+                }
+            }
+
+            function ordertj() {
+                var addr_id = $("input[name='address_options']:checked").val();
+                if (addr_id == 0) {
+                    var consignee = jQuery.trim($('#consignee').val());
+                    var address = jQuery.trim($('#address').val());
+                    var phone_mob = jQuery.trim($('#mobile').val());
+
+                    if (consignee == '') {
+                        alert('请输入收货人姓名');
+                        return false;
+                    }
+
+                    if (address == '') {
+                        alert('请输入详细地址');
+                        return false;
+                    }
+                    if (phone_mob == '') {
+                        alert('请输入手机号码');
+                        return false;
+                    }
+                    if (isNaN(phone_mob)) {
+                        alert('请输入正确的手机号码'); return false;
+                    }
+                    sunmitDevlicery();
+                }
+                else {
+                    $('#orders').submit();
+                }
+            }
+
+            var sunmitDevlicery = function () {
+                jQuery.ajax({
+                    url: "/delivery-add.htm",   // 提交的页面
+                    data: $('#order_form').serialize(), // 从表单中获取数据
+                    type: "POST",                   // 设置请求类型为"POST"，默认为"GET"
+                    beforeSend: function ()          // 设置表单提交前方法
+                    {
+                        new screenClass().lock();
+                    },
+                    error: function (request) {      // 设置表单提交出错
+                        new screenClass().unlock();
+                        alert("表单提交出错，请稍候再试");
+                    },
+                    success: function (data) {
+                        new screenClass().unlock(); // 设置表单提交完成使用方法
+                        location.reload();
+                    }
+                });
+                return false;
+            }
+        </script>
+        <form name="order_form" id="order_form">
+         #foreach($row in $delivery_list)
+        <ul class="receive_add address_item selected_address">
+            <li class="radio"><input type="radio" value="$row.id" name="address_options" checked="checked"></li>
+                <li class="particular">[$SystemConfig.GetRegionNameById($row.country) 
+    $SystemConfig.GetRegionNameById($row.province) 
+    $SystemConfig.GetRegionNameById($row.city) 
+    $SystemConfig.GetRegionNameById($row.district)] $row.address</li><li class="name">收货人姓名:  $!{row.consignee}</li>
+                <li class="mobile">手机号码:$row.mobile</li>
+       </ul>
+       #end
+        <ul class="new_receive_add address_item">
+            <li class="radio">
+                <input type="radio" value="0" id="use_new_address" name="address_options"></li><li
+                    class="particular">使用新的收货地址</li></ul>
+        <ul id="address_form" class="fill_in_content">
+            <li>
+                <p class="title">
+                    收货人姓名</p>
+                <p>
+                    <input type="text" class="text" id="consignee" name="consignee"></p>
+            </li>
+            <li>
+                <p class="title">
+                    所在地区</p>
+                <p>
+                </p>
+                <div id="region">
+                    <select name="province" id="selCities_0" onchange="region.changed(this, 2, 'selDistricts_0')">
+                            <option value="0">请选择省</option>
+                            #foreach($row in $SystemConfig.GetRegion(1,434))
+                            <option value="$!{row.region_id}" #if($!{entity.province}==$!{row.region_id}) selected="selected" #end>$!{row.region_name}</option>
+                            #end
+                        </select>
+                        <select name="city" id="selDistricts_0" onchange="region.changed(this, 3, 'selDistrict_1')">
+                            <option value="0">请选择市</option>
+                        </select>
+                       <select name="district" id="selDistrict_1">
+                            <option value="0">请选择区县</option>
+                        </select>     
+                </div>
+                <p>
+                </p>
+            </li>
+            <li>
+                <p class="title">
+                    详细地址</p>
+                <p>
+                    <input type="text" class="text width1" id="address" name="address"></p>
+            </li>
+            <li>
+                <p class="title">
+                    手机号码</p>
+                <p>
+                    <input type="text" class="text" name="mobile" id="mobile"></p>
+            </li>
+            <li>
+                <p class="title">
+                    &nbsp;</p>
+                <p>
+                    <a class="btn enter" name="save_address" id="save_address" onclick="ordertj();">提交</a></p>
+            </li>
+        </ul>
+        </form>
+    </div>
+    <form method="post" action="?act=creat_order" id="orders" onsubmit="return store.checkOrderForm(this)">
+    <div class="order_delivery">
+             #foreach($row in $shipping_list)
+             
+                 <input type="radio" name="shipping" value="${row.pay_id}" />
+                   ${row.delivery_name}#if(!$show_delivery_fee)<i>[+￥${row.delivery_price}元]</i>#end
+                    <br />
+               
+                  #end
+    </div>
+    <div class="order_delivery">
+     #foreach($row in $payment_list)
+             
+                 <input type="radio" name="payment" value="${row.pay_id}" />
+                   ${row.pay_name}
+                    <br />
+               
+                  #end
+    </div>
+    <div class="message_box">
+        <span class="add_title">给卖家的附言</span><div class="message">
+            <textarea onclick="postscript_activation(this);" id="postscript">选填，可以告诉卖家您对商品的特殊需求，如颜色、尺码等</textarea></div>
+    </div>
+        <div class="message_box">
+        <span class="add_title">优惠券号码</span><div class="message">
+            <input type="text" name="bonus_sn" id="bonus_sn" /> <input type="button" value="验证" onclick="store.ValidataBonus()" style=" border:1px #7f9db9 solid; padding:0px 5px; font-size:12px; background:#fff;" />
+            <br /> <span id="bonus-tip">请输入您的优惠券号码，每个订单只能使用一张优惠券</span></div>
+    </div>
+    <div class="make_sure">
+        <p class="order_amount">
+                    <font>
+                        商品总价：￥#if($discount > 0 && $isajax)#set($goods_amount = $goods_amount - $discount)#end$goods_amount
+                   + 配送费用：￥$delivery_fee<span id="fpxx" style="display:none">+发票：￥#set($fp=$goods_amount*$config.goods_fp/100)$fp</span> - 优惠券：￥$bonus<br />
+                   = 订单总金额：<span class="price" id="p1">￥#set($order_amount=$goods_amount + $delivery_fee - $bonus) $order_amount</span>
+            </font>
+            订单总价:<strong id="order_amount" class="fontsize3">¥<font id="order_amount2">
+            $order_amount
+            </font></strong></p>
+        <div>
+            <font id="order_amount2">
+            <a class="btn enter" onclick="ordertj();">下单完成并支付</a>
+            <a class="back" href="/cart.htm">返回购物车</a></font></div>
+    </div>
+    <font id="order_amount2">
+    <input type="hidden" name="delivery_fee" id="delivery_fee" value="$delivery_fee" />
+    <input type="hidden" name="bonus" id="bonus" value="$bonus" />
+        <input type="hidden" id="delivery_address_id" name="delivery_address_id">
+        <input type="hidden" id="summoney" name="summoney" value="$order_amount" />
+        </font>
+        </form>
+        </div>
+    #parse("include/page_foot.html")
+#end

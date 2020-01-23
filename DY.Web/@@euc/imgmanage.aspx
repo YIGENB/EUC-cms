@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="imgmanage.aspx.cs" Inherits="DY.Web.admin.imgmanage" %>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>$config.Name订阅源</title>
+    <description>$config.Name</description>
+    <link><![CDATA[http://$SiteUtils.GetDomain()]]></link>
+    <copyright>Copyright © $config.Copyright</copyright>
+    <language>zh-cn</language>
+    <generator><![CDATA[$SiteUtils.GetDomain()]]></generator>
+    #foreach($row in $Caches.NewNews(100))
+    <item>
+      <title>$row.title</title>
+      <link><![CDATA[http://$SiteUtils.GetDomain()#CMSLink()]]></link>
+      <author><![CDATA[$SiteUtils.GetDomain()]]></author>
+      <pubDate>$row.showtime.tostring("yyyy-MM-dd hh:mm:ss")</pubDate>
+      <description>#if($row.des=="") $SiteUtils.GetTopic($SiteUtils.NoHTML($row.content),500) #else $row.des #end</description>
+    </item>
+    #end
+  </channel>
+</rss>

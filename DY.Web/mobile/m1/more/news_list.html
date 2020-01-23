@@ -1,0 +1,12 @@
+﻿#foreach($row in $list) #set($index=$velocityCount+1)
+<li class="active"><a href="#CMSLink()" title="$row.title">
+    <div class="js_gotoNewsDetail" data-id="143">
+        <h3 class="newsTitle">
+            <em class="icon"></em><span class="name">$row.title </span>
+        </h3>
+        <p class="time">
+            $row.showtime.tostring("yyyy-MM-dd hh:mm")
+        </p>
+    </div>
+</a></li>
+#end

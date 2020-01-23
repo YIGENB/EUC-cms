@@ -1,0 +1,159 @@
+﻿<section class="menbindex_nav">
+                                <ul>
+                                    <li>
+                                     <!--   <i class="navpic1"></i> -->
+                                        <a href="order_list">
+											 <p class="title-info c-black font-size-12">全部订单</p>
+										</a>
+                                    </li>
+                                    <li>
+                                    <!--    <i class="navpic2"></i> -->
+                                        <a href="/user.aspx?act=order_list&pay_status=0">
+											<p class="title-info c-black font-size-12">待付款</p>
+										</a>
+                                    </li>
+                                    <li>
+                                    <!--    <i class="navpic3"></i> -->
+                                        <a href="/user.aspx?act=order_list&delivery_status=1">
+											<p class="title-info c-black font-size-12">已发货</p>
+										</a>
+                                    </li>
+                                    <li>
+                                     <!--   <i class="navpic4"></i> -->
+                                        <a href="/user.aspx?act=order_list&order_status=4">
+											<p class="title-info c-black font-size-12">已完成</p>
+										</a>
+                                    </li>
+                                </ul>
+                            </section>
+<section class="menbindex_list">
+                                <ul>
+                                                                        <li><a href="center" class="colred link icon-user"><p>分销中心</p></a> <b></b></li>
+                                                                        <li><a href="sign" class="link icon-promocode"><p>我的积分</p></a> <b></b></li>
+                                                                        <li><a href="coupon.htm" class="link icon-coupon">我的优惠券</a> <b></b></li>
+                                                                    <!--<li><a href="/index.php?m=Shop&c=User&a=balance_recharge&sid=130">账户充值</a> <b></b></li>
+                                                                    <li><a href="/index.php?m=Shop&c=User&a=recharge_list&sid=130">充值记录</a> <b></b></li>
+                                                                   <li><a href="/User/balance_tx/sid/12/pid/35982.html">余额提现</a> <b></b></li>-->
+                                </ul>
+                            </section>
+<section class="menbindex_list">
+                                <ul>
+                                   <!-- <li><a href="/index.php?m=Shop&amp;c=Order&amp;a=lists&amp;sid=130&amp;type=1" class="link icon-membercard">已付款订单</a> <b></b></li>
+                                    <li><a href="/index.php?m=Shop&amp;c=Order&amp;a=comment_list&amp;sid=130" class="link icon-present">待评价商品</a> <b></b></li>-->
+                                    <li><a href="favorites.htm" class="link icon-gift">已收藏商品</a> <b></b></li>
+                                </ul>
+                            </section>
+<!--<section class="menbindex_list">
+                                <ul>
+                                    <li><a href="/index.php?m=Shop&amp;c=User&amp;a=point_exchange&amp;sid=130" class="link icon-membercard">积分兑换商品</a> <b></b></li>
+                                    <li><a href="/index.php?m=Shop&amp;c=User&amp;a=point_order&amp;sid=130" class="link icon-present">积分兑换商品订单</a> <b></b></li>
+                                </ul>
+                            </section>-->
+<section class="menbindex_list">
+                                <ul>
+                                   <li><a href="profile" class="link icon-order">修改资料</a> <b></b></li>
+                                     <li><a href="password">修改密码</a> <b></b></li> 
+                                    <li><a href="/delivery-list.htm" class="link icon-promocode">地址管理</a> <b></b></li>
+                                    <li><a href="/User/account/sid/12/pid/35917.html">账号绑定</a> <b></b></li                               
+                                </ul>
+                            </section>
+<!--<section class="menbindex_list">
+                                <ul>
+                                    <li><a href="/index.php?m=Shop&amp;c=User&amp;a=coupon&amp;sid=130" class="link icon-coupon">优惠券兑换</a> <b></b></li>
+                                    <li><a href="/index.php?m=Shop&amp;c=User&amp;a=rank&amp;sid=130" class="link icon-love">会员等级与特权</a> <b></b></li>
+                                    <li><a href="/index.php?m=Shop&amp;c=Activity&amp;a=index&amp;sid=130" class="link icon-user">会员互动</a> <b></b></li>
+                                </ul>
+                            </section>-->
+<section class="menbindex_list">
+                                    <div style="margin:10px auto 0px; text-align:center;">
+                                        <img width="200" src="http://qr.liantu.com/api.php?text=http://$!{SiteUtils.GetDomain()}/user.aspx?act=account%26puid=$userid%26dlevel=$!{userinfo.distribution_level}">
+                                    </div>
+                                </section>
+<section class="mlogin_but" style="margin-top: 30px;">
+							<a href="javascript:;" id="logout">退出登录</a>                            </section>
+<script type="text/javascript">
+    var t = $("#right-icon"),
+                n = t.find(".js-show-more-btn"),
+                e = +t.data("count") + 1;
+    $("body").on("click", ".js-show-more-btn", function () {
+        t.hasClass("show") ? t.removeClass("show").removeAttr("style") : t.addClass("show").css("width", 50 * e)
+    });
+</script>
+<style>
+    .members_bottom
+    {
+        font-family: "微软雅黑";
+        font-size: 12px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        var t = $(".js-navmenu"),
+                n = t.find(".js-nav-pop");
+        if (t.length) {
+            var e = {
+                showSubmenu: function (t) {
+                    var n = $(t.target),
+                            e = n.parents(".nav-item"),
+                            o = n.hasClass(".js-mainmenu") ? n : e.find(".js-mainmenu"),
+                            i = e.find(".js-submenu"),
+                            a = i.find(".arrow"),
+                            s = n.parents(".js-navmenu"),
+                            r = s.find(".nav-item");
+                    i.css("opacity", "0").toggle();
+                    var c = r.length,
+                            d = r.index(e),
+                            l = o.outerWidth(),
+                            u = (i.outerWidth() - o.outerWidth()) / 2,
+                            h = i.outerWidth() / 2;
+                    if (0 === i.size())
+                        $(".js-submenu:visible").hide();
+                    else {
+                        var f = i.outerWidth(),
+                                w = e.outerWidth(),
+                                p = "auto",
+                                v = "auto",
+                                m = "auto",
+                                g = "auto";
+                        0 === d ? (p = o.position().left - u, v = h - a.outerWidth() / 2) : d === c - 1 && f > w ? (m = 8, g = l / 2 - m) : (p = o.position().left - u, v = h - a.outerWidth() / 2);
+                        var b = 5;
+                        0 > p && (v = v + p + b, p = b),
+                                0 > m && (g = g + m + b, m = b),
+                                i.css({
+                                    left: p,
+                                    right: m
+                                }),
+                        a.css({
+                            left: v,
+                            right: g
+                        }),
+                        $(".js-submenu:visible").not(i).hide(),
+                                i.css("opacity", "1")
+                    }
+                }
+            };
+            $("body").on("click", ".js-mainmenu", function (t) {
+                e.showSubmenu(t)
+            });
+
+        }
+
+        $('#logout').one("click", function () {
+            jQuery.ajax({
+                url: "/login/logout",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.error == 0) {
+                        jQuery.Error(data.message);
+                        window.location = "/user/login$html";
+                    } else {
+                        jQuery.Error(data.message)
+
+                    }
+                }
+            });
+        });
+
+    });
+</script>

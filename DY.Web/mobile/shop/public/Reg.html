@@ -1,0 +1,79 @@
+﻿#parse("include/page_head.html")
+<script type="text/javascript" src="/include/js/common.js"></script>
+<script type="text/javascript" src="/include/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="/include/js/utils.js"></script>
+<script type="text/javascript" src="/include/js/validator.js"></script>
+<script>
+    function Insertfeedbooktoo(form, formnae) {
+        $(form).ajaxSubmit({
+            beforeSubmit: validatetoo,
+            url: '/login.aspx?act=RegCheck',
+            dataType: 'json',
+
+            success: function (data) {
+                if (data.error == 1) {
+                     jQuery.Error(data.message);
+                }
+                else {
+                    jQuery.Error(data.message);
+                     window.location.href = "/user/account$html";
+                }
+            }
+        });
+        return false;
+    }
+    function validatetoo(formData, jqForm, options) {
+        var validator = new Validator("register_form");
+        validator.isMobile("username", "请输入手机号码", true);
+        validator.required("password", "请输入用户密码");
+        validator.required("vcode", "请输入手验证码");
+        validator.required("password_confirm", "确认密码不能为空");
+        validator.eqaul("password", "password_confirm", "密码与确认密码不一致"); //isMobile
+        validator.isEmail("email", "邮件地址格式错误", true);
+        //validator.isMobile("user_photo", "手机号码错误", true);
+        return validator.passed();
+    }
+</script>
+<style type="text/css">
+    .ContentsBox .LoginUserBoxBg input
+    {
+        height: 16px;
+        line-height: 16px;
+    }
+    .ContentsBox input.LoginButton2
+    {
+        height: 29px;
+    }
+    .ContentsBox #captchaTip
+    {
+        width: 250px;
+        height: 20px;
+        position: relative;
+        margin-top: 8px;
+    }
+</style>
+<div id="content">
+    <form name="register_form" id="register_form" method="post" action="/login.aspx?act=RegCheck" autocomplete="off" onsubmit="return Insertfeedbooktoo(this,'register_form')">
+    <input id="username" name="username" placeholder="手机号" class="text width10" type="text">
+    <label id="checking_user" class="checking"></label>
+    <input name="code" placeholder="填写验证码" class="text width10" type="text" id="vcode">
+        <input id="send" type="button" value="获取验证码" style="width:auto;" class="setpwd_but"  onclick="sendsms('username','您正在注册会员，')"/>
+        <input id="password" name="password" placeholder="密&nbsp;&nbsp;&nbsp;码" class="text width10" type="password">
+        <input name="password_confirm" id="password_confirm" placeholder="确认密码" class="text width10" type="password">
+        <input name="email" id="email" placeholder="电子邮箱" class="text width10" type="text">
+                    #if ($config.CaptchaReg)<!--<input type="text" class="yhm" name="captcha" style="color: #666;
+                font-size: 20px; vertical-align: middle;" />
+            <img src="/tools/verifyimagepage.aspx" class="captcha" style="vertical-align: middle;" /><a
+                href="javascript:ReloadCaptcha();">看不清？</a>-->
+                
+                #end<br />
+         <input name="Submit" value="立即注册" class="login_btn" title="立即注册" type="submit">
+         <input name="puid" value="$puid" type="hidden"/>
+         <input name="dlevel" value="$dlevel" type="hidden"/>
+     </form>
+         <div class="login_right">
+        <h4>
+            如果您已是会员，请<a href="/login.aspx?act=login" title="立即登录">立即登录</a></h4>
+    </div>
+</div>
+#parse("include/page_foot.html")

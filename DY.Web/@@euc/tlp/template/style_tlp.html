@@ -1,0 +1,85 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            网站模板列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>网站模板</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+                该功能只能设置手机网站风格，更改风格之后请重启进程池或重启主机生效！
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                #if($userid==0)
+                    <div class="">
+                        <a href="mstyle.aspx?act=add" class="btn btn-primary ">添加新风格</a>
+                    </div>
+                    #end
+                    <form method="post" action="" name="listForm" id="listForm" onsubmit="updateStyle()">
+                    <div id="listDiv" class="ibox-content">
+                        <div class="row">
+                            #foreach($row in $list) #set($index=$velocityCount+1)
+                         <div class="col-lg-3">
+                            <div class="contact-box">
+                                    <div class="col-sm-4">
+                                        <div class="text-center">
+                                            <img alt="image" class="m-t-xs img-responsive" src="$row.style_img">
+                                            <div class="m-t-xs font-bold">$row.style_name</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <p><label class="checkbox-inline i-checks"><input type="radio" #if($row.is_checked) checked="checked" #end  value="$row.id" name="is_checked">默认风格</label></p>
+                                        <address>
+                                
+                                #if($row.is_sign)<a href="mstyle.aspx?act=edit&id=$row.id" class="btn btn-default btn-xs">编辑</a><br>
+                                #elseif($userid==0)<a href="mstyle.aspx?act=edit&id=$row.id" class="btn btn-default btn-xs">编辑</a><br />#end
+                                $row.des
+                            </address>
+                                    </div>
+                                    <div class="clearfix"></div>
+                            </div>
+                        </div>
+#end
+
+                        </div>
+<!--                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                                <button class="btn btn-white" type="reset">
+                                    取消</button>
+                            </div>
+                        </div>-->
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="JavaScript">
+    $(function () {
+        $('.i-checks').on('ifChecked', function (event) {
+            var id = $(event.target).val();
+            Ajax.call('tlp.aspx?act=color', { checked_id: id }, function (data) {
+                alert_toastr(data.message, "提示", 1, "toast-top-full-width");
+                //alert_gritter("提示", data.message, 500);
+            }, 'POST', 'json');
+        });
+    });
+
+</script>
+#parse("pagefooter.html")

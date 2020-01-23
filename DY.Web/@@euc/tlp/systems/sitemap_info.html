@@ -1,0 +1,24 @@
+﻿#parse("pageheader.html")
+<h1>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">站点地图</label> </span>
+<div style="clear:both"></div>
+</h1><form method="POST" name="theForm">
+<div class="main-div">
+<p style="padding: 0 10px">Sitemaps 服务旨在使用 Feed 文件 sitemap.xml 通知 Google、Yahoo! 以及 Microsoft 等 Crawler(爬虫)网站上哪些文件需要索引、这些文件的最后修订时间、更改频度、文件位置、相对优先索引权，这些信息将帮助他们建立索引范围和索引的行为习惯。详细信息请查看 <a href="http://www.sitemaps.org/" target="_blank">sitemaps.org</a> 网站上的说明。</p>
+</div>
+<div class="main-div">
+<table width="100%">
+<ad:if test="{$sitemap is 1}">
+<tr>
+    <td class="label">查看生成的网站地图文件</td>
+    <td><a href="/sitemap.htm" target="_blank">sitemap.htm</a></td>
+</tr>
+</ad:if>
+<tr>
+    <td></td>
+    <td><input type="submit" value="点这里更新网站地图" class="button" /></td>
+</tr>
+</table>
+</div>
+</form>
+#parse("pagefooter.html")

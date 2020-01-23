@@ -1,0 +1,78 @@
+﻿    <div class="blog_r fr">
+                <div class="search">
+                <input type="text" class="shuru" onblur="if(this.value==''){this.value='请输入搜索内容'}" name="keyword" value="请输入搜索内容" id="seachkeywords" onclick="this.value=''" onkeypress="EnterPress(event)" onkeydown="EnterPress()"/>
+                <input name="搜索" type="button" class="so" value="搜 索" id="seachsubmit" />
+                </div>
+                #*<div class="blog_Rask">
+                    <span class="blog_dif">【易优创与众不同】</span>凭借对设计的热爱和执着，互联网营销趋势的敏锐洞察和深刻理解，与众多同行不同的是，易优创更注重与客户互促共生，价值同在。
+                </div>
+                <div class="blog_Rcont">
+                    所有内容若需转载请<a href="/page/contact$!{html}" title="联系我们">联系我们。</a></div>*#
+
+                <div class="blog_Rbox">
+                    <div class="blog_Rtop">
+                        <h3>
+                            文章分类</h3>
+                    </div>
+                    <div class="blog_chnal">
+                        <ul>
+                             #foreach($row in $Caches.NewsCat($cat_id)) 
+                            <li #if($row.cat_id==$this_id)class="cat_on"#end><a href="#CMSCatLink()" title="$row.cat_name">$row.cat_name<!--<span>(26)</span>--></a></li>
+                            #end
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog_Rbox">
+                    <div class="blog_Rtop">
+                        <h3>
+                            推荐文章</h3>
+                    </div>
+                    <div class="blog_hot">
+                        <ul>
+                            #foreach($row in $Caches.BestNews(6,5))
+                            <li><a href="#CMSLink()" title="$row.title">$row.title<span></span></a></li>
+                            #end
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog_Rbox">
+                    <div class="blog_Rtop">
+                        <h3>
+                            最新文章</h3>
+                    </div>
+                    <div class="blog_hot">
+                        <ul>
+                            #foreach($row in $Caches.NewNews(6,$!{cat_id}))
+                            <li><a href="#CMSLink()" title="$row.title">$row.title<span></span></a></li>
+                            #end
+                        </ul>
+                    </div>
+                </div>
+</div>
+        <script type="text/javascript">
+            $(function () {
+                $("#seachsubmit").click(function () {
+                    var text = $("#seachkeywords").val().trim();
+                    if (text == "" || text == "请输入搜索内容") { alert("请输入搜索内容"); return };
+                    location.href = "/search/" + encodeURIComponent(stripscript(text)) + "$!{html}";
+                })
+
+            })
+
+            function EnterPress(e) {
+                //var e = e || window.event;
+                if (e.keyCode == 13) {
+                    var text = $("#seachkeywords").val().trim();
+                    if (text == "" || text == "请输入搜索内容") { return };
+                    location.href = "/search/" + encodeURIComponent(stripscript(text)) + "$!{html}";
+                }
+            }
+            function stripscript(s) {
+                var pattern = new RegExp("[`~!@#$^&*()<>《》‘’=|{}':;',\\[\\].<>/?~！@#￥……&*（）&mdash;—|{}【】‘；：”“'。，、？]");
+                var rs = "";
+                for (var i = 0; i < s.length; i++) {
+                    rs = rs + s.substr(i, 1).replace(pattern, '');
+                }
+                return rs;
+            }
+</script>

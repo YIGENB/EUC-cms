@@ -1,0 +1,78 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+             内部链接列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong> 内部链接列表</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加内部链接</a>
+                    </div>
+                    #end
+                    <form method="post" action="" name="listForm" id="listForm">
+                    <div id="listDiv" class="ibox-content">
+                    
+                                      <table cellpadding="3" cellspacing="1" class="table table-striped table-bordered table-hover">
+  <tr class="list_tr">
+    <th>$SiteUtils.GetSortImg("title","链接名称")</th>
+    <th>$SiteUtils.GetSortImg("link","链接地址")</th>
+    <th>$SiteUtils.GetSortImg("frequency","重复次数")</th>
+    <th>$SiteUtils.GetSortImg("remark","备注")</th>
+    <th>$SiteUtils.GetSortImg("is_enable","是否有效")</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+    <tr >
+    <td>
+    <span onclick="javascript:listTable.edit(this, 'title', ${row.ID})">${row.title}</span>
+    </td>
+    <td><span onclick="javascript:listTable.edit(this, 'link', ${row.ID})">${row.link}</span></td>
+    <td><span>${row.frequency}</span></td>
+    <td><span>${row.remark}</span></td>
+    <td><img src="images/${row.is_enable}.gif" onclick="listTable.toggle(this, 'is_enable', ${row.ID})" /></td>
+    <td><span>  
+      <a href="?act=edit&id=${row.ID}" title="修改">修改</a>
+      <a href="javascript:;" onclick="listTable.remove(${row.ID}, '您确认要删除这条记录吗?')" title="删除">删除</a></span>
+    </td>
+  </tr>
+  #end
+</table>
+                        <!-- 分页 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info">
+                                    <!--<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选"
+                                        class="selectall" />--></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    ${pager}
+                                </div>
+                            </div>
+                        </div>
+                   
+                      
+                    </div>
+                    </form>
+                    #if (!$isajax)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")
+#end

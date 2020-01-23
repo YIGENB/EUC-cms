@@ -1,0 +1,48 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+<div class="content">
+    <div class="container no-bottom">
+        <h3>$goodsinfo.goods_name</h3>
+
+<div class="slider-container">
+    <div class="homepage-slider" data-snap-ignore="true">      
+        #foreach($row in $Goods.GetGoodsGalleryList($goodsinfo.goods_id))
+        <div>
+
+            <a title="$goodsinfo.goods_name" href="$row.original_img" class="swipebox"><img alt="img" class="responsive-image" src="$row.original_img"></a>
+        </div>
+
+        #end
+    </div>
+    <div class="homepage-slider-controls">
+        <a href="#" class="next-home"></a>
+        <a href="#" class="prev-home"></a>
+    </div>
+</div>
+
+        <!--<div class="one-half-responsive">
+            <div class="sliding-door">
+                <div class="sliding-door-top">
+                    <a href="#"><em></em>
+                        摘要
+                    </a>
+                </div>    
+                <div class="sliding-door-bottom">
+                    <a href="javascript:;"><em></em>
+                        $SiteUtils.GetTopic($cmsinfo.des,142)
+                    </a>
+                </div>
+            </div>
+            <div class="sliding-door-clear"></div>
+        </div>-->
+    <p>
+        $goodsinfo.goods_content
+    </p>
+        <div class="clear"></div>
+    </div>
+    <div class="decoration"></div>
+</div>
+#end
+#parse("include/page_foot.html")

@@ -1,0 +1,74 @@
+﻿#parse("include/page_head.html")
+<link href="css/login.css" rel="stylesheet" type="text/css" />
+<div class="zong_ny">
+	<div class="main">
+        <div class="cun_ny">
+            <script type="text/javascript" src="/include/js/common.js"></script>
+<script type="text/javascript" src="/include/js/jquery/jquery.form.js"></script>
+
+<script type="text/javascript" src="/include/js/utils.js"></script>
+<script type="text/javascript" src="/include/js/validator.js"></script>
+        <script>
+            function Insertfeedbook1(form, formnae) {
+                $(form).ajaxSubmit({
+                    beforeSubmit: validate1,
+                    url: '/login.aspx?act=login',
+                    dataType: 'json',
+                    resetForm: true,
+                    success: function (data) {
+                        if (data.error == 1) {
+                            alert(data.message);
+                        }
+                        else {
+                            alert(data.message);
+
+                        
+
+                        }
+                    }
+                });
+                return false;
+            }
+            function validate1(formData, jqForm, options) {
+                var validator1 = new Validator("loginForm1");
+                validator1.required("username", "请输入用户名");
+                validator1.required("password", "请输入用户密码");
+                return validator1.passed();
+            }
+
+</script>
+         <form id="loginForm1" method="post" action="/login.aspx?act=login" onsubmit="return Insertfeedbook1(this,'loginForm1')">
+        
+        	<div class="delu">
+                <div class="account_nr">
+                    <h1>用户名</h1>
+                    <input id="username" name="username" type="text" name="tradingPlatformAccountName" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;">
+                </div>
+                <div class="account_nr">
+                    <h1>密码</h1>
+                    <input id="password" name="password" type="password" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;">
+                </div>
+                <h2><a href="/login/forget.htm">忘记密码？</a>
+                  #foreach($row in $Caches.GetConfigOAuths())
+
+    #if(${row.name}=="qzone"||${row.name}=="sina")
+    <a href="/api/oauth_login.aspx?oauth=${row.name}" class="ico ${row.name}">
+  
+     <span></span>
+    
+      
+        </a>
+ #end
+   #end    
+    <a href="/api/oauth_login.aspx?oauth=weixin" class="weixin">
+     <span></span>
+        </a>
+                </h2>
+                <button type="submit" value="">登&nbsp;&nbsp;&nbsp;陆 </button> 
+            </div>        
+            </form>    
+        </div>           
+    </div>
+</div>
+<div style=" clear:both;"></div>
+#parse("include/page_foot.html")

@@ -1,0 +1,107 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+#TreeFile()
+    <script type="text/javascript">
+        //列表生成
+        $(function () {
+            $("#maingrid").ligerGrid({
+                columns: [
+                  { display: '功能名称', name: 'name', width: '15%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                      var showhtml = "listTable.edit(this, 'name'," + rowdata.id + ")";
+                      var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.name + '</span>';
+                      return isshow;
+                  }
+                  },
+                 { display: '功能代码', name: 'code', width: '15%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'code'," + rowdata.id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.code + '</span>';
+                     return isshow;
+                 }
+                 },
+                 { display: 'type', name: 'type', width: '10%', align: 'left', editor: { type: 'text' }
+                 },
+                 { display: '提示文字', name: 'tip', width: '10%', align: 'left', editor: { type: 'text' }
+                 },
+                 { display: '大小', name: 'value', width: '5%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'size'," + rowdata.id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.size + '</span>';
+                     return isshow;
+                 }
+                 },
+                 { display: '选择按钮文字', name: 'store_range', width: '8%', align: 'left', editor: { type: 'text' }
+                 },
+
+                 { display: '值', name: 'value', width: '15%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'value'," + rowdata.id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.value + '</span>';
+                     return isshow;
+                 }
+                 },
+                 { display: '排序', name: 'sort_order', width: '5%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'sort_order'," + rowdata.id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.sort_order + '</span>';
+                     return isshow;
+                 }
+                 },
+                 { display: '是否显示', name: 'isshow', width: '5%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.toggle(this, 'isshow'," + rowdata.id + ")";
+                     var isshow = '<img src="images/' + rowdata.isshow + '.gif" onclick="' + showhtml + '" />';
+                     return isshow;
+                 }
+                 },
+                { display: '操作', isSort: false, width: '10%', render: function (rowdata, rowindex, value) {
+                    var h = "";
+                    h += '  <a href="?act=edit&id=' + rowdata.id + '" title="修改">修改</a> ';
+                    var delhtml = "'删除的数据不能恢复，确定执行吗？'";
+                    h += '<a href="javascript:;" id="deltr' + rowdata.id + '" onclick="listTable.treeremove(' + rowdata.id + ',' + delhtml + ' )" title="删除">删除</a> ';
+                    return h;
+                }
+                }
+                ], width: '98%', height: '58px', headerRowHeight: '38px', align: 'left',
+                url: 'tree/treelist.aspx?act=configtree', alternatingRow: false, tree: { columnName: 'name' }, checkbox: false,
+                autoCheckChildren: false, usePager: false, enabledSort: false, isScroll: false
+            }
+            );
+        });
+    </script>
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            网站功能设置</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>网站功能设置</strong> </li>
+        </ol>
+        </br>
+     
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+ <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+              本功能只针对开发人员，请在操作功能后务必修改网站Config实体类代码。
+            </div>
+        </div>
+    </div>
+<div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加功能</a>
+                    </div>
+   <div id="listDiv" class="ibox-content">
+      <div id="maingrid">
+    </div>
+    </div>
+        </div>
+</div>
+    </div>
+</div>
+    </div>
+#parse("pagefooter.html")
+#end

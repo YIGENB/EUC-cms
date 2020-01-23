@@ -1,0 +1,109 @@
+﻿#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">会员收货地址</span> 
+</div>
+    <div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=list"><span class="left"></span><em><cite class="icon"></cite><cite>会员列表</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>
+<script type="text/javascript" src="/js/shopping_flow.js"></script>
+            <script type="text/javascript" src="/js/region.js"></script>
+<form method="POST" action="?act=drop" name="listForm">
+<!-- start users list -->
+<div  class="main-div">
+<!--用户列表部分-->
+    <ad:foreach collection="{$list}" var="rs" index="i">
+            <form method="post" name="theForm" id="theForm" onsubmit="return checkConsignee2(this)">
+            
+            <table width="100%" border="0" cellpadding="0"
+                class="table">
+                <col style="text-align: right;" />
+                <tr>
+                    <td>
+                        配送区域：
+                    </td>
+                    <td colspan="3">
+                        <select name="country" id="selCountries_{$rs.address_id}" onchange="region.changed(this, 1, 'selProvinces_{$rs.address_id}')">
+                            <option value="0">请选择省</option>
+                            <ad:foreach collection="{$config.get_region_list(0,0)}" var="row" index="i">
+                            <option value="{$row.region_id}" <ad:if test="{$row.region_id is rs.country}">selected</ad:if>>{$row.region_name}</option>
+                            </ad:foreach>
+                        </select>
+                        <select name="province" id="selProvinces_{$rs.address_id}" onchange="region.changed(this, 2, 'selCities_{$rs.address_id}')">
+                            <option value="0">请选择市</option>
+                            <ad:foreach collection="{$config.get_region_list(rs.country,1)}" var="row" index="i">
+                            <option value="{$row.region_id}" <ad:if test="{$row.region_id is rs.province}">selected</ad:if>>{$row.region_name}</option>
+                            </ad:foreach>
+                        </select>
+                        <select name="city" id="selCities_{$rs.address_id}" onchange="region.changed(this, 3, 'selDistricts_{$rs.address_id}')">
+                            <option value="0">请选择区</option>
+                            <ad:foreach collection="{$config.get_region_list(rs.province,2)}" var="row" index="i">
+                            <option value="{$row.region_id}" <ad:if test="{$row.region_id is rs.city}">selected</ad:if>>{$row.region_name}</option>
+                            </ad:foreach>
+                        </select>
+                        <select name="district" id="selDistricts_{$rs.address_id}" <ad:if test="{$rs.district is 0}">style="display: none"</ad:if>>
+                            <option value="0">请选地点</option>
+                            <ad:foreach collection="{$config.get_region_list(rs.city,3)}" var="row" index="i">
+                            <option value="{$row.region_id}" <ad:if test="{$row.region_id is rs.district}">selected</ad:if>>{$row.region_name}</option>
+                            </ad:foreach>
+                        </select>
+                        <span class="red">*</span>
+                    </td>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td>
+                        收货人姓名：
+                    </td>
+                    <td>
+                        <input name="consignee" type="text" id="consignee_0" value="{$rs.consignee}" />
+                        <span class="red">*</span>
+                    </td>
+                    <td>
+                        电子邮件地址：
+                    </td>
+                    <td>
+                        <input name="email" type="text" id="email_0" value="{$rs.email}" />
+                        <span class="red">*</span>
+                    </td>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td>
+                        邮政编码：
+                    </td>
+                    <td>
+                        <input name="zipcode" type="text" id="zipcode_0" size="10" value="{$rs.zipcode}" />
+                    </td>
+                    <td>
+                        详细地址：
+                    </td>
+                    <td>
+                        <input name="address" type="text" id="address_0" value="{$rs.address}" />
+                        <span class="red">*</span>
+                    </td>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td>
+                        电话：
+                    </td>
+                    <td>
+                        <input name="tel" type="text" id="tel_0" value="{$rs.tel}" />
+                        
+                    </td>
+                    <td>
+                        手机：
+                    </td>
+                    <td>
+                        <input name="mobile" type="text" id="mobile_0" value="{$rs.mobile}" /> <span class="red">*</span>
+                    </td>
+                </tr>
+            </table>
+            </form>
+            </ad:foreach>
+            <div>&nbsp;</div>
+</div>
+<!-- end users list -->
+#parse("pagefooter.html")

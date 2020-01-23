@@ -1,0 +1,92 @@
+﻿#parse("pageheader.html")
+<h1 id="Menu">
+<ad:if test="{$this.getRequestInt("user_id") gt 0}">
+<span class="action-span"><a href="users.aspx?act=list">会员列表</a></span>
+<span class="action-span"><a href="account_log.aspx?act=add&user_id={$this.getRequestInt("user_id")}">添加消费记录</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">用户帐户[{$this.users.user_name}]</label> </span>
+<ad:else>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="Label1">退款列表</label> </span>
+</ad:if>
+<div style="clear:both"></div>
+</h1>
+<script src="../js/my97/WdatePicker.js"text/javascript"></script>
+<div class="form-div">
+    <form name="listForm" method="get">
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+    <input name="keyword" type="text" value="{$this.getRequest("keyword")}" />
+    <select name="process_type">
+        <option value="">状态...</option>
+        <option value="0" <ad:if test="{$this.getRequest("process_type") is "0"}">selected</ad:if>>支付失败</option>
+        <option value="1" <ad:if test="{$this.getRequest("process_type") is "1"}">selected</ad:if>>支付成功(未确认)</option>
+        <option value="2" <ad:if test="{$this.getRequest("process_type") is "2"}">selected</ad:if>>支付成功(已确认)</option>
+    </select>
+    <select name="payment">
+        <option value="">支付方式...</option>
+        <option value="PayWay" <ad:if test="{$this.getRequest("payment") is "PayWay"}">selected</ad:if>>支付宝</option>
+        <option value="充值卡" <ad:if test="{$this.getRequest("payment") is "充值卡"}">selected</ad:if>>充值卡</option>
+        <option value="订单返还" <ad:if test="{$this.getRequest("payment") is "订单返还"}">selected</ad:if>>订单返还</option>
+        <option value="帐户扣款" <ad:if test="{$this.getRequest("payment") is "帐户扣款"}">selected</ad:if>>帐户扣款</option>
+    </select>
+    使用日期范围：
+    <input name="star" size="10" value="{$this.getRequest("star")}" readonly="readonly" onFocus="WdatePicker({onpicked:function(){end.focus();},maxDate:'{$this.get_datetime().ToString("yyyy-MM-dd")}',dateFmt:'yyyy-MM-dd'})" type="text" /> 至 
+    <input name="end" size="10" value="{$this.getRequest("end")}" readonly="readonly" onFocus="WdatePicker({minDate:star.value,maxDate:'{$this.get_datetime().ToString("yyyy-MM-dd")}',dateFmt:'yyyy-MM-dd'})" type="text" />
+    <input name="act" value="list" type="hidden" />
+    <input name="user_id" value="{$this.getRequest("user_id")}" type="hidden" />
+    <input type="submit" value=" 搜索 " class="button" onclick="this.form.target = '_self';this.form.print_type.value='';" />
+    </form>
+</div>
+
+<form method="post" action="?act=import&user_id={$this.getRequestInt("user_id")}" name="listForm">
+<!-- start brand list -->
+<div class="list-div" id="listDiv">
+  <table cellpadding="3" cellspacing="1">
+    <tr>
+      <th>单号</th>
+      <th>日期</th>
+      <th>收入</th>
+      <th>支出</th>
+      <th>账户余额</th>
+      <th>支付方式</th>
+      <th>状态</th>
+      <th>备注</th>
+    </tr>
+    <ad:foreach collection="{$list}" var="rs" index="i">
+    <tr>
+        <td align="center">{$rs.user_note}</td>
+        <td align="center">{$rs.add_time}</td>
+        <td align="right"><ad:if test="{$rs.amount gt this.todecimal(0)}">{$rs.amount}</ad:if></td>
+        <td align="right"><ad:if test="{$rs.amount lt this.todecimal(0)}">{$rs.amount}</ad:if></td>
+        <td align="right">{$this.balance(rs.id)}</td>
+        <td align="center">{$rs.payment}</td>
+        <td>
+        <ad:if test="{$rs.process_type is 0}">
+    支付失败
+    <ad:elseif test="{$rs.process_type is 1}">
+    支付成功(<span style="color:Red;">未确认</span>)
+    <ad:elseif test="{$rs.process_type is 2}">
+    支付成功(已确认)
+    </ad:if>
+        </td>
+        <td>{$rs.admin_note}</td>
+    </tr>
+    </ad:foreach>
+  </table>
+    <ad:if test="{$list.Length is 0}">
+                    <br />
+                    <p style="text-align:center; color:Red;">当前未有任何交易记录</p>
+                    </ad:if>
+                    <div class="pager">{$pager}</div>
+                    <div style="padding:8px; line-height:22px;">
+                        当前有 <strong class="red">{$count}</strong> 笔交易记录，
+                        总收入为 <strong class="red">￥{$this.all_income()}元</strong>，
+                        总支出为 <strong class="red">￥{$this.all_inout()}元</strong>，
+                        当前可用余额为 <strong class="red">￥{$this.balance()}元</strong>
+                    </div>
+<!-- end brand list -->
+</div>
+<div>
+    <input type="submit" value="导出" class="button" />
+</div>
+</form>
+<br />
+#parse("pagefooter.html")

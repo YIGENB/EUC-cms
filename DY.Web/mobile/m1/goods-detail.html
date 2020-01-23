@@ -1,0 +1,265 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<div id="box_content" style="min-height: 556px;">
+				<div name="手机产品详细" id="elem-Products_detail01-001" class="columnSpace"> 
+				<script src="/widgets/SwipeCarousel/SwipeCarousel.js" type="text/javascript"></script>
+<div class="Products_detail01-d2_c1" id="Products_detail01-001">
+				<!-- 产品详细组件 开始 -->
+				<section class="Products_detail01-d2_c1">
+					<div class="z3g-headerSmallNew " style="background:$!{mstyle.copyright_bg_color}">
+						<span class="active left">
+	                        <div class="z3g-btn active btnArrow btnArrowLeft back  js_goZMhistory">
+								<b>
+									<em></em>
+								</b>
+								<span onclick="javascript:history.go(-1);" style="color:$!{mstyle.b_menu_font_color}">
+								$Return
+							</span>
+							</div>										
+						</span>
+						<span class="center" style="color:$!{mstyle.b_menu_font_color}">$Detail</span>	
+						<span class="active right" href="">
+							<div class="z3g-btn textSizeBtn active">
+								<span style="color:$!{mstyle.b_menu_font_color}">
+									$Word<sup>+</sup>
+								</span>
+								<div class="z3g-textSize">
+									<div class="contArrow"> <em>◆</em> <i>◆</i> </div>
+									<ul class="cont">
+										<li class="active" data-ac-code="1">小</li>
+										<li class="active" data-ac-code="2">中</li>
+										<li class="active current" data-ac-code="3">大</li>
+									</ul>
+								</div>
+							</div>
+						</span>
+					</div>
+					<h1 class="z3g-pageTitle " style="background:$!{mstyle.list_bg_color}">
+						<span class="name " id="productDetailName" style="color:$!{mstyle.title_font_color}">$goodsinfo.goods_name</span>
+						<span class="markWrap">
+						</span>
+						<div class="clear-both"></div>
+					</h1>
+					<!-- 图4-start -->
+                    <div class="ware_info">
+                    <div class="slider" id="slider">
+            <ul class="sliderlist" id="sliderlist">
+                #foreach($row in $Goods.GetGoodsGalleryList($goodsinfo.goods_id)) #set($index=$velocityCount+1)
+                <li><a href="$row.info_img" class="group1 cboxElement">
+                    <img width="90%" height="90%" src="$row.info_img"></a>
+                    </li>
+                    #end
+                    </ul>
+            <div id="pagenavi" style="display:none">
+                #foreach($row in $Goods.GetGoodsGalleryList($goodsinfo.goods_id)) #set($index=$velocityCount+1)
+                <a class="active" href="javascript:void(0);">$index</a>
+                #end
+                </div>
+        </div>
+        </div>
+        <script type="text/javascript">
+            var active = 0,
+                as = document.getElementById('pagenavi').getElementsByTagName('a');
+
+            for (var i = 0; i < as.length; i++) {
+                (function () {
+                    var j = i;
+                    as[i].onclick = function () {
+                        t2.slide(j);
+                        return false;
+                    }
+                })();
+            }
+            var t2 = new TouchSlider({ id: 'sliderlist', speed: 600, timeout: 6000, before: function (index) {
+                as[active].className = '';
+                active = index;
+                as[active].className = 'active';
+            }
+            });
+        </script>
+						<!--<section class="bannerWrap4_1">
+							<div>
+								<ul class="bannerList sc_scroller">
+									<li id="showproductPic" class="active js_showImageContentAll"><img alt="" src="$goodsinfo.info_img"></li>
+								</ul>
+							</div>							
+		                </section>-->
+<!--						<section class="bannerWrap4_2">
+							<div class="prev4_2 disTap">				
+                				<span></span>
+                			</div>
+							<div id="bannerScroll4_2" style="overflow: hidden;">
+    								<ul class="bannerList sc_scroller notFour" style="transition-property: -moz-transform; transform-origin: 0px 0px 0px; transform: translate(0px, 0px); width: 68px;">
+    								    #foreach($row in $Goods.GetGoodsGalleryList($goodsinfo.goods_id))
+								         <li class="active">
+											<div data-psrc="$row.goods_thumb" data-pimageid="$row.goods_thumb" data-pdetailid="21" class="js_showImage">
+												<img alt="$row.img_desc" src="$row.goods_thumb">
+											</div>
+										 </li>
+										 #end
+									</ul>
+							</div>	
+							<div class="next4_2 disTap">
+                    			<span></span>
+                    		</div>
+		                </section>
+                        <script>
+                            $(function () {
+                                $("#bannerScroll4_2 img").click(function () {
+                                    $("#showproductPic img").attr({ "src": $(this).attr('src') });
+                                })
+                            })
+                        </script>-->
+					<!-- 图4-end -->
+					<!-- 信息展示-start -->
+					<div class="tabInfoWrap">
+						<div class="borderTitle z3g-bgColor03" style="background:$!{mstyle.b_menu_bg_color}">
+							<ul class="titleWrap">
+    								<li class="current z3g-column1">
+    									<div>
+    										<span class="text " style="color:$!{mstyle.b_menu_font_color}">$Information</span>
+    									</div>
+    								</li>
+							</ul>
+							<span class="active controlBar">
+								<em class="icon up"></em>
+							</span>
+						</div>
+						<!-- 产品规格-start -->
+						<div id="productbasic" class="borderCont productSpecifications">
+    						<ul class="textSizeWrap textSizeBig">
+    							<li class="code">$ProductNumber：$goodsinfo.goods_sn </li>
+									<li class="time">$Date：$goodsinfo.add_time.tostring("yyyy-MM-dd")</li>		
+									<li class="browsing">$Viewed：<span id="hitnumber">$goodsinfo.click_count</span></li>	
+    						</ul>
+                     <!-- 电话,咨询,位置按钮组-begin -->					
+							<div class="submitGroup">
+								<div class="group01">
+									<div class="active productdetailtel">
+										#foreach($row in $Caches.AllCsh(2))<a href="tel:$!{row.csh_con}"><span> $!{row.csh_con}</span></a>#end
+									</div>
+<!--									<div class="active productdetailprice">
+										<span data-pid="21" class="js_gotoprice">咨询</span>
+									</div>-->
+								</div>
+<!--								<div class="group02">
+										<div class="active productdetailmap">
+											<span class="js_gotomap">位置</span>
+										</div>
+								</div>-->
+							</div>
+							<!-- 电话,咨询,位置按钮组-end -->					
+    					</div>
+    					<!-- 产品规格-end -->
+						<!-- 产品参数-start -->
+    					<!-- 产品参数-end -->
+					</div>
+					<!-- 信息展示-end -->
+					<!-- 产品描述-start -->
+					<div class="productDescription">
+						<div class="borderTitle z3g-bgColor03" style="background:$!{mstyle.b_menu_bg_color}">
+							<span class="left">
+								<em class="icon"></em>
+								<em class="borderName " style="color:$!{mstyle.b_menu_font_color}">$ProductDescription</em>
+							</span>
+							<span class="right">
+								<em class="moreCont"></em>
+								<em id="icon_desc_click" class="controlBar">
+									<cite class="icon up" id="icon_desc"></cite>
+								</em>
+							</span>
+						</div>
+						<div class="articleCont htmledit textSizeWrap"><p>$goodsinfo.goods_content</p></div>
+					</div>
+					<!-- 产品描述-end -->
+					<!-- 产品关键词-start -->
+                    <!-- 产品关键词-end -->			
+					<!-- 产品上一条下一条-start -->
+<!--					<div class="z3g-pageControlBar">
+						    <section data-otherlink="http://" data-isotherlink="0" data-pmcid="22" class="pagePrev  active js_haspreOrNext">
+							<p class="p1 ">上一个：</p>
+							<p class="p2 ">201322</p>
+							<p class="arrow"></p>		
+						</section>					
+						    <section data-otherlink="http://" data-isotherlink="0" data-pmcid="18" class="pageNext  active js_haspreOrNext">
+							<p class="p1 ">下一个：</p>
+							<p class="p2 ">201318</p>
+							<p class="arrow"></p>		
+						</section>
+					</div>-->
+					<!-- 产品上一条下一条-end -->
+					<!-- 相关信息 -start -->
+					<!-- 相关信息 -end -->		
+				</section>
+				<!-- 产品详细组件 结束 -->
+</div> 
+				</div>
+				<div name="留言列表" id="elem-Messages_emit01-001" class="columnSpace"> 
+				
+
+
+
+<div class="Messages_emit01-d1_c1" id="Messages_emit01-001">
+
+<iframe src="/Messages.do?method=getFirstsession" style="display:none" name="myframe"></iframe>
+
+				
+<!-- 发表留言组件 开始 -->
+<section id="Messages_emit01-001_Messages_emit01-d1_c1" class="Messages_emit01-d1_c1">
+		<div class="relateStyle" id="msgTitle"><!--相关模式改为“normalStyle”-->
+			<div class="z3g-headerSmallNew">
+						<span class="active left">
+							<div class="z3g-btn active btnArrow btnArrowLeft back">
+								<b>
+									<em></em>
+								</b>
+								<span>$Return</span>
+							</div>
+						</span>
+						<span class="center">$Message</span>	
+						<span class="active right" href="">
+
+						</span>
+					</div>
+			
+			<div style="display:none;" class="z3g-headerSmall">
+			<span class="active back" href="javascript:void(0);">
+				<em class="icon">$Return</em>
+			</span>
+			<span class="title">$Message</span>	
+				<span class="active more" id="detail_more" href="javascript:void(0);">
+					<em class="icon"></em>
+				</span>
+			</div>
+			<div class="borderTitle" style="background:$!{mstyle.b_menu_bg_color}">
+				<ul class="titleWrap">
+					<li class="active current" id="list">
+						<div><span class="text" style="color:$!{mstyle.b_menu_font_color}">$RelatedMessage</span>
+									
+						</div>
+					</li>
+					<li class="active" id="emit">
+						<div><span class="text" style="color:$!{mstyle.b_menu_font_color}">$Message</span></div>										
+					</li>
+				</ul>
+				<span class="active controlBar">
+					<em class="icon up"></em>
+				</span>
+			</div>
+
+			<!-- 发表留言后的提示框  结束-->
+#parse("public/review.html")
+		</div>
+</section>
+<!-- 发表留言组件 结束 -->	
+</div> 
+				</div>
+			</div>
+<div name="bottom" id="elem-PublicConfig_showBottom01-001" class="columnSpace">
+	#parse("include/addr.html")
+			</div>
+</div>
+<div style="position: absolute; z-index: 100; width: 7px; bottom: 2px; top: 2px; right: 1px; pointer-events: none; transition-property: opacity; overflow: hidden; opacity: 0;"><div style="position: absolute; z-index: 100; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.9); -moz-box-sizing: border-box; width: 100%; border-radius: 3px 3px 3px 3px; pointer-events: none; transition-property: -Moz-transform; transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); transform: translate(0px, 0px); height: 440px;"></div></div>
+</div>
+#end
+#parse("include/page_foot.html")

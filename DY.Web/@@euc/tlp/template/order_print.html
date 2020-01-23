@@ -1,0 +1,79 @@
+﻿<p><style type="text/css"> 
+body,td {font-size:13px;}</style></p>
+<h1 align="center">订单信息</h1>
+<table cellpadding="1" width="100%">
+    <tbody>
+        <tr>
+            <td width="8%">购 货 人：</td>
+            <td>#if($entity.user_id == 0)匿名#else $User.GetUserNameById($entity.user_id) #end</td>
+            <td align="right">下单时间：</td>
+            <td>${entity.add_time}<!-- 下订单时间 --></td>
+            <td align="right">支付方式：</td>
+            <td>${entity.pay_name}<!-- 支付方式 --></td>
+            <td align="right">订单编号：</td>
+            <td>${entity.order_sn}<!-- 订单号 --></td>
+        </tr>
+        <tr>
+            <td>付款时间：</td>
+            <td>$!{entity.pay_time}</td>
+            <!-- 付款时间 -->
+            <td align="right">发货时间：</td>
+            <td>$!{entity.delivery_time}<!-- 发货时间 --></td>
+            <td align="right">配送方式：</td>
+            <td>${entity.delivery_name}<!-- 配送方式 --></td>
+            <td align="right">发货单号：</td>
+            <td>${entity.invoice_no}<!-- 发货单号 --></td>
+        </tr>
+        <tr>
+            <td>收货地址：</td>
+            <td colspan="7">[$SystemConfig.GetRegionNameById($entity.country) $SystemConfig.GetRegionNameById($entity.province) $SystemConfig.GetRegionNameById($entity.city) $SystemConfig.GetRegionNameById($entity.district)] ${entity.address} <!-- 收货人地址 --> 收货人：${entity.consignee} <!-- 收货人姓名 --> <!-- 邮政编码 -->电话：${entity.tel}  <!-- 联系电话 -->手机：${entity.mobile}<!-- 手机号码 --></td>
+        </tr>
+    </tbody>
+</table>
+<table border="1" width="100%" style="border-bottom-color: #000; border-top-color: #000; border-collapse: collapse; border-right-color: #000; border-left-color: #000">
+    <tbody>
+        <tr align="center">
+            <td bgcolor="#cccccc">商品名称 <!-- 商品名称 --></td>
+            <td bgcolor="#cccccc">货号 <!-- 商品货号 --></td>
+            <td bgcolor="#cccccc">规格 <!-- 商品属性 --></td>
+            <td bgcolor="#cccccc">价格 <!-- 商品单价 --></td>
+            <td bgcolor="#cccccc">数量<!-- 商品数量 --></td>
+            <td bgcolor="#cccccc">小计 <!-- 价格小计 --></td>
+        </tr>
+        #foreach($goods in $ordergoodslist)
+        <tr>
+            <td> $goods.goods_name<!-- 商品名称 --></td>
+            <td> $goods.goods_sn <!-- 商品货号 --></td>
+            <td>$goods.goods_attr<!-- 商品属性 --></td>
+            <td align="right">￥$goods.goods_price元 <!-- 商品单价 --></td>
+            <td align="right">$goods.goods_number<!-- 商品数量 --></td>
+            <td align="right">￥#set($xj = ${goods.goods_price} * ${goods.goods_number}) $xj元 <!-- 商品金额小计 --></td>
+        </tr>
+        #end
+        <tr>
+            <!-- 发票抬头和发票内容 -->
+            <td colspan="4"> </td>
+            <!-- 商品总金额 -->
+            <td colspan="2" align="right">商品总金额：￥$entity.goods_amount元</td>
+        </tr>
+    </tbody>
+</table>
+<table border="0" width="100%">
+    <tbody>
+        <tr align="right">
+            <td><!-- 配送费用 -->+ 配送费用：￥${entity.delivery_fee}元 <!-- 订单总金额 -->= 订单总金额：￥$entity.order_amount元</td>
+        </tr>
+    </tbody>
+</table>
+<table border="0" width="100%">
+    <tbody>
+        <tr>
+            <!-- 网店名称, 网店地址, 网店URL以及联系电话 -->
+            <td> </td>
+        </tr>
+        <tr align="right">
+            <!-- 订单操作员以及订单打印的日期 -->
+            <td>打印时间：$datetime   操作者：$username</td>
+        </tr>
+    </tbody>
+</table>

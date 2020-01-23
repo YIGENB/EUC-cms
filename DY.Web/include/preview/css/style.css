@@ -1,0 +1,29 @@
+.mask{ background:url(../images/bg.jpg); height:100%; width:100%; position:fixed; top:0; left:0;z-index:999; overflow:scroll;}
+.mask .phone{ background:url(../images/iphone.png) no-repeat; width:800px; height:800px; position:relative; margin:50px auto 0;z-index:1000;}
+.mask .phone_right{background:url(../images/iphone.png) no-repeat right; width:50px; height:746px; position:absolute; right:400px; top:0; z-index:2222;}
+.mask .preview{ position:absolute; left:45px; top:156px; z-index:1234; background:#fff;}
+.mask .right{ width:316px;  overflow:hidden; position:absolute; right:0; top:100px;}
+.mask .right h1{ color: #F5F5F5; font-size: 26px;font-weight: normal; margin: 35px 0 25px;text-align: center;text-shadow: 0 1px 3px #111111;}
+.mask .right p{ color:#B4B7BC; text-align:center;text-shadow: 0 -1px 0 #111112; font-size:12px;}
+.mask .r_top{ background:url(../images/r_top.png) no-repeat; height:25px; display:block;}
+.mask .r_center{background:url(../images/r_center.png) repeat-y;  display:block; text-align:left; color:#fff; text-shadow: 0 -1px 0 #111112;color: #B4B7BC; padding:0 20px; width:300px; font-size:14px;}
+.mask .r_bottom{background:url(../images/r_bottom.png) no-repeat; height:25px; display:block;}
+.mask .r_center a{color:#B4B7BC; line-height:30px;white-space:nowrap; text-decoration:none; display:block; float:left; padding-left:5px}
+.mask .r_center a:hover{color:#FFF; line-height:30px;white-space:nowrap; text-decoration:none; transition: color 0.2s ease-in 0s; display:block; float:left; padding-left:5px}
+.phone .iphone-screen {
+height: 570px;
+left: 89px;
+overflow: hidden;
+position: absolute;
+top: 118px;
+width: 320px;
+}
+.phone iframe {
+background: none repeat scroll 0 0 #000;
+border: medium none;
+height: 570px;
+left: 0;
+position: absolute;
+top: 0;
+width: 335px;
+}

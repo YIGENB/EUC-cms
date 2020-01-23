@@ -1,0 +1,85 @@
+﻿#if (!$isajax) #parse("pageheader.html") #TreeFile()
+<script type="text/javascript">
+    //列表生成
+
+    $(function () {
+        $("#maingrid").ligerGrid({
+            columns: [
+                  { display: '编号', name: 'cat_id', width: '10%', type: 'int', align: 'left' },
+                  { display: '分类名称', name: 'cat_name', width: '25%', align: 'left', render: function (rowdata, rowindex, value) {
+                      var showhtml = "listTable.edit(this, 'cat_name'," + rowdata.cat_id + ")";
+                      var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.cat_name + '</span>';
+                      return isshow;
+                  }
+                  },
+                  { display: '分类类型', name: 'cat_type', width: '10%', align: 'left', render: function (rowdata, rowindex, value) {
+                      var isshow = '普通分类';
+                      if (rowdata.cat_type == 1)
+                          isshow = '系统分类';
+                      return isshow;
+                  }
+                  },
+                 { display: '在导航栏显示', name: 'show_in_nav', width: '10%', align: 'left', render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.toggle(this, 'show_in_nav'," + rowdata.cat_id + ")";
+                     var isshow = '<img src="images/' + rowdata.show_in_nav + '.gif" onclick="' + showhtml + '" />';
+                     return isshow;
+                 }
+                 },
+                 { display: '自定义链接', name: 'urlrewriter', width: '15%', align: 'left', render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'urlrewriter'," + rowdata.cat_id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.urlrewriter + '</span>';
+
+                     return isshow;
+                 }
+                 },
+                 { display: '排序', name: 'sort_order', width: '10%', align: 'left', render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'sort_order'," + rowdata.cat_id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.sort_order + '</span>';
+
+                     return isshow;
+                 }
+                 },
+                { display: '操作', isSort: false, width: '18%', render: function (rowdata, rowindex, value) {
+                    var h = "";
+                    h += ' <a href="cms.aspx?act=list&cat_id=' + rowdata.cat_id + '">查看</a>  <a href="cms.aspx?act=add&cat_id=' + rowdata.cat_id + '">添加文章</a> <a href="?act=edit&id=' + rowdata.cat_id + '" title="修改">修改</a> ';
+                    var delhtml = "'删除的数据不能恢复，确定执行吗？'";
+                    h += '<a href="javascript:;" id="deltr' + rowdata.cat_id + '" onclick="listTable.treeremove(' + rowdata.cat_id + ',' + delhtml + ' )" title="删除">删除</a> ';
+                    return h;
+                }
+                }
+                ], width: '98%', height: 'auto', headerRowHeight: '38px', align: 'left',
+            url: 'tree/treelist.aspx?act=cmscattree', alternatingRow: false, tree: { columnName: 'cat_name' }, checkbox: false,
+            autoCheckChildren: false, usePager: false, enabledSort: false, isScroll: false
+        }
+            );
+    });
+    </script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            分类列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>分类目录</strong> </li>
+        </ol>
+        <br />
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加分类</a>
+                    </div>
+                    <div id="listDiv" class="ibox-content">
+                        <div id="maingrid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html") #end

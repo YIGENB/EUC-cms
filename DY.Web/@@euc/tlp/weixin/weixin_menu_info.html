@@ -1,0 +1,81 @@
+﻿#parse("pageheader.html")
+<script src="../js/my97/WdatePicker.js"text/javascript"></script>
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">#if($id == 0)添加#else修改#end 自定义菜单</span> 
+    </div>
+    <div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=list&pid=$pid"><span class="left"></span><em><cite class="icon"></cite><cite>自定义菜单</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>	
+<div class="main-div">
+<form method="post" name="theForm" onsubmit="return validate()">
+  <table width="100%" id="general-table" class="no_display">
+    <tr>
+      <td  class="label">
+        菜单名称</td>
+      <td>
+        <input type="text" name="name" value="$!{entity.name}" size="35" />
+      </td>
+    </tr>
+          <tr>
+            <td class="label">上级分类</td>
+            <td>
+              <select name="parent_id" >
+                <option value="0">顶级分类...</option>
+                #foreach($row in $Caches.WxMenuFormat(0).Rows)
+                <option value="$row.menu_id" #if($!{entity.parent_id}==$row.menu_id)selected="selected"#end>$row.name</option>
+                #end
+                </select>
+            </td>
+          </tr>
+	<tr>
+      <td  class="label">触发关键词或链接地址</td>
+      <td>
+        <input type="text" name="trigger_word" value="$!{entity.trigger_word}" size="35" />
+      </td>
+    </tr>
+        <tr>
+        <td class="narrow-label">是否启用</td>
+        <td>
+        <p class="field switch">
+        <input type="radio" name="enabled" id="enabled1" value="1" #if($!{entity.enabled})checked#end $SiteUtils.DefaultValue($!{entity.enabled},"checked") style="display:none">       <input type="radio" name="enabled" id="enabled" value="0"  #if($!{entity.enabled} == false)checked#end style="display:none">   
+        <label for="enabled1" class="cb-enable #if($!{entity.enabled})selected#end $SiteUtils.DefaultValue($!{entity.enabled},"selected")"><span>是</span></label>
+		<label for="enabled" class="cb-disable #if($!{entity.enabled} == false)selected#end"><span>否</span></label>     
+		</p>
+        </td>
+
+      </tr>
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+        <input type="submit" value=" 确定 " class="button" />
+        <input type="reset" value=" 重置 " class="button" />
+       </td>
+    </tr>
+ </table>
+
+</form>
+</div>
+<script type="text/javascript">
+var name = "请输入菜单名称!";
+var trigger_word = "关键词或链接地址";
+
+  document.forms['theForm'].elements['name'].focus();
+  /**
+   * 检查表单输入的数据
+   */
+  function validate()
+  {
+    validator = new Validator("theForm");
+    validator.required("name", name);
+    validator.required("trigger_word", trigger_word);
+    return validator.passed();
+  }
+  //-->
+  
+</script>
+#parse("pagefooter.html")

@@ -1,0 +1,78 @@
+﻿<table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                </th>
+                <th>
+                    关键词
+                </th>
+                <th>
+                    图文封面
+                </th>
+                <th>
+                    匹配类型
+                </th>
+                <th>
+                    内容
+                </th>
+                <th>
+                    是否有效
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        #if($type==2)
+            <tr>
+                <td>
+                    <input type="radio" name="nomatch_replay" value="0">
+                </td>
+                <td>
+                    数据搜索
+                </td>
+                <td>
+                    <span><img src='images/slt.jpg' width="50" height="50" /></span>
+                </td>
+                <td>
+                    <span>完全匹配</span>
+                </td>
+                <td>
+                    <span>
+                         用户可根据输入的关键词搜索站内数据
+                                    </span>
+                </td>
+                <td>
+                   <img src="images/true.gif"/>
+                </td>
+            </tr>
+        #end
+             #foreach($row in $list)
+            <tr>
+                <td>
+                    <input type="radio" #if($type==1)name="sbuscribe"#else name="nomatch_replay" #end value="${row.replay_id}">
+                </td>
+                <td>
+                    ${row.keyword}
+                </td>
+                <td>
+                    <span><img src='$SiteUtils.DefaultValue($!{row.pic},"images/slt.jpg")' width="50" height="50" /></span>
+                </td>
+                <td>
+                    <span>#if(${row.type}==0) 完全匹配 #end #if(${row.type}==1) 包含匹配 #end</span>
+                </td>
+                <td>
+                    <span>
+                                    #if(${row.radio_type}==1)
+                                    文章资讯 >> #if(${row.double_news}==1) 推荐资讯 #else 置顶资讯 #end (系统自动调用前9条信息)
+                                    #elseif(${row.radio_type}==2)
+                                    产品 >> #if(${row.double_news}==1) 推荐产品 #elseif(${row.double_news}==2) 新品产品 #elseif(${row.double_news}==3) 热卖产品 #else 特价产品 #end (系统自动调用前9条信息)
+                                    #end
+                                    
+                                    </span>
+                </td>
+                <td>
+                   <img src="images/${row.enabled}.gif" onclick="listTable.toggle(this, 'enabled', ${row.replay_id})" />
+                </td>
+            </tr>
+            #end
+        </tbody>
+    </table>

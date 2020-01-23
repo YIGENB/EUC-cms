@@ -1,0 +1,56 @@
+﻿#parse("pageheader.html")
+ <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-9">
+                    <h2>搜索结果</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="main.aspx">主页</a>
+                        </li>
+                   
+                        <li>
+                            <strong>搜索结果</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <h2>
+                                为您找到相关结果约$list.count个： <span class="text-navy">“$title”</span>
+                            </h2>
+                              
+
+                                <div class="search-form">
+                                    <form action="/admin/admin_menu.aspx?act=sreach" method="post" >
+                                        <div class="input-group">
+                                            <input type="text" placeholder="输入关键词" id="htzt" name="top-search" class="form-control input-lg">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-lg btn-primary" type="submit">
+                                                    搜索
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                #foreach($row in $list)
+                                #if($row.link!="")
+                                <div class="hr-line-dashed"></div>
+                                <div class="search-result">
+                                    <h3><a href="$row.link">$row.name</a></h3>
+                                    <a href="$row.link" class="search-link">$row.link</a>
+                                   
+                                </div>
+                                #end
+                         #end
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+#parse("pagefooter.html")

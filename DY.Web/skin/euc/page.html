@@ -1,0 +1,20 @@
+﻿#parse("include/page_head.html")
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+    <div class="about_banner">
+        <div class="about_banimg">
+            <img width="1920" height="650" alt="关于我们" src="images/about_banner.jpg" /></div>
+        <div class="about_banCen">
+            <div class="about_banTitle">
+                $pageinfo.title</div>
+            <div class="about_banCon">
+                $body
+            </div>
+        </div>
+    </div>
+   #parse("include/dingwei.html")
+    #parse("include/service.html")
+    <div id="floor5" class="floor5">
+        #parse("include/team.html")
+    </div>
+<script src="js/script.js"></script>
+#parse("include/page_foot.html")

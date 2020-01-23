@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="cms_page.aspx.cs" Inherits="DY.Web.admin.cms_page" validateRequest="false" %>

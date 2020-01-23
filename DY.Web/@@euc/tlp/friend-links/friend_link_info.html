@@ -1,0 +1,127 @@
+﻿#parse("pageheader.html")
+ <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end内部链接</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>内部链接</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">内部链接列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+           
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            链接名称：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="link_name" name="link_name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.link_name}">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            链接地址：</label>
+                                        <div class="col-sm-9">
+                                        <input  name="link_url" maxlength="50" type="text" class="form-control" value="$!{entity.link_url}">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            显示顺序：</label>
+                                        <div class="col-sm-9">
+                                        <input  name="show_order" maxlength="50" type="text" class="form-control" value="$SiteUtils.DefaultValue($!{entity.show_order},0)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            链接LOGO：</label>
+                                        <div class="col-sm-9">
+                                                      <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.link_logo},"images/slt.jpg")' />
+                                        <input type="hidden" name="link_logo" id="link_logo" value="$!{entity.link_logo}" />
+                                        <span class="help-inline"><button name="button" class="btn select_img" type="button">点击上传 </button></span>
+                                    </div>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否添加nofollow：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.is_tuijian})checked#end $SiteUtils.DefaultValue($!{entity.is_tuijian},"checked")  value="1" name="is_tuijian"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.is_tuijian} == false)checked#end  value="0" name="is_tuijian"> <i></i> 否</label>
+
+                                        
+                                        </div>
+                                    </div>
+                                   
+                                 
+                                   
+
+                        </div>
+
+
+                           
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+<script language="JavaScript"> 
+<!--
+var link_name_empty = "请输入链接名称!";
+var link_url_empty = "请输入链接地址!";
+var show_order_type = "显示的顺序必须是一个数字!";
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("link_name",      link_name_empty);
+    validator.required("link_url",       link_url_empty);
+    validator.isNumber("show_order",     show_order_type);
+    return validator.passed();
+}
+//-->
+</script>
+
+#parse("pagefooter.html")

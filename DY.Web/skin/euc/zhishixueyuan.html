@@ -1,0 +1,107 @@
+﻿#parse("include/page_head.html")
+<div class="about_cont_a">
+    	<div class="about_cont_aa"></div>
+        <div class="about_cont_vc"></div>
+        <div class="main">
+        <div class="about_conta_top">
+            	<div class="about_conta_topl"><img width="335" height="60" src="images/coll_a.jpg"></div>
+                <div class="about_conta_topr">
+                	<div class="about_conta_toprt"><span>当前位置：</span><a href="/">首页</a>  | $pageinfo.title</div>
+                    <div class="about_conta_toprb a">
+                        #foreach($row in $Caches.NewsCat(53)) 
+                    	<a href="#CMSCatLink()" #if($row.cat_id==$this_id) class="selected"  #end>$row.cat_name</a>
+                        #end
+                    </div>
+                </div>
+            </div>
+<div class="coll">
+#parse("include/search.html")
+            <div class="coll_b">
+            <div class="coll_ba aa">
+            	<ul style="width: 1464px;">
+                    #foreach($row in $Caches.GetCMSBest(53,3)) 
+                	<li><a href="#CMSLink()"><img width="490" height="245" src="$row.photo"></a></li>
+                    #end
+<!--                    <li><img width="334" height="159" src="images/coll_h.jpg"></li>
+                    <li><img width="334" height="159" src="images/coll_h.jpg"></li>-->
+                </ul>	
+           	  <div class="coll_ba_fir a" style="left: -24px;"></div>
+              <div class="coll_ba_be a" style="right: -24px;"></div>
+            </div>
+            <div class="coll_bb aa">
+				<div class="coll_bbt">
+                	<p>最新发布</p>
+                     THE LASTEST
+                </div>
+                <div class="coll_bbc">
+                    #foreach($row in $Caches.NewNews(1,53)) 
+                	<div class="coll_bbcl">
+                    	<p>$row.showtime.tostring("dd")</p>
+                        $row.showtime.tostring("yyyy-MM")
+                    </div>
+                    <div class="coll_bbcr">
+                    <a href="#CMSLink()"><p>$row.title</p></a>
+                     <a href="#CMSLink()">$SiteUtils.GetTopic($row.des,222)</a>
+                    </div>
+                    #end
+                </div>
+            </div>
+            </div>
+            <div class="coll_c">
+            	<div class="coll_ca">
+                    <div class="coll_cat">
+                        <div class="coll_ctal">网络营销知识</div>
+                        <a class="coll_ctar" href="/n_wlyxzs.htm">&gt; MORE</a>
+                    </div>
+                    <div class="main_c_cc">
+                            #foreach($row in $Caches.NewNews(4,56)) #set($index=$velocityCount+1)  
+                            <a href="#CMSLink()" title="$row.title"><b>+</b>$SiteUtils.GetTopic($row.title,35)</a>
+                            #end
+                        </div>
+                </div>
+                <div class="coll_ca">
+                    <div class="coll_cat">
+                        <div class="coll_ctal">营销 ● 管理</div>
+                        <a class="coll_ctar" href="/n_yxgl.htm">&gt; MORE</a>
+                    </div>
+                    <div class="main_c_cc">
+                            #foreach($row in $Caches.NewNews(4,54)) #set($index=$velocityCount+1)  
+                            <a href="#CMSLink()" title="$row.title"><b>+</b>$SiteUtils.GetTopic($row.title,35)</a>
+                            #end
+                        </div>
+                </div>
+                <div class="coll_ca">
+                    <div class="coll_cat">
+                        <div class="coll_ctal">专业 ● 分享</div>
+                        <a class="coll_ctar" href="/n_zyfx.htm">&gt; MORE</a>
+                    </div>
+                    <div class="main_c_cc">
+                            #foreach($row in $Caches.NewNews(4,55)) #set($index=$velocityCount+1)  
+                            <a href="#CMSLink()" title="$row.title"><b>+</b>$SiteUtils.GetTopic($row.title,35)</a>
+                            #end
+                        </div>
+                </div>
+            </div>
+        </div>
+       </div>
+    </div>
+#parse("include/page_foot.html")
+<script type="text/javascript">
+    $(function () {
+        $("#button").click(function () {
+            var text = $("#kword").val().trim();
+            if (text == "" || text == "快速检索") { alert("请输入搜索关键字"); return };
+            location.href = "/n_search/" + text + ".htm";
+        })
+
+    })
+
+    function EnterPress(e) {
+        var e = e || window.event;
+        if (e.keyCode == 13) {
+            var text = $("#kword").val().trim();
+            if (text == "" || text == "快速检索") { return };
+            location.href = "/n_search/" + text + ".htm";
+        }
+    }
+</script>

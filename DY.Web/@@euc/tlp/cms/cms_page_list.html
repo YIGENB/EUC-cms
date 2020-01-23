@@ -1,0 +1,83 @@
+﻿#if (!$isajax) #parse("pageheader.html") #TreeFile()
+<script type="text/javascript">
+    //列表生成
+    function cmspagelist() {
+        $("#maingrid").ligerGrid({
+            columns: [
+                { display: '编号', name: 'page_id', width: '10%', type: 'int', align: 'left' },
+                  { display: '页面名称', name: 'title', width: '28%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                      var showhtml = "listTable.edit(this, 'title'," + rowdata.page_id + ")";
+                      var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.title + '</span><a href="/page/' + rowdata.urlrewriter + '.htm" title="预览" target="_blank"><img src="images/url.gif"></a>';
+
+                      return isshow;
+                  }
+                  },
+                 { display: '是否显示', name: 'is_show', width: '10%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.toggle(this, 'is_show'," + rowdata.page_id + ")";
+                     var isshow = '<img src="images/' + rowdata.is_show + '.gif" onclick="' + showhtml + '" />';
+
+                     return isshow;
+                 }
+                 },
+                 { display: '排序', name: 'order_id', width: '10%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'order_id'," + rowdata.page_id + ")";
+                     var isshow = ' <div onclick="' + showhtml + '" style="width:100%;">' + rowdata.order_id + '</div>';
+
+                     return isshow;
+                 }
+                 },
+                 { display: '自定义链接', name: 'urlrewriter', width: '30%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'urlrewriter'," + rowdata.page_id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.urlrewriter + '</span>';
+
+                     return isshow;
+                 }
+                 },
+                { display: '操作', isSort: false, width: '10%', render: function (rowdata, rowindex, value) {
+                    var h = "";
+                    h += '  <a href="?act=edit&id=' + rowdata.page_id + '" title="修改">修改</a> ';
+                    var delhtml = "'删除的数据不能恢复，确定执行吗？'";
+                    h += '<a href="javascript:;" id="deltr' + rowdata.page_id + '" onclick="listTable.treeremove(' + rowdata.page_id + ',' + delhtml + ' )" title="删除">删除</a> ';
+                    return h;
+                }
+                }
+                ], width: '98%', height: 'auto', headerRowHeight: '38px', align: 'left',
+            url: 'tree/treelist.aspx?act=cmspagetree', alternatingRow: false, tree: { columnName: 'title' }, checkbox: false,
+            autoCheckChildren: false, usePager: false, enabledSort: false, isScroll: false
+        }
+            );
+    }
+
+    $(function () {
+        cmspagelist()
+    });
+    </script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            页面管理列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>页面管理</strong> </li>
+        </ol>
+        </br>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加页面</a>
+                    </div>
+                    <div id="listDiv" class="ibox-content">
+                        <div id="maingrid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html") #end

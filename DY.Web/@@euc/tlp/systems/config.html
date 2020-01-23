@@ -1,0 +1,99 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            网站设置</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>设置</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+ #if($userid==0)
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">功能设置列表</a>
+             <a href="admin_menu.aspx?act=list" class="btn btn-primary ">菜单设置</a>
+              <a href="admin_action.aspx?act=list" class="btn btn-primary ">权限设置</a>
+        </div>
+    </div>
+    #end
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            #foreach ($row in ${SystemConfig.GetConfigList(0)})
+                            <li><a data-toggle="tab" href="#${row.code}-tab">${row.name}</a></li>
+                            #end
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form enctype="multipart/form-data" name="theForm" method="post" class="form-horizontal">
+                        <div class="tab-content">
+                        #foreach ($row in ${SystemConfig.GetConfigList(0)})  #set($index=$velocityCount+1)
+                        <div id="${row.code}-tab" class="tab-pane #if($index==1)active#end">
+                                    #foreach ($var in ${SystemConfig.GetConfigList($row.id)})
+                                    <div class="form-group">
+                                        <input name="code" value="${var.id}" type="hidden" />
+                                        <label class="col-sm-2 control-label">
+                                            ${var.name}：</label>
+                                        <div class="col-sm-9">
+                                                     #if ($var.type == "text")
+                                                     <input name="value[${var.id}]" type="text" value="${var.value}" size="${var.size}" class="form-control" placeholder="${var.tip}"/>
+                                                     #elseif ($var.type == "checkbox")
+                                                      #foreach ($str in $SiteUtils.Split($var.store_range,","))
+                                                       <label class="checkbox-inline i-checks" for="value_${var.id}_${velocityCount}"><input type="checkbox"  id="value_${var.id}_${velocityCount}" name="value[${var.id}]" value="${velocityCount}" #if($SiteUtils.IsContains(${var.value},${velocityCount}))checked#end />${str}</label>
+                                                      #end
+                                                      #elseif ($var.type == "password")
+                                                        <input name="value[${var.id}]" type="password" value="${var.value}" size="${var.size}" class="form-control" placeholder="${var.tip}"/>
+                                                      #elseif ($var.type == "textarea")
+                                                        <textarea name="value[${var.id}]" rows="5" cols="${var.size}" class="form-control" placeholder="${var.tip}">${var.value}</textarea>
+                                                      #elseif ($var.type == "reg")
+                                                        <textarea name="value[${var.id}]" rows="5" cols="${var.size}" class="form-control" placeholder="${var.tip}">${var.value}</textarea>
+                                                      #elseif ($var.type == "file")
+                                                        <div class="upload_img">
+                                                        <img upload="image-single" class="img_show"  onerror="javascript:this.src='images/slt.jpg' " src='$SiteUtils.DefaultValue(${var.value},"images/slt.jpg")' />
+                                                        <input type="hidden" name="value[${var.id}]" id="value[${var.id}]" value="${var.value}" />
+                                                        <span class="help-inline"><button name="button" class="btn select_img btn-white btn-sm" type="button">点击上传</button></span>
+                                                        </div>
+                                                      #elseif ($var.type == "radio")
+                                                        <div class="radio i-checks">
+                                                        #foreach ($str in $SiteUtils.Split($var.store_range,",")) 
+                                                        <label>
+                                                            <input type="radio" id="value_${var.id}_${velocityCount}" name="value[${var.id}]" value="${velocityCount}" #if(${var.value} == ${velocityCount})checked#end/> <i></i> $str</label>
+                                                            #end
+                                                        </div>
+                                                      #elseif ($var.type == "select")
+                                                        <select name="value[${var.id}]" class="form-control m-b">
+                                                          #foreach ($str in $SiteUtils.Split($var.store_range,","))
+                                                          <option value="${velocityCount}" #if(${var.value} == ${velocityCount})selected#end>$str</option>
+                                                          #end
+                                                        </select>
+                                                     #end
+                                                    
+                                        </div>
+                                    </div>
+                                    #end
+                        </div>
+                        #end
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                            <input type="hidden" name="goods_id" value="$!{entity.goods_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+                                        </div>
+                                    </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")

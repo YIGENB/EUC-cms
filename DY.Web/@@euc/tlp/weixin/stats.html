@@ -1,0 +1,172 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<link href="styles/store.css" rel="stylesheet" type="text/css" />
+<link href="styles/wwh.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/highcharts.js"></script>
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">我的应用</span> 
+    </div>
+<!--<div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=add"><span class="left"></span><em><cite class="icon"></cite><cite>添加应用</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>-->
+<form method="post" action="" name="listForm" id="listForm">
+<div class="list-div" id="listDiv">
+#end
+  <div class="content-box">
+    <!-- Start Content Box -->
+    <div class="content-box-header">
+        <h3 style="cursor: s-resize;">
+            微信公众号：$entity.name</h3>
+        <div class="clear">
+        </div>
+    </div>
+    <!-- End .content-box-header -->
+<div class="content-box-content">
+<div id="tab1" class="tab-content default-tab" style="display: block;">
+            <!-- This is the target div. id must match the href of this div's tab -->    <div class="editor-label">
+    </div>
+    <div class="editor-field">
+        <img width="100" src="$SiteUtils.DefaultValue($!{entity.head},"images/slt.jpg")" height="100">
+<!--        <img width="100" src="/WeixinApp/QrCode?img=v86Cg02Psvg%3D">-->
+    </div>
+    <div class="clear">
+    </div>
+    <fieldset>
+        <legend>微信用户统计</legend>
+
+
+        <div class="weixinApp-action">
+<!--            <ul class="shortcut-buttons-set">
+                <li><a href="/User/WeixinApp/Edit?app=18718" class="shortcut-button"><span>编辑
+                </span></a></li>
+                <li><a href="/User/WeixinStat?app=18718" class="shortcut-button"><span>统计
+                </span></a></li>
+                <li><a href="/User/WeixinApp/Status?app=18718" class="shortcut-button"><span>小嗨机器人
+                </span></a></li>
+            </ul>-->
+<table cellspacing='1' cellpadding='3'>
+  <tr>
+    <td align="right">选择最近查看天数：<select onchange="location.href='weixin_set.aspx?act=stats&pid=$!{entity.mp_id}&d='+this.value;">
+    <option value="7" #if($d == 7)selected#end>最近7天</option>
+    <option value="15" #if($d == 15)selected#end>最近15天</option>
+    <option value="30" #if($d == 30)selected#end>最近30天</option>
+<!--    <option value="90" #if($d == 90)selected#end>最近三个月</option>-->
+    </select></td>
+  </tr>
+  <tr>
+    <td><div id="container" style="width: 100%; height: 400px; margin: 0 auto"></div></td>
+  </tr>
+</table>
+            <div class="clear"></div>
+        </div>
+    </fieldset>
+<!--    <fieldset>
+        <legend>营销工具</legend>
+        <div class="weixinApp-action">
+            <ul class="shortcut-buttons-set">
+                <li><a href="/User/Yx/Manager?app=18718" class="shortcut-button"><span>设置
+                </span></a></li>
+                <li><a href="/User/WeixinMember?app=18718" class="shortcut-button"><span>会员
+                </span></a></li>
+                <li><a href="/User/WeixinUserInfoLog?app=18718" class="shortcut-button"><span>消费
+                </span></a></li>
+                <li><a href="/User/WeixinCustomerService?app=18718" class="shortcut-button"><span>客服
+                </span></a></li>
+                <li><a href="/User/WeixinContent?app=18718" class="shortcut-button"><span>内容
+                </span></a></li>
+                <li><a href="/User/WeixinMenu?app=18718" class="shortcut-button"><span>菜单
+                </span></a></li>
+                <li><a href="/User/WeixinMessage?app=18718" class="shortcut-button"><span>消息
+                </span></a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </fieldset>-->
+    <fieldset>
+        <legend>已购买应用</legend>
+        <div class="weixinApp-action boughtApp">
+            <ul class="shortcut-buttons-set">
+                #foreach($row in $appstoreList) #set($index=$velocityCount+1)
+                    <li><a href="appstore.aspx?act=look&id=$!{row.app_id}" class="shortcut-button"><span>
+                        <img width="100" height="100" src="$!{row.photo}"><br>
+                        $!{row.name}
+                    </span>
+                    </a></li>
+                    #end
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </fieldset>
+
+        </div>
+    </div>
+    <!-- End .content-box-content -->
+</div>
+#if (!$isajax)
+</div>
+</form>
+#parse("pagefooter.html")
+#end
+	<script type="text/javascript">
+	    $(document).ready(function () {
+	        var chart = new Highcharts.Chart({
+	            chart: {
+	                renderTo: 'container',
+	                zoomType: 'x', 
+	                defaultSeriesType: 'area' //图表类型line, spline, area, areaspline, column, bar, pie , scatter
+	            },
+	            title: {
+	                text: '最近$d天统计图表'
+	            },
+	            xAxis: {
+	                categories: [$days]
+	            },
+	            yAxis: {
+	                title: {
+	                    text: '数量（个）'
+	                }
+	            },
+	            //【图例】位置样式  
+	            legend: {
+	                layout: 'vertical',
+	                //【图例】显示的样式：水平（horizontal）/垂直（vertical）  
+	                backgroundColor: '#FFFFFF',
+	                borderColor: '#CCC',
+	                borderWidth: 1,
+	                align: 'center',
+	                verticalAlign: 'top', //默认为底部  
+	                enabled: true,
+	                //x: 100,  
+	                y: 50,
+	                //floating: true,  
+	                shadow: true,
+	                width: 650,
+	                itemWidth: 210
+	            },  
+	            tooltip: {
+	                enabled: true,
+	                formatter: function () {
+	                    return '<b>' + this.series.name + '</b><br/>' +
+            this.x + '：' + this.y + '个';
+	                }
+	            },
+	            plotOptions: {
+	                line: {
+	                    dataLabels: {
+	                        enabled: true
+	                    }
+	                }
+	            },
+	            series: [{
+	                name: '用户关注数',
+	                data: [$weixin_user_data]
+	            }
+]
+	        });
+	    });
+</script>

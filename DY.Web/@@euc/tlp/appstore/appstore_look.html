@@ -1,0 +1,80 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<link href="styles/store.css" rel="stylesheet" type="text/css" />
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            我的应用</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>微信公众号</strong> </li>
+        </ol>
+    </div>
+</div>
+#end
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+  <div class="sotreList">
+        <h2>应用详情</h2>
+        <div class="storeContent">
+            
+            <div class="app-detail">
+                <div id="applist">
+                    <img title="$!{entity.name}" src="$!{entity.photo}">
+                    <div class="progress">
+                        <p class="level"><span style="width:60%" class="complete"></span></p>
+                    </div>
+                </div>
+                <div id="appdetail">
+                    <h3>$!{entity.name}</h3>
+                    <p>类别：$!{entity.typename}</p>
+                    <p>发布日期：$!{entity.date}</p>
+                    <p>开发者：$!{entity.developers}</p>
+                    <p>语言：$!{entity.language}</p>
+<!--                    <h4 class="money">现价<em class="price">¥2.00</em>/月&nbsp; &nbsp; &nbsp; 原价<em class="originalPrice">¥10.00</em></h4>-->
+                </div>
+<div id="appinfo">
+                    <span>
+                        <a href="javascript:void(0)" class="active">应用详情</a>
+                        <a href="javascript:void(0)">应用参数</a>
+                        <a href="javascript:void(0)">使用攻略</a>
+                    </span>
+                    <div>
+                        <div class="appinfo-content">
+                            <h5>内容提要</h5>
+                            <div class="appinfo-detail">$!{entity.des}</div>
+                            
+                        </div>
+                        <div class="hide appinfo-content">
+                            <h4>参数</h4>
+                            <p>进入会话关键词：$!{entity.insession}</p>
+                            <p>退出会话关键词：$!{entity.extsession}</p>
+                            <p>会话停留时间：$!{entity.stoptime}</p>
+                            <p>匹配关键字（无会话状态）：$!{entity.keyword}</p>
+
+                            <h4>参数说明</h4>
+                            $!{entity.parameters_exp}
+                        </div>
+                        <div class="hide appinfo-content">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+#if (!$isajax)
+#parse("pagefooter.html")
+#end
+    <script type="text/javascript">
+        $(function () {
+            $('#appinfo span a').click(function () {
+                var index = $('#appinfo span a').index($(this));
+                $('#appinfo span a').removeClass('active').eq(index).addClass('active');
+                var contents = $('#appinfo').find('.appinfo-content');
+                contents.hide().eq(index).show();
+            });
+        })
+    </script>

@@ -1,0 +1,222 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<div id="box_content" style="min-height: 556px;">
+<div name="资讯详细" id="elem-News_detail01-001" class="columnSpace"> 
+		<div class="News_detail01-d1_c1" id="News_detail01-001">
+			<section class="News_detail01-d1_c1">
+				<div class="z3g-headerSmallNew" style="background:$!{mstyle.list_bg_color}">
+					<span class="active left">
+						<div class="z3g-btn active btnArrow btnArrowLeft back js_jumpToNewsList">
+							<b>
+								<em></em>
+							</b>
+							<span onclick="javascript:history.go(-1);" style="color:$!{mstyle.title_font_color}">
+								返回
+							</span>
+						</div>
+					</span>
+					<span class="center" style="color:$!{mstyle.title_font_color}">
+						资讯
+						内容
+					</span>
+					<span class="active right" href="">
+						<div class="z3g-btn textSizeBtn active" style="">
+							<span style="color:$!{mstyle.title_font_color}">
+								字
+								<sup>+</sup>
+							</span>
+							<div class="z3g-textSize" style="display: none;">
+								<div class="contArrow">
+									<em>◆</em>
+									<i>◆</i>
+								</div>
+								<ul class="cont">
+									<li class="active" data-ac-code="1">
+										小
+									</li>
+									<li class="active" data-ac-code="2">
+										中
+									</li>
+									<li class="active current" data-ac-code="3">
+										大
+									</li>
+								</ul>
+							</div>
+						</div>
+					</span>
+				</div>
+				<article class="articleWrap">
+					<h1 id="titleId">$cmsinfo.title</h1>
+					<p class="minInfo">
+						<span class="time">$cmsinfo.showtime.ToString("yyyy-MM-dd hh:mm")
+						</span>
+							<span class="source">作者:$cmsinfo.source </span>
+					</p>
+					<div class="articleCont htmledit textSizeWrap" onLoad="init();">
+                    <p>
+                    $body
+                    </p>
+
+					</div>
+                    #if($cmsinfo.tag!="")
+					<div class="z3g-keyword">
+                    #foreach($row in $CMS.GetTags($cmsinfo.tag))
+						<a href="#TagLink()"><span class="key" style="background:$!{mstyle.in_foot_font_color}">
+							$row.tag_name
+						</span>
+						    #end
+					</div>
+                    #end
+					<div class="z3g-pageControlBar">
+						
+						
+							<section class="pagePrev disTap" style="background:$!{mstyle.content_updown_bg_color}">
+								<p class="p1">
+									上一条
+								</p>
+								<p class="p2">
+									  #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,false))
+                                        <a href="#CMSLink()">$row.title</a>
+                                        #end
+								</p>
+								<p class="arrow"></p>
+							</section>
+								<section class="active pageNext js_jumpToPreAndNext" style="background:$!{mstyle.content_updown_bg_color}">
+									<p class="p1">
+										下一条
+									</p>
+									<p class="p2">
+									    #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,true))
+                                        <a href="#CMSLink()">$row.title</a>
+                                        #end
+									</p>
+									<p class="arrow"></p>
+								</section>
+							
+						
+						
+					</div>
+				</article>
+			</section>
+		</div>
+ 
+				</div>
+				<div name="相关资讯列表" id="elem-News_listRelated01-001" class="columnSpace"> 
+				<section class="News_listRelated01-d1_c1">
+	<div class="borderTitle" style="background:$!{mstyle.b_menu_bg_color}">
+		<ul class="titleWrap">
+			<li data-type="0" class="active js_checkType current" id="cinfo">
+				<div>
+					<span class="text" style="color:$!{mstyle.b_menu_font_color}">
+						相关资讯
+					</span>
+				</div>
+			</li>
+<!--			<li data-type="1" class="active js_checkType " id="cproduct">
+				<div>
+					<span class="text">
+						相关内容
+					</span>
+				</div>
+			</li>-->
+		</ul>
+		<span class="active controlBar js_openlist">
+			<em id="oclist" class="icon up"></em>
+		</span>
+	</div>
+	<div id="oclistdiv">
+		<div id="infolist" class="borderCont">
+							<ul class="zzp-lists">
+							#foreach($row in $Caches.GetCMS($!{cmsinfo.cat_id},5))
+								<li class="active">
+								<a href="#CMSLink()" title="$row.title">
+									<div class="js_gotoNewsRelated">
+										<h3 class="newsTitle">
+											<em class="icon"></em>
+											<span class="name">
+												$SiteUtils.GetTopic($row.title,45)
+											</span>
+										</h3>
+									</div>
+									</a>
+								</li>
+							    #end
+							</ul>
+		</div>
+<!--		<div style="" id="prolist" class="borderCont" style="display: none;">
+					<div class="z3g-noContent">
+						<span>
+							暂无内容
+						</span>
+					</div>
+		</div>-->
+	</div>
+	<input type="hidden" value="143">
+	<input type="hidden" value="">
+</section>
+				</div>
+				<div name="留言列表" id="elem-Messages_emit01-001" class="columnSpace"> 
+				
+
+
+
+<div class="Messages_emit01-d1_c1" id="Messages_emit01-001">
+
+				
+<!-- 发表留言组件 开始 -->
+<section id="Messages_emit01-001_Messages_emit01-d1_c1" class="Messages_emit01-d1_c1">
+		<div class="relateStyle" id="msgTitle"><!--相关模式改为“normalStyle”-->
+			<div class="z3g-headerSmallNew">
+						<span class="active left">
+							<div class="z3g-btn active btnArrow btnArrowLeft back">
+								<b>
+									<em></em>
+								</b>
+								<span>返回</span>
+							</div>
+						</span>
+						<span class="center">在线留言</span>	
+						<span class="active right" href="">
+
+						</span>
+					</div>
+			<div style="display:none;" class="z3g-headerSmall">
+			<span class="active back" href="javascript:void(0);">
+				<em class="icon">返回</em>
+			</span>
+			<span class="title">在线留言</span>	
+				<span class="active more" id="detail_more" href="javascript:void(0);">
+					<em class="icon"></em>
+				</span>
+			</div>
+			<div class="borderTitle" style="background:$!{mstyle.b_menu_bg_color}">
+				<ul class="titleWrap">
+					<li class="active current" id="list">
+						<div><span class="text" style="color:$!{mstyle.b_menu_font_color}">相关留言</span>
+									
+						</div>
+					</li>
+					<li class="active" id="emit">
+						<div><span class="text" style="color:$!{mstyle.b_menu_font_color}">我要留言</span></div>										
+					</li>
+				</ul>
+				<span class="active controlBar">
+					<em class="icon up"></em>
+				</span>
+			</div>
+
+			<!-- 发表留言后的提示框  结束-->
+            #parse("public/review.html")
+		</div>
+</section>
+</div> 
+				</div>
+			</div>
+			<div name="bottom" id="elem-PublicConfig_showBottom01-001" class="columnSpace">
+	#parse("include/addr.html")
+			</div>
+			</div>
+			<div style="position: absolute; z-index: 100; width: 7px; bottom: 2px; top: 2px; right: 1px; pointer-events: none; transition-property: opacity; overflow: hidden; opacity: 0;"><div style="position: absolute; z-index: 100; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.9); -moz-box-sizing: border-box; width: 100%; border-radius: 3px 3px 3px 3px; pointer-events: none; transition-property: -Moz-transform; transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); transform: translate(0px, 0px); height: 116px;"></div></div>
+			</div>
+			#end
+#parse("include/page_foot.html")

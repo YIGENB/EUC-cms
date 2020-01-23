@@ -1,0 +1,164 @@
+body, div, dl, dt, dd, ul, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, blockquote p{
+margin: 0;
+padding: 0;
+}
+body{
+font-size: 14px;
+font-family: 'Microsoft Yahei','Helvetica Neue','Luxi Sans','DejaVu Sans',Tahoma,'Hiragino Sans GB',STHeiti;
+color: #333;
+}
+a{color: #37a;text-decoration:none;}
+.bd{
+  margin: 0 auto;
+  height: auto;
+}
+ul li {list-style:none;
+}
+.nav{
+background-color: #f0f3f5;
+height: 40px;
+margin:0;
+clear: both;display: block;
+border-bottom: 1px solid #e5ebe4;
+margin-bottom: 10px;
+}
+.na ul{
+  height: 40px;
+  margin: 5px 0px;
+  clear: both;display: block;
+  padding-right: 10px;
+
+
+}
+.nav ul li {
+	float:left;
+    margin: 0px 7.5px;
+    line-height: 40px;
+
+}
+
+.nr{
+	margin-top: 10px;
+  height: auto;
+}
+.zuo{ margin: 15px; float: left;}
+.you{width: 300px; float: right;
+	padding-left: 15px;
+	border-left: 1px solid #eaeaea;
+}
+
+.biaoti h2{
+font-size: 18px;
+color: #111;
+margin: 0 0 8px 0;
+line-height: 150%;
+padding: 10px 0px;
+border-bottom: 1px solid #eaeaea;
+}
+  h3{
+ font-size: 18px;
+color: #111;
+margin: 0 0 12px 0;
+line-height: 150%;
+padding: 10px 0px 5px 0px;
+border-bottom: 1px solid #eaeaea;
+font-weight: normal;
+}
+
+.zuo ul li{
+  margin-bottom: 5px;
+}
+.zuo ul li em{font-style: normal;
+  margin-right: 12px;
+  background-color: #268dcd;
+color: #fff;
+border-radius: 2px;
+padding: 1px 10px;
+text-align: center;
+line-height: 24px;  
+}
+.zuo ul li em a{
+	color: #fff;
+}
+.zuo ul li span {
+  margin-left: 12px;
+  color: #999;
+  font-size: 12px;
+}
+.foot{
+  border-top: 1px solid #eaeaea;
+  margin: 10px 0px 20px 0px;
+  padding: 10px 0px;
+  text-align: center;
+
+}
+.zw .text{
+
+line-height: 24px;
+
+}
+.biaoti{
+  margin-bottom: 10px;
+}
+.biaoti span{
+  font-size: 12px;
+  margin-right: 10px; color: #999;
+}
+
+.xgtj ul li {
+  float:left;
+  margin-right: 25px;
+}
+
+.xgtj  {
+  width: 639px;
+}
+.xgwz span{
+  float: right;
+  font-size: 12px;
+color: #999;
+}
+.rdtw ul li{
+  float: left;
+width: 142px;
+height: 114px;
+position: relative;
+overflow: hidden;
+margin-bottom: 15px;
+
+}
+.rdtw ul li img{
+width: 142px;
+height: 95px;
+}
+.rdtw ul li p{
+font-size: 12px;
+text-align: center;
+line-height: 24px;
+margin: 0px;
+}
+.rdtw {
+  height:auto;overflow:hidden;
+}
+.rdtw ul{
+  height:auto;overflow:hidden;
+}
+.rdleft {
+  margin-right: 15px;
+}
+.foot{
+  font-size: 12px;
+}
+.pages{
+  text-align: center;
+}
+.pages a{
+  margin-right: 15px;
+}
+
+#contentText p {
+    margin-bottom: 28px;
+    word-break: break-word;
+        font-size: 16px;
+    line-height: 28px;
+}

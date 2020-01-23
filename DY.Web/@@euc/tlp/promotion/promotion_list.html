@@ -1,0 +1,57 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<script type="text/javascript" src="js/listtable.js"></script>
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">推广计划列表</span> 
+    </div>
+    <div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=add"><span class="left"></span><em><cite class="icon"></cite><cite>添加推广计划</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>	
+<form method="post" action="" name="listForm">
+<div class="list-div" id="listDiv">
+#end
+<table cellpadding="3" cellspacing="1">
+  <tr class="list_tr">
+    <th>$SiteUtils.GetSortImg("pid","推广ID")</th>
+    <th>$SiteUtils.GetSortImg("website","网址")</th>
+    <th>$SiteUtils.GetSortImg("remark","推广地址")</th>
+    <th>$SiteUtils.GetSortImg("input_time","添加时间")</th>
+    <th  style=" display:none;">$SiteUtils.GetSortImg("cost","金额")</th>
+    <th>$SiteUtils.GetSortImg("is_default","默认")</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+    <tr >
+    <td align="center"><span>${row.pid}</span></td>
+    <td align="center"><span>${row.website}</span></td>
+    <td align="center"><input type="text" onclick="this.select();" value="${website}/?pid=${row.pid}" /></td>
+    <td align="center"><span>${row.input_time}</span></td>
+    <td align="center" style=" display:none;"><span>${row.cost}</span></td>
+    <td align="center"><img src="images/${row.is_default}.gif" onclick="listTable.toggle(this, 'is_default', ${row.id})" /></td>
+    <td align="center"><span>  
+      <a href="PromotionLog.aspx?act=list&pid=${row.pid}&date=1" title="查看今天统计">今天</a>
+      <a href="PromotionLog.aspx?act=list&pid=${row.pid}&date=2" title="查看本周统计">本周</a>
+      <a href="PromotionLog.aspx?act=list&pid=${row.pid}&date=3" title="查看本月统计">本月</a>
+      <a href="PromotionLog.aspx?act=tj&pid=${row.pid}" title="查看统计">查看统计</a>
+      <a href="?act=edit&id=${row.id}" title="修改">修改</a>
+      <a href="javascript:;" onclick="listTable.remove(${row.id}, '您确认要删除这条记录吗?')" title="删除">删除</a></span>
+    </td>
+  </tr>
+  #end
+</table>
+<!-- 分页 -->
+  <table id="page-table" cellspacing="0">
+    <tr>
+      <td align="right" nowrap="true">${pager}</td>
+    </tr>
+  </table>
+#if (!$isajax)
+</div>
+</form>
+#parse("pagefooter.html")
+#end

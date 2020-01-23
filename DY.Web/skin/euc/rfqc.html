@@ -1,0 +1,89 @@
+﻿#parse("include/page_head.html")
+<div class="about_cont_a">
+    	<div class="about_cont_aa"></div>
+        <div class="about_cont_vc"></div>
+        <div class="main">
+        <div class="about_conta_top">
+            	<div class="about_conta_topl"><img width="413" height="59" src="images/about_j.jpg" alt="$!{pageinfo.title}"></div>
+                <div class="about_conta_topr">
+                	<div class="about_conta_toprt"><span>当前位置：</span><a href="/">首页</a>   » <a href="/n_ctmon.htm">创同盟</a> » <a href="/n_rfqc.htm">燃放青春</a></div>
+                   <div class="about_conta_toprb a">
+                    	#foreach($row in $Caches.GetNextPage(10)) 
+                    	<a href="#PageLink()">$row.title</a>
+                        #end
+                        <a href="/n_rfqc.htm" class="selected">燃放青春</a>
+                    </div>
+                </div>
+            </div>
+        <div class="coll">
+        <div class="nums">开心工作、快乐生活！对工作负责，为青春喝彩<br />年轻是我们奋斗的轨迹，我们曾开心、时而失落、时而彷徨、但我们依旧坚持着，坚持梦想的追求，我们是一只不断创业的团队，特立此版，纪念所有为创同盟付出过的兄弟们，有空多回家看看，我们会不断努力，让曾经梦想的一切都成为现实！
+        </div>
+             #foreach($row in $list)
+            <a class="clla_a" href="#CMSLink()">
+            	<div class="clla_al">
+                	<p>$row.showtime.tostring("dd")</p>
+                    $row.showtime.tostring("yyyy-MM")
+                </div>
+                <div class="clla_ar">
+                	<p>$row.title</p>
+                    $SiteUtils.GetTopic($row.des,150)
+                </div>
+            </a>
+            #end
+
+        </div>
+        #if($list.Count>0)
+         <div class="case_page">
+				<div class="moreWrap active" id="more">
+					<span>
+						查看更多
+					</span>
+				</div>
+		<div style="display:none;" class="moreWrap active loading">
+			<span style="text-align:center">
+				<img id="win8lodding" src="images/loading.gif" />
+			</span>
+		</div>
+        </div>
+        #end
+       </div>
+    </div>
+#parse("include/page_foot.html")
+<script type="text/javascript">
+    //载入资讯列表
+    var oldList = jQuery('.coll').html();
+    var click = 2;
+    function LoadList(pageIndex) {
+        jQuery.ajax({
+            type: "GET",
+            cache: false,
+            url: "/tools/ajax.aspx",
+            data: "act=GetNewsList&cat_id=$!this_id&pagesize=$!pagesize&tlp=news&pageindex=" + pageIndex,
+            dataType: "html",
+            success: function (data) {
+                jQuery('.coll').append(data);
+            }
+        });
+    }
+    $(function () {
+        $('.coll').ajaxStart(function () {
+            $(".loading").show();
+            $("#more").hide();
+        });
+        $('.coll').ajaxStop(function () {
+            $(".loading").hide();
+            $("#more").show();
+        });
+        $("#more").click(function () {
+            if (click > $countPage) {
+                $("#more span").html("没有更多了");
+            }
+            else {
+                LoadList(click);
+                click++;
+            }
+
+            //click = click <= $countPage ? click : $countPage;
+        })
+    })
+</script>

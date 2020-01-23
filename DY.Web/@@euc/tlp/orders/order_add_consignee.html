@@ -1,0 +1,261 @@
+﻿#parse("pageheader.html")
+<script type="text/javascript" src="/include/js/region.js"></script>
+<script type="text/javascript">
+    region.isAdmin = true;
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            设置收货人信息</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>添加订单</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                收货人：</label>
+                            <div class="col-sm-9">
+                                <input name="consignee" type="text" maxlength="50" class="form-control" required=""
+                                    aria-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                所在地区：</label>
+                            <div class="col-sm-11">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <select name="country" id="selProvinces_0" onchange="region.changed(this, 1, 'selCities_0')"
+                                            class="form-control m-b" required="" aria-required="true">
+                                            <option value="">请选国家</option>
+                                            #foreach($row in $SystemConfig.GetRegion(0,0))
+                                            <option value="$!{row.region_id}">$!{row.region_name}</option>
+                                            #end
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select name="province" id="selCities_0" onchange="region.changed(this, 2, 'selDistricts_0')"
+                                            class="form-control m-b" required="" aria-required="true">
+                                            <option value="">请选择省份</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select name="city" id="selDistricts_0" onchange="region.changed(this, 3, 'selDistrict_0')"
+                                            class="form-control m-b" required="" aria-required="true">
+                                            <option value="">请选择市区</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select name="district" id="selDistrict_0" style="display: none" class="form-control m-b"
+                                            required="" aria-required="true">
+                                            <option value="">请选地点</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                电子邮件：</label>
+                            <div class="col-sm-9">
+                                <input name="email" type="text" class="form-control email" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                详细地址：</label>
+                            <div class="col-sm-9">
+                                <input name="address" id="address" type="text" class="form-control" required="" aria-required="true" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                邮编：</label>
+                            <div class="col-sm-9">
+                                <input name="zipcode" id="zipcode" type="text" class="form-control number" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                电话：</label>
+                            <div class="col-sm-9">
+                                <input name="tel" type="text" class="form-control number" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                手机：</label>
+                            <div class="col-sm-9">
+                                <input name="mobile" id="mobile" type="text" class="form-control number" required="" aria-required="true" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                标志建筑：</label>
+                            <div class="col-sm-9">
+                                <input name="sign_building" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                最佳送货时间：</label>
+                            <div class="col-sm-9">
+                                <input name="best_time" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <input type="button" value="上一步" class="btn btn-w-m btn-white" onclick="history.back()" />    <input name="next" type="submit" class="btn btn-w-m btn-primary" value="下一步" />
+    <input type="button" value="取消" class="btn btn-w-m btn-white" onclick="location.href='order.aspx?act=add&step=delete&order_id=${order_id}'" />
+                                    
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+  /**  
+   * @author ming  
+   */  
+  $(document).ready(function(){       
+           
+  /* 设置默认属性 */       
+  jQuery.validator.setDefaults({       
+      submitHandler: function(form) {    
+          form.submit();    
+     }       
+ });   
+   
+ // 字符验证       
+ jQuery.validator.addMethod("stringCheck", function(value, element) {       
+     return this.optional(element) || /^[\u0391-\uFFE5\w]+$/.test(value);       
+ }, "只能包括中文字、英文字母、数字和下划线");   
+   
+ // 中文字两个字节       
+ jQuery.validator.addMethod("byteRangeLength", function(value, element, param) {       
+     var length = value.length;       
+     for(var i = 0; i < value.length; i++){       
+         if(value.charCodeAt(i) > 127){       
+         length++;       
+         }       
+     }       
+     return this.optional(element) || ( length >= param[0] && length <= param[1] );       
+ }, "请确保输入的值在3-15个字节之间(一个中文字算2个字节)");   
+   
+ // 身份证号码验证       
+ jQuery.validator.addMethod("isIdCardNo", function(value, element) {       
+     return this.optional(element) || isIdCardNo(value);       
+ }, "请正确输入您的身份证号码");    
+      
+ // 手机号码验证       
+ jQuery.validator.addMethod("isMobile", function(value, element) {       
+     var length = value.length;   
+     var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;   
+     return this.optional(element) || (length == 11 && mobile.test(value));       
+ }, "请正确填写您的手机号码");       
+      
+ // 电话号码验证       
+ jQuery.validator.addMethod("isTel", function(value, element) {       
+     var tel = /^\d{3,4}-?\d{7,9}$/;    //电话号码格式010-12345678   
+     return this.optional(element) || (tel.test(value));       
+ }, "请正确填写您的电话号码");   
+   
+ // 联系电话(手机/电话皆可)验证   
+ jQuery.validator.addMethod("isPhone", function(value,element) {   
+     var length = value.length;   
+     var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;   
+     var tel = /^\d{3,4}-?\d{7,9}$/;   
+     return this.optional(element) || (tel.test(value) || mobile.test(value));   
+   
+ }, "请正确填写您的联系电话");   
+      
+ // 邮政编码验证       
+ jQuery.validator.addMethod("isZipCode", function(value, element) {       
+     var tel = /^[0-9]{6}$/;       
+     return this.optional(element) || (tel.test(value));       
+ }, "请正确填写您的邮政编码");    
+   
+ //开始验证   
+ $('#commentForm').validate({   
+     /* 设置验证规则 */  
+     rules: {   
+         email:{   
+             required:true,   
+             email:true  
+         },   
+         mobile:{   
+             required:true,   
+             isPhone:true  
+         },   
+         address:{   
+             required:true,   
+             stringCheck:true,   
+             byteRangeLength:[3,100]   
+         },
+         zipcode:{
+            required:true,   
+             stringCheck:true,   
+             isZipCode:true 
+         }   
+     },   
+        
+     /* 设置错误信息 */  
+    messages: {    
+         email:{   
+             required: "请输入一个Email地址",   
+             email: "请输入一个有效的Email地址"  
+         },   
+         mobile:{   
+             required: "请输入您的手机号码",   
+             isPhone: "请输入一个有效的手机号码"  
+        },   
+        address:{   
+            required: "请输入您的联系地址",   
+            stringCheck: "请正确输入您的联系地址",   
+            byteRangeLength: "请详实您的联系地址以便于我们联系您"  
+        },
+        zipcode:{   
+            required: "请输入邮编",   
+            isZipCode: "请正确输入邮编"  
+        }   
+    },   
+       
+    /* 设置验证触发事件 */  
+    focusInvalid: false,   
+   onkeyup: false,   
+       
+    /* 设置错误信息提示DOM */  
+    errorPlacement: function(error, element) {       
+        error.appendTo( element.parent());       
+    },     
+       
+});
+  
+});
+
+  /**
+   * 载入收货地址
+   * @param int addressId 收货地址id
+   */
+  function loadAddress(addressId)
+  {
+
+    location.href += 'order.php?act=add&order_id=&step=&address_id=' + addressId;
+
+  }
+</script>
+#parse("pagefooter.html")

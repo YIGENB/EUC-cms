@@ -1,0 +1,76 @@
+﻿#parse("include/page_head.html")
+<div class="container">
+            <div class="maps-container">
+        		<iframe src="https://maps.google.com/?ie=UTF8&amp;ll=47.595131,-122.330414&amp;spn=0.006186,0.016512&amp;t=h&amp;z=17&amp;output=embed" class="responsive-image maps"></iframe>
+            </div>
+</div>
+
+<div class="decoration"></div>
+
+<div class="container no-bottom">
+            <div class="contact-form no-bottom"> 
+                <div id="formSuccessMessageWrap" class="formSuccessMessageWrap" style="display: none;">
+                    <div class="notification-box green-box">
+                        <h4>提交成功</h4>
+                        <a class="close-notification" href="#">x</a>
+                        <div class="clear"></div>
+                        <p>
+                            恭喜，您的信息已经递交成功，请等待我们的回复！ 
+                        </p>  
+                    </div> 
+                </div>
+            
+                <form id="contactForm" class="contactForm" method="post" action="/tools/ajax.aspx?act=feedbook">
+                    <fieldset>
+                        <div id="contactNameFieldError" class="formValidationError" style="display: none;">
+                            <div class="small-notification red-notification no-bottom">
+                                <p>请输入姓名</p>
+                            </div>
+                        </div>             
+                        <div id="contactEmailFieldError" class="formValidationError" style="display: block;">
+                            <div class="small-notification red-notification no-bottom">
+                                <p>请输入邮箱</p>
+                            </div>
+                        </div> 
+                        <div id="contactEmailFieldError2" class="formValidationError" style="display: none;">
+                            <div class="small-notification red-notification no-bottom">
+                                <p>请输入正确的邮箱</p>
+                            </div>
+                        </div>
+<!--                        <div id="contactCaptchaFieldError" class="formValidationError" style="display: none;">
+                            <div class="small-notification red-notification no-bottom">
+                                <p>请输入验证码</p>
+                            </div>
+                        </div> -->
+                        <div id="contactMessageTextareaError" class="formValidationError" style="display: none;">
+                            <div class="small-notification red-notification no-bottom">
+                                <p>请输入内容</p>
+                            </div>
+                        </div>   
+                        <div class="formFieldWrap">
+                            <label for="contactNameField" class="field-title contactNameField">您的姓名:<span>(required)</span></label>
+                            <input type="text" id="contactNameField" class="contactField requiredField" value="" name="name">
+                        </div>
+                        <div class="formFieldWrap">
+                            <label for="contactEmailField" class="field-title contactEmailField">您的邮箱: <span>(required)</span></label>
+                            <input type="text" id="contactEmailField" class="contactField requiredField requiredEmailField fieldHasError" value="" name="email">
+                        </div>
+                        <div class="formTextareaWrap">
+                            <label for="contactMessageTextarea" class="field-title contactMessageTextarea">留言内容: <span>(required)</span></label>
+                            <textarea id="contactMessageTextarea" class="contactTextarea requiredField" name="remark"></textarea>
+                        </div>
+<!--                        <div class="formCaptchaWrap">
+                            <label for="contactCaptchaField" class="field-title contactCaptchaField">验证码: <span>(required)</span></label>
+                            <input type="text" id="contactCaptchaField" class="contactField requiredField" value="" name="captcha">
+						    <img src="/tools/verifyimagepage.aspx" onclick="this.src='/tools/verifyimagepage.aspx?'+Math.random()" style="vertical-align:bottom;" alt="看不清？点击更换另一个验证码。" />
+                        </div>-->
+                        <div class="formSubmitButtonErrorsWrap">
+                            <input type="submit" data-formid="contactForm" value="提交" id="contactSubmitButton" class="buttonWrap button-minimal grey-minimal contactSubmitButton">
+                            <a href="tel:+12 345 657 8963" class="button-minimal grey-minimal">CALL</a>
+                            <a href="sms:+12 345 657 8963" class="button-minimal grey-minimal">TEXT</a>
+                        </div>
+                    </fieldset>
+                </form>       
+            </div>
+</div>
+#parse("include/page_foot.html")

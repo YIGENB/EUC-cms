@@ -1,0 +1,16 @@
+﻿<div class="team">
+    <div class="team_ask">
+        我们的每一次思索和设计，争论和坚持，都是为了注入创新思维， 我们懂得团队的力量，我们分享成长，执着前行。
+    </div>
+    <div class="team_move">
+        <a href="javascript:;" class="team_l"  rel="nofollow"></a><a href="javascript:;" class="team_r"  rel="nofollow">
+        </a>
+        <div class="team_Mlist">
+            <ul>
+                #foreach($row in $Caches.NewNews(20,56))
+                <li data-ask="$row.des"><img width="80" height="80" alt="$row.title" src="$row.photo" /><span class="team_job">$row.title</span></li>
+                 #end
+            </ul>
+        </div>
+    </div>
+</div>

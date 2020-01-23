@@ -1,0 +1,31 @@
+﻿#parse("include/page_head.html") #if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+<div class="content-section">
+    <h1 class="left-text">
+        一列组合</h1>
+    <em class="left-text">投资组合的变化！</em>
+    <div class="overlay">
+    </div>
+    <img alt="img" src="images/general-nature/1w.jpg" class="responsive-image">
+</div>
+<div class="content">
+    <div class="container">
+        <h4>
+            $catinfo.cat_name</h4>
+        <div class="decoration">
+        </div>
+        <div class="tabs">
+            #foreach($row in $list) #set($index=$velocityCount+1) <a class="tab-but tab-but-$index #if($index==1)tab-active#end"
+                href="#">$row.title</a> #end
+        </div>
+        #foreach($row in $list) #set($index=$velocityCount+1)
+        <div class="tab-content tab-content-$index">
+            <p>
+                $row.content
+            </p>
+        </div>
+        #end
+    </div>
+</div>
+#end #parse("include/page_foot.html") 

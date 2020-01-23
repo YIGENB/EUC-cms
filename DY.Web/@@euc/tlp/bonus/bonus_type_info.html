@@ -1,0 +1,148 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end优惠券类型</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>优惠券</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list" class="btn btn-primary ">优惠券类型</a>
+                    </div>
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                名称：</label>
+                            <div class="col-sm-9">
+                                <input name="type_name" maxlength="60" type="text" class="form-control" required=""
+                                    aria-required="true" value="$!{entity.type_name}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            优惠券金额：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="type_money" id="type_money" type="text" class="form-control number" required="" placeholder="此类型的优惠券可以抵销的金额" value="$SiteUtils.DefaultValue($!{entity.type_money},0)">
+                                                    
+                                        </div>
+                                    </div>
+                          <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            如何发放此类型优惠券：</label>
+                                        <div class="col-sm-9">
+                                        <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio" onClick="showunit(0)" #if ($!{entity.send_type} == 0)checked#end  value="0" name="send_type" disabled> <i></i> 按用户发放</label>
+                                                    <label>
+                                                    <input type="radio" onClick="showunit(1)" #if ($!{entity.send_type} == 1)checked#end  value="1" name="send_type"> <i></i> 按商品发放</label>
+                                                    <label>
+                                                    <input type="radio" onClick="showunit(2)" #if ($!{entity.send_type} == 2)checked#end  value="2" name="send_type"> <i></i> 按订单金额发放</label>
+                                                    <label>
+                                                    <input type="radio" onClick="showunit(3)" #if ($!{entity.send_type} == 3)checked#end  value="3" name="send_type"> <i></i> 线下发放的优惠券</label>
+                                    </div>
+                                        </div>
+                                    </div>
+                                    <div class="" id="min_goods_amount">
+                                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            商品总金额下限：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="min_goods_amount" type="text" class="form-control number" required="" placeholder="只有商品总金额达到这个数的订单才能使用这种优惠券" value="$SiteUtils.DefaultValue($!{entity.min_goods_amount},0)">
+                                                    
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="" id="min_amount">
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            订单下限：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="min_amount"  type="text" class="form-control number" required="" placeholder="只要订单金额达到该数值，就会发放优惠券给用户" value="$SiteUtils.DefaultValue($!{entity.min_amount},0)">
+                                                    
+                                        </div>
+                                    </div>
+                                    </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                发放日期范围：</label>
+                            <div class="col-sm-9">
+                                <div class="input-daterange input-group" id="datepicker">
+                                        <input type="text" class="form-control" name="send_start_date" value="$SiteUtils.DefaultValue($!{entity.send_start_date},"")" />
+                                        <span class="input-group-addon">到</span>
+                                        <input type="text" class="form-control" name="send_end_date" value="$SiteUtils.DefaultValue($!{entity.send_end_date},"")" />
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                使用日期范围：</label>
+                            <div class="col-sm-9">
+                                <div class="input-daterange input-group" id="datepicker1">
+                                        <input type="text" class="form-control" name="use_start_date" value="$SiteUtils.DefaultValue($!{entity.use_start_date},"")" />
+                                        <span class="input-group-addon">到</span>
+                                        <input type="text" class="form-control" name="use_end_date" value="$SiteUtils.DefaultValue($!{entity.use_end_date},"")" />
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                                <button class="btn btn-white" type="reset">
+                                    取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#datepicker,#datepicker1').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            startDate: new Date()
+        });
+    })
+</script>
+<script language="JavaScript">
+
+    var showunit = function (val) { 
+        if (val == 2) {
+                $("#min_amount").show();
+                $("#min_goods_amount").hide();
+            }
+            else if (val == 1) {
+                $("#min_goods_amount").show();
+                $("#min_amount").hide();
+            }
+            else {
+                $("#min_amount").hide();
+                $("#min_goods_amount").hide();
+            }
+    }
+
+    $(function () {
+        $('.i-checks').on('ifChecked', function (event) {
+            var val = $(event.target).val();
+            showunit(val);
+        });
+        #if($id > 0)showunit($entity.send_type); #end
+    });
+
+</script>
+#parse("pagefooter.html")

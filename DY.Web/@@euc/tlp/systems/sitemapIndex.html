@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex>
+#foreach($row in $newslist)
+ <sitemap>
+<loc><a href="http://$config.Sitedomain#CMSLink()">$row.title</a></loc>
+<lastmod>$datetime</lastmod>
+</sitemap>
+#end
+#foreach($row in $newsCats)
+ <sitemap>
+<loc><a href="http://$config.Sitedomain#CMSCatLink()">$row.cat_name</a> </loc>
+<lastmod>$datetime</lastmod>
+</sitemap>
+#end
+#foreach($row in $pages)
+ <sitemap>
+<loc><a href="http://$config.Sitedomain#PageLink()">$row.title</a></loc>
+<lastmod>$datetime</lastmod>
+</sitemap>
+#end
+</sitemapindex>

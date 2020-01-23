@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="privilege.aspx.cs" Inherits="DY.Web.admin.privilege" %>

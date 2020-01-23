@@ -1,0 +1,84 @@
+﻿
+    <ul class="buyer_stat">
+        <li class="btn_1 #if($pay_status==0) active #end "><a href="/user.aspx?act=order_list&pay_status=0">待付款</a><span>待付款</span></li><li
+            class="btn_2  #if($delivery_status==0) active #end"><a href="/user.aspx?act=order_list&delivery_status=0">待发货</a><span>待发货</span></li><li
+                class="btn_3 #if($delivery_status==1) active #end"><a href="/user.aspx?act=order_list&delivery_status=1">待收货</a><span>待收货</span></li><li
+                    class="btn_4 #if($order_status==4) active #end"><a href="/user.aspx?act=order_list&order_status=4">已完成</a><span>已完成</span></li></ul>
+    <div class="wrap">
+        <div class="public">
+        #foreach($row in $order_list)#set($index=$velocityCount+1)
+            <div class="order_form">
+                <p class="num">
+                    订单号: $row.order_sn</p>
+                     #foreach($row in $ordergoodslist)
+                <div class="con">
+                    <p class="ware_pic">
+                        <a href="#GoodsLink()">
+                            <img width="80" height="80" src="$SiteUtils.GetGoodsInfo($row.goods_id).original_img"></a></p>
+                    <p class="ware_text">
+                        <a href="#GoodsLink()">$row.goods_name</a><br>
+                        <span class="attr"></span>
+                    </p>
+                    <p class="price">
+                        价格: <span>¥$row.goods_price</span></p>
+                    <p class="amount">
+                        数量: <span>1</span></p>
+                    </div>
+                    #end
+                <div class="clear">
+                </div>
+                <div class="foot">
+                    <p class="time">
+                        添加时间:$row.add_time</p>
+                    <div class="handle">
+                        <div style="float: left;">
+                            订单总价: <b id="order118_order_amount">¥$row.order_amount&nbsp;&nbsp;</b></div>
+                        <!--待付款 -->
+                        #if($row.order_status == 0) <a href="/user.aspx?act=update_field&id=${row.order_id}&val=2&fieldName=order_status" onclick="return order.UpdateState(this)">取消</a> 
+                            #elseif ($row.order_status ==2) 
+                            <a href="/user.aspx?act=update_field&id=${row.order_id}&val=0&fieldName=order_status" onclick="return order.UpdateState(this)" style="color: red;">恢复</a> 
+                            #end 
+                        <a href="${act}-show-id${row.order_id}.aspx">详情</a>
+                                 #if($row.pay_status == 0) <a href="/checkout.aspx?act=payment&order_sn=${row.order_sn}">继续支付</a> #end
+                                    </div>
+                </div>
+            </div>
+            #end
+            <div class="order_form_page">
+                <div class="page">
+                    $pager
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="wrap_bottom">
+        </div>
+    </div>
+    #if($order_list.Count<=0)
+    <div class="wrap_line margin1">
+        <div class="public_index">
+            <div class="information_index">
+                <div class="awoke">
+                    您目前还没有已生成的订单<br>
+                    去<a href="#">商城首页</a>，挑选喜爱的商品，体验购物乐趣吧。
+                </div>
+            </div>
+        </div>
+        <div class="wrap_bottom">
+        </div>
+    </div>
+    #end
+    <div class="clear">
+    </div>
+<script type="text/javascript">
+    var order = new Array;
+
+    //取消订单
+    order.UpdateState = function (obj) {
+        Ajax.call($(obj).attr('href'), '', function (json) {
+            window.location.reload();
+        }, 'GET', 'json');
+        return false;
+    }
+</script>

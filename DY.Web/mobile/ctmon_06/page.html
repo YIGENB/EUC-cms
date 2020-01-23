@@ -1,0 +1,16 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+#parse("include/ads.html")
+<div class="content cimg">
+    <div class="container no-bottom">
+    <h4>$pageinfo.title</h4>
+    <p>
+        $mbody
+    </p>
+    </div>
+    <div class="decoration"></div>
+</div>
+#end
+#parse("include/page_foot.html")

@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+#IncludeHead()
+#IncludeStyle()
+#IncludeScript()
+</head>
+<body>
+    <!--头部公用-start-->
+    <div id="header" class="header">
+        <div class="logo fl">
+            <a href="/">
+                <img alt="$config.Name" src="$config.ShopLogo" /></a></div>
+        <div class="h_r fr">
+            <div class="nav fl">
+                <ul>
+                #foreach($row in $Caches.Nav())
+                    <li>
+                        <p>
+                            <a href="$row.url" #if($row.opennew) target="_blank" #end #if($navid==$row.id) class="cur" #end>$row.name<span>$row.en_name</span></a>
+                        </p>
+                    </li>
+                #end
+                </ul>
+            </div>
+            <div class="h_click fl">
+                <ul>
+                    <li class="h_tel">
+                        <img width="32" height="32" src="images/h_img1.png" alt="$config.ShoppingTel"/><span>$config.ShoppingTel</span></li>
+                    #foreach($row in $Caches.AllCsh(4))  
+                    <li><a href="$!{row.csh_con}" target="_blank" title="$row.csh_title"  rel="nofollow"><img width="32" height="32" alt="$row.csh_title" src="$row.csh_pic" /></a></li>
+                    #end
+                    #foreach($row in $Caches.AllCsh(2)) 
+                    <li><a title="$row.csh_title" href="tencent://message/?uin=$!{row.csh_con}&amp;Menu=yes"  rel="nofollow">
+                        <img width="32" height="32" alt="$row.csh_title" src="images/QQ_QZ.png" /></a>
+                    </li>
+                    #end
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--头部公用-end-->

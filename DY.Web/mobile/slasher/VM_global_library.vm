@@ -1,0 +1,228 @@
+﻿#**
+ *================================================================================
+ * 功能：调用公共的头部文件
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(IncludeHead)
+<title>$pagetitle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="splash-icon.png">
+<link rel="apple-touch-startup-image" href="images/splash-screen.png" media="screen and (max-device-width: 320px)">  
+<link rel="apple-touch-startup-image" href="images/splash-screen@2x.png" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)"> 
+<link rel="apple-touch-startup-image" sizes="640x1096" href="images/splash-screen@3x.png">
+<link rel="apple-touch-startup-image" sizes="1024x748" href="images/splash/splash-screen-ipad-landscape" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : landscape)">
+<link rel="apple-touch-startup-image" sizes="768x1004" href="images/splash-screen-ipad-portrait.png" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : portrait)">
+<link rel="apple-touch-startup-image" sizes="1536x2008" href="images/splash-screen-ipad-portrait-retina.png" media="(device-width: 768px)	and (orientation: portrait)	and (-webkit-device-pixel-ratio: 2)">
+<link rel="apple-touch-startup-image" sizes="1496x2048" href="images/splash-screen-ipad-landscape-retina.png" media="(device-width: 768px)	and (orientation: landscape)	and (-webkit-device-pixel-ratio: 2)">
+<meta name="Keywords" content="$pagekeywords" />
+<meta name="Description" content="$pagedesc" />
+#end
+#**
+ *================================================================================
+ * 功能：调用公共的CSS文件
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(IncludeStyle)
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/framework.css" rel="stylesheet" type="text/css">
+<link href="css/owl.css" rel="stylesheet" type="text/css">
+<link href="css/owl_002.css" rel="stylesheet" type="text/css">
+<link href="css/swipebox.css" rel="stylesheet" type="text/css">
+<link href="css/colorbox.css" rel="stylesheet" type="text/css">
+#end
+
+
+#**
+ *================================================================================
+ * 功能：调用公共的js文件
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(IncludeScript)
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jqueryui.js"></script>
+<script type="text/javascript" src="js/owl.js"></script>
+<script type="text/javascript" src="js/jquery_002.js"></script>
+<script type="text/javascript" src="js/colorbox.js"></script>
+<script type="text/javascript" src="js/snap.js"></script>
+<script type="text/javascript" src="js/contact.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="js/framework.js"></script>
+<script type="text/javascript" src="js/framework_002.js"></script>
+<script type="text/javascript" src="js/touchwipe.js"></script>
+#end
+<script type="text/javascript" src="/include/js/cgvalidator.js"></script>
+<script type="text/javascript" src="/include/js/common.js"></script>
+<script type="text/javascript" src="/include/js/store.js"></script>
+<script type="text/javascript" src="/include/js/Cart.js"></script>
+
+#**
+ *================================================================================
+ * 功能：列表链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(CMSCatLink)
+#if ($config.EnableHtml)
+/html/article/#if(${row.urlrewriter} == "")${row.cat_id}#else${row.urlrewriter}#end.html
+#else
+/article/#if(${row.urlrewriter} == "")${row.cat_id}#else${row.urlrewriter}#end$!{html}#end
+#end
+#**
+ *================================================================================
+ * 功能：详细文章链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(CMSLink)
+#if ($config.EnableHtml)
+/html/article/detail/#if(${row.urlrewriter} == "")${row.article_id}#else${row.urlrewriter}#end.html
+#else
+/article/detail/#if(${row.urlrewriter} == "")${row.article_id}#else${row.urlrewriter}#end$!{html}#end
+#end
+
+#**
+ *================================================================================
+ * 功能：内容TAG链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(TagLink)
+/search/#if(${row.urlrewriter} == "")${row.tag_name}#else${row.urlrewriter}#end$!{html}
+#end
+
+#**
+ *================================================================================
+ * 功能：页面链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(PageLink)
+#if ($config.EnableHtml)
+/html/page/#if(${row.urlrewriter} == "")${row.page_id}#else${row.urlrewriter}#end.html
+#else
+/page/#if(${row.urlrewriter} == "")${row.page_id}#else${row.urlrewriter}#end$!{html}#end
+#end
+#**
+ *================================================================================
+ * 功能：详细产品链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(GoodsLink)
+#if ($config.EnableHtml)/html/product/#if(${row.urlrewriter} == "")${row.goods_id}#else${row.urlrewriter}#end.html#else/product/detail/#if(${row.urlrewriter} == "")${row.goods_id}#else${row.urlrewriter}#end$!{html}#end#end
+#**
+ *================================================================================
+ * 功能：产品类别链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(GoodsCatLink)
+#if ($config.EnableHtml)
+/html/product/#if(${row.urlrewriter} == "")${row.cat_id}#else${row.urlrewriter}#end.html
+#else
+/product/#if(${row.urlrewriter} == "")${row.cat_id}#else${row.urlrewriter}#end$!{html}#end
+#end
+#**
+ *================================================================================
+ * 功能：下载目录链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(DownloadCatLink)
+#if ($config.EnableHtml)
+/html/download/#if(${row.urlrewriter} == "")${row.cat_id}#else${row.urlrewriter}#end.html
+#else
+/download/#if(${row.urlrewriter} == "")${row.cat_id}#else${row.urlrewriter}#end$!{html}#end
+#end
+
+#**
+ *================================================================================
+ * 功能：下载详细页链接
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro(DownloadLink)
+#if ($config.EnableHtml)/html/info/#if(${row.urlrewriter} == "")${row.down_id}#else${row.urlrewriter}#end.html#else/download/detail/#if(${row.urlrewriter} == "")${row.down_id}#else${row.urlrewriter}#end$!{html}#end#end
+
+#**
+ *================================================================================
+ * 功能：验证码
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+#macro( Captcha )
+<tr>
+    <td><label for="captcha">验证码：</label></td>
+    <td><input type="text" id="captcha" name="captcha" size="5" /><span></span></td>
+</tr>
+<tr>
+    <td></td>
+    <td><img src="/tools/verifyimagepage$!{html}" class="captcha" /> <a href="javascript:ReloadCaptcha();">看不清？</a>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            ReloadCaptcha();
+        });
+    </script>
+    </td>
+</tr>
+#end
+
+#**
+ *================================================================================
+ * 功能：分享到微信与初始化微信分享内容
+ * 说明：供页面调用的模块
+ *================================================================================
+ *#
+ #macro( sharewecat )
+<link href="/include/images/sharewecat/share.css" rel="stylesheet" type="text/css" />
+</div>
+
+<script type="text/javascript" charset="utf-8" src="/static/js/shareWeixin.js"></script>
+    <section style="width:95%; margin:0px auto;">
+	<div style="" onclick="document.getElementById('mcover').style.display='';" id="mcover">
+		<img src="/include/images/sharewecat/guide.png">
+	</div>
+	<div class="text">
+		<div id="mess_share">
+			<div id="shareWeixinFriend">
+				<button onclick="document.getElementById('mcover').style.display='block';" class="button2">
+					<img src="/include/images/sharewecat/icon_msg.png?=2014-03-07-1">&nbsp;发送给朋友
+				</button>
+			</div>
+			<div id="shareWeixinTimeline">
+				<button onclick="document.getElementById('mcover').style.display='block';" class="button2">
+					<img src="/include/images/sharewecat/icon_timeline.png?=2014-03-07-1">&nbsp;分享到朋友圈
+				</button>
+			</div>
+			<div class="clr"></div>
+		</div>
+	</div>
+
+#end
+#**
+ *================================================================================
+可视化功能
+ *================================================================================
+*#
+#macro(visualization $id $type)
+#if($admin_userid>0)
+#if($config.visualization) 
+#if($type=="news")
+onmouseover="visualization(this,$id,'cms');"
+#elseif($type=="navigator")
+onmouseover="visualization(this,$id,'navigator');"
+#elseif($type=="friend_link")
+onmouseover="visualization(this,$id,'friend_link');"
+#else
+onmouseover="visualization(this,$id,'navigator');"
+#end
+#end
+#end
+#end

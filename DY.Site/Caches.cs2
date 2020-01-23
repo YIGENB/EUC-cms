@@ -1,0 +1,1908 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using System.Data;
+
+using DY.Common;
+using DY.Config;
+using DY.Entity;
+using DY.Data;
+using DY.Cache;
+
+namespace DY.Site
+{
+    /// <summary>
+    /// 缓存网站前台的一些界面HTML数据
+    /// </summary>
+    public class Caches1
+    {
+        #region 静态函数
+
+        #region 广告相关
+        /// <summary>
+        /// 取得广告列表
+        /// </summary>
+        /// <param name="pos_id">广告位置ID</param>
+        /// <returns></returns>
+        public static DataTable GetAds(int pos_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = cache.RetrieveObject("/DY/Web/Ads/t" + pos_id) as DataTable;
+            if (data == null)
+            {
+                data = DatabaseProvider.GetInstance().GetAds(pos_id);
+
+                cache.AddObject("/DY/Web/Ads/t" + pos_id, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得广告位
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetAd_Position()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Ads/Position") as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetAdPositionAllList("", "");
+
+                cache.AddObject("/DY/Web/Ads/Position", data);
+            }
+            return data;
+        }
+
+        #endregion
+
+        #region 评论相关
+        /// <summary>
+        /// 获取首页评论信息
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public static ArrayList GetIndexReviews(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Index/Review/t" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetCommentList(1, topN, "comment_id desc", "enabled=1 and is_read=1", out ResultCount);
+
+                cache.AddObject("/DY/Web/Index/Review/t" + topN, data);
+            }
+            return data;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Vote (投票)
+        /// <summary>
+        /// 取得单个投票主题信息
+        /// </summary>
+        /// <param name="vote_id">ID</param>
+        /// <returns></returns>
+        public static VoteInfo GetVote(int vote_id)
+        {
+            return SiteBLL.GetVoteInfo(vote_id);
+        }
+        public static ArrayList GetVoteTop(int top)
+        {
+            return SiteBLL.GetVoteAllList("vote_id desc", "top " + top + " *", "");
+        }
+        public static ArrayList GetVoteOption(int vote_id)
+        {
+            ArrayList data = SiteBLL.GetVoteOptionAllList("", "vote_id=" + vote_id);
+            return data;
+        }
+        #endregion
+
+
+        #region 非静态函数
+
+        private DataTable cat_dt = new DataTable();
+        private DataTable cms_page_dt = new DataTable();
+        private DataTable weixin_menu_dt = new DataTable();
+        private DataTable config_dt = new DataTable();
+        private DataTable admin_menu_dt = new DataTable();
+        private DataTable admin_action_dt = new DataTable();
+        /// <summary>
+        /// 产品分类
+        /// </summary>
+        /// <returns>返回产品分类列表信息</returns>
+        public DataTable GoodsCat()
+        {
+            return GoodsCat(0, true);
+        }
+
+        /// <summary>
+        /// 产品分类
+        /// </summary>
+        /// <returns>返回产品分类列表信息</returns>
+        public DataTable GoodsCat(int parent_id)
+        {
+            return GoodsCat(parent_id, true);
+        }
+
+        /// <summary>
+        /// 产品分类
+        /// </summary>
+        /// <returns>返回产品分类列表信息</returns>
+        public DataTable GoodsCat(int parent_id, int counts)
+        {
+            return GoodsCat(parent_id, counts, true);
+        }
+        /// <summary>
+        /// 产品分类
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GoodsCat(int parent_id, bool read_next)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = cache.RetrieveObject(CacheKeys.前台商品分类 + "1") as DataTable;
+            if (data == null)
+            {
+                data = Goods.GetGoodsCatAllList();
+
+                cache.AddObject(CacheKeys.前台商品分类 + "1", data);
+            }
+
+            //DataTable data = Goods.GetGoodsCatAllList();
+
+            cat_dt = data.Clone();
+
+            AddTree(data.Select("parent_id=" + parent_id, "sort_order desc,cat_id asc"), data, read_next);
+
+            return cat_dt;
+        }
+
+        /// <summary>
+        /// 取得指定下载分类下的子类
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetDownloadCat(int cat_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台下载分类 + cat_id) as ArrayList;
+            if (data == null)
+            {
+                data = new Download().GetDownloadCatList(cat_id);
+
+                cache.AddObject(CacheKeys.前台下载分类 + cat_id, data);
+            }
+            return data;
+        }
+        /// <summary>
+        /// 产品分类
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GoodsCat(int parent_id, int counts, bool read_next)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = cache.RetrieveObject(CacheKeys.前台商品分类 + "n" + counts) as DataTable;
+            if (data == null)
+            {
+                data = Goods.GetGoodsCatAllList(counts, parent_id);
+
+                cache.AddObject(CacheKeys.前台商品分类 + "n" + counts, data);
+            }
+
+            //DataTable data = Goods.GetGoodsCatAllList();
+
+            cat_dt = data.Clone();
+
+            AddTree(data.Select("", "sort_order asc,cat_id asc"), data, read_next);
+
+            return cat_dt;
+        }
+
+        /// <summary>
+        /// 移除商品分类缓存
+        /// </summary>
+        public void RemoveGoodsCat()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            cache.RemoveObject(CacheKeys.前台商品分类 + "1");
+        }
+
+
+
+        /// <summary>
+        /// 资讯分类
+        /// </summary>
+        /// <returns></returns>
+        public DataTable CMSCat(int parent_id, bool read_next)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = cache.RetrieveObject(CacheKeys.前台资讯分类) as DataTable;
+            if (data == null)
+            {
+                data = CMS.GetCMSCatAllList();
+
+                cache.AddObject(CacheKeys.前台资讯分类, data);
+            }
+
+            // DataTable data = CMS.GetCMSCatAllList();
+
+            cat_dt = data.Clone();
+
+            AddTree(data.Select("is_show=1 and parent_id=" + parent_id, "sort_order desc,cat_id asc"), data, read_next);
+
+            return cat_dt;
+        }
+
+        /// <summary>
+        /// 移除CMS分类缓存
+        /// </summary>
+        public void RemoveCMSCat()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            cache.RemoveObject(CacheKeys.前台资讯分类);
+        }
+
+        /// <summary>
+        /// 添加到树
+        /// </summary>
+        /// <param name="drs"></param>
+        /// <param name="dt"></param>
+        private void AddTree(DataRow[] drs, DataTable dt, bool read_next)
+        {
+            for (int i = 0; i < drs.Length; i++)
+            {
+                cat_dt.Rows.Add(drs[i].ItemArray);
+
+                if (read_next)
+                {
+                    DataRow[] rows = dt.Select("parent_id=" + drs[i]["cat_id"], "sort_order asc,cat_id asc");
+
+                    if (rows.Length > 0)
+                    {
+                        AddTree(rows, dt, read_next);
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 获取商品热门分类
+        /// </summary>
+        /// <returns>返回产品分类列表信息</returns>
+        public ArrayList GetHotGoodsCatList()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台商品分类 + "/Hot") as ArrayList;
+            if (data == null)
+            {
+                //data = SiteBLL.GetGoodsCategoryAllList("sort_order asc", "is_hot=1 and is_show=1");
+                //xy 2011-3-10 11:17:21
+                data = SiteBLL.GetGoodsCategoryAllList("sort_order asc", "is_hot=1");
+
+                cache.AddObject(CacheKeys.前台商品分类 + "/Hot", data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// xy 2011-3-10 10:11:35
+        /// 获取显示商品分类
+        /// </summary>
+        /// <returns>返回产品分类列表信息</returns>
+        public ArrayList GetShowGoodsCatList(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台商品分类 + "/Show") as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+                data = SiteBLL.GetGoodsCategoryList(1, topN, "sort_order asc", "show_in_nav=1", out ResultCount);
+
+                cache.AddObject(CacheKeys.前台商品分类 + "/Show", data);
+            }
+            return data;
+        }
+
+        
+        /// <summary>
+        /// 取得指定资讯分类下的子类
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetCMSCat(int cat_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台资讯分类 + cat_id) as ArrayList;
+            if (data == null)
+            {
+                data = new CMS().GetCMSCatList(cat_id);
+
+                cache.AddObject(CacheKeys.前台资讯分类 + cat_id, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得手机指定资讯分类下的子类
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetMobileCMSCat(int cat_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台手机资讯分类 + cat_id) as ArrayList;
+            if (data == null)
+            {
+                data = new CMS().GetMobileCMSCatList(cat_id);
+
+                cache.AddObject(CacheKeys.前台手机资讯分类 + cat_id, data);
+            }
+            return data;
+        }
+
+
+        /// <summary>
+        /// 取得指定商品分类下的子类
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetgoodsCat(int cat_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台商品分类 + cat_id) as ArrayList;
+            if (data == null)
+            {
+                data = new Goods().GetGoodsCatList(cat_id);
+
+                cache.AddObject(CacheKeys.前台商品分类 + cat_id, data);
+            }
+            return data;
+        }
+        /// <summary>
+        /// 取得指定商品分类下的子类
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetMobilegoodsCat(int cat_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台手机商品分类 + cat_id) as ArrayList;
+            if (data == null)
+            {
+                data = new Goods().GetGoodsCatList(cat_id);
+
+                cache.AddObject(CacheKeys.前台手机商品分类 + cat_id, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得页面分类
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetPages()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台资讯分类 + "/Page") as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetCmsPageAllList("order_id desc,page_id desc", "title,parent_id,urlrewriter,page_id", "is_show=1");
+
+                cache.AddObject(CacheKeys.前台资讯分类 + "/Page", data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// jxjy
+        /// 取得单个页面
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetPage(int page_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Page" + page_id) as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetCmsPageAllList("", "page_id=" + page_id);
+
+                cache.AddObject("/DY/Web/Page" + page_id, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// jxjy
+        /// 取得子页面
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetNextPage(int page_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Next/Page" + page_id) as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetCmsPageAllList("", "parent_id=" + page_id);
+
+                cache.AddObject("/DY/Web/Next/Page" + page_id, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得客服数据
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetCsh(int type)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Csh/Csh" + type) as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetCshAllList("", "csh_type=" + type);
+
+                cache.AddObject("/DY/Web/Csh/Csh" + type, data);
+            }
+            return data;
+        }
+
+
+
+        /// <summary>
+        /// 取得友情链接列表
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns></returns>
+        public ArrayList GetFriendLink(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Friend/Link/t" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                if (topN > 0)
+                    data = SiteBLL.GetFriendLinkList(1, topN, "show_order desc,link_id desc", "", out ResultCount);
+                else
+                    data = SiteBLL.GetFriendLinkAllList("show_order desc,link_id desc", "");
+
+                cache.AddObject("/DY/Web/Friend/Link/t" + topN, data);
+            }
+            return data;
+        }
+        /// <summary>
+        /// 取得友情链接列表
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetFriendLink()
+        {
+            return GetFriendLink(0);
+        }
+        /// <summary>
+        /// 获取推荐订单列表
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns></returns>
+        public ArrayList GetOrderList(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Order/Lint/t" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                //data = SiteBLL.GetOrderInfoList(1, topN, "order_sn,consignee,add_time", "add_time desc", "order_status=4 and id_delete=0", out ResultCount);
+                data = SiteBLL.GetOrderInfoList(1, topN, "*", "add_time desc", "order_status=4 and id_delete=0", out ResultCount);
+
+                cache.AddObject("/DY/Web/Order/Lint/t" + topN, data);
+            }
+            return data;
+        }
+        /// <summary>
+        /// 创建订单人名称
+        /// </summary>
+        /// <param name="consignee"></param>
+        /// <returns></returns>
+        public string CreateName(string consignee)
+        {
+            if (consignee.Length > 0)
+            {
+                return consignee.Substring(0, 1) + " *";
+            }
+            else
+            { return ""; }
+        }
+
+        /// <summary>
+        /// 手机号码加星号
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string MobileStar(string str)
+        {
+            if (str.Length > 0)
+            {
+                return str.Substring(0, 4) + "****" + str.Substring(str.Length - 3, 3);
+            }
+            return str;
+        }
+
+        /// <summary>
+        /// 获取推荐评论
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetCommList(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/comment/list/t" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetCommentList(1, topN, "comment_type,id_value,user_name,content,url,add_time", "add_time desc", "enabled=1 and is_recomm=1", out ResultCount);
+
+                cache.AddObject("/DY/Web/comment/list/t" + topN, data);
+            }
+            return data;
+        }
+        #endregion
+
+        /// <summary>
+        /// 取得内部链接
+        /// </summary>
+        /// <returns></returns>
+        public static ArrayList GetInternalLink()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/InternalLink/List") as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetInternalLinksAllList("ID asc", "is_enable=1");
+
+                cache.AddObject("/DY/Web/InternalLink/List", data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 移除内部链接缓存
+        /// </summary>
+        public void InternalLinkRemove()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            cache.RemoveObject("/DY/Web/InternalLink/List");
+        }
+
+
+        /// <summary>
+        /// 取得站点地图所有分类
+        /// </summary>
+        /// <returns></returns>
+        public DataTable get_address_list(int parent_id)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("id", typeof(int));
+            dt.Columns.Add("name", typeof(string));
+            dt.Columns.Add("parentid", typeof(int));
+            dt.Columns.Add("path", typeof(string));
+            dt.Columns.Add("priority", typeof(string));
+            dt.Columns.Add("changefreq", typeof(string));
+            dt.Columns.Add("isenable", typeof(bool));
+            dt.Columns.Add("orderid", typeof(int));
+            dt.Columns.Add("lastmod", typeof(DateTime));
+
+            return this.get_address_list(parent_id, dt);
+        }
+
+        /// <summary>
+        /// 递归取出所有子类，并放在DataTable中保存
+        /// </summary>
+        /// <param name="parentid">父类ID</param>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        protected DataTable get_address_list(int parentid, DataTable dt)
+        {
+            ArrayList bll_address = SiteBLL.GetWebAddressAllList("orderid asc,id asc", "parentid=" + parentid);
+            foreach (WebAddressInfo entity in bll_address)
+            {
+                string tempLevel = "";
+                for (int i = 1; i <= entity.levels; i++)
+                {
+                    tempLevel += "&nbsp;&nbsp;";
+                }
+
+                dt.Rows.Add(new object[] { entity.id, tempLevel + entity.name, entity.parentid, entity.path, entity.priority, entity.changefreq, entity.isenable, entity.orderid, entity.lastmod });
+
+                this.get_address_list(entity.id.Value, dt);
+            }
+
+            return dt;
+        }
+
+
+        #region jxjy
+        /// <summary>
+        /// 获取商品扩展分类
+        /// </summary>
+        /// <param name="cat_id"></param>
+        /// <returns></returns>
+        public static object GetGoodsCatId(int cat_id)
+        {
+            string ids = "";
+            Goods goods = new Goods();
+            string catids = !string.IsNullOrEmpty(goods.GetGoodsAllCatIds(cat_id)) ? goods.GetGoodsAllCatIds(cat_id) + "," + cat_id : cat_id.ToString() + ",";
+            for (int i = 0; i < catids.Split(',').Length; i++)
+            {
+                foreach (GoodsCatInfo catinfo in SiteBLL.GetGoodsCatAllList("", "cat_id=" + catids.Split(',')[i]))
+                {
+                    ids += catinfo.goods_id + ",";
+                }
+            }
+            if (ids != "")
+                ids = ids.Remove(ids.LastIndexOf(","), 1);
+            return ids;
+        }
+
+
+        /// <summary>
+        /// 取得单个页面
+        /// </summary>
+        /// <returns></returns>
+        public object GetPage(string urlrewriter)
+        {
+            return SiteBLL.GetCmsPageValue("content", "urlrewriter='" + urlrewriter + "'");
+        }
+        /// <summary>
+        /// 取得单个页面
+        /// </summary>
+        /// <returns></returns>
+        public object GetPage(string content,string urlrewriter)
+        {
+            return SiteBLL.GetCmsPageValue(content, "urlrewriter='" + urlrewriter + "'");
+        }
+
+        /// <summary>
+        /// 获取首页搜索关键字
+        /// </summary>
+        /// <returns></returns>
+        public string GetSearchKeywords()
+        {
+            string key = Config.BaseConfig.Get().SearchKeywords;
+            string newkey = "";
+            if (string.IsNullOrEmpty(key)) { return ""; }
+            string[] keys = key.Split(',');
+            if (keys.Length > 0)
+            {
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    newkey += "<a href='/goods/s" + keys[i] + ".aspx'>" + keys[i] + "</a>";
+                }
+            }
+            return newkey;
+        }
+
+        /// <summary>
+        /// 产品分类
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GoodsCaseCat()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台商品分类 + "CaseCat") as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetGoodsCategoryAllList("sort_order desc,cat_id asc", "is_case=1");
+
+                cache.AddObject(CacheKeys.前台商品分类 + "CaseCat", data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下的所有推荐商品
+        /// jxjy
+        /// 2011-3-4 15:59:47
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetGoodsHots(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Hots/t" + topN + "_" + cat_id) as ArrayList;
+            if (data == null)
+            {
+
+                string ids = cat_id.ToString();
+                DataTable table = GoodsCat(cat_id);
+                if (table.Rows.Count > 0)
+                {
+                    for (int i = 0; i < table.Rows.Count; i++)
+                    {
+                        ids += "," + table.Rows[i]["cat_id"].ToString();
+                    }
+                }
+
+                int ResultCount = 0;
+
+                //扩展分类
+
+                string filter =!string.IsNullOrEmpty(GetGoodsCatId(cat_id).ToString())? " or goods_id in (" + GetGoodsCatId(cat_id).ToString() + ")":"";
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_hot=1 and is_delete=0 and cat_id in (" + ids + ")" + filter, out ResultCount);
+                //DY.Cache.ICacheStrategy ics = new ForumCacheStrategy();
+
+                ////ics.TimeOut = 10;
+                ////cache.LoadCacheStrategy(ics);
+                cache.AddObject("/DY/Web/Goods/Hots/t" + topN + "_" + cat_id, data);
+                ////cache.LoadDefaultCacheStrategy();
+            }
+            return data;
+        }
+
+
+        /// <summary>
+        /// 取得内部链接
+        /// </summary>
+        /// <returns></returns>
+        public static ArrayList GetGoodsLink(int goods_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/GoodsLink/List") as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetGoodsLinkAllList("", "goods_id=" + goods_id);
+                cache.AddObject("/DY/Web/GoodsLink/List", data);
+            }
+            return data;
+        }
+
+
+        public GoodsInfo GetGoodsInfo(int goods_id)
+        {
+            return SiteBLL.GetGoodsInfo(goods_id);
+        }
+
+        #endregion
+
+        #region Nav (主导航 底部导航)
+        /// <summary>
+        /// 主导航
+        /// </summary>
+        /// <returns>返回主导航列表信息</returns>
+        public ArrayList Nav()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台主导航) as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetNavigateAllList("vieworder desc,id asc", "isshow=1 and type='主导航'");
+
+                cache.AddObject(CacheKeys.前台主导航, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 主导航
+        /// </summary>
+        /// <returns>返回手机导航列表信息</returns>
+        public ArrayList MobileNav()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台手机导航) as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetNavigateAllList("vieworder desc,id asc", "isshow=1 and is_mobile=1");
+
+                cache.AddObject(CacheKeys.前台手机导航, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 快捷导航
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList FastNav()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台快捷导航) as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetNavigateAllList("vieworder desc,id asc", "isshow=1 and type='快捷菜单'");
+
+                cache.AddObject(CacheKeys.前台快捷导航, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 底部导航
+        /// </summary>
+        /// <returns>返回主底部导航列表信息</returns>
+        public ArrayList FootNav()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject(CacheKeys.前台底部导航) as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetNavigateAllList("vieworder desc,id asc", "isshow=1 and type='底部导航'");
+
+                cache.AddObject(CacheKeys.前台底部导航, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 移除主导航缓存
+        /// </summary>
+        public void RemoveNav()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            cache.RemoveObject(CacheKeys.前台主导航);
+        }
+
+        /// <summary>
+        /// 移除底部航缓存
+        /// </summary>
+        public void RemoveFootNav()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            cache.RemoveObject(CacheKeys.前台底部导航);
+        }
+        #endregion
+
+
+        #region GetGoods (推荐 新品 热销 特价)
+        /// <summary>
+        /// 取得热门城市分站
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetCityHot(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/City/Hot/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetRegionList(1, topN, "region_id desc ", "is_pay=1 and region_type=1", out ResultCount);
+
+                cache.AddObject("/DY/Web/City/Hot/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得商品关联资讯
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <param name="goods_id"></param>
+        /// <returns></returns>
+        public ArrayList GetGoodsNews(int topN, int goods_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/News/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsLinkList(1, topN, "goods_id desc ", "goods_id=" + goods_id + " and type=1", out ResultCount);
+
+                cache.AddObject("/DY/Web/Goods/News/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类所有商品
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetGoods(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Cat" + cat_id + "/Top" + topN) as ArrayList;
+            Goods goods = new Goods();
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc ", "cat_id in (" + goods.GetGoodsAllCatIds(cat_id) + ")", out ResultCount);
+
+                cache.AddObject("/DY/Web/Goods/Cat" + cat_id + "/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得推荐商品
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns>返回推荐商品列表信息</returns>
+        public ArrayList GetGoodsBest(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Best/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_best=1 and is_delete=0", out ResultCount);
+
+                cache.AddObject("/DY/Web/Goods/Best/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下的推荐商品
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetGoodsBest(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Best" + cat_id + "/Top" + topN) as ArrayList;
+            Goods goods = new Goods();
+            bool is_cat = !string.IsNullOrEmpty(GetGoodsCatId(cat_id).ToString());//扩展分类
+            bool is_child = true;//子分类
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                string cat_f = is_child ? " in (" + goods.GetGoodsAllCatIds(cat_id) + ")" : "=" + cat_id;
+                string filter = is_cat ? " or is_delete=0 and goods_id in (" + GetGoodsCatId(cat_id).ToString() + ")" : "";
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_best=1 and is_delete=0 and cat_id" + cat_f + filter, out ResultCount);
+
+                DY.Cache.ICacheStrategy ics = new ForumCacheStrategy();
+                cache.AddObject("/DY/Web/Goods/Best" + cat_id + "/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得手机端推荐商品
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns>返回推荐商品列表信息</returns>
+        public ArrayList GetMobileGoodsBest(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Mobile/Goods/Best/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_best=1 and is_delete=0 and is_mobile=1", out ResultCount);
+
+                cache.AddObject("/DY/Web/Mobile/Goods/Best/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下手机端的推荐商品
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetMobileGoodsBest(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Mobile/Goods/Best" + cat_id + "/Top" + topN) as ArrayList;
+            Goods goods = new Goods();
+            bool is_cat = !string.IsNullOrEmpty(GetGoodsCatId(cat_id).ToString());//扩展分类
+            bool is_child = true;//子分类
+
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                string cat_f = is_child ? " in (" + goods.GetGoodsAllCatIds(cat_id) + ")" : "=" + cat_id;
+                string filter = is_cat ? " or is_delete=0 and goods_id in (" + GetGoodsCatId(cat_id).ToString() + ")" : "";
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_best=1 and is_delete=0 and cat_id and is_mobile=1" + cat_f + filter, out ResultCount);
+
+                DY.Cache.ICacheStrategy ics = new ForumCacheStrategy();
+                cache.AddObject("/DY/Web/Mobile/Goods/Best" + cat_id + "/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得推送到手机新品商品
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns>返回推荐商品列表信息</returns>
+        public ArrayList GetMobileGoodsNew(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Mobile/Goods/New/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_new=1 and is_delete=0 and is_mobile=1", out ResultCount);
+
+                cache.AddObject("/DY/Web/Mobile/Goods/New/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下推送到手机的新品商品
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetMobileGoodsNew(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Mobile/Goods/New" + cat_id + "/Top" + topN) as ArrayList;
+            Goods goods = new Goods();
+            bool is_cat = !string.IsNullOrEmpty(GetGoodsCatId(cat_id).ToString());//扩展分类
+            bool is_child = true;//子分类
+
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                string filter = is_cat ? " or goods_id in (" + GetGoodsCatId(cat_id).ToString() + ")" : "";
+                string cat_f = is_child ? " in (" + goods.GetGoodsAllCatIds(cat_id) + ")" : "=" + cat_id;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_new=1 and is_delete=0 and cat_id and is_mobile=1" + cat_f + filter, out ResultCount);
+
+                DY.Cache.ICacheStrategy ics = new ForumCacheStrategy();
+                cache.AddObject("/DY/Web/Mobile/Goods/New" + cat_id + "/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得新品商品
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns>返回推荐商品列表信息</returns>
+        public ArrayList GetGoodsNew(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/New/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_new=1 and is_delete=0", out ResultCount);
+
+                cache.AddObject("/DY/Web/Goods/New/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下的新品商品
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetGoodsNew(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/New" + cat_id + "/Top" + topN) as ArrayList;
+            Goods goods = new Goods();
+            bool is_cat = !string.IsNullOrEmpty(GetGoodsCatId(cat_id).ToString());//扩展分类
+            bool is_child = true;//子分类
+
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                string filter = is_cat ? " or goods_id in (" + GetGoodsCatId(cat_id).ToString() + ")" : "";
+                string cat_f = is_child ? " in (" + goods.GetGoodsAllCatIds(cat_id) + ")" : "=" + cat_id;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_new=1 and is_delete=0 and cat_id" + cat_f + filter, out ResultCount);
+
+                DY.Cache.ICacheStrategy ics = new ForumCacheStrategy();
+                cache.AddObject("/DY/Web/Goods/New" + cat_id + "/Top" + topN, data);
+            }
+            return data;
+        }
+        
+        /// <summary>
+        /// 取得该分类下的特价商品
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns>返回推荐商品列表信息</returns>
+        public ArrayList GetGoodsSpecials(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Specials/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_specials=1 and is_delete=0", out ResultCount);
+
+                cache.AddObject("/DY/Web/Goods/Specials/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下的促销商品
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns>返回推荐商品列表信息</returns>
+        public ArrayList GetGoodsPromote(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Promote/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_promote=1 and is_delete=0", out ResultCount);
+
+                cache.AddObject("/DY/Web/Goods/Promote/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下的促销商品
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetGoodsPromote(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Promote" + cat_id + "/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_promote=1 and is_delete=0 and cat_id=" + cat_id, out ResultCount);
+                DY.Cache.ICacheStrategy ics = new ForumCacheStrategy();
+                cache.AddObject("/DY/Web/Goods/Promote" + cat_id + "/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下的热卖商品
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns>返回推荐商品列表信息</returns>
+        public ArrayList GetGoodsHot(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Hot/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_hot=1 and is_delete=0", out ResultCount);
+
+                cache.AddObject("/DY/Web/Goods/Hot/Top" + topN, data);
+            }
+            return data;
+        }
+        /// <summary>
+        /// 取得热销商品
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns></returns>
+        public ArrayList GetGoodsHot(int cat_id, int topN)
+        {
+
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Hot" + cat_id + "/Top" + topN) as ArrayList;
+            Goods goods = new Goods();
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "sort_order desc,goods_id desc", "is_on_sale=1 and is_hot=1 and is_delete=0 and cat_id in (" + goods.GetGoodsAllCatIds(cat_id) + ")", out ResultCount);
+
+                cache.AddObject("/DY/Web/Goods/Hot" + cat_id + "/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 统计商品
+        /// </summary>
+        /// <param name="topN">显示多少条记录</param>
+        /// <returns></returns>
+        public ArrayList GetGoodsClick(int topN)
+        {
+
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Goods/Click/Top" + topN) as ArrayList;
+            Goods goods = new Goods();
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetGoodsList(1, topN, "click_count desc,goods_id desc", "is_on_sale=1 and is_delete=0 ", out ResultCount);
+
+                cache.AddObject("/DY/Web/Goods/Click/Top" + topN, data);
+            }
+            return data;
+        }
+        #endregion
+
+        #region GetNav (当前位置)
+
+        /// <summary>
+        /// 后缀
+        /// </summary>
+        public static string suffix = BaseConfig.Get().EnableHtml ? ".html" : ".htm";
+        public static string html = BaseConfig.Get().EnableHtml ? "/html" : "";
+
+        public static string GoodsNav(int cat_id, string str)
+        {
+            if (cat_id > 0)
+            {
+                GoodsCategoryInfo catinfo = SiteBLL.GetGoodsCategoryInfo(cat_id);
+
+                str = " &raquo;  <a href='" + html + "/goods/" + catinfo.cat_id + "" + suffix + "'>" + catinfo.cat_name + "</a>" + str;
+                return GoodsNav(catinfo.parent_id.Value, str);
+            }
+            return str;
+
+
+        }
+
+        public static string CmsNav(int cat_id, string str)
+        {
+            if (cat_id > 0)
+            {
+                CmsCatInfo catinfo = SiteBLL.GetCmsCatInfo(cat_id);
+                string nav_id = string.IsNullOrEmpty(catinfo.urlrewriter) ? catinfo.cat_id.Value.ToString() : catinfo.urlrewriter;
+                str = "&raquo; <a href='" + html + "/n_" + nav_id + "" + suffix + "'>" + catinfo.cat_name + "</a>" + str;//&raquo;
+                return CmsNav(catinfo.parent_id.Value, str);
+            }
+            return str;
+        }
+        public static string DownLoadNav(int cat_id, string str)
+        {
+            if (cat_id > 0)
+            {
+                DownloadCategoryInfo catinfo = SiteBLL.GetDownloadCategoryInfo(cat_id);
+                string nav_id = string.IsNullOrEmpty(catinfo.urlrewriter) ? catinfo.cat_id.Value.ToString() : catinfo.urlrewriter;
+                str = " &raquo; <a href='" + html + "/n_" + nav_id + "" + suffix + "'>" + catinfo.cat_name + "</a>" + str;
+                return DownLoadNav(catinfo.parent_id.Value, str);
+            }
+            return str;
+        }
+        public static string PageNav(int cat_id, string str)
+        {
+            if (cat_id > 0)
+            {
+                CmsPageInfo catinfo = SiteBLL.GetCmsPageInfo(cat_id);
+                string nav_id = string.IsNullOrEmpty(catinfo.urlrewriter) ? catinfo.page_id.Value.ToString() : catinfo.urlrewriter;
+                str = " &raquo; <a href='" + html + "/p_" + nav_id + "" + suffix + "'>" + catinfo.title + "</a>" + str;
+                return PageNav(catinfo.parent_id.Value, str);
+            }
+            return str;
+        }
+        #endregion
+
+        /// <summary>
+        /// 获取上一篇下一篇文章
+        /// </summary>
+        /// <param name="article_id">当前文章ID</param>
+        /// <param name="cat_id">当前产品ID</param>
+        /// <param name="next">是否为下一条，否则为上一条</param>
+        /// <returns></returns>
+        public ArrayList GetPreNext(int goods_id, int cat_id, bool next)
+        {
+            StringBuilder sb = new StringBuilder("cat_id=" + cat_id + " and ");
+            int ResultCount = 0;
+            string sort = "";
+            if (next)
+            {
+                sb.Append("goods_id>" + goods_id);
+                sort = "goods_id asc";
+            }
+            else
+            {
+                sb.Append("goods_id<" + goods_id);
+                sort = "goods_id desc";
+            }
+
+            return SiteBLL.GetGoodsList(1, 1, sort, sb.ToString(), out ResultCount);
+        }
+
+        #region 招聘系统相关
+        /// <summary>
+        /// 取得部门
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetJobDepartment()
+        {
+
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Job/Department") as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetJobDepartmentAllList("sort_order desc", "");
+
+                cache.AddObject("/DY/Web/Job/Department", data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得部门下所有职位
+        /// </summary>
+        /// <param name="cat_id">部门id</param>
+        /// <returns></returns>
+        public ArrayList GetJobPosition(int cat_id)
+        {
+
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Job/Position" + cat_id) as ArrayList;
+            if (data == null)
+            {
+                data = SiteBLL.GetJobPositionAllList("sort_order desc,en_time desc", "getdate()<en_time");
+
+                cache.AddObject("/DY/Web/Job/Position" + cat_id, data);
+            }
+            return data;
+        }
+        #endregion
+
+
+        #region 格式化分类
+        /// <summary>
+        /// 资讯分类
+        /// </summary>
+        /// <returns>返回产品分类列表信息</returns>
+        public DataTable CMSCat()
+        {
+            return CMSCat(0);
+        }
+        /// <summary>
+        /// 资讯分类
+        /// </summary>
+        /// <returns></returns>
+        public DataTable CMSCat(int parent_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = cache.RetrieveObject(CacheKeys.前台资讯分类) as DataTable;
+            if (data == null)
+            {
+                data = CMS.GetCMSCatAllList();
+
+                cache.AddObject(CacheKeys.前台资讯分类, data);
+            }
+
+            //DataTable data = CMS.GetCMSCatAllList();
+
+            cat_dt = data.Clone();
+
+            AddTree(data.Select("parent_id=" + parent_id, "sort_order desc,cat_id asc"), data);
+
+            return cat_dt;
+        }
+
+
+        /// <summary>
+        /// 格式化网站功能设置
+        /// </summary>
+        /// <returns></returns>
+        public DataTable ConfigFormat(int parent_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = cache.RetrieveObject("/DY/Web/Config") as DataTable;
+            if (data == null)
+            {
+                data = SystemConfig.GetConfigAllData();
+
+                cache.AddObject("/DY/Web/Config", data);
+            }
+
+            //DataTable data = CMS.GetCMSCatAllList();
+
+            config_dt = data.Clone();
+
+            AddConfigTreeFormat(data.Select("parent_id=" + parent_id, "sort_order desc,id asc"), data, "");
+
+            return config_dt;
+        }
+
+        /// <summary>
+        /// 格式化资讯分类
+        /// </summary>
+        /// <returns></returns>
+        public DataTable CMSCatFormat(int parent_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = cache.RetrieveObject("/DY/Web/Cms/Catf/") as DataTable;
+            if (data == null)
+            {
+                data = CMS.GetCMSCatAllList();
+
+                cache.AddObject("/DY/Web/Cms/Catf", data);
+            }
+
+            //DataTable data = CMS.GetCMSCatAllList();
+
+            cat_dt = data.Clone();
+
+            AddCMSTreeFormat(data.Select("parent_id=" + parent_id, "sort_order desc,cat_id asc"), data, "");
+
+            return cat_dt;
+        }
+        /// <summary>
+        /// 格式化单页分类
+        /// </summary>
+        /// <returns></returns>
+        public DataTable CMSPageFormat(int parent_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = cache.RetrieveObject("/DY/Web/Cms/Pagef/") as DataTable;
+            if (data == null)
+            {
+                data = CMS.GetCMSPageAllList();
+
+                cache.AddObject("/DY/Web/Cms/Pagef", data);
+            }
+
+            cms_page_dt = data.Clone();
+
+            AddCMSPageTreeFormat(data.Select("parent_id=" + parent_id, "order_id desc,page_id asc"), data, "");
+
+            return cms_page_dt;
+        }
+
+        /// <summary>
+        /// 格式化自定义菜单
+        /// </summary>
+        /// <returns></returns>
+        public DataTable WxMenuFormat(int parent_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = CMS.GetWxMenuAllList();
+
+            //DataTable data = CMS.GetCMSCatAllList();
+
+            weixin_menu_dt = data.Clone();
+
+            AddWxMenuTreeFormat(data.Select("parent_id=" + parent_id, "sort_order desc,menu_id asc"), data, "");
+
+            return weixin_menu_dt;
+        }
+
+        /// <summary>
+        /// 格式化权限列表
+        /// </summary>
+        /// <returns></returns>
+        public DataTable AdminActionFormat(int parent_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = cache.RetrieveObject("/DY/Web/Admin/Action") as DataTable;
+
+            if (data == null)
+            {
+                data = SystemConfig.GetAdminActionAllData();
+
+                cache.AddObject("/DY/Web/Admin/Action", data);
+            }
+            //DataTable data = CMS.GetCMSCatAllList();
+
+            admin_action_dt = data.Clone();
+
+            AddAdminActionTreeFormat(data.Select("parent_id=" + parent_id, "action_id asc"), data, "");
+
+            return admin_action_dt;
+        }
+
+        /// <summary>
+        /// 格式化网站菜单
+        /// </summary>
+        /// <returns></returns>
+        public DataTable AdminMenuFormat(int parent_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            DataTable data = MenuManage.GetAdminMenuAllList();//cache.RetrieveObject("/DY/Web/Menu/") as DataTable;
+            if (data == null)
+            {
+                data = MenuManage.GetAdminMenuAllList();
+
+                cache.AddObject("/DY/Web/Menu/", data);
+            }
+
+            //DataTable data = CMS.GetCMSCatAllList();
+
+            admin_menu_dt = data.Clone();
+
+            AddAdminMenuTreeFormat(data.Select("parent_id=" + parent_id, "menu_id asc"), data, "");
+
+            return admin_menu_dt;
+        }
+
+        /// <summary>
+        /// 移除资讯分类缓存
+        /// </summary>
+        public void CMSCatRemove()
+        {
+            DYCache cache = DYCache.GetCacheService();
+            cache.RemoveObject(CacheKeys.前台资讯分类);
+        }
+        /// <summary>
+        /// 添加到树
+        /// </summary>
+        /// <param name="drs"></param>
+        /// <param name="dt"></param>
+        private void AddConfigTreeFormat(DataRow[] drs, DataTable dt, string ats)
+        {
+            ats += "&nbsp;&nbsp;&nbsp;&nbsp;";
+            for (int i = 0; i < drs.Length; i++)
+            {
+                //cat_dt.Rows.Add(drs[i].ItemArray);
+                DataRow rows = config_dt.NewRow();
+                rows["id"] = drs[i]["id"];
+                rows["name"] = ats + drs[i]["name"];
+                rows["code"] = drs[i]["code"];
+                rows["type"] = drs[i]["type"];
+                rows["tip"] = drs[i]["tip"];
+                rows["size"] = drs[i]["size"];
+                rows["store_range"] = drs[i]["store_range"];
+                rows["store_dir"] = drs[i]["store_dir"];
+                rows["value"] = drs[i]["value"];
+                rows["sort_order"] = drs[i]["sort_order"];
+                rows["isshow"] = drs[i]["isshow"];
+                config_dt.Rows.Add(rows);
+                DataRow[] rowsd = dt.Select("parent_id=" + drs[i]["id"], "sort_order desc,id asc");
+
+                if (rowsd.Length > 0)
+                {
+                    AddConfigTreeFormat(rowsd, dt, ats);
+                }
+            }
+        }
+        /// <summary>
+        /// 添加到树(自定义菜单)
+        /// </summary>
+        /// <param name="drs"></param>
+        /// <param name="dt"></param>
+        private void AddWxMenuTreeFormat(DataRow[] drs, DataTable dt, string ats)
+        {
+            ats += "&nbsp;&nbsp;&nbsp;&nbsp;";
+            for (int i = 0; i < drs.Length; i++)
+            {
+                //cat_dt.Rows.Add(drs[i].ItemArray);
+                DataRow rows = weixin_menu_dt.NewRow();
+                rows["menu_id"] = drs[i]["menu_id"];
+                rows["parent_id"] = drs[i]["parent_id"];
+                rows["name"] = ats + drs[i]["name"];
+                rows["trigger_word"] = drs[i]["trigger_word"];
+                rows["sort_order"] = drs[i]["sort_order"];
+                rows["enabled"] = drs[i]["enabled"];
+                rows["data"] = drs[i]["data"];
+                weixin_menu_dt.Rows.Add(rows);
+                DataRow[] rowsd = dt.Select("parent_id=" + drs[i]["menu_id"], "sort_order desc,menu_id asc");
+
+                if (rowsd.Length > 0)
+                {
+                    AddWxMenuTreeFormat(rowsd, dt, ats);
+                }
+            }
+        }
+        /// <summary>
+        /// 添加到树(权限列表)
+        /// </summary>
+        /// <param name="drs"></param>
+        /// <param name="dt"></param>
+        private void AddAdminActionTreeFormat(DataRow[] drs, DataTable dt, string ats)
+        {
+            ats += "&nbsp;&nbsp;&nbsp;&nbsp;";
+            for (int i = 0; i < drs.Length; i++)
+            {
+                //cat_dt.Rows.Add(drs[i].ItemArray);
+                DataRow rows = admin_action_dt.NewRow();
+                rows["action_id"] = drs[i]["action_id"];
+                rows["parent_id"] = drs[i]["parent_id"];
+                rows["action_code"] = drs[i]["action_code"];
+                rows["action_text"] = ats + drs[i]["action_text"];
+                rows["isenable"] = drs[i]["isenable"];
+                admin_action_dt.Rows.Add(rows);
+                DataRow[] rowsd = dt.Select("parent_id=" + drs[i]["action_id"], "action_id asc");
+
+                if (rowsd.Length > 0)
+                {
+                    AddAdminActionTreeFormat(rowsd, dt, ats);
+                }
+            }
+        }
+        /// <summary>
+        /// 添加到树
+        /// </summary>
+        /// <param name="drs"></param>
+        /// <param name="dt"></param>
+        private void AddCMSPageTreeFormat(DataRow[] drs, DataTable dt, string ats)
+        {
+            ats += "&nbsp;&nbsp;&nbsp;&nbsp;";
+            for (int i = 0; i < drs.Length; i++)
+            {
+                //cat_dt.Rows.Add(drs[i].ItemArray);
+                DataRow rows = cms_page_dt.NewRow();
+                rows["page_id"] = drs[i]["page_id"];
+                rows["parent_id"] = drs[i]["parent_id"];
+                rows["title"] = ats + drs[i]["title"];
+                rows["is_show"] = drs[i]["is_show"];
+                rows["order_id"] = drs[i]["order_id"];
+                rows["urlrewriter"] = drs[i]["urlrewriter"];
+                rows["pagetitle"] = drs[i]["pagetitle"];
+                rows["pagekeywords"] = drs[i]["pagekeywords"];
+                rows["pagedesc"] = drs[i]["pagedesc"];
+                cms_page_dt.Rows.Add(rows);
+                DataRow[] rowsd = dt.Select("parent_id=" + drs[i]["page_id"], "order_id desc,page_id asc");
+
+                if (rowsd.Length > 0)
+                {
+                    AddCMSPageTreeFormat(rowsd, dt, ats);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 添加到树
+        /// </summary>
+        /// <param name="drs"></param>
+        /// <param name="dt"></param>
+        private void AddAdminMenuTreeFormat(DataRow[] drs, DataTable dt, string ats)
+        {
+            ats += "&nbsp;&nbsp;&nbsp;&nbsp;";
+            for (int i = 0; i < drs.Length; i++)
+            {
+                //cat_dt.Rows.Add(drs[i].ItemArray);
+                DataRow rows = admin_menu_dt.NewRow();
+                rows["menu_id"] = drs[i]["menu_id"];
+                rows["parent_id"] = drs[i]["parent_id"];
+                rows["name"] = ats + drs[i]["name"];
+                rows["link"] = drs[i]["link"];
+                rows["type"] = drs[i]["type"];
+                rows["isshow"] = drs[i]["isshow"];
+                admin_menu_dt.Rows.Add(rows);
+                DataRow[] rowsd = dt.Select("parent_id=" + drs[i]["menu_id"], "menu_id asc");
+
+                if (rowsd.Length > 0)
+                {
+                    AddAdminMenuTreeFormat(rowsd, dt, ats);
+                }
+            }
+        }
+        /// <summary>
+        /// 添加到树
+        /// </summary>
+        /// <param name="drs"></param>
+        /// <param name="dt"></param>
+        private void AddCMSTreeFormat(DataRow[] drs, DataTable dt, string ats)
+        {
+            ats += "&nbsp;&nbsp;&nbsp;&nbsp;";
+            for (int i = 0; i < drs.Length; i++)
+            {
+                //cat_dt.Rows.Add(drs[i].ItemArray);
+                DataRow rows = cat_dt.NewRow();
+                rows["cat_id"] = drs[i]["cat_id"];
+                rows["parent_id"] = drs[i]["parent_id"];
+                rows["cat_name"] = ats + drs[i]["cat_name"];
+                rows["cat_type"] = drs[i]["cat_type"];
+                rows["show_in_nav"] = drs[i]["show_in_nav"];
+                rows["is_review"] = drs[i]["is_review"];
+                rows["cat_path"] = drs[i]["cat_path"];
+                rows["cat_level"] = drs[i]["cat_level"];
+                rows["sort_order"] = drs[i]["sort_order"];
+                rows["page_size"] = drs[i]["page_size"];
+                rows["list_tlp"] = drs[i]["list_tlp"];
+                rows["info_tlp"] = drs[i]["info_tlp"];
+                rows["urlrewriter"] = drs[i]["urlrewriter"];
+                rows["is_mobile"] = drs[i]["is_mobile"];
+                rows["pagetitle"] = drs[i]["pagetitle"];
+                rows["pagekeywords"] = drs[i]["pagekeywords"];
+                rows["pagedesc"] = drs[i]["pagedesc"];
+                cat_dt.Rows.Add(rows);
+                DataRow[] rowsd = dt.Select("parent_id=" + drs[i]["cat_id"], "sort_order desc,cat_id asc");
+
+                if (rowsd.Length > 0)
+                {
+                    AddCMSTreeFormat(rowsd, dt, ats);
+                }
+            }
+        }
+        /// <summary>
+        /// 添加到树
+        /// </summary>
+        /// <param name="drs"></param>
+        /// <param name="dt"></param>
+        private void AddTree(DataRow[] drs, DataTable dt)
+        {
+            for (int i = 0; i < drs.Length; i++)
+            {
+                cat_dt.Rows.Add(drs[i].ItemArray);
+
+                DataRow[] rows = dt.Select("parent_id=" + drs[i]["cat_id"], "sort_order desc,cat_id asc");
+
+                if (rows.Length > 0)
+                {
+                    AddTree(rows, dt);
+                }
+            }
+        }
+        #endregion
+
+        #region 资讯文章相关
+        /// <summary>
+        /// 取得资讯关联商品
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <param name="article_id"></param>
+        /// <returns></returns>
+        public ArrayList GetNewsGoods(int article_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/Cms/Goods/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetCmsLinkList(1, topN, "cms_id desc ", "cms_id=" + article_id + " and type=0", out ResultCount);
+
+                cache.AddObject("/DY/Web/Cms/Goods/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得指定分类下热门的信息
+        /// </summary>
+        /// <param name="cat_id"></param>
+        /// <returns></returns>
+        public ArrayList GetCMSHot(int topN, int cat_id)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/CMS/Hot" + topN + "/cat" + cat_id) as ArrayList;
+            if (data == null)
+            {
+
+                string ids = cat_id.ToString();
+                DataTable table = CMSCat(cat_id);
+                if (table.Rows.Count > 0)
+                {
+                    for (int i = 0; i < table.Rows.Count; i++)
+                    {
+                        ids += "," + table.Rows[i]["cat_id"].ToString();
+                    }
+                }
+
+                int ResultCount = 0;
+
+                data = SiteBLL.GetCmsList(1, topN, "order_id desc,showtime desc,article_id desc", "is_show=1 and is_hot=1 and cat_id in(" + ids + ")", out ResultCount);
+
+                ////DY.Cache.ICacheStrategy ics = new ForumCacheStrategy();
+                ////ics.TimeOut = 10;
+                ////cache.LoadCacheStrategy(ics);
+                cache.AddObject("/DY/Web/CMS/Hot" + topN + "/cat" + cat_id, data);
+                ////cache.LoadDefaultCacheStrategy();
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得指定分类下热门的信息
+        /// </summary>
+        /// <param name="cat_id"></param>
+        /// <returns></returns>
+        public ArrayList GetCMSHot(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/CMS/Hot" + topN) as ArrayList;
+            if (data == null)
+            {
+
+                int ResultCount = 0;
+
+                data = SiteBLL.GetCmsList(1, topN, "order_id desc,showtime desc,article_id desc", "is_show=1 and is_hot=1", out ResultCount);
+
+                ////DY.Cache.ICacheStrategy ics = new ForumCacheStrategy();
+                ////ics.TimeOut = 10;
+                ////cache.LoadCacheStrategy(ics);
+                cache.AddObject("/DY/Web/CMS/Hot" + topN, data);
+                ////cache.LoadDefaultCacheStrategy();
+            }
+            return data;
+        }
+
+        #region GetCms (推荐 置顶 热门)
+
+        /// <summary>
+        /// 取得该分类下的置顶新闻
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetCmsTop(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            CMS cms = new CMS();
+            ArrayList data = cache.RetrieveObject("/DY/Web/CMS/Top" + topN + "/Cat" + cat_id) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetCmsList(1, topN, "article_id desc", "showtime<getdate() and is_show=1 and is_top=1 and cat_id in (" + cms.GetCMSCatIds(cat_id) + ")", out ResultCount);
+
+                cache.AddObject("/DY/Web/CMS/Top" + topN + "/Cat" + cat_id, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下的热门新闻
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetCmsHot(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            CMS cms = new CMS();
+            ArrayList data = cache.RetrieveObject("/DY/Web/CMS/Hot" + topN + "/Cat" + cat_id) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetCmsList(1, topN, "article_id desc", "showtime<getdate() and is_show=1 and is_hot=1 and cat_id in (" + cms.GetCMSCatIds(cat_id) + ")", out ResultCount);
+
+                cache.AddObject("/DY/Web/CMS/Hot" + topN + "/Cat" + cat_id, data);
+            }
+            return data;
+        }
+
+
+        /// <summary>
+        /// 取得指定分类下推荐的信息
+        /// </summary>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetCMSBest(int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            ArrayList data = cache.RetrieveObject("/DY/Web/CMS/Best/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+                data = SiteBLL.GetCmsList(1, topN, "showtime desc,article_id desc", "is_show=1 and is_best=1", out ResultCount);
+                cache.AddObject("/DY/Web/CMS/Best/Top" + topN, data);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// 取得该分类下的推荐新闻
+        /// </summary>
+        /// <param name="cat_id"></param>
+        /// <param name="topN"></param>
+        /// <returns></returns>
+        public ArrayList GetCMSBest(int cat_id, int topN)
+        {
+            DYCache cache = DYCache.GetCacheService();
+            CMS cms = new CMS();
+            ArrayList data = cache.RetrieveObject("/DY/Web/CMS/Best" + cat_id + "/Top" + topN) as ArrayList;
+            if (data == null)
+            {
+                int ResultCount = 0;
+
+                data = SiteBLL.GetCmsList(1, topN, "article_id desc", "showtime<getdate() and is_show=1 and is_best=1 and cat_id in (" + cms.GetCMSCatIds(cat_id) + ")", out ResultCount);
+
+                cache.AddObject("/DY/Web/CMS/Best" + cat_id + "/Top" + topN, data);
+            }
+            return data;
+        }
+
+
+        #endregion
+        #endregion
+
+    }
+}

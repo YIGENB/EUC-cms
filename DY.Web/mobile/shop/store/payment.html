@@ -1,0 +1,34 @@
+﻿#parse("include/page_head.html")
+<form method="post" action="?act=creat_pay" >
+<div id="content">
+<div class="step_main">
+            <div class="clue_on">
+                <h4>
+                    订单提交成功！</h4>
+                <p>
+                    跟据您递交的订单，系统为您生成了以下支付信息</p>
+            </div>
+            <div class="order_information">
+                <p>订单号<span>$orderinfo.order_sn</span></p>
+                <p>订单总价<span>¥$orderinfo.order_amount</span></p>
+                <p>拆扣<span>¥$orderinfo.integral_money</span></p>
+                <p>优惠券<span>¥$orderinfo.bonus</span></p>
+                您还需支付：<span>#set($zf = $orderinfo.order_amount - $orderinfo.bonus -$orderinfo.integral_money)
+                                            $zf </span>
+                </div>
+            <div class="buy">
+                $pay_content
+            </div>
+<!--            <div class="make_sure">
+                <p>
+                    <a class="btn enter" href="javascript:$('#goto_pay').submit();">确认支付</a></p>
+            </div>-->
+            <!--<div class="remark">                商品将于5工作日内送达。<a href="#">配送范围请查看</a>。<br />                您可以在 <a href="#">我的订单</a>  中查看或取消您的订单，由于系统需进行订单预处理，您可能不会立刻查询到刚提交的订单。<br />                如果您现在不方便支付，可以随后到 <a href="#">我的订单</a>  完成支付，我们会在48小时内为您保留未支付的订单。
+            </div>-->
+            <div class="clear">
+            </div>
+        </div>
+</div>
+
+  </form>
+#parse("include/page_foot.html")

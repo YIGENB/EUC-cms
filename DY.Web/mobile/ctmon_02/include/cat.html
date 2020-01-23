@@ -1,0 +1,40 @@
+﻿<script type="text/javascript">
+    $(function() {
+    $(".titleBar").click(function() {
+            $(".z3g-showMoreContNews").css("left", "0");
+        })
+        $(".closeBar").click(function() { 
+            $(".z3g-showMoreContNews").css("left", "100%");
+        })
+        $(".titleBar,.z3g-showMoreSection ").touchwipe({
+            min_move_x: 40,
+            min_move_y: 40,
+            wipeLeft: function() { $(".z3g-showMoreContNews").css("left", "0"); },
+            wipeRight: function() { $(".z3g-showMoreContNews").css("left", "100%"); },
+            preventDefaultEvents: true
+        });
+    })
+</script>
+<section class="z3g-showMoreContNews z3g-showMoreSection" style="top: 0px; left: 100%;">
+<table cellspacing="0" cellpadding="0">
+	<tbody><tr>
+		<td valign="top" class="barWrap active js_hideNewsCategory">
+			<span class="closeBar active"><em></em></span>
+		</td>
+		<td class="contWrap" style="min-height: 820.5px;background:$!{mstyle.list_class_bg_color}">
+			<!-- 分类内容 -->
+			<div id="newsCategoryID" style="overflow: hidden; height: 681px; border-left:$!{mstyle.list_class_all_border_color};">
+				<ul id="thelist" style="transition-property: -moz-transform; transform-origin: 0px 0px 0px; transform: translate(0px, 0px);">
+					#foreach($row in $Caches.NewsCat($cat_id))
+									<li class="item current active" style="background:$!{mstyle.list_class_ification_bg_color}">
+                        				<span class="name js_jumpToList" style="border-right:$!{mstyle.list_class_border_color}"><a href="#CMSCatLink()" style="color:$!{mstyle.list_class_font_color}">$row.cat_name</a><em class="icon"></em></span>
+                        				<!--<span class="number js_jumpToList" data-url="/news_list/&amp;slideCategoryId=6&amp;newsCategoryId=64.html">10</span>-->
+            							<span class="curtMark"><em>◆</em></span>
+									</li>
+				#end		
+				</ul>
+			</div>
+		</td>
+	</tr>
+</tbody></table>
+</section>

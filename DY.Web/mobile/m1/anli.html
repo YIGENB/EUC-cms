@@ -1,0 +1,104 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<div id="box_content" style="min-height: 484px;">
+				<div name="资讯分类" id="elem-NewsCategory_tree01-001" class="columnSpace"> 
+				<section class="NewsCategory_tree01-d1_c1">
+		<h1 class="z3g-pageTitle" style="background:$!{mstyle.list_bg_color}">
+			<span id="listTitleId" class="name" style="color:$!{mstyle.title_font_color}">$catinfo.cat_name</span>
+			<span class="titleBar">
+				<em class="title" style="color:$!{mstyle.title_content_font_color}">
+					$Sorting
+				</em>
+				<em class="icon"></em>
+			</span>
+			<div class="clear-both"></div>
+		</h1>
+#parse("include/cat.html")
+	<section style="left:-100%;" id="PublicConfigLogoNavTree" class="z3g-showMoreContShowLogo z3g-showMoreSection"></section>
+</section>
+				</div>
+#parse("include/detail_ad.html")
+				<div name="资讯列表" id="elem-News_list01-001" class="columnSpace"> 
+				<section class="News_list01-d1_c1" id="news-list">
+		<ul>
+		    #foreach($row in $list)		#set($index=$velocityCount+1)	
+				<li class="active">
+				<a href="#CMSLink()" title="$row.title">
+						<div class="js_gotoNewsDetail" data-id="143">
+							<h3 class="newsTitle">
+								<em class="icon"></em>
+								<span class="name">
+									$row.title
+								</span>
+							</h3>
+							<p class="time">
+								$row.showtime.tostring("yyyy-MM-dd hh:mm")
+							</p>
+						</div>
+						</a>
+				</li>
+				#end
+		</ul>
+		<script type="text/javascript">
+		    //载入资讯列表
+		    var oldList = jQuery('#news-list ul').html();
+		    var click = 2;
+		    function LoadList(pageIndex) {
+		        jQuery.ajax({
+		            type: "GET",
+		            cache: false,
+		            url: "/tools/ajax.aspx",
+		            data: "act=GetNewsList&cat_id=$!this_id&pagesize=$!pagesize&tlp=news&pageindex=" + pageIndex,
+		            dataType: "html",
+		            success: function(data) {
+		                jQuery('#news-list ul').append(data);
+		            }
+		        });
+		    }
+		    $(function() {
+		        $('#news-list ul').ajaxStart(function() {
+		            $(".loading").show();
+		            $("#more").hide();
+		        });
+		        $('#news-list ul').ajaxStop(function() {
+		            $(".loading").hide();
+		            $("#more").show();
+		        });
+		        $("#more").click(function() {
+		            if (click > $countPage) {
+		                $("#more span").html("$NoMore");
+		            }
+		            else {
+		                LoadList(click);
+		                click++;
+		            }
+
+		            //click = click <= $countPage ? click : $countPage;
+		        })
+		    })
+		</script>
+				<div class="moreWrap active" id="more">
+					<span>
+						$ViewMore
+					</span>
+				</div>
+		<div style="display:none;" class="moreWrap active loading">
+			<span style="text-align:center">
+				<img id="win8lodding" src="http://img04.taobaocdn.com/tps/i4/T14Wg1XjXbXXaY1rfd-32-32.gif" />
+			</span>
+		</div>
+</section>
+<input type="hidden" value="1" class="j-pageno" id="pageno">
+				</div>
+			</div>
+<div name="bottom" id="elem-PublicConfig_showBottom01-001" class="columnSpace">
+	<section class="PublicConfig_showBottom01-d1_c1">
+	#parse("include/addr.html")
+	</section>
+			</div>
+#parse("include/search.html")
+			</div>
+			<div style="position: absolute; z-index: 100; width: 7px; bottom: 2px; top: 2px; right: 1px; pointer-events: none; transition-property: opacity; overflow: hidden; opacity: 0;"><div style="position: absolute; z-index: 100; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.9); -moz-box-sizing: border-box; width: 100%; border-radius: 3px 3px 3px 3px; pointer-events: none; transition-property: -Moz-transform; transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); transform: translate(0px, 0px); height: 488px;"></div></div>
+			</div>
+			#end
+#parse("include/page_foot.html")

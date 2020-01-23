@@ -1,0 +1,83 @@
+﻿#parse("include/page_head.html")
+<div class="about_cont_a">
+    	<div class="about_cont_aa"></div>
+        <div class="about_cont_vc"></div>
+        <div class="main">
+        <div class="about_conta_top">
+            	<div class="about_conta_topl"><img width="301" height="63" src="images/search.jpg"></div>
+                <div class="about_conta_topr">
+                	<div class="about_conta_toprt"><span>当前位置：</span><a href="/">首页</a>  | 搜索结果</div>
+                </div>
+            </div>
+        <div class="coll">
+            #parse("include/search.html")
+            <div class="nums">全网营销专家创同盟为您找到相关结果约$ResultCount个</div>
+             #foreach($row in $list)
+            <a class="clla_a" href="#CMSLink()">
+            	<div class="clla_al">
+                	<p>$row.showtime.tostring("dd")</p>
+                    $row.showtime.tostring("yyyy-MM")
+                </div>
+                <div class="clla_ar">
+                	<p>$SiteUtils.KeyReplace($keyword,$row.title)</p>
+                    $SiteUtils.KeyReplace($keyword,$SiteUtils.GetTopic($row.des,240))
+                </div>
+            </a>
+            #end
+
+        </div>
+        #if($list.Count>0)
+         <div class="case_page">
+				<div class="moreWrap active" id="more">
+					<span>
+						查看更多
+					</span>
+				</div>
+		<div style="display:none;" class="moreWrap active loading">
+			<span style="text-align:center">
+				<img id="win8lodding" src="images/loading.gif" />
+			</span>
+		</div>
+        </div>
+        #end
+       </div>
+    </div>
+#parse("include/page_foot.html")
+<script type="text/javascript">
+    //载入资讯列表
+    var oldList = jQuery('.coll').html();
+    var click = 2;
+    function LoadList(pageIndex) {
+        jQuery.ajax({
+            type: "GET",
+            cache: false,
+            url: "/tools/ajax.aspx",
+            data: "act=GetNewsList&cat_id=$!this_id&pagesize=$!pagesize&tlp=news&pageindex=" + pageIndex,
+            dataType: "html",
+            success: function (data) {
+                jQuery('.coll').append(data);
+            }
+        });
+    }
+    $(function () {
+        $('.coll').ajaxStart(function () {
+            $(".loading").show();
+            $("#more").hide();
+        });
+        $('.coll').ajaxStop(function () {
+            $(".loading").hide();
+            $("#more").show();
+        });
+        $("#more").click(function () {
+            if (click > $countPage) {
+                $("#more span").html("没有更多了");
+            }
+            else {
+                LoadList(click);
+                click++;
+            }
+
+            //click = click <= $countPage ? click : $countPage;
+        })
+    })
+</script>

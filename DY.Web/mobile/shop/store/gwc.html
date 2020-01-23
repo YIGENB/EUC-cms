@@ -1,0 +1,162 @@
+﻿#if (!$isajax)
+
+
+#parse("include/page_head.html")
+
+
+
+<div id="xuangou-page">
+    <div class="xuangou-step">
+      <div class="step step1"><img src="images/xuangou/1.png" alt=""></div>
+      <div class="step step2"><img src="images/xuangou/2-n.png" alt=""></div>
+      <div class="step step3"><img src="images/xuangou/3-n.png" alt=""></div>
+    </div>
+    
+    <div class="xuangou-table">
+      <table>
+        <tbody><tr>
+            <th class="o-product-name">商品名称</th>
+            <th class="o-product-attribute">属性</th>
+            <th class="o-product-price">价格</th>
+            <th class="o-product-number">购买数量</th>
+            <th class="o-product-count">小计</th>
+            <th class="o-product-operation">操作</th>   
+        </tr>
+        #set($js=0)
+        #set($zs=0 )
+  #foreach($row in $cartlist)
+  <tr>#set($zj=${row.market_price} * ${row.goods_number})
+  #set($js=$js+$row.goods_number)
+  #set($zs= $zs + $zj )
+    <td class="o-product-name"><ul>
+              <li><a href="/goods/detail/${row.goods_id}.aspx">#if($row.goods_img != "")<img src="$row.goods_img" width="86" height=67 /><p style=" text-align:center;" >#end$row.goods_name</p></a></li></ul></td>
+                     <td class="o-product-attribute"><p>$row.goods_name</p><p class="o-p-lt">#foreach($row in $Goods.GetGoodsAttr($row.goods_id,5).Rows) #set($index=$velocityCount+1)
+
+                  #if($row.attr_id==19)$row.attr_name：
+                                	$row.attr_value#end#end</p></td>
+                                	  <td class="o-product-price">￥$row.market_price元<br></td>
+                                	            <td style="vertical-align:middle" class="o-product-number">
+                                	            
+     <input  class="goods_number" value="$row.goods_number" style="margin-top:40px" name="goods_number" type="text"  />
+            <input  class="market_price" value="$row.market_price" style=" width:50px;" name="market_price" type="hidden" />
+          </td>
+          <td class="o-product-count">￥<span class="zj">$zj</span>元</td>
+
+    <td><a style="color:#0066cc" href="javascript:;" onclick="deletecart($userid,$row.rec_id,this,$('.goods_number').val(),$zj)">删除</a>
+    <input type="hidden" value="$row.goods_id" class="goods_id" />
+
+    </td>
+  </tr>#end
+  
+      </tbody></table>
+    </div>
+    
+    <div class="o-p-other">
+      <p class="o-p-tip">商品件数<strong id="num">$js</strong>件 待付金额(不含运费)<strong>￥<span id="zs">$zs</span></strong>元</p>
+      <button  onclick="javascript:userpay($userid)" ><img src="images/xuangou/kaishijiesuan.png" alt=""></button>
+      <button class="o-p-lm"><a href="/goods/0.htm"><img src="images/xuangou/jixugouwu.png" alt=""></a></button>
+    </div>
+
+    <div class="o-p-wenxingtishi">
+      <h4>温馨提示：</h4>
+      <p>1.0磅   约13x13cm  1刀+5碟+5叉     适合4-5人</p>
+      <p>2.0磅   约17x17cm  1刀+10碟+10叉   适合7-8人</p>
+      <p>3.0磅   约23x23cm  1刀+15碟+15叉   适合11-12人</p>
+      <p>5.0磅   约30x30cm  1刀+25碟+25叉   适合18-20人</p>
+      <p>订购5磅以上规格的蛋糕请与客服人员联系，订购电话：400 000 6091</p>
+    </div>
+  </div>
+  <script>
+      $(function() {
+      
+      $(".goods_number").keyup(function() {
+          var count = 0.00;
+          var spzs = 0;
+          $(".goods_number").each(function() {
+              count += parseFloat($(this).val()) * parseFloat($(this).next("input").val());
+
+              var zj = parseFloat($(this).val()) * parseFloat($(this).next("input").val());
+              //$(this).parent().find("span").html(zj.toFixed(2))
+              //alert($(this).parent().find("span").html());
+              $(this).parent().parent().find(".zj").html(zj.toFixed(2));
+          })
+          $(".zj").each(function(){
+          spzs += parseFloat($(this).html())
+          })
+          $("#zs").html(spzs.toFixed(2));
+          var numbergoods = 0;
+          $(".goods_number").each(function() {
+              numbergoods += parseFloat($(this).val());
+          })
+          $("#num").html(numbergoods);
+      });
+  });
+      function userpay(user) {
+          var id = "";
+          var goods_number = "";
+          $(".goods_id").each(function() {
+              id += $(this).val() + ",";
+          });
+          $(".goods_number").each(function() {
+              goods_number += $(this).val() + ",";
+          });
+
+          if (user > 0) {
+              if ($("#zs").html() > 0) {
+                  jQuery.post("/cart.aspx?act=add_to_cart&goods_id=" + id + "&goods_number=" + goods_number, function() {
+                      window.location = "/store/checkout.htm";
+                  })
+              }
+              else {
+              alert('货物数量为0,请继续购物！')
+              }
+              //window.location = "/cart.aspx?act=add_to_cart&goods_id=" + gid;/store/checkout.htm
+          }
+          else {
+              if (confirm('请先登录用户!')) {
+                  window.location = "/login/login";
+                  return true;
+              } else {
+                  return false;
+              }
+          }
+
+      }
+      function deletecart(user, rid, tr,num,zongji) {
+
+          if (user > 0) {
+              if (confirm("你确定删除吗？ ")) {
+                  jQuery.post("/cart.aspx?act=remove_cart_goods&rec_id=" + rid, function() {
+                      $(tr).parent().parent().html("");
+                      //var count = 0.00;
+                      var zj = parseFloat($zs) - parseFloat(zongji);
+                      var js = parseFloat($js) - parseFloat(num);
+                      var numbergoods = 0;
+                      $(".goods_number").each(function() {
+                          numbergoods += parseFloat($(this).val());
+                      })
+                      $("#num").html(numbergoods);
+                      var spzs = 0;
+                      $(".zj").each(function() {
+                          spzs += parseFloat($(this).html())
+                      })
+                      $("#zs").html(spzs);
+                  });
+              }
+
+
+
+          }
+          else {
+              if (confirm('请先登录用户!')) {
+                  window.location = "/login/login";
+                  return true;
+              } else {
+                  return false;
+              }
+          }
+
+      }
+</script>
+    #parse("include/page_foot.html")
+#end

@@ -1,0 +1,25 @@
+﻿    #foreach($row in $list)
+     <div class="result c-result c-clk-recommend">
+      <div class="c-container">
+       <a class="c-blocka" href="#SearchLink()"><h3 class="c-title c-gap-top-small">$SiteUtils.KeyReplace($keyword,$row.title)</h3></a>
+       <div class="c-row c-abstract c-gap-top-small">
+       #if($row.photo.tostring().length>0)
+        <div class="c-span3">
+         <a class="c-blocka" href="#SearchLink()">
+          <div class="c-img c-img-s">
+           <img src="$row.photo" />
+          </div>
+          </a>
+        </div>
+        #end
+        <div class="c-span9">
+         <a class="c-blocka" href="#SearchLink()"><p class="c-line-clamp3 c-color">$SiteUtils.KeyReplace($keyword,$SiteUtils.GetTopic($row.des,240))</p></a>
+         <div class="c-showurl">
+          <span>$SiteUtils.GetDomain()#SearchLink()</span>
+          <span class="c-gap-left">$row.date.tostring("yyyy-MM-dd")</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+        #end

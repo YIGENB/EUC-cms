@@ -1,0 +1,375 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)   
+<script src="js/simplefoucs.js" type="text/javascript"></script>
+<div id="box_content" style="min-height: 437px;">
+<div name="广告" id="elem-FrontSlide_listJson01-001" class="columnSpace">
+<div class="null" id="FrontSlide_listJson01-001">
+<div class="FrontSlide_listJson01-d1_c1">
+	<div class="bannerScrollWrap" style="width: 100%;">
+<!--		<div class="leftCover"></div>
+		<div id="focus">
+		  <ul class="bannerList sc_scroller" style="width: 640px;">
+		    #foreach($row in $Caches.GetAds(2).rows)
+		    <li><div name="${row.ad_link}" class="imageurl_advice"><a href="${row.ad_link}"><img src="${row.ad_code}" alt="" /></a></div></li>
+			#end
+		  </ul>
+		</div>
+		<div class="rightCover"></div>-->
+		<!-- 代码 开始 -->
+
+			<div class="swipe" style="width:100%;">
+				<ul id="slider">
+				    #foreach($row in $Caches.GetAds(2).rows) #set($index=$velocityCount+1)
+					<li #if($index==1) style="display:block" #end><img src="${row.ad_code}" alt="" /></li>
+					#end
+				</ul>
+				<div id="pagenavi">
+				    #foreach($row in $Caches.GetAds(2).rows) #set($index=$velocityCount+1)
+					<a href="javascript:void(0);" #if($index==1) class="active" #end>$index</a>
+					#end
+				</div>
+			</div><!--swipe end-->
+			<script type="text/javascript">
+			    var active = 0,
+	as = document.getElementById('pagenavi').getElementsByTagName('a');
+
+			    for (var i = 0; i < as.length; i++) {
+			        (function() {
+			            var j = i;
+			            as[i].onclick = function() {
+			                t2.slide(j);
+			                return false;
+			            }
+			        })();
+			    }
+			    var t2 = new TouchSlider({ id: 'slider', speed: 600, timeout: 6000, before: function(index) {
+			        as[active].className = '';
+			        active = index;
+			        as[active].className = 'active';
+			    } 
+			    });
+</script>
+
+<!-- 代码 结束 -->
+	</div>
+	<div class="sc_nav height600" id="bannerNav" style="display: none;"> 
+		<span id="indicator"> 
+		 </span> 
+	 </div>
+</div>
+</div>
+</div>
+<!--<div class="columnSpace" id="elem-Icon_Columns_navigation01-001" name="图标导航">
+<div id="Icon_Columns_navigation01-001" class="Icon_Columns_navigation01-d1">
+	<nav class="Icon_Columns_navigation01-d1_c1">
+		<div class="iconNavigationStyle02">
+			<ul class="column04">
+					<li class="active js_columnjump" data-id="column1978" data-url="/index.html">
+						<div class="imgWrap">
+							<div class="imgWrap02 z3g-bgColor05_2">
+								<img src="/imageRepository/lc_54_54/yz_about.png">
+							</div>
+						</div>
+							<h3 class="iconTitle z3g-textColor05">首页</h3>
+					</li>	
+					<li class="active js_columnjump" data-id="column1979" data-url="/products_index/&amp;productCategoryColumnId=1.html">
+						<div class="imgWrap">
+							<div class="imgWrap02 z3g-bgColor05_2">
+								<img src="/imageRepository/lc_54_54/yz_product.png">
+							</div>
+						</div>
+							<h3 class="iconTitle z3g-textColor05">产品展示</h3>
+					</li>	
+					<li class="active js_columnjump" data-id="column1982" data-url="/introduction/&amp;contentId=168.html">
+						<div class="imgWrap">
+							<div class="imgWrap02 z3g-bgColor05_2">
+								<img src="/imageRepository/lc_54_54/yz_culture.png">
+							</div>
+						</div>
+							<h3 class="iconTitle z3g-textColor05">品牌介绍</h3>
+					</li>	
+					<li class="active js_columnjump" data-id="column1983" data-url="/introduction/&amp;contentId=171.html">
+						<div class="imgWrap">
+							<div class="imgWrap02 z3g-bgColor05_2">
+								<img src="/imageRepository/lc_54_54/yz_newproduct.png">
+							</div>
+						</div>
+							<h3 class="iconTitle z3g-textColor05">加盟专区</h3>
+					</li>	
+					<li class="active js_columnjump" data-id="column1985" data-url="/news_list/&amp;newsCategoryId=64&amp;InfoListColumnID=2.html">
+						<div class="imgWrap">
+							<div class="imgWrap02 z3g-bgColor05_2">
+								<img src="/imageRepository/lc_54_54/yz_message.png">
+							</div>
+						</div>
+							<h3 class="iconTitle z3g-textColor05">时尚资讯</h3>
+					</li>	
+					<li class="active js_columnjump" data-id="column1984" data-url="/map/&amp;mutiline=1.html">
+						<div class="imgWrap">
+							<div class="imgWrap02 z3g-bgColor05_2">
+								<img src="/imageRepository/lc_54_54/yz_map.png">
+							</div>
+						</div>
+							<h3 class="iconTitle z3g-textColor05">分店地图</h3>
+					</li>	
+					<li class="active js_columnjump" data-id="column1981" data-url="/introduction/&amp;contentId=169.html">
+						<div class="imgWrap">
+							<div class="imgWrap02 z3g-bgColor05_2">
+								<img src="/imageRepository/lc_54_54/yz_contact.png">
+							</div>
+						</div>
+							<h3 class="iconTitle z3g-textColor05">联系我们</h3>
+					</li>	
+					<li class="active js_columnjump" data-id="column1989" data-url="/message/&amp;mutiline=1&amp;gjt=1.html">
+						<div class="imgWrap">
+							<div class="imgWrap02 z3g-bgColor05_2">
+								<img src="">
+							</div>
+						</div>
+							<h3 class="iconTitle z3g-textColor05">客户留言</h3>
+					</li>	
+			</ul>			
+		</div>
+	</nav>
+</div>
+</div>-->
+<div name="产品列表" id="elem-Products_mobileShowCase01-001" class="columnSpace">
+<section id="mobileShowCase-Products_mobileShowCase01-001" class="Products_mobileShowCase01-d1_c1">
+	<div class="borderTitle z3g-bgColor03" style="background:$!{mstyle.b_menu_bg_color}">
+		<ul id="mobile_tabs_change-Products_mobileShowCase01-001" class="titleWrap">
+			<li class="active z3g-column1 current">
+				<div>
+					<span class="text ">$NewProductTitle</span>   
+					<span class="number"></span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div style="display:block" id="mobilelist01-Products_mobileShowCase01-001" class="borderCont">
+	<div class="showcaseWrap ">
+		<div class="ItemWrap Products_mobilelist01-d1_c5 swipe">
+<ul id="slider1">
+<li style="display:block">
+				<div class="productListCont" style="width: 440px;">
+				<dl class="rows">
+				#foreach($row in $Caches.NewProduct(12)) #set($index=$velocityCount+1)
+				<dd class="active ">
+					<div alt="" data-otherlink="0" data-phref="#GoodsLink()" class="productatag">
+						<div class="imgWrap"><a href="#GoodsLink()"><img src="$!row.goods_img"></a></div>
+						<div class="infoWrap">
+							<h3 class="productTitle"><span class="name "><a href="#GoodsLink()">$!row.goods_name</a> </span></h3>
+							<p class="code ">$!row.goods_sn </p>
+							<p class="mark">
+							</p>
+						</div>
+					</div>
+				</dd>
+				#if($index%4==0&&$index!=$Caches.NewProduct(12).count)
+				</div>
+				</li>
+				<li #if($index==1) style="display:block; " #end>
+				<div class="productListCont" style="width: 440px;">
+				#end
+				#if($index%2==0)
+				</dl>
+				<dl class="rows">
+				#end
+				#end
+				</dl>
+				</div>
+				</li>
+				</ul>
+			</div>
+						<script type="text/javascript">
+						    $(".jFlowControl").each(function () {
+						        $(this).click(function () {
+						            t_div.slide($(this).index());
+						            alert($(this).index());
+						        })
+						    })
+						    var t_div = new TouchSlider({ id: 'slider1', speed: 600, timeout: 6000, before: function (index_div) {
+						        $(".jFlowControl").css("background", "#b0b0b0");
+						        $(".jFlowControl").eq(index_div).css("background", "$!{mstyle.b_menu_bg_color}");
+						    }
+						    });
+</script>
+	</div>
+		<div id="mobileShowCase" class="showcaseNav">
+			<span class="showcaseIndicator"  id="myController">
+			    #foreach($row in $Caches.NewProduct(12)) #set($index=$velocityCount+1)
+			    #if($index%4==0)
+				<em class="jFlowControl"></em>
+				#end
+				#end
+			</span>
+		</div>
+	</div>
+</section>
+</div>
+<div name="页面内容" id="elem-ComContent_detail01-001" class="columnSpace">
+<div class="ComContent_detail01-d1_c1" id="ComContent_detail01-001">
+					<section class="ComContent_detail01-d1_c1">
+						<div class="borderTitle active js_gotoNew" style="background:$!{mstyle.b_menu_bg_color}">
+							<span class="left">
+								<em class="icon"></em>
+								<em class="borderName" style="color:$!{mstyle.b_menu_font_color}">
+  										$Caches.Content("title","about")
+								</em>
+							</span>
+							<span class="right">
+								<em class="moreCont"></em>
+								<em class="active controlBar">
+									<cite class="icon"></cite>
+								</em>
+							</span>
+						</div>
+						<div class="borderCont js_gotoNew">
+							<div class="contWrap htmledit">
+										<!--	<div id="contentImgDiv" class="imgWrap">
+												<img lazy-src="/imageRepository/ce8e7991-f1e8-4f14-8697-8711bbf7bb7f.png"> 
+											</div>-->
+									&#12288;&#12288;$SiteUtils.GetTopic($SiteUtils.NoHTML($Caches.Content("content","about")),250)
+							</div>
+						</div>
+					</section>
+</div>
+</div>
+<!--<div class="columnSpace" id="elem-ProductsCategory_show02-001" name="产品分类">
+<div id="ProductsCategory_show02-001" class="null">
+			<section class="ProductsCategory_show02-d1_c6">
+				<div class="borderTitle z3g-bgColor03 js_linkCategoryListIndex" data-pmcid="1" data-pmccolumid="1" >
+					<span class="left">
+						<em class="icon"></em>
+						<em class="borderName ">产品分类</em>
+					</span>
+					<span class="right">
+						<em class="moreCont"></em>
+						<em class="active controlBar">
+							<cite class="icon"></cite>
+						</em>
+					</span>
+				</div>
+				<div class="borderCont category02_c6-02">
+					<div class="twoColStyle">
+						<dl class="rows">
+							<dd class="active  js_linkCategoryList" data-pmcid="161" data-pmccolumid="1" >
+								<div class="imgWrap">
+								    <img lazy-src= "/imageRepository/lc_144_144/c9ddcf0e-6086-4093-81d5-69d3d126db4b.jpg" onerror= "this.src='/imageRepository/lc_144_144/z3g_noPic.PNG'" /> 
+								</div>
+								<div class="infoWrap">
+									<h3 class="productTitle ">2013春夏</h3>
+								</div>
+							</dd>
+					</div>
+				 </div>				    				
+			</section>
+</div>
+</div>-->
+<div name="资讯分类" id="elem-NewsCategory_columns01-001" class="columnSpace">
+<section class="NewsCategory_columns01-d1_c1" >
+		<div data-columnid="2" class="borderTitle active js_jumpToNewsList" style="background:$!{mstyle.b_menu_bg_color}">
+			<span class="left">
+				<em class="icon"></em>
+					<em class="borderName" style="color:$!{mstyle.b_menu_font_color}">$NewsClassTitle</em>
+			</span>
+			<span class="right">
+				<em class="moreCont"></em>
+				<em class="active controlBar">
+					<cite class="icon"></cite>
+				</em>
+			</span>
+		</div>
+	<div class="borderCont">
+		<ul>
+    					<li class="z3g-column2">
+    					#foreach($row in $Caches.NewsCat(5)) #set($index=$velocityCount+1)	
+					    <span data-advertid="6" data-id="64" class="js_gotoNewsList">
+						    <em class="active"><a href="#CMSCatLink()">$row.cat_name</a></em>
+					    </span>
+					    #end
+		</li></ul>
+	</div>
+</section>
+</div>
+<!--<div name="说明页" id="elem-Specifies_show01-001" class="columnSpace">
+<div class="Specifies_show01-d1_c1" id="Specifies_show01-001">
+	<section class="Specifies_show01-d1_c1">
+			<div class="borderTitle">
+			  <span class="left"> <em class="icon"></em> <em class="borderName">
+				     	品牌加盟
+				     </em> </span>
+			  <span class="right"> <em class="moreCont"></em> <em class="active controlBar"> <cite class="icon"></cite> </em> </span>
+			</div>
+		<div class="htmledit">
+			<p><a _cke_saved_href="javascript:void(0)/*1185*/" href="/introduction/&amp;contentId=171.html"><img _cke_saved_src="http://xiaozhubanna.3g-make-hn-139.shushang-z.cn/imageRepository/b4f78487-407d-4c6c-a3bc-4ecf7f7f1fae.jpg" src="http://xiaozhubanna.3g-make-hn-139.shushang-z.cn/imageRepository/b4f78487-407d-4c6c-a3bc-4ecf7f7f1fae.jpg" alt="" style="HEIGHT: 113px; WIDTH: 300px"></a></p>
+		</div>
+	</section>
+</div>
+</div>-->
+<div class="columnSpace" id="elem-News_homelist01-001" name="资讯列表">
+<section class="News_homelist01-d1_c1" >
+		<div class="listStyle01" >
+			<div class="borderTitle" style="background:$!{mstyle.b_menu_bg_color}">
+				<ul class="titleWrap">
+							<li class="active z3g-column1">
+								<div>
+									<span class="text" style="color:$!{mstyle.b_menu_font_color}">$NewNewsTitle</span>
+									<span class="number"></span>
+								</div>
+							</li>
+				</ul>
+			</div>
+			<div class="borderCont">
+				<ul id="infoNewList">
+				    #foreach($row in $Caches.NewNews(8,5)) #set($index=$velocityCount+1)
+						<li class="active">
+								<div data-id="143" class="js_gotoNewsDetail">
+									<h3 class="newsTitle">
+										<em class="icon"></em>
+										<span class="name"><a href="#CMSLink()">$row.title</a></span>
+									</h3>
+								</div>
+						</li>
+						#end
+				</ul>
+				<ul id="infoCate1List" style="display:none">
+						<div class="z3g-noContent">
+							<span>
+								$NoContent
+							</span>
+						</div>
+				</ul>
+				<ul  id="infoCate2List" style="display:none">
+						<div class="z3g-noContent">
+							<span>
+								$NoContent
+							</span>
+						</div>
+				</ul>
+				<ul  id="infoCate3List" style="display:none">
+						<div class="z3g-noContent">
+							<span>
+								$NoContent
+							</span>
+						</div>
+				</ul>
+			</div>
+		</div>
+</section>
+</div>
+<div name="bottom" id="elem-PublicConfig_showBottom01-001">
+
+
+
+
+
+
+    #parse("include/addr.html")
+</div>
+#parse("include/search.html")
+</div>
+</div>
+<div style="position: absolute; z-index: 100; width: 7px; bottom: 2px; top: 2px; right: 1px; pointer-events: none; transition-property: opacity; overflow: hidden; opacity: 0;"><div style="position: absolute; z-index: 100; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.9); -moz-box-sizing: border-box; width: 100%; border-radius: 3px 3px 3px 3px; pointer-events: none; transition-property: -Moz-transform; transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); transform: translate(0px, 0px); height: 251px;"></div></div>
+</div>
+#end
+#parse("include/page_foot.html")

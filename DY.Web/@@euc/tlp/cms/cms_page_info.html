@@ -1,0 +1,231 @@
+﻿#parse("pageheader.html")
+#TreeFile()
+<script src="/include/Hplus/js/fat_function.js" type="text/javascript"></script>
+#if($config.Site_word) 
+<script>
+    $(function () {
+        //拓词工具定时执行
+        setInterval("getWord('title','content')", 5000);
+    })
+</script>
+#end
+<script type="text/javascript">
+    $(function () {
+        var tree = $("#tree").ligerTree({
+            url: 'tree/treelist.aspx?act=cmspagecattree',
+            parentIDFieldName: 'parent_id', idFieldName: 'page_id', textFieldName: 'title', childIcon: null, parentIcon: null, checkbox: false, topParentIDValue: '0',
+            onClick: function (nodedata, target) { $(".fat_class").val(nodedata.data.title); $(".parent_id").val(nodedata.data.page_id); }
+        }); //分类树
+
+    });
+</script>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end页面</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>页面</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">页面列表</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#general-tab" >基本信息</a></li>
+                            <li><a data-toggle="tab" href="#gallery-tab">页面内容</a></li>
+                            <li><a data-toggle="tab" href="#content-tab">移动端页面内容</a></li>
+                            <li><a data-toggle="tab" href="#seo-tab">SEO</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="tab-content">
+                        <div id="general-tab" class="tab-pane active">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    页面标题：</label>
+                                <div class="col-sm-9">
+                                    <input id="title" name="title" value="$!{entity.title}" type="text" class="form-control"
+                                        required="" aria-required="true"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    英文标题：</label>
+                                <div class="col-sm-9">
+                                    <input id="entitle" name="entitle" value="$!{entity.entitle}" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    描述：</label>
+                                <div class="col-sm-9">
+                                    <textarea name="des" id="des" class="form-control" cols="50" rows="5" maxlength="300">$!{entity.des}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    父页面：</label>
+                                <div class="col-sm-9 father_img">
+                                <i class="fa fa-caret-down i_img"></i>
+                                  <input   style="cursor:default; background-color:inherit; " type="text" readonly="readonly" class="form-control fat_class" value="#if($!{entity.parent_id}>0)$!Caches.PageInfos($!{entity.parent_id}).title #else 请选择分类... #end">
+                                  <input class="parent_id" name="parent_id" type="hidden" value="$!{entity.parent_id}" />
+                                    <div class="tree_class">
+                                        <ul id="tree">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    关联广告：</label>
+                                <div class="col-sm-9">
+                                    <select name="ad_id" class="form-control m-b">
+                                        <option value="0">请选择...</option>
+                                              #foreach($row in $Caches.AdPosition())
+            <option value="$row.position_id" #if($!{entity.ad_id}==$row.position_id)selected="selected"#end>$row.position_name</option>
+            #end
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    标识图片：</label>
+                                <div class="col-sm-9">
+                                    <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.photo},"images/slt.jpg")' />
+                                        <input type="hidden" name="photo" id="photo" value="$!{entity.photo}" />
+                                        <span class="help-inline">
+                                            <button name="button" class="btn select_img btn-white btn-sm" type="button">
+                                                点击上传</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    是否显示：</label>
+                                <div class="col-sm-9">
+       
+                            <div class="radio i-checks">
+                                 <label>
+                                    <input type="radio" #if($!{entity.is_show})checked#end $SiteUtils.DefaultValue($!{entity.is_show},"checked")  value="1" name="is_show"> <i></i> 是</label>
+                                    <label>
+                                    <input type="radio"  #if($!{entity.is_show} == false)checked#end  value="0" name="is_show"> <i></i> 否</label>
+                              </div>
+                                  
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    标签：</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="tag" id="tag" size="50" value="$!{entity.tag}" placeholder="多个标签请用英文逗号分开" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    显示模板：</label>
+                                <div class="col-sm-9">
+                                                    <!--<input name="info_tlp" type="text" class="form-control number" value="$!{entity.info_tlp}" />-->
+                                                    #if($entity.info_tlp.length>0)<button type="button" class="btn btn-w-m btn-white" onclick="javascript:updateTlp(this);">$!{entity.info_tlp}</button>#end
+                                                    <select name="info_tlp" id="info_tlp" class="form-control m-b" #if($entity.info_tlp.length>0)style="display:none"#end>
+                                                        <option value="">请选择...</option>
+                                                        #foreach($row in $Caches.GetSiteTlp().Rows) #set($fname=$row.name.Substring(0,$row.name.LastIndexOf(".")))
+                                                        <option value="$fname" #if($fname == $!entity.info_tlp)selected #end>$row.name#TlpSelect($fname) </option>
+                                                        #end
+                                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gallery-tab" class="tab-pane">
+
+
+                           <div class="form-group">
+                            <table width="100%" id="detail-table">
+                                <tr>
+                                    <td>
+                                        <textarea name="content" class="content" id="content" cols="60" rows="20" style="width: 100%; height: 400px">$!{entity.content}</textarea>
+                              
+                                    </td>
+                                </tr>
+                            </table>
+                            </div>
+                        </div>
+                        <div id="content-tab" class="tab-pane">
+                           <div class="form-group">
+                            <table width="100%" id="mdetail-tab">
+                                <tr>
+                                    <td>
+                                        <textarea name="mobile_content" class="content" id="mobile_content" cols="60" rows="20" style="width: 100%;
+                                            height: 400px">$!{entity.mobile_content}</textarea>
+                                  
+                                    </td>
+                                </tr>
+                            </table>
+                            </div>
+                        </div>
+                        <div id="seo-tab" class="tab-pane ">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    页面标题：</label>
+                                <div class="col-sm-9">
+                                    <input name="pagetitle" maxlength="50" type="text" class="form-control" value="$!{entity.pagetitle}" placeholder="一般不超过80个字符">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    页面关键词：</label>
+                                <div class="col-sm-9">
+                                    <textarea name="pagekeywords" class="form-control" rows="5" maxlength="200" placeholder="一般不超过100个字符">$!{entity.pagekeywords}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    页面描述：</label>
+                                <div class="col-sm-9">
+                                    <textarea name="pagedesc" class="form-control" rows="5" maxlength="200" placeholder="一般不超过200个字符">$!{entity.pagedesc}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    自定义Url：</label>
+                                <div class="col-sm-9">
+                                    <input name="urlrewriter" type="text" class="form-control" value="$!{entity.urlrewriter}"
+                                        placeholder="不填写则自动生成">
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <input type="hidden" name="goods_id" value="$!{entity.goods_id}" />
+                                <button class="btn btn-primary" type="submit">
+                                    提交</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+   
+#parse("pagefooter.html")

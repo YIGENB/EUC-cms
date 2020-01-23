@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户登录 - $config.Title</title>
+<link href="/skin/TJ/login/css/base.css" type="text/css" rel="stylesheet" />#IncludeScript()
+<style type="text/css">    .LoginUserBoxBg input{height:16px;line-height:16px;}    input.LoginButton{ height:29px;}</style>
+</head>
+
+<body>
+
+<form id="loginForm" method="post" action="/login.aspx?act=login" autocomplete="off" onsubmit="return user.Login(this,'#if($!url=="")/#else$!url#end')">
+<DIV class="ContentsBox">
+   <div class="LoginUser">
+      <div class="LoginUserBox">
+         <div class="LoginUserBoxT"><img src="/skin/TJ/login/images/User.jpg" /></div>
+         <div class="LoginUserBoxBg">
+            <ul>
+               <li>
+                  <div class="LoginInput"><label for="username">用户名： </label><input type="text" id="username" name="username" /></div>
+               </li>
+               <li>
+                  <div class="LoginInput"><label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;码： </label><input type="password" id="password" name="password" /></div>
+               </li>
+            
+                <li>                  <div class="LoginInput"><label for="captcha">验证码：</label>                  #if ($config.CaptchaReg)<input type="text" id="captcha" name="captcha" size="5"  style="vertical-align:middle;" /> <img src="/tools/verifyimagepage.aspx" class="captcha"  style="vertical-align:middle;" /><a href="javascript:ReloadCaptcha();">看不清？</a>                  #end                </div>               </li>
+              
+               <li style="padding-top:10px;"><input class="LoginButton" type="submit" value=" " /><span class="LoginUserInfo">还没有账号？<a href="/login.aspx?act=reg"><strong>注册</strong></a>/<a href="/login.aspx?act=forget">找回密码</a></span></li>
+            </ul>
+         </div>
+         <div class="LoginUserBoxB"></div>
+      </div>
+   </div>
+</DIV><!--Left_End-->
+   
+</DIV><!--内容框架_ContentsBox_End-->
+<!--KillIE6--><DIV class="KillIE6">清除IE6浮动文本错误</DIV><!--KillIE6_End-->
+</form>
+
+</body>
+</html>

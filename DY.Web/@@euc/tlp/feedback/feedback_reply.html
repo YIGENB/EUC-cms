@@ -1,0 +1,83 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            反馈详情</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>营销互动</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list" class="btn btn-primary ">返回</a>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="chat-discussion">
+                                    <div class="chat-message">
+                                        <a href="mailto:$!{entity.user_email}">
+                                            <img class="message-avatar" src="$SiteUtils.DefaultValue($!{entity.user_photo},"images/slt.jpg")" alt="#if (${entity.user_id} <= 0)匿名用户#else ${entity.user_name}#end"></a>
+                                        <div class="message">
+                                            <a class="message-author" href="${entity.url}">
+                                                <h2>
+                                                    ${entity.user_name}</h2>
+                                            </a><span class="message-date">${entity.msg_time}</span> <span class="message-content">
+                                                ${entity.msg_content} </span><span class="vertical-date">
+                                                    <!--<small>IP:${entity.ip_address}</small>-->
+                                        </div>
+                                    </div>
+                                    <!--<div class="chat-message">
+                                        <img class="message-avatar" src="images/slt.jpg" alt="$!re_entity.user_name">
+                                        <div class="message">
+                                            <a class="message-author" href="javascript:;">$!re_entity.user_name</a> <span class="message-date">
+                                                $!re_entity.add_time </span><span class="message-content">$!re_entity.content
+                                            </span>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <form method="post" name="theForm" id="commentForm">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="chat-message-form">
+                                    <div class="form-group">
+                                        <br />
+                                        <textarea class="form-control message-input" name="contents" placeholder="暂不支持回复功能，请见谅" required=""
+                                            aria-required="true" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <br />
+                            </div>
+                            <!--<div class="form-group">
+                                <div class="col-sm-2 col-sm-offset-2">
+                                    <input name="comment_type" value="${entity.comment_type}" type="hidden" />
+                                    <input name="id_value" value="${entity.id_value}" type="hidden" />
+                                    <input name="comment_id" value="${entity.comment_id}" type="hidden" />
+                                    <input name="parent_id" value="$!{re_entity.comment_id}" type="hidden" />
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-check"></i>提交</button>
+                                    <button class="btn btn-white" type="reset">
+                                        取消</button>
+                                </div>
+                            </div>-->
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")

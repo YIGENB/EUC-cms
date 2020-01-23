@@ -1,0 +1,52 @@
+﻿#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">#if($id == 0)添加#else修改#end商品规格值</span> 
+</div>
+    <div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=list&spec_id=$spec_id"><span class="left"></span><em><cite class="icon"></cite><cite>规格值列表</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>	
+<div class="main-div">
+  <form method="post" name="theForm" id="theForm" onsubmit="return validate()">
+    <table cellspacing="1" cellpadding="3" width="100%">
+      <tr>
+        <td class="label">规格值名称</td>
+        <td><input type="text" name="spec_value" value="$!{entity.spec_value}" /> <span class="require-field">*</span></td>
+      </tr>
+      <tr>
+        <td class="label">规格别名</td>
+        <td><input type="text" name="alias" value="$!{entity.alias}" /></td>
+      </tr>
+      <tr #if($spec_info.spec_type == 0) style=" display:none;"#end>
+        <td class="label">规格值图片</td>
+        <td><input name="spec_image" id="spec_image" size="56" type="text" value="$!{entity.spec_image}" /> <a href="javascript:void(0);" onclick="upload(this,'','spec_image','')" title="点击上传"><img src="images/up.gif" border="0" align="middle" /></a> 请先将图片处理成30px * 30px大小再上传</td>
+      </tr>
+      <tr align="center">
+        <td colspan="2">
+          <input type="submit" value="确定" class="button" />
+          <input type="reset" value="重围" class="button" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<script language="JavaScript"> 
+<!--
+    /**
+    * 检查表单输入的数据
+    */
+    function validate() {
+        validator = new Validator("theForm");
+        validator.required("spec_value", "商品规格值不能为空");
+        #if($spec_info.spec_type == 1)
+        validator.required("spec_image", "请上传商品规格值图片");
+        #end
+        return validator.passed();
+    }
+//-->
+</script>
+#parse("pagefooter.html")

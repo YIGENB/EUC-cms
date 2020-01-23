@@ -1,0 +1,259 @@
+﻿
+#parse("include/page_head.html")
+<link href="css/compare.css" rel="stylesheet" type="text/css" />
+
+<script>
+    $(function () {
+        $(".change").click(function () {
+
+            if ($(this).next(".hide").is(":hidden"))
+                $(this).next(".hide").show();
+            else
+                $(this).next(".hide").hide();
+        })
+
+        $(".box select").change(function () {
+            if ($(this).val() > 0 && $(this).attr("data") == 1) {
+                if ($(this).val() == "${cid.goods_id}")
+                    alert("不能对比相同型号");
+                else
+                    window.location = "/goodscontrast/" + $(this).val() + "/${cid.goods_id}.html";
+            }
+            else if ($(this).val() > 0 && $(this).attr("data") == 2) {
+                if ($(this).val() == "${gid.goods_id}")
+                    alert("不能对比相同型号");
+                else
+                window.location = "/goodscontrast/${gid.goods_id}/" + $(this).val() + ".html";
+            }
+
+        })
+    })
+</script>
+<div class="wraper clearfix">
+<div class="modA mb10">
+<div class="thA compare-thA">
+<div class="subTit"><strong>$gid.goods_name</strong>
+<span class="change-box">
+<span id="JchangePro-1" class="change">更换产品</span>
+<div id="JchangeProPop-1" class="change-pop hide">
+<div class="box">
+<div class="hd"><i>更换产品</i></div>
+<div class="bd">
+<dl id="productList_1">
+<dd></dd>
+<dd>
+<select id="_productList1_" data="1">
+
+#foreach($row in $Caches.AllProduct())
+<option #if($gid.goods_id==$row.goods_id) selected=selected#end value="$row.goods_id">$row.goods_name</option>
+#end
+</select>
+</dd>
+</dl>				
+</div>
+<div class="ft"><a id="JclosePro-1" href="javascript:void(0)" title="关闭"></a></div>
+</div>
+</div>
+</span>
+</div>
+<div class="subLine"></div>
+<div class="subTit"><strong>$cid.goods_name</strong>
+<span class="change-box">
+<span id="JchangePro-2" class="change">更换产品</span>
+<div id="JchangeProPop-2" class="change-pop change-popEx hide">
+<div class="box">
+<div class="hd"><i>更换产品</i></div>
+<div class="bd">
+<dl id="productList_2">
+<dd></dd>
+<dd>
+
+<select id="_productList2_" data="2">
+#foreach($row in $Caches.AllProduct())
+<option #if($cid.goods_id==$row.goods_id) selected=selected#end value="$row.goods_id">$row.goods_name</option>
+#end
+</select>
+</dd>
+</dl>				
+</div>
+<div class="ft"><a id="JclosePro-2" href="javascript:void(0)" title="关闭"></a></div>
+</div>
+</div>
+</span>
+</div>
+</div>
+<div class="tbA">
+<div class="vs-box-2">
+<ul class="ulPic">
+#set( $id = ${gid.goods_id} )
+#set( $url = ${gid.urlrewriter} )
+<li class="fl">
+<a id="prodViewUrl" href="#GoodsLinkc($id $url)" target="_blank" title="$gid.goods_name">
+<img width="270" src="$gid.info_img"></a>
+<i class="tit"><a href="#GoodsLinkc($id $url)" title="$gid.goods_name" target="_blank">$gid.goods_name $gid.urlrewriter</a></i>
+<!--<i class="price">指导价：
+<span>
+<a href="http://product.pconline.com.cn/pc/asus/593400_price.html" target="_blank">￥<em>5999</em></a>
+</span>
+</i>-->
+</li>
+<li class="fr">
+#set( $id = ${cid.goods_id} )
+#set( $url = ${cid.urlrewriter} )
+<a id="prodViewUrl" href="#GoodsLinkc($id $url)" target="_blank" title="$cid.goods_name"><img width="270"  src="$cid.info_img"></a>
+<i class="tit"><a href="#GoodsLinkc($id $url)" title="$cid.goods_name" target="_blank">$cid.goods_name</a></i>
+<!--<i class="price">指导价：
+<span>
+<a href="http://product.pconline.com.cn/pc/hasee/586829_price.html" target="_blank">￥<em>4899</em></a>
+</span>
+</i>-->
+</li>
+</ul>
+<div class="vs">
+<!-- 票数对比 -->
+<!--<div class="rate fl">
+<div class="chart"><em id="score_pic_593400" style="height:78.43137254901961%"></em></div>
+<div class="num"><em id="score_593400">40</em>票</div>
+<a href="javascript:void(0)" target="_self" name="voteBut" pid="593400" class="btn">投票支持</a>
+</div>
+<div class="rate fr">
+<div class="chart"><em id="score_pic_586829" style="height:21.568627450980394%"></em></div>
+<div class="num"><em id="score_586829">11</em>票</div>
+<a href="javascript:void(0)" target="_self" name="voteBut" pid="586829" class="btn">投票支持</a>
+</div>-->
+
+</div><!-- vs.end -->
+</div>
+</div>
+</div>
+<table class="compare-table-all mb10" width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<th colspan="2" class="thTit"><span class="caption">重要参数对比</span></th>
+</tr>
+<tr>
+#set( $id = ${gid.goods_id} )
+#set( $url = ${gid.urlrewriter} )
+
+<th><span class="tdTit"><a href="#GoodsLinkc($id $url)" target="_blank">$gid.goods_name</a></span><a href="#GoodsLinkc($id $url)" title="$gid.goods_name" target="_blank" class="more">查看详细参数</a></th>
+#set( $id = ${cid.goods_id} )
+#set( $url = ${cid.urlrewriter} )
+<th><span class="tdTit"><a href="#GoodsLinkc($id $url)" target="_blank">$cid.goods_name</a></span><a href="#GoodsLinkc($id $url)" title="$gid.goods_name" target="_blank" class="more">查看详细参数</a></th>
+</tr>
+<tr>
+<td>
+<table class="compare-table-in" width="495" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+   	#foreach($row in $Goods.GetGoodsAttr($gid.goods_id,$gid.goods_type).Rows)                                 
+<tr>
+<th>$row.attr_name</th>
+<td>$row.attr_value</td>
+</tr> #end
+<tr>
+<th >描述</th><td >$gid.goods_desc</td>
+</tr>
+</tbody></table>
+</td>
+<td>
+<table class="compare-table-in" width="495" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+   	#foreach($row in $Goods.GetGoodsAttr($cid.goods_id,$cid.goods_type).Rows)                                 
+<tr>
+<th>$row.attr_name</th>
+<td>$row.attr_value</td>
+</tr> #end
+<tr>
+<th >描述</th><td >$cid.goods_desc</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+
+</tbody></table>
+<table class="compare-table-all mb10" width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody><tr>
+<th colspan="2" class="thTit"><span class="caption">图片对比</span></th>
+</tr>
+<tr>
+#set( $id = ${gid.goods_id} )
+#set( $url = ${gid.urlrewriter} )
+<th><span class="tdTit"><a href="#GoodsLinkc($id $url)" target="_blank">$gid.goods_name</a></span></th>
+#set( $id = ${cid.goods_id} )
+#set( $url = ${cid.urlrewriter} )
+<th><span class="tdTit"><a href="#GoodsLinkc($id $url)" target="_blank">$cid.goods_name</a></span></th>
+</tr>
+<tr>
+<td >
+
+<ul class="propic">
+ #foreach($row in $Goods.GetGoodsGalleryList($gid.goods_id))                                
+<li>
+<img width="120"  src="$row.info_img">
+</li>  #end
+</ul>
+
+</td>
+<td>
+
+<ul class="propic">
+  #foreach($row in $Goods.GetGoodsGalleryList($cid.goods_id))                       
+<li>
+<img width="120"  src="$row.info_img">
+</li>  
+#end
+</ul>
+
+</td>
+</tr>
+<tr>
+
+</tr>
+</tbody></table>
+
+<div class="hr10"></div>
+<table class="compare-table-all mb10" width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody><tr>
+<th colspan="2" class="thTit"><span class="caption">文章对比</span></th>
+</tr>
+<tr>
+#set( $id = ${gid.goods_id} )
+#set( $url = ${gid.urlrewriter} )
+<th><span class="tdTit"><a href="#GoodsLinkc($id $url)" target="_blank">$gid.goods_name</a></span></th>
+#set( $id = ${cid.goods_id} )
+#set( $url = ${cid.urlrewriter})
+<th><span class="tdTit"><a href="#GoodsLinkc($id $url)" target="_blank">$cid.goods_name</a></span></th>
+</tr>
+<tr>
+<td class="vatop">
+<div class="vs-art">
+#foreach($row in $Caches.ProductRelationNews(10,$gid.goods_id))
+<ul class="ulTxt">
+<li>
+<i class="tit"><a href="#CMSLink()" target="_blank" title="$row.title">$row.title</a></i>
+<i class="date">$row.showtime.tostring("yyyy-MM-dd") </i>
+</li>
+</ul>#end
+
+</div>
+</td>
+<td class="vatop">
+<div class="vs-art">
+#foreach($row in $Caches.ProductRelationNews(10,$cid.goods_id))
+<ul class="ulTxt">
+<li>
+<i class="tit"><a href="#CMSLink()" target="_blank" title="$row.title">$row.title</a></i>
+<i class="date">$row.showtime.tostring("yyyy-MM-dd") </i>
+</li>
+</ul>#end
+</div>
+</td>
+</tr>
+</tbody></table>
+
+<!--广告后出位置-->
+
+
+<div class="hr10"></div>
+
+</div>
+#parse("include/page_foot.html")

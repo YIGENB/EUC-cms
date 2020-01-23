@@ -1,0 +1,98 @@
+﻿#parse("pageheader.html")
+<h1>
+<span class="action-span"><a href="?act=list">用户抓潜</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">用户抓潜</label> </span>
+<div style="clear:both"></div>
+</h1><!-- comment content list -->
+<div class="main-div">
+  <table width="100%">
+    <tr>
+    <td>公司名</td>
+      <td>
+      ${entity.companyname}
+     </td>    
+    </tr>
+    <tr><td colspan=2>
+    <hr color="#dadada" size="1">
+    </td></tr>
+    <tr> 
+    <tr>
+    <td>公司地址</td>
+      <td>
+       ${entity.companyurl}
+      </td>
+    </tr>
+    <tr><td colspan=2>
+    <hr color="#dadada" size="1">
+    </td></tr>
+     <tr>
+     <td>公司地址</td>
+      <td>
+       ${entity.companyaddress}
+      </td>
+    </tr>
+    <tr><td colspan=2>
+    <hr color="#dadada" size="1">
+    </td></tr>
+     <tr>
+     <td>公司规模</td>
+      <td>
+       #if($row.companyscale==1)年销售额 500万-1000万#elseif($row.companyscale==2)年销售额 1000万-5000万#elseif($row.companyscale==3)年销售额 5000万-1亿#else 年销售额 1亿以上#end
+      </td>
+    </tr>
+    <tr><td colspan=2>
+    <hr color="#dadada" size="1">
+    </td></tr>
+     <tr>
+     <td>预定数量</td>
+      <td>
+       ${entity.predictcount}
+      </td>
+    </tr>      
+    <tr><td colspan=2>
+    <hr color="#dadada" size="1">
+    </td></tr>
+     <tr>
+     <td>要求速度</td>
+      <td>
+       ${entity.monthcount}
+      </td>
+    </tr>
+    <tr><td colspan=2>
+    <hr color="#dadada" size="1">
+    </td></tr>
+        <tr>
+     <td>应用领域</td>
+      <td>
+       ${entity.monthlyConsumption}
+      </td>
+    </tr>
+    <tr><td colspan=2>
+    <hr color="#dadada" size="1">
+    </td>
+    </tr>
+    <tr>
+     <td>应用领域</td>
+      <td>
+       ${entity.yearcount}
+      </td>
+    </tr>
+    <tr><td colspan=2>
+    <hr color="#dadada" size="1">
+    </td></tr>
+
+            <tr>
+     <td>订货要求</td>
+      <td>
+       ${entity.askfor}
+      </td>
+    </tr>
+    <tr><td colspan=2>
+    <hr color="#dadada" size="1">
+    </td></tr>
+    <tr><td>参考样品图</td>
+    <td><img src="$entity.photo" /></td>
+    </tr>    
+  </table>
+</div>
+#parse("pagefooter.html")

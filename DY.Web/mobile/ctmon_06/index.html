@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+#IncludeHead()
+
+<link rel="stylesheet" type="text/css" href="css/css.css">
+<link rel="stylesheet" type="text/css" href="css/appframework.css">
+<link rel="stylesheet" type="text/css" href="css/nm_icon.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<script type="text/javascript" charset="utf-8" src="js/appframework.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/appframework.ui.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/ax.carousel.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/af.css3animate.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/af.scroller.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/af.desktopBrowsers.js"></script>
+</head>
+<body>
+<div id="afui"><div id="content" style="background-image:url($!{mstyle.index_bg});background-size: 100% auto;background-repeat: no-repeat;background-position: center top;">
+<div id="index" class="panel">
+<div class="sitead" editor="Manage_bannerNohide">
+<div id="sitead_indexdots" class="dots">
+</div>
+<div id="sitead_index" class="detail">
+<a>
+<img src="http://picture.no3.mfdns.com/upload/cases/wap_111/banner3.jpg" alt="1" />
+</a>
+<a>
+<img src="http://picture.no3.mfdns.com/upload/cases/wap_111/sc1.jpg" alt="2" />
+</a>
+</div>
+<script>
+    var axCarousel;
+    function init_axCarouselindex() {
+        axCarousel = $("#sitead_index").axCarousel({
+            pagingDiv: "sitead_indexdots",
+            pagingCssName: "sitead_paging",
+            pagingCssNameSelected: "sitead_paging_selected",
+            preventDefaults: false,
+            lockScroll: true,
+            autoScrollTime: 10000
+        });
+    }
+    window.addEventListener("load", init_axCarouselindex, false);
+              </script> 
+    </div>
+<div class="menuvice">
+#foreach($row in $Caches.Nav()) #set($count=$Caches.Nav().Count)   #set($index=$velocityCount+1)  
+<a href="$row.url" style="background-image:url($row.mobile_ico);" title="$row.name">
+<span>$row.name</span>
+</a>
+#end
+</div>
+</div>
+</div></div></body></html>

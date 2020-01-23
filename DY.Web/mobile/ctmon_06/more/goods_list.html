@@ -1,0 +1,11 @@
+﻿        #foreach($row in $list) #set($index=$velocityCount+1) #set($count=$list.Count)
+        <div>
+            <!--<a href="$!row.goods_img" class="cboxElement">-->
+            <a href="#GoodsLink()">
+                <img alt="img" src="$!row.goods_img" class="responsive-image">
+            </a>
+            <a href="#GoodsLink()"><h4 style="text-align:center;">$!row.goods_name </h4></a>
+            <p>$SiteUtils.GetTopic($row.des,142)</p>
+        </div>
+        #if($index!=$count)<div class="decoration"></div>#end
+        #end

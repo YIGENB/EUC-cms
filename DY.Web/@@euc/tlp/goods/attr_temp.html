@@ -1,0 +1,32 @@
+﻿
+
+<table id='attrTable'>
+    #foreach($row in $list)#set($index=$velocityCount+1)
+<div class="form-group">
+        <label class="col-sm-3 control-label">$row.attr_name</label>
+        <div class="col-sm-4">
+            <input type="hidden" name="attr_id_list" value="$row.attr_id" />
+            <input type="hidden" name="goods_attr_id_list" value="$row.goods_attr_id" />
+            #if($row.attr_input_type == 0)
+            <input type="text" name="attr_value_list" value="$row.attr_value" class="form-control" />
+            #elseif($row.attr_input_type == 1)
+            <select name="attr_value_list" class="form-control m-b">
+                <option value="">请选择...</option>
+                #foreach ($str in $SiteUtils.Split($row.attr_values,","))
+                <option value="$str" #if(${row.attr_value}==$str)selected="selected"#end>$str</option>
+                #end
+            </select>
+            #elseif($row.attr_input_type == 2)
+            <textarea name="attr_value_list" class="form-control">$row.attr_value</textarea>
+            #elseif($row.attr_input_type == 4)
+            <div class="upload_img">
+            <img upload="image-single" class="img_show"  onerror="javascript:this.src='images/slt.jpg' " src='$SiteUtils.DefaultValue($!{row.attr_value},"images/slt.jpg")' />
+            <input type="hidden" name="attr_value_list" id="attr_value_list$index" value="$!{row.attr_value}" />
+            <span class="help-inline"><button name="button" class="btn select_img" type="button">点击上传 </button></span>
+            </div>
+            #end
+        </div>
+    </div>
+    #end
+</table>
+

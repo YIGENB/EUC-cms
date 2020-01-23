@@ -1,0 +1,223 @@
+﻿#parse("pageheader.html")
+#TreeFile()
+<script src="/include/Hplus/js/fat_function.js" type="text/javascript"></script>
+#if($config.Site_word) 
+<script>
+    $(function () {
+        //拓词工具定时执行
+        setInterval("getWord('cat_name','cat_name')", 5000);
+    })
+</script>
+#end
+<script>
+    $(document).ready(function () {
+        var tree = $("#tree").ligerTree({
+            url: 'tree/treelist.aspx?act=downloadcatlisttree',
+            parentIDFieldName: 'parent_id', idFieldName: 'cat_id', textFieldName: 'cat_name', childIcon: null, parentIcon: null, checkbox: false, topParentIDValue: '0',
+            onClick: function (nodedata, target) { $(".fat_class").val(nodedata.data.cat_name); $(".parent_id").val(nodedata.data.cat_id); }
+        }); //分类树
+    });
+</script>
+ <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end分类</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>下载分类</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">分类列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                            <li><a data-toggle="tab" href="#seo-tab">SEO</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            分类名称：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="cat_name" name="cat_name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.cat_name}">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            上级分类：</label>
+                                           <div class="col-sm-9 father_img">
+                                <i class="fa fa-caret-down i_img"></i>
+                                  <input   style="cursor:default; background-color:inherit; " type="text" readonly=readonly class="form-control fat_class" value="#if($!{entity.parent_id}>0)$!Caches.DownloadCategoryInfos($!{entity.parent_id}).cat_name #else 请选择分类... #end">
+                                  <input class="parent_id" name="parent_id" type="hidden" value="$!{entity.parent_id}" />
+                                    <div class="tree_class">
+                                        <ul id="tree">
+                                        </ul>
+                                    </div>
+                                </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            列表模板：</label>
+                                        <div class="col-sm-9">
+
+                                                    #if($entity.template_file.length>0)<button type="button" class="btn btn-w-m btn-white" onclick="javascript:updateTlp(this);">$!{entity.template_file}</button>#end
+                                                    <select name="template_file" id="info_tlp" class="form-control m-b" #if($entity.template_file.length>0)style="display:none"#end>
+                                                        <option value="">请选择...</option>
+                                                        #foreach($row in $Caches.GetSiteTlp().Rows) #set($fname=$row.name.Substring(0,$row.name.LastIndexOf(".")))
+                                                        <option value="$fname" #if($fname == $!entity.template_file)selected #end>$row.name#TlpSelect($fname) </option>
+                                                        #end
+                                                    </select>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            详细页模板：</label>
+                                        <div class="col-sm-9">
+
+                                                    #if($entity.template_detail_path.length>0)<button type="button" class="btn btn-w-m btn-white" onclick="javascript:updateTlp(this);">$!{entity.template_detail_path}</button>#end
+                                                    <select name="template_detail_path" id="Select1" class="form-control m-b" #if($entity.template_detail_path.length>0)style="display:none"#end>
+                                                        <option value="">请选择...</option>
+                                                        #foreach($row in $Caches.GetSiteTlp().Rows) #set($fname=$row.name.Substring(0,$row.name.LastIndexOf(".")))
+                                                        <option value="$fname" #if($fname == $!entity.template_detail_path)selected #end>$row.name#TlpSelect($fname) </option>
+                                                        #end
+                                                    </select>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否显示在栏目列表：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.show_in_nav})checked#end $SiteUtils.DefaultValue($!{entity.show_in_nav},"checked")  value="1" name="show_in_nav"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.show_in_nav} == false)checked#end  value="0" name="show_in_nav"> <i></i> 否</label>
+
+                                        
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否允许评论：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.is_review})checked#end $SiteUtils.DefaultValue($!{entity.is_review},"checked")  value="1" name="is_review"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.is_review} == false)checked#end  value="0" name="is_review"> <i></i> 否</label>
+
+                                        
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            排序：</label>
+                                        <div class="col-sm-9">
+                                                   <input name="sort_order" id="sort_order" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.sort_order},0)"/>
+                                    </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            外部链接：</label>
+                                        <div class="col-sm-9">
+                                        <input  name="link_url" maxlength="50" type="text" class="form-control" aria-required="true" value="$!{entity.link_url}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            分页大小：</label>
+                                        <div class="col-sm-9">
+                                            <input id="pagesize" name="pagesize" maxlength="75" type="text" class="form-control number" value="$SiteUtils.DefaultValue($!{entity.pagesize},0)"><br /><span class="notice-span">为0则取商品全局分页大小</span>
+                                        </div>
+                                    </div>
+                                   
+                                 
+                                   
+
+                        </div>
+
+
+                           <div id="seo-tab" class="tab-pane">
+                      
+                             <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            页面标题：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="pagetitle" maxlength="80" type="text" class="form-control" value="$!{entity.pagetitle}" placeholder="一般不超过80个字符">
+                                        </div>
+                             </div>
+                             <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            页面关键词：</label>
+                                        <div class="col-sm-9">
+                                                    <textarea name="pagekeywords" class="form-control" rows="5" maxlength="100" placeholder="一般不超过100个字符">$!{entity.pagekeywords}</textarea>
+                                        </div>
+                                    </div>
+                                <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            页面描述：</label>
+                                        <div class="col-sm-9">
+                                                    <textarea name="pagedesc" class="form-control" rows="5" maxlength="200" placeholder="一般不超过200个字符">$!{entity.pagedesc}</textarea>
+                                        </div>
+                                    </div>
+                                 <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            自定义Url：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="urlrewriter" type="text" class="form-control" value="$!{entity.urlrewriter}" placeholder="不填写则自动生成">
+                                        </div>
+                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+<!-- end tab form -->
+<script type="text/javascript" src="js/tab.js"></script>
+<script language="JavaScript">
+var no_catname = "没有输入分类的名称";
+var sys_hold = "系统保留分类，不允许添加子分类";
+/**
+* 检查表单输入的数据
+*/
+function validate() {
+    validator = new Validator("theForm");
+    validator.required("cat_name", no_catname);
+    return validator.passed();
+}
+function get_level(obj) {
+    var level = obj.options[obj.selectedIndex].id;
+    document.getElementById("cat_level").value=level;
+}
+</script>
+#parse("pagefooter.html")

@@ -1,0 +1,116 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            手动充值</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>会员</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list" class="btn btn-primary ">充值列表</a>
+                    </div>
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                会员名称：</label>
+                            <div class="col-sm-9">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <select name="user_id" id="user" class="form-control m-b">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="输入关键词" class="form-control" name="keyword" value="" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary " type="button" onclick="searchUser();">
+                                            <i class="fa fa-check"></i>&nbsp;搜索</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                充值金额：</label>
+                            <div class="col-sm-9">
+                                <input name="amount" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.amount},0)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                备注：</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="admin_note" cols="70" rows="5">$SiteUtils.DefaultValue($!{entity.admin_note},'银行转帐充值')</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <input name="admin_user" type="hidden" value="$!username" />
+                                <input name="process_type" type="hidden" value="2" />
+                                <input name="payment" type="hidden" value="1" />
+                                <input name="is_paid" type="hidden" value="1" />
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                                <button class="btn btn-white" type="reset">
+                                    取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /**
+    * 按用户编号或用户名搜索用户
+    */
+    function searchUser() {
+        var eles = document.forms['theForm'].elements;
+
+        /* 填充列表 */
+        var idName = Utils.trim(eles['keyword'].value);
+        Ajax.call('users.aspx?act=search_users&q=' + idName, '', searchUserResponse, 'GET', 'JSON');
+    }
+
+    function searchUserResponse(result) {
+        if (result.message.length > 0) {
+            alert(result.message);
+        }
+
+        if (result.error == 0) {
+            var eles = document.forms['theForm'].elements;
+
+            /* 清除列表 */
+            var selLen = eles['user'].options.length;
+            for (var i = selLen - 1; i >= 0; i--) {
+                eles['user'].options[i] = null;
+            }
+            var arr = result.content;
+            var userCnt = arr.length;
+
+            for (var i = 0; i < userCnt; i++) {
+                var opt = document.createElement('OPTION');
+                opt.value = arr[i].user_id;
+                opt.text = arr[i].user_name;
+                eles['user'].options.add(opt);
+            }
+        }
+    }
+
+</script>
+#parse("pagefooter.html")

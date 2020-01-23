@@ -1,0 +1,31 @@
+﻿#parse("pageheader.html")
+	<script type="text/javascript">
+	    var api = frameElement.api, W = api.opener;
+
+	    function opchild() {
+	        W.jQuery.dialog({ title:"查看会员",id: 'childone', content: 'url:users.aspx?act=email&users=$!{entity.email_users}', lock: true, parent: api, width: 800, height: 600 });
+	    }
+	</script>
+	#set($count=$SiteUtils.Split($entity.email_users,",").length)
+<div class="main-div">
+<form method="post" name="theForm" id="theForm" onsubmit="return validate()">
+<table width="100%">
+  <tr>
+    <td class="label">接收人: </td>
+    <td><label><a href="javascript:opchild()">$count</a></label>人</td>
+  </tr>
+  <tr>
+    <td class="label">邮件主题: </td>
+    <td><label>$!{entity.email_title}</label></td>
+  </tr>
+  <tr>
+    <td class="label">邮件内容: </td>
+    <td><label>$!{entity.email_content}</label></td>
+  </tr>
+    <tr>
+    <td class="label">发送时间: </td>
+    <td><label>$!{entity.date}</label></td>
+  </tr>
+</table>
+</form>
+</div>

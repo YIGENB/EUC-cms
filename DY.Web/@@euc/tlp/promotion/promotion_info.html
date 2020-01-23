@@ -1,0 +1,94 @@
+﻿#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">#if($id == 0)添加#else修改#end推广计划</span> 
+    </div>
+    <div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=list"><span class="left"></span><em><cite class="icon"></cite><cite>友情链接列表</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>	
+<div class="main-div">
+<form method="post" name="theForm" onsubmit="return validate()">
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">
+        推广ID</td>
+      <td>
+        <input type="text" name="pid" value="$!{entity.pid}" size="10" /><span class="require-field">*必须为数字</span>
+        
+      </td>
+    </tr>
+
+    <tr>
+      <td  class="label">网址</td>
+      <td>
+        <input type="text" name="website" value="$!{entity.website}" size="35" /><span class="require-field">*例如：http://www.nw158.com/</span>
+      </td>
+    </tr>
+    <tr style=" display:none;">
+      <td  class="label">金额</td>
+      <td>
+        <input type="text" name="cost" value="$!{entity.cost}" size="10" /><span class="require-field">*</span>
+      </td>
+    </tr>
+     <tr style=" display:none;">
+      <td  class="label">时间</td>
+      <td>
+        <input type="text" name="input_time" value="$!{entity.input_time}" size="20" /><span class="require-field">*</span>
+      </td>
+    </tr>
+   <tr>
+      <td  class="label">备注</td>
+      <td>
+        <input type="text" name="remark" value="$!{entity.website}" size="35" />
+      </td>
+    </tr>
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+        <input type="submit" value=" 确定 " class="button" />
+        <input type="reset" value=" 重置 " class="button" />
+       </td>
+    </tr>
+ </table>
+
+</form>
+</div>
+<script language="JavaScript">
+var pid_empty = "请输入推广ID!";
+var website_empty = "请输入推广网址!";
+
+  document.forms['theForm'].elements['pid'].focus();
+  <!--
+  var MediaList = new Array('0', '1');
+  
+  function showMedia(AdMediaType)
+  {
+    for (I = 0; I < MediaList.length; I ++)
+    {
+      if (MediaList[I] == AdMediaType)
+        document.getElementById(AdMediaType).style.display = "";
+      else
+        document.getElementById(MediaList[I]).style.display = "none";
+    }
+    
+    document.getElementById("media_type_value").value = AdMediaType;
+  }
+
+  /**
+   * 检查表单输入的数据
+   */
+  function validate()
+  {
+    validator = new Validator("theForm");
+    validator.required("pid",     pid_empty);
+    validator.required("website",     website_empty);
+    return validator.passed();
+  }
+  //-->
+  
+</script>
+#parse("pagefooter.html")

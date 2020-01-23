@@ -1,0 +1,106 @@
+﻿#if (!$isajax) #parse("pageheader.html") #TreeFile()
+<script type="text/javascript">
+    //列表生成
+    function navigatorlist() {
+        $("#maingrid").ligerGrid({
+            columns: [
+                  { display: '名称', name: 'name', width: '20%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                      var showhtml = "listTable.edit(this, 'name'," + rowdata.id + ")";
+                      var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.name + '</span>';
+
+                      return isshow;
+                  }
+                  },
+                 { display: '链接', name: 'url', width: '20%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'url'," + rowdata.id + ")",url;
+                     if (rowdata.issystem) {
+                         url = ' <span title="本项由系统自动生成，不能更改">' + rowdata.url + '</span>';
+                     }
+                     else {
+                         url = ' <span onclick="' + showhtml + '" style="">' + rowdata.url + '</span>';
+                     }
+
+                     return url;
+                 }
+                 },
+                 { display: '是否显示', name: 'isshow', width: '8%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.toggle(this, 'isshow'," + rowdata.id + ")";
+                     var isshow = '<img src="images/' + rowdata.isshow + '.gif" onclick="' + showhtml + '" />';
+
+                     return isshow;
+                 }
+                 },
+                 { display: '是否新窗口', name: 'opennew', width: '10%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.toggle(this, 'opennew'," + rowdata.id + ")";
+                     var isshow = '<img src="images/' + rowdata.opennew + '.gif" onclick="' + showhtml + '" />';
+
+                     return isshow;
+                 }
+                 },
+                 { display: '手机导航', name: 'is_mobile', width: '10%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.toggle(this, 'is_mobile'," + rowdata.id + ")";
+                     var isshow = '<img src="images/' + rowdata.is_mobile + '.gif" onclick="' + showhtml + '" />';
+
+                     return isshow;
+                 }
+                 },
+                 { display: '排序', name: 'vieworder', width: '10%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'vieworder'," + rowdata.id + ")";
+                     var isshow = ' <div onclick="' + showhtml + '" style="width:100%;">' + rowdata.vieworder + '</div>';
+
+                     return isshow;
+                 }
+                 },
+                 { display: '位置', name: 'type', width: '10%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var isshow = rowdata.type;
+
+                     return isshow;
+                 }
+                 },
+                { display: '操作', isSort: false, width: '10%', render: function (rowdata, rowindex, value) {
+                    var h = "";
+                    h += '  <a href="?act=edit&id=' + rowdata.id + '" title="修改">修改</a> ';
+                    var delhtml = "'删除的数据不能恢复，确定执行吗？'";
+                    h += '<a href="javascript:;" id="deltr' + rowdata.id + '" onclick="listTable.treeremove(' + rowdata.id + ',' + delhtml + ' )" title="删除">删除</a> ';
+                    return h;
+                }
+                }
+                ], width: '98%', height: 'auto', headerRowHeight: '38px', align: 'left',
+            url: 'tree/treelist.aspx?act=navigatortree', alternatingRow: false, tree: { columnName: 'name' }, checkbox: false,
+            autoCheckChildren: false, usePager: false, enabledSort: false, isScroll: false
+        }
+            );
+    }
+
+    $(function () {
+        navigatorlist()
+    });
+    </script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            自定义导航栏</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>设置</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加导航</a>
+                    </div>
+                    <div id="listDiv" class="ibox-content">
+                        <div id="maingrid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html") #end

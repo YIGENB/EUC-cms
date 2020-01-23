@@ -1,0 +1,62 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">自定义文本回复信息</span> 
+    </div>
+<div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=add&pid=$pid"><span class="left"></span><em><cite class="icon"></cite><cite>添加</cite></em></a></span>
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="weixin_news.aspx?act=list&pid=$pid"><span class="left"></span><em><cite class="icon"></cite><cite>自定义图文回复</cite></em></a></span>
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="weixin_menu.aspx?act=list&pid=$pid"><span class="left"></span><em><cite class="icon"></cite><cite>自定义菜单</cite></em></a></span>
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="weixin_user.aspx?act=list&pid=$pid"><span class="left"></span><em><cite class="icon"></cite><cite>用户列表</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>	
+<form method="post" action="" name="listForm">
+<div class="list-div" id="listDiv">
+#end
+<table cellpadding="3" cellspacing="1">
+  <tr  class="list_tr">
+    <th>$SiteUtils.GetSortImg("keyword","关键词")</th>
+    <th>$SiteUtils.GetSortImg("content","回答")</th>
+    <th>$SiteUtils.GetSortImg("type","匹配类型")</th>
+    <th>$SiteUtils.GetSortImg("date","时间")</th>
+    <th>$SiteUtils.GetSortImg("enabled","是否有效")</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+    <tr >
+    <td align="center">
+    <span onclick="javascript:listTable.edit(this, 'keyword', ${row.mpword_id})">${row.keyword}</span><br />
+    </td>
+    <td align="center"><span>${row.content}</span></td>
+    <td align="center"><span>#if(${row.type}==0) 完全匹配 #end #if(${row.type}==1) 包含匹配 #end</span></td>
+    <td align="center"><span>${row.date}</span></td>
+    <td align="center"><img src="images/${row.enabled}.gif" onclick="listTable.toggle(this, 'enabled', ${row.mpword_id})" /></td>
+    <td align="center"><span>  
+      <a href="?act=edit&id=${row.mpword_id}&pid=$pid" title="修改">修改</a>
+      <a href="javascript:;" onclick="listTable.removeto(${row.mpword_id}, '您确认要删除这条记录吗?',$pid)" title="删除">删除</a></span>
+    </td>
+  </tr>
+  #end
+</table>
+<!-- 分页 -->
+  <table id="page-table" cellspacing="0">
+    <tr>
+      <td align="right" nowrap="true">${pager}</td>
+    </tr>
+  </table>
+    <table id="page-batch" cellspacing="0">
+    <tr>
+      <td align="left">
+        <button onclick="window.location='?act=add&pid=$pid'" class="btn" type="button">添加</button>
+      </td>
+    </tr>
+  </table>
+#if (!$isajax)
+</div>
+</form>
+#parse("pagefooter.html")
+#end

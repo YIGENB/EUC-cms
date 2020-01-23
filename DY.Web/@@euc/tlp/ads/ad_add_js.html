@@ -1,0 +1,70 @@
+﻿#parse("pageheader.html")
+<h1 id="Menu">
+<span class="action-span"><a href="?act=list">广告列表</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">生成并复制JS代码</label> </span>
+<div style="clear:both"></div>
+</h1><div class="form-div">
+<form action="" method="post" name="js_code">
+  <table width="100%">
+    <tr>
+      <td class="label">投放广告的站点名称：</td>
+      <td><input type="text" name="outside_address" size="30" /></td>
+    </tr>
+    <tr>
+      <td class="label">选择编码：</td>
+      <td><select name="charset" id="charset">
+        <option value="UTF8">国际化编码（utf8）</option><option value="GB2312">简体中文</option><option value="BIG5">繁体中文</option>      </select></td>
+    </tr>
+    <tr>
+      <td colspan="2"><div align="center">
+        <input type="button" name="gen_code" value="生成并复制JS代码" onclick="validate(); genCode(); autocopy()" class="button" />
+      </div></td>
+      </tr>
+    <tr>
+      <td colspan="2">
+        <div align="center">
+          <textarea name="ads_js" cols="70" rows="5"></textarea>
+        </div></td>
+    </tr>
+  </table>
+ </form>
+</div>
+<script type="text/javascript">
+var elements = document.forms['js_code'].elements;
+var url = 'http://www.DY.cn/ad.aspx?act=js&ad_id=1';
+var no_outside_address = "建议您指定该广告所要投放的站点的名称，方便于该广告的来源统计!";
+
+document.forms['js_code'].elements['outside_address'].focus();
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("js_code");
+    validator.required("outside_address",  no_outside_address);
+    return validator.passed();
+}
+/**
+ * 生成代码
+ */
+function genCode()
+{
+    // 生成代码
+    var code = '<script src="' + url;
+        code += '&from=' + encodeURI(elements['outside_address'].value);
+        code += '&charset=' + elements['charset'].value;
+        code += '"></script\>';
+        elements['ads_js'].value = code;
+}
+
+function autocopy()
+{
+    if (Browser.isIE)
+    {
+        window.clipboardData.setData('text', document.js_code.ads_js.value);
+    }
+    document.forms['js_code'].elements['ads_js'].select();
+}
+</script>
+#parse("pagefooter.html")

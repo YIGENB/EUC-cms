@@ -1,0 +1,50 @@
+﻿#parse("include/page_head.html")
+<div class="membersbox pad50">
+    <section class="top_boxs">
+        <section class="portrait">
+        	 <img src="$userinfo.user_photo" width="70" height="70">        </section>
+        <section class="menbindex_price righr_sinfor">
+            <p><strong><span>$userinfo.user_name</span></strong></p>            <p>可用资金：<span>¥ $userinfo.user_money</span></p>
+            消费积分:<span class="points">¥$userinfo.pay_points</span>
+
+               #if($is_sign>0)<b class="cur"><p class="J-point">已签到</p><em></em><i class="add_one">$config.Users_sign</i>  </b>
+               #else
+                <b class="J-sign"><p class="J-point">会员签到</p><em></em><i class="add_one">$config.Users_sign</i>  </b>
+                #end
+                                                        </section>
+                            <a href="#" class="mail"><span class=""></span></a>
+                            </section>
+    #parse("${userpage}.html")
+</div>
+<script type="text/javascript">
+                                $(function() {
+                                    $('.J-sign').one("click", function() {
+                                        var oBtn = $(this);
+                                        oBtn.addClass('cur');
+                                        //签到
+                                        jQuery.ajax({
+                                            url: "/tools/ajax.aspx?act=checkin",
+                                            type: "post",
+                                            dataType: "json",
+                                            data: {
+                                                "userid": $userid,
+                                                "des":"签到送积分",
+                                                "points_type":0,
+                                                "change": $config.Users_sign
+                                            },
+                                            success: function(data) {
+                                                if (data.error == 1) {
+                                                    oBtn.find('.J-point').text("已签到");
+                                                    var points = parseInt($('.points').text().replace("¥","")) + parseInt($config.Users_sign);
+                                                    $('.points').text(points);
+                                                    $('.add_one').text('+' + $config.Users_sign);
+                                                    oBtn.find('i').fadeIn(500).delay(500).fadeOut(500);
+                                                } else {
+                                                    jQuery.Error(data.message)
+                                                }
+                                            }
+                                        });
+                                    });
+                                })
+</script>
+#parse("include/page_foot.html")

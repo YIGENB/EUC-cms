@@ -1,0 +1,50 @@
+﻿<div class="bor1-yellow tips mb10">
+	<ul class="list-square">
+		<li>投诉（建议）后我们会将处理结果发送到您的EMAIL：$userinfo.email，请注意查收。</li>
+		<li>您也可以在投诉（建议）内容中留下联系电话，以便我们第一时间与您联系。</li>
+		<li>如果您的投诉（建议）与订单有关，请在投诉与建议内容中填写您的订单号。</li>
+	</ul>
+</div>
+<div class="bor1 complaint-text">
+	<div class="complaint-c clearfix">
+		<textarea id="feedback" class="bor1-brown"></textarea>
+		<input type="button" class="btn-red fl" value="" id="sub-complaint" />
+		<div class="fl bor1-r fag-error">
+			请输入投诉/建议，我们会尽快与您联系</div>
+	</div>
+	<!--回复成功弹出窗口-->
+	<div class="pop-box" style=" width:715px;">
+		<div class="pop-main" style=" float:left; width:740px;">
+			<div class="pop-content">
+				<div class="bor2-r" style=" width:710px;">
+					<h3 class="blod f14" style=" width:600px; border-top:#ccc 0px solid;">
+						您的投诉/建议我们已经收到，我们会尽快通过Email或手机与您联系。</h3>
+					<p class="f14 mt10">您也可以拨打电话95105225，客服工作时间8:00-20:00。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#sub-complaint').click(function() {
+            var message = $('#feedback').val();
+
+            if (message == "") {
+                alert("请输入投诉建议内容。");
+                return false;
+            }
+            else {
+                Ajax.call('/user.aspx?act=feedback', 'content='+escape(message), function(data) {
+                    if (data.error > 0) {
+                        alert(data.message);
+                    }
+                    else {
+                        $('.complaint-c').hide();
+                        $('.pop-box').show();
+                    }
+                }, 'POST', 'json');
+            }
+        });
+    });
+</script>

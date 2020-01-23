@@ -1,0 +1,218 @@
+﻿
+/*��ҳ*/
+.menuvice {
+    margin: auto;
+    padding: 10px;
+    overflow: hidden;
+}
+
+
+
+
+    .menuvice a {
+        display: inline-block;
+        height: 90px;
+         background-color: rgba(249, 247, 250, 0.9);
+        background-position: center 15px;
+        background-repeat: no-repeat;
+        color: #91939f;
+        line-height: 130px;
+        text-align: center;
+       overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        background-size: 40px;
+    }
+
+ .menuvice a:nth-child(7n+1) {
+         width: 30%;
+          float: left;
+          margin-right: 3%;
+        }
+     .menuvice a:nth-child(7n+2) {
+         width: 67%;
+         float:right;
+        } .menuvice a:nth-child(7n+3) {
+            margin: 3% 3% 3% 0px;
+            width: 30%;
+            float: left;
+        } .menuvice a:nth-child(7n+4) {
+            margin:3% 3% 3% 0px;
+            width: 30%;
+            float: left;
+        } .menuvice a:nth-child(7n+5) {
+              width: 30%;
+              float: right;
+              border-radius: 200px;
+              margin: 3% 3% 3% 0%;
+        } .menuvice a:nth-child(7n+6) {
+              width: 30%;
+              float: left;
+              margin: 0% 3% 0% 0%;
+        } .menuvice a:nth-child(7n+7) {
+           width: 30%;
+        
+        }
+/*TAB�л�(����)*/
+.listbox .titleHome {
+    display: inline-block;
+    border-top: 2px solid #458fce;
+    border-bottom: 1px solid #dbecec;
+    width: 100%;
+    height: 36px;
+    background-color: #fbfbfb;
+}
+
+    .listbox .titleHome > * {
+        display: inline-block;
+        overflow: hidden;
+        border-right: 1px solid #dbecec;
+        min-width: 80px;
+        height: 34px;
+        padding: 0px 5px;
+        color: #458fce;
+        line-height: 34px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: center;
+    }
+
+
+    .listbox .titleHome .carouselTab_paging2_selected {
+        background-color: #ffffff;
+    }
+
+.listbox.products, .listbox.videos {
+    margin-left: 0px;
+}
+
+    .listbox.products > *, .listbox.videos > * {
+        border-left: 0px;
+    }
+/*��ҳ����*/
+.i_nl .top1 {
+    border-bottom: 1px dashed #c0d8f4;
+    width: 100%;
+    height: 92px;
+    padding: 8px 0px;
+}
+
+    .i_nl .top1 .i {
+        display: block;
+        overflow: hidden;
+        margin: 5px 10px 0px 5px;
+        float: left;
+        width: 100px;
+        height: 70px;
+    }
+
+    .i_nl .top1 img {
+        width: 100%;
+        min-height: 100%;
+    }
+
+    .i_nl .top1 .t {
+        display: block;
+        overflow: hidden;
+        padding-left: 0px;
+        height: 25px;
+        color: #9a2435;
+        white-space: nowrap;
+    }
+
+    .i_nl .top1 .c {
+        display: block;
+        overflow: hidden;
+        padding: 0px 5px 0px 0px;
+        font-size: 12px;
+    }
+
+
+.i_nl {
+}
+
+    .i_nl > a {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        border-bottom: 1px dashed #c0d8f4;
+        height: 36px;
+        padding: 0px 20px;
+        line-height: 2.5em;
+        white-space: nowrap;
+    }
+
+        .i_nl > a::before, .i_nl > a::after {
+            display: block;
+            position: absolute;
+        }
+
+        .i_nl > a::before {
+            content: "";
+            left: 10px;
+            top: 43%;
+            width: 3px;
+            height: 3px;
+            background-color: #80a5c3;
+        }
+
+        .i_nl > a::after {
+            content: ">";
+            top: 0px;
+            right: 0px;
+            width: 20px;
+            height: 90%;
+            background-color: #ffffff;
+        }
+
+
+        .i_nl > a:hover, .i_nl > a:active, .i_nl > a:hover::after {
+            background: #d2d2d2;
+        }
+
+.list.products > .s2 {
+    padding: 10px 0px;
+}
+
+    .list.products > .s2 a {
+        display: inline-block;
+        overflow: hidden;
+        margin: 3px;
+        border: 1px solid #bfbfbf;
+        border-radius: 5px;
+        width: 70px;
+        height: 70px;
+        background-color: #ffffff;
+        line-height: 20px;
+        font-size: 12px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+.list.products .s2 a > span:nth-child(1) {
+    display: block;
+    overflow: hidden;
+    height: 50px;
+}
+
+.list.products .s2 img {
+    border-radius: 5px;
+    width: 100%;
+    min-height: 100%;
+}
+
+.list.products .s2 a > span:nth-child(2) {
+    display: block;
+    overflow: hidden;
+    line-height: 250%;
+    height: 20px;
+    color: #bf1422;
+    text-align: center;
+    white-space: nowrap;
+}
+
+
+.listbox .list.products .waterfall, .listbox .list.videos .vl {
+    border-bottom: 0px;
+    background-color: #ffffff;
+}

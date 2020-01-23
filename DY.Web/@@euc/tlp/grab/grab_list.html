@@ -1,0 +1,63 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<script type="text/javascript" src="js/listtable.js"></script>
+<script type="text/javascript">
+    listTable.filter['type'] = "$type";
+</script>
+<h1>
+<span class="action-span1"><a href="main.aspx">管理中心11</a>  - <label id="cur_menu">客户详细资料</label> </span>
+<div style="clear:both"></div>
+</h1>
+<form method="post" action="" name="listForm" id="listForm">
+<div class="list-div" id="listDiv">
+#end
+<table cellpadding="3" cellspacing="1">
+<col style="width:20px;" />
+  <tr>
+    <th>
+      <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox"></th>
+    <th>$SiteUtils.GetSortImg("companyname","公司名")</th>
+    <th>公司网址</th>
+    <th>公司地址</th>
+    <th>公司规模</th>
+    <th>预定数量</th>    
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+    <tr>
+    <td><input value="${row.id}" name="checkboxes" type="checkbox"></td>
+    <td align="center">${row.companyname}</td>    
+    <td>${row.companyurl}</td>
+    <td align="center">${row.companyaddress}</td>
+    <td align="center">#if($row.companyscale==1)年销售额 500万-1000万#elseif($row.companyscale==2)年销售额 1000万-5000万#elseif($row.companyscale==3)年销售额 5000万-1亿#else 年销售额 1亿以上#end</td>    
+    <td align="center">${row.predictcount}</a></td>    
+    <td align="center">
+      <a href="?act=reply&amp;id=${row.id}" title="${row.companyname}">查看详情</a> |
+      <a href="javascript:" onclick="listTable.remove(${row.id}, '您确认要删除这条记录吗?')">删除</a>
+    </td>
+  </tr>
+  #end
+  </table>
+  <!-- 分页 -->
+  <table id="page-table" cellspacing="0">
+    <tr>
+      <td align="left"><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选" class="selectall" /></td>
+      <td align="right">$pager</td>
+    </tr>
+  </table>
+  <!-- 批量 -->
+  <table id="page-batch" cellspacing="0">
+    <tr>
+      <td align="left">
+        <input type="button" value="永久删除" onclick="listTable.bacthAction('CompletelyDelete')" class="btnSubmit" />
+        <input type="button" value="显示" onclick="listTable.bacth('enabled',1)" class="btnSubmit" />
+        <input type="button" value="取消显示" onclick="listTable.bacth('enabled',0)" class="btnSubmit" />
+        <input type="button" value="已查看" onclick="listTable.bacth('is_read',1)" class="btnSubmit" />
+      </td>
+    </tr>
+  </table>
+#if(!$isajax)
+</div>
+</form>
+#parse("pagefooter.html")
+#end

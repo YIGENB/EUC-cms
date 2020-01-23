@@ -1,0 +1,114 @@
+﻿#parse("include/page_head.html")  	
+		   <div class="bxslider-wrapper" data-snap-ignore="true">
+            <div class="bxslider">
+            #foreach($row in $Caches.GetAds(2).rows)
+                <div>
+                    <img src="${row.ad_code}" alt="img"/>
+               <!--     <blockquote class="slider-caption">
+                        <p class="slider-title">
+                            THE ONLY FLAT<br>MOBILE PAGE
+                        </p>
+                    </blockquote>-->
+                </div>
+                #end
+            </div>
+		</div>
+        <div class="container">
+        	<h4 class="heading center-text"><img src="images/serve.jpg" /></h4>
+        </div>
+<!--        <div class="container">
+        	<h4 class="heading center-text">$Caches.GetPage("title","about")</h4>
+            <p class="center-text">$SiteUtils.GetTopic($SiteUtils.NoHTML($Caches.GetPage("about")),150)</p>
+        </div>-->
+        
+        <div class="container-gray">
+            <div class="column shadow">
+                <div class="one-half">
+                    <img class="center-icon" src="images/qwyx.gif" alt="img">
+                    <h5 class="center-text uppercase">全网营销平台 <br/>Marketing Platform</h5>
+                    <p class="center-text no-bottom">
+                        营销型网站区别于传统网站是以客户成交为目标 <br/>
+                    </p> 
+                </div>
+                <div class="one-half">
+                    <img class="center-icon" src="images/ydhl.gif" alt="img">
+                    <h5 class="center-text uppercase">移动互联网营销 <br/> Company Mail</h5>
+                    <p class="center-text no-bottom">
+                        营销型网站区别于传统网站客户成交为目标 <br>
+                    </p> 
+                </div>
+            </div>
+            <div class="column shadow">
+                <div class="one-half">
+                    <img class="center-icon" src="images/263.gif" alt="img">
+                    <h5 class="center-text uppercase">263企业云通讯 <br />Marketing Platform</h5>
+                    <p class="center-text no-bottom">
+                        营销型网站区别于传统网站是以客户成交为目标<br/>
+                    </p> 
+                </div>
+                <div class="one-half">
+                    <img class="center-icon" src="images/more.gif" alt="img">
+                    <h5 class="center-text uppercase">更多</h5>
+                    <p class="center-text no-bottom">
+                        <img class="center-icon" src="images/moreto.gif" alt="img">
+                    </p> 
+                </div>
+            </div>
+<!--            <div class="column no-bottom">
+                <div class="one-half">
+                    <a href="javascript:;" class="flat-button flat-settings">MORE SERVICES</a>
+                </div>
+                <div class="one-half">
+                    <a href="javascript:;" class="flat-button flat-features">PAGE FEATURES</a>
+                </div>
+            </div>-->
+        </div>
+        
+        <div class="container no-bottom">
+        	<h4 class="heading center-text"><img src="images/case.jpg" /></h4>
+            <!--<p class="center-text">We've included a swipe gallery, both on the homepage and on a dedicated page! Try it out!</p>-->
+        </div>
+        
+        <div class="container-gray">
+            <ul class="gallery gallery-homepage">
+                #foreach($row in $Caches.BestNews(3,5)) #set($index=$velocityCount+1)  
+                <li>
+                    <a class="swipebox" href="$row.photo" title="$!row.title" url="#CMSLink()">
+                        <img src="$row.photo" alt="$row.title">
+                    </a>
+                </li>
+                #end
+                <li>
+                    <a  href="/n_anli.htm" title="更多案例">
+                        <img src="images/case-more.png" alt="更多案例">
+                    </a>
+                </li>
+            </ul> 
+</div>
+
+        <div class="container no-bottom">
+        <h4 class="heading-icon"><img src="images/news.png" /></h4>
+        
+        	<div class="dropdown-menu">
+            	<a class="dropdown-deploy" href="#"><em class="left-dropdown bg-light"></em>公司新闻</a>
+                <a class="dropdown-hidden" href="#"><em class="left-dropdown bg-light"></em>公司新闻</a>
+                #foreach($row in $Caches.BestNews(16,6)) #set($index=$velocityCount+1)
+                <a class="dropdown-item bg-light" href="#CMSLink()" style="display: block;">$SiteUtils.GetTopic($row.title,80)</a>
+                #end
+                <div class="dropdown-bottom-border"></div>
+            </div>     
+        </div>
+        
+        
+        <div class="decoration"></div>
+        
+        
+        
+        
+        <div class="container no-bottom">
+        	<h4 class="heading center-text">$config.Name</h4>
+            <p class="center-text">广东省深圳市宝安区宝民一路宝通大厦8楼</p>
+            <a href="tel:4006066638" class="flat-button flat-menu center-button">400-606-6638</a>
+        </div>
+        
+#parse("include/page_foot.html")

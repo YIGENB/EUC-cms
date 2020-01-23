@@ -1,0 +1,60 @@
+﻿<div class="membersbox pad50">
+<form action="/user.aspx?act=SaveProfile" method="post" name="ProfileForm" onsubmit="return user.SaveProfile(this)">
+            <section class="mlogin_top">
+                编辑资料
+            </section>
+            <section class="mlogin_user">
+                <section class="mlogin_name g-box">
+                    <section class="mlogin_namele">
+                        手机号码
+                    </section>
+                    <section class="mlogin_nameri g-flex">
+                        <input type="text" name="user_name" id="user_name" placeholder="手机号" value="$userinfo.user_name">
+                    </section>
+                </section>
+                <section class="mlogin_name g-box">
+                    <section class="mlogin_namele">
+                        验证码
+                    </section>
+                    <section class="mlogin_nameri g-flex">
+                        <input class="setpwd_text" type="text" name="code" placeholder="填写验证码" id="vcode" value=""><input id="send" type="button" value="获取验证码" style="width:auto;" class="setpwd_but"  onclick="sendsms('user_name','您的账户正在做变更操作，')"/>
+                    </section>
+                </section>
+                <section class="mlogin_name g-box">
+                    <section class="mlogin_namele">
+                        邮箱
+                    </section>
+                    <section class="mlogin_nameri g-flex">
+                        <input type="text" name="email" id="email" placeholder="邮箱帐号" value="$!userinfo.email">
+                    </section>
+                </section>
+                #foreach($row in $userFields)
+                <section class="mlogin_name g-box">
+                    <section class="mlogin_namele">
+                        $row.reg_field_name
+                    </section>
+                    <section class="mlogin_nameri g-flex">
+                        <input type="text" name="userFields[$row.id]" id="userFields[$row.id]" placeholder="$row.reg_field_name" value="$row.field_value">
+                        <input type="hidden" name="reg_field_id" value="$row.id" />
+                    </section>
+                </section>
+                #end
+				<!--自定义表单 -->
+								<!-- end -->
+				<!-- <section class="mlogin_name g-box">
+				 	<section class="mlogin_namele" style="width:100%;padding-left:10px;">
+                        <label><input type="checkbox" name="check_wx" id="check_wx" value="0"> 同意获取用户微信详细信息</label>
+                    </section>
+                </section> -->
+            </section>
+            <section class="mlogin_but">
+                <button type="submit">
+                    保存
+                </button>
+            </section>
+            </form>
+<style>
+        .members_bottom{font-family:"微软雅黑";font-size:12px}      
+    </style>
+  
+</div>

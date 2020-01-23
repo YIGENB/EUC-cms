@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>購物車 - $config.Title</title>#IncludeHead() #IncludeStyle() #IncludeScript()
+    <link href="/include/css/store.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="/include/js/store.js"></script>
+    
+    <style type="text/css">
+        .info_div{border:1px solid #EEEEEE; float:left; margin-top:15px;}
+        .info_tab td{ padding:2px 10px;}
+    </style>
+</head>
+<body>
+    #parse("html-head.html")
+    <div style="background-color: #fff;">
+        <div id="page">
+            <div id="content">
+                <div id="crumbs">
+                    <strong>您的位置：</strong>
+                    <ol class="crumbs">
+                        <li><a href="/">首頁</a> </li>
+                        <li><a href="/cart.aspx">我的購物車</a></li>
+                        <li class="current">支付貨款 </li>
+                    </ol>
+                    <span class="cart-tip">購物車幫您一次性完成批量購買與付款，下單更便捷，付款更簡單！</span>
+                </div>
+                <!-- Content Start -->
+                <div class="flow-steps">
+                    <ol class="num5">
+                        <li><span class="first">挑選線路</span></li>
+                        <li><span>查看購物車</span></li>
+                        <li class="current-prev"><span>填寫購物信息</span></li>
+                        <li class="current"><span>支付貨款</span></li>
+                        <li class="last"><span>完成訂購</span></li>
+                    </ol>
+                </div>
+                <div id="payment">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <div style="padding: 0px 20px 20px 20px;">
+                                    <center>
+                                        <p>
+                                            <h3>
+                                                跟據您遞交的訂單，系統為您生成了以下支付信息</h3>
+                                        </p>
+                                    </center>
+                                    <div style=" width:690px; padding: 10px 100px; border: 4px #f0fbff solid; font-size: 14px; border: 4px #f0fbff solid;">
+                                        <p>
+                                            您預定的
+                                            
+                                            （#foreach($row in $ordergoodslist)
+                                            <a href="#GoodsLink()" style="color: Red">$row.goods_name</a>、
+                                            #end）
+                                            <br />
+                                            已經成功預定，您選擇的是<span style="color: Red">$payinfo.pay_name</span>，#if("$payinfo.pay_code"=="topay")請到下列營業網店完成付款#end <span
+                                                style="padding: 5px 10px; margin-top: 10px; border: 1px dashed #FF6600; display: block;">
+                                                $SiteUtils.SqlHtml($payinfo.pay_desc) </span>
+                                            <br />
+                                            
+         
+                                        </p>
+                                        <div class="info_div">
+                                            支付信息：
+                                            <table class="info_tab">
+                                                <tr>
+                                                    <td>
+                                                        訂單號：
+                                                    </td>
+                                                    <td>
+                                                        $orderinfo.order_sn
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        訂單總金額：
+                                                    </td>
+                                                    <td>
+                                                        $$orderinfo.order_amount
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        優惠券：
+                                                    </td>
+                                                    <td>
+                                                        $$orderinfo.bonus
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        您還需支付：
+                                                    </td>
+                                                    <td>
+                                                        <span class="price">#set($zf = $orderinfo.order_amount - $orderinfo.bonus -$orderinfo.integral_money)
+                                                            $zf </span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="clear">
+                                        </div>
+                                        <div class="info_div">
+                                            路線信息：
+                                            <table class="info_tab">
+                                                <tr>
+                                                    <th scope="col">
+                                                        名稱
+                                                    </th>
+                                                    <th scope="col">
+                                                        出發時間
+                                                    </th>
+                                                    <th scope="col">
+                                                        成人價
+                                                    </th>
+                                                    <th scope="col">
+                                                        兒童價
+                                                    </th>
+                                                    <th scope="col">
+                                                        長者價
+                                                    </th>
+                                                    <th scope="col">
+                                                        BB價
+                                                    </th>
+                                                    <th scope="col">
+                                                        出遊人數
+                                                    </th>
+                                                </tr>
+                                                #foreach($row in $ordergoodslist)
+                                                <tr>
+                                                    <td style="width: 100px;">
+                                                        <a href="#GoodsLink()">$row.goods_name</a>
+                                                    </td>
+                                                    <td align="center">
+                                                        $!row.start_time.toString("yyyy-MM-dd")
+                                                    </td>
+                                                    <td align="center" style="#if(${row.adult_num}==0)text-decoration: line-through;
+                                                        #end">
+                                                        $${row.adult_price}
+                                                    </td>
+                                                    <td align="center" style="#if(${row.child_num}==0)text-decoration: line-through;
+                                                        #end">
+                                                        $${row.child_price}
+                                                    </td>
+                                                    <td align="center" style="#if(${row.zz_num}==0)text-decoration: line-through; #end">
+                                                        $${row.zz_price}
+                                                    </td>
+                                                    <td align="center" style="#if(${row.bb_num}==0)text-decoration: line-through; #end">
+                                                        $${row.bb_price}
+                                                    </td>
+                                                    <td align="center">
+                                                        #if(${row.adult_num}!=0)${row.adult_num}成人#end #if(${row.child_num}!=0)${row.child_num}兒童#end
+                                                        #if(${row.zz_num}!=0)${row.zz_num}長者#end #if(${row.bb_num}!=0)${row.bb_num}BB#end
+                                                    </td>
+                                                </tr>
+                                                #end
+                                            </table>
+                                        </div>
+                                        <div class="clear">
+                                        </div>
+                                        <div class="info_div">
+                                            旅客信息：
+                                            <table class="info_tab">
+                                                <tr>
+                                                    <td>
+                                                        姓名：
+                                                    </td>
+                                                    <td>
+                                                        出生年月日：
+                                                    </td>
+                                                    <td>
+                                                        聯繫電話：
+                                                    </td>
+                                                    <td>
+                                                        身份證ID號碼：
+                                                    </td>
+                                                </tr>
+                                                $order_tr
+                                            </table>
+                                        </div>
+                                        <div class="clear">
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div style="padding: 10px 150px; border: 4px #f0fbff solid; text-align: center;">
+                                        <p>$pay_content</p>
+                                        <br />
+                                        <a href="/">
+                                            <img src="/skin/xy/img/gohome.jpg" alt="返回首頁" /></a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    #parse("html-foot.html")
+</body>
+</html>

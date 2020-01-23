@@ -1,0 +1,102 @@
+﻿#if (!$isajax)
+#parse("pageheader.vm")
+<script type="text/javascript" src="js/listtable.js"></script>
+<h1>
+<span class="action-span"><a href="travel.aspx?act=list">旅游列表</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">行程列表</label> </span>
+<div style="clear:both"></div>
+</h1>
+<!--
+<form name="searchForm" id="searchForm" onsubmit=";return false;">
+<div id="search-box">
+    <img src="images/icon_search.gif" />
+    <select name="cat_id">
+    <option value="0">所有分类...</option>
+    #GoodsCatSelectUI(-1)
+    </select>
+    <select name="field" onchange="listTable.changeField()">
+        <optgroup label="文本">
+            <option value="goods_name">商品名称</option>
+            <option value="goods_sn">商品货号</option>
+        </optgroup>
+        <optgroup label="数值">
+            <option value="shop_price">${config.PriceName2}</option>
+            <option value="market_price">${config.PriceName1}</option>
+            <option value="sort_order">排序位置</option>   
+        </optgroup> 
+    </select>
+    <select name="target">
+        <option value="like">包含</option>
+        <option value="istext">等于</option>
+    </select>
+    <input type="text" name="val" value="" />
+    <input type="checkbox" name="is_on_sale" value="1" />上架
+    <input type="checkbox" name="is_best" value="1" />推荐
+    <input type="checkbox" name="is_new" value="1" />新品
+    <input type="checkbox" name="is_hot" value="1" />热销
+    <input type="button" value="搜索" onclick="listTable.searchData()" />
+    <input type="button" value="ALL" onclick="listTable.searchReset(this)" disabled="disabled" />
+</div>
+</form>
+-->
+<form method="post" action="" name="listForm" id="listForm">
+<div class="list-div" id="listDiv">
+#end
+<table cellpadding="3" cellspacing="1">
+  <col style="width:20px;" />
+  <tr>
+    <th><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选" class="selectall" /></th>
+    <th>$SiteUtils.GetSortImg("start_time","行程日期")</th>
+    <th>成人价</th>
+    <th>儿童价</th>
+    <th>$SiteUtils.GetSortImg("is_show","显示")</th>
+    <th>$SiteUtils.GetSortImg("sort_order","排序")</th>
+    <th>$SiteUtils.GetSortImg("add_time","时间")</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+  <tr>
+    <td><input type="checkbox" name="checkboxes" value="${row.departure_date_id}" /></td>
+    <td><span onclick="listTable.edit(this, 'start_time', ${row.departure_date_id})">${row.start_time}</span></td>
+    <td>${row.adult_price}</td>
+    <td>${row.child_price}</td>
+	<td align="center"><img src="images/${row.is_show}.gif" onclick="listTable.toggle(this, 'is_show', ${row.departure_date_id})" /></td>
+    <td align="center"><span onclick="listTable.edit(this, 'sort_order', ${row.departure_date_id})">${row.sort_order}</span></td>
+    <td align="center">${row.add_time}</td>
+    <td align="center">
+        <a href="?act=edit&id=${row.departure_date_id}&travel_id=${row.travel_id}" title="修改">查看</a>
+        <a href="javascript:;" onclick="listTable.remove(${row.departure_date_id}, '删除的数据不能恢复，确定执行吗？')" title="删除">删除</a>
+    </td>
+  </tr>
+  #end
+  </table>
+  <!-- 分页 -->
+  <table id="page-table" cellspacing="0">
+    <tr>
+      <td align="left"><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选" class="selectall" /></td>
+      <td align="right">${pager}</td>
+    </tr>
+  </table>
+  <!-- 批量 --><!--
+  <table id="page-batch" cellspacing="0">
+    <tr>
+      <td align="left">
+        <input type="button" value="放入回收站" onclick="listTable.bacth('is_delete',1)" class="btnSubmit" />
+        <input type="button" value="永久删除" onclick="listTable.bacthAction('CompletelyDelete')" class="btnSubmit" />
+        <input type="button" value="上架" onclick="listTable.bacth('is_on_sale',1)" class="btnSubmit" />
+        <input type="button" value="下架" onclick="listTable.bacth('is_on_sale',0)" class="btnSubmit" />
+        <input type="button" value="推荐" onclick="listTable.bacth('is_best',1)" class="btnSubmit" />
+        <input type="button" value="取消推荐" onclick="listTable.bacth('is_best',0)" class="btnSubmit" />
+        <input type="button" value="新品" onclick="listTable.bacth('is_new',1)" class="btnSubmit" />
+        <input type="button" value="取消新品" onclick="listTable.bacth('is_new',0)" class="btnSubmit" />
+        <input type="button" value="热销" onclick="listTable.bacth('is_hot',1)" class="btnSubmit" />
+        <input type="button" value="取消热销" onclick="listTable.bacth('is_hot',0)" class="btnSubmit" />
+      </td>
+    </tr>
+  </table>
+  -->
+#if (!$isajax)
+</div>
+</form>
+#parse("pagefooter.vm")
+#end

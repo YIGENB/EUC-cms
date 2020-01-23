@@ -1,0 +1,43 @@
+﻿#parse("pageheader.html")
+<h1 id="Menu">
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="Label1">退款列表</label> </span>
+<div style="clear:both"></div>
+</h1>
+
+<form method="post" action="?act=import&user_id={$this.getRequestInt("user_id")}" name="listForm">
+<!-- start brand list -->
+<div class="list-div" id="listDiv">
+  <table cellpadding="3" cellspacing="1">
+    <tr>
+      <th>单号</th>
+      <th>日期</th>
+      <th>退款金额</th>
+      <th>支付方式</th>
+      <th>状态</th>
+      <th>备注</th>
+    </tr>
+    <ad:foreach collection="{$list}" var="rs" index="i">
+    <tr>
+        <td align="center">{$rs.user_note}</td>
+        <td align="center">{$rs.add_time}</td>
+        <td align="right">￥{$rs.amount}元</td>
+        <td align="center">{$rs.payment}</td>
+        <td>
+        <ad:if test="{$rs.process_type is 0}">
+    支付失败
+    <ad:elseif test="{$rs.process_type is 1}">
+    支付成功(<span style="color:Red;">未确认</span>)
+    <ad:elseif test="{$rs.process_type is 2}">
+    支付成功(已确认)
+    </ad:if>
+        </td>
+        <td>{$rs.admin_note}</td>
+    </tr>
+    </ad:foreach>
+  </table>
+<!-- end brand list -->
+</div>
+
+</form>
+<br />
+#parse("pagefooter.html")

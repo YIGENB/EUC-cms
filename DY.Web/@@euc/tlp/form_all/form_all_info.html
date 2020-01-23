@@ -1,0 +1,158 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end表单框架项</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>万能表单</strong> </li>
+        </ol>
+    </div>
+
+
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list" class="btn btn-primary ">表单框架列表</a>
+                    </div>
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                         <label class="col-sm-1 control-label">
+                               框架名称：</label>
+                        <div class="col-sm-9">
+                        <input name="name" type="text" maxlength="50" class="form-control" required="" value="$!{entity.name}">
+                        </div>
+                       </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                所属表单：</label>
+                            <div class="col-sm-9">
+                                <select name="parent_id" aria-required="true" class="form-control m-b">
+                                                    #foreach($row in $Caches.GetForm_Position())
+            <option value="$row.position_id" #if($!{entity.parent_id}==$row.position_id)selected="selected"#end>$row.position_name</option>
+            #end
+                                                    </select>
+                            </div>
+                        </div>
+                                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            class&name属性：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="class_name" type="text" class="form-control" required="" value="$!{entity.class_name}">
+                                                    
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            框架类型：</label>
+                                        <div class="col-sm-9">
+                                                  <select name="type" class="form-control m-b">
+                                                    <option value="text" #if($!{entity.type}=="text")selected="selected"#end>文本</option>
+                                                    <option value="checkbox" #if($!{entity.type}=="checkbox")selected="selected"#end>多选框</option>
+                                                    <option value="radio" #if($!{entity.type}=="radio")selected="selected"#end>单选框</option>
+                                                    <option value="textarea" #if($!{entity.type}=="textarea")selected="selected"#end>多行文本</option>
+                                                    <option value="file" #if($!{entity.type}=="file")selected="selected"#end>文件控件</option>
+                                                    <option value="select" #if($!{entity.type}=="select")selected="selected"#end>下拉框</option>
+                                                    <option value="email" #if($!{entity.type}=="email")selected="selected"#end>邮件</option>
+                                                    <option value="tel" #if($!{entity.type}=="tel")selected="selected"#end>电话</option>
+                                                    <option value="phone" #if($!{entity.type}=="phone")selected="selected"#end>手机</option>
+                                                    </select>
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            文本框大小：</label>
+                                        <div class="col-sm-9">
+                                                   <input type="text" name="size" maxlength="60" value="$!{entity.size}" class="form-control" />
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            上传文件夹：</label>
+                                        <div class="col-sm-9">
+                                                   <input type="text" name="store_dir" maxlength="100" value="$!{entity.store_dir}" class="form-control" />
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            显示文字：</label>
+                                        <div class="col-sm-9">
+                                                   <input type="text" name="store_range" maxlength="100" value="$!{entity.store_range}" class="form-control" />
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            value值：</label>
+                                        <div class="col-sm-9">
+                                                   <input type="text" name="value" maxlength="100" value="$!{entity.value}" class="form-control" />
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            排序：</label>
+                                        <div class="col-sm-9">
+                                                   <input type="text" name="sort_order" value="$SiteUtils.DefaultValue($!{entity.sort_order},0)" class="form-control number" />
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否显示：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                                <input type="radio" #if($!{entity.isshow})checked#end $SiteUtils.DefaultValue($!{entity.isshow},"checked")  value="1" name="isshow"> <i></i> 是</label>
+                                                <label>
+                                                    <input type="radio"  #if($!{entity.isshow} == false)checked#end  value="0" name="isshow"> <i></i> 否</label>
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否验证：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                                <input type="radio" #if($!{entity.is_required})checked#end $SiteUtils.DefaultValue($!{entity.is_required},"checked")  value="1" name="is_required"> <i></i> 是</label>
+                                                <label>
+                                                    <input type="radio"  #if($!{entity.is_required} == false)checked#end  value="0" name="is_required"> <i></i> 否</label>
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否启用：</label>
+                                        <div class="col-sm-9 radio i-checks">
+
+                                                   <label>
+                                                <input type="radio" #if($!{entity.is_validate})checked#end $SiteUtils.DefaultValue($!{entity.is_validate},"checked")  value="1" name="is_validate"> <i></i> 是</label>
+                                                <label>
+                                                    <input type="radio"  #if($!{entity.is_validate} == false)checked#end  value="0" name="is_validate"> <i></i> 否</label>
+                                                    
+                                        </div>
+                                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                                <button class="btn btn-white" type="reset">
+                                    取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+#parse("pagefooter.html")

@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>#if($keyword.tostring().length<=0) $keyword #else $keyword #end - $config.Name - Powered by EUC Search!</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <meta name="keywords" content="$config.Keywords">
+    <meta name="description" content="$config.Desc">
+    <meta name="generator" content="EUC">
+    <meta name="author" content="EUC! Team">
+    <meta name="copyright" content="2016 EUC Inc.">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/msearch.css">
+    <script src="/include/js/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+</head>
+<body>
+ <div id="page">
+   <div id="page-hd">
+    <div id="head">
+     <a href="/" title="$config.Name" class="logo">
+       <img src="$SiteUtils.DefaultValue($!{config.search_logo},"/static/images/logo.png")" alt="$config.Name" width="35" height="35"></a>
+     <div id="h-tabs">
+     #foreach($row in $Caches.Nav()) 
+      <a class="h-tab" href="$row.url" #if($row.opennew) target="_blank" #end><span class="tabTx">$row.name</span></a>
+      #end
+     </div>
+    </div>
+    <div class="searchboxtop">
+      <div class="con-wrap se-form">
+       <textarea autocomplete="off" autocorrect="off" maxlength="64" id="kw" name="word" class="se-input adjust-input" onkeypress="EnterPress(event)" onkeydown="EnterPress()">$keyword</textarea>
+       <div class="se-inner">
+        <div id="cross" class="cross"></div>
+        <button id="se-bn" class="se-bn" type="button"><span>搜索</span></button>
+       </div>
+      </div>
+    </div>
+   </div>
+   <div id="page-bd">
+    <div id="page-tips"></div>
+    <div id="results" class="results">
+    #foreach($row in $list)
+     <div class="result c-result c-clk-recommend">
+      <div class="c-container">
+       <a class="c-blocka" href="#SearchLink()"><h3 class="c-title c-gap-top-small">$SiteUtils.KeyReplace($keyword,$row.title)</h3></a>
+       <div class="c-row c-abstract c-gap-top-small">
+       #if($row.photo.tostring().length>0)
+        <div class="c-span3">
+         <a class="c-blocka" href="#SearchLink()">
+          <div class="c-img c-img-s">
+           <img src="$row.photo" />
+          </div>
+          </a>
+        </div>
+        #end
+        <div class="c-span9">
+         <a class="c-blocka" href="#SearchLink()"><p class="c-line-clamp3 c-color">$SiteUtils.KeyReplace($keyword,$SiteUtils.GetTopic($row.des,240))</p></a>
+         <div class="c-showurl">
+          <span>$SiteUtils.GetDomain()#SearchLink()</span>
+          <span class="c-gap-left">$row.date.tostring("yyyy-MM-dd")</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     #end
+    </div>
+    #if($!{word}>0)
+    <div id="page-relative">
+     <div id="relativewords">
+      <div class="rw-title">
+       相关搜索
+      </div>
+      <div class="rw-list">
+      #foreach($row in $SiteUtils.Split($!{word},",")) #set($index=$velocityCount+1)  
+       <a class="rw-item" href="/search/$row">$row</a>
+       #end
+      </div>
+     </div>
+    </div>
+    #end
+    <div id="page-controller">
+     <div class="new-pagenav c-flexbox">
+
+      <div class="new-pagenav-left">
+       <a class="new-prepage" href="javascript:;"></a> 
+      </div>
+      <div class="new-pagenav-center">
+       <span class="new-nowpage" id="loadmore">查看更多</span> 
+      </div>
+      <div class="new-pagenav-right">
+       <a class="new-nextpage" href="javascript:;"></a> 
+      </div>
+
+
+     </div>
+    </div>
+     #if($!{word}>0)
+    <div id="page-rcol">
+     <div id="reword">
+      <div class="rw-title">
+       相关搜索
+      </div>
+      <div class="rw-list">
+        #foreach($row in $SiteUtils.Split($!{word},",")) #set($index=$velocityCount+1)  
+       <a class="rw-item" href="/search/$row">$row</a>
+       #end
+      </div>
+     </div>
+    </div>
+    #end
+   </div>
+   <div id="page-ft">
+    <div id="ft-wrap">
+     <div id="footer-wrap">
+       <div class="con-wrap se-form">
+        <textarea autocomplete="off" autocorrect="off" maxlength="64" id="kw2" name="word" class="se-input adjust-input" onkeypress="EnterPress1(event)" onkeydown="EnterPress1()">$keyword</textarea>
+        <div class="se-inner">
+         <div id="cross2" class="cross"></div>
+         <button id="se-bn2" class="se-bn" type="submit"><span>搜索</span></button>
+        </div>
+       </div>
+     </div>
+     <div class="footerlink"></div>
+    </div>
+   </div>
+   <div id="page-copyright" style="margin-bottom: 50px;">
+    <div class="return-link">
+     <a class="return-index brand-bear" href="/">首页</a>
+     <a class="feedback brand-bear" href="/sitemap.htm">SiteMap</a>
+    </div>
+    <div id="foot-logo">
+     <a href="/search$!{html}" title="$config.Name" class="logo">
+       <img src="$SiteUtils.DefaultValue($!{config.search_logo},"/static/images/logo.png")" alt="$config.Name" width="35" height="35"></a>
+    </div>
+    <div id="copyright">
+     Copyright &copy; $config.Copyright
+        <a href="http://www.miibeian.gov.cn/" target="_blank">$config.IcpNumber</a>$tongjiCode $config.StatsCode
+    </div>
+   </div>
+  </div>
+        <script type="text/javascript">
+            $(function () {
+                $("#se-bn").click(function () {
+                    var text = $("#kw").val().trim();
+                    if (text == "" || text == "请输入搜索内容") { alert("请输入搜索内容"); return };
+                    location.href = "/search/" + encodeURIComponent(stripscript(text)) + "$!{html}";
+                })
+                $("#se-bn2").click(function () {
+                    var text = $("#kw2").val().trim();
+                    if (text == "" || text == "请输入搜索内容") { alert("请输入搜索内容"); return };
+                    location.href = "/search/" + encodeURIComponent(stripscript(text)) + "$!{html}";
+                })
+
+            })
+
+            function EnterPress(e) {
+                //var e = e || window.event;
+                if (e.keyCode == 13) {
+                    var text = $("#kw").val().trim();
+                    if (text == "" || text == "请输入搜索内容") { return };
+                    location.href = "/search/" + encodeURIComponent(stripscript(text)) + "$!{html}";
+                }
+            }
+            function EnterPress1(e) {
+                //var e = e || window.event;
+                if (e.keyCode == 13) {
+                    var text = $("#kw2").val().trim();
+                    if (text == "" || text == "请输入搜索内容") { return };
+                    location.href = "/search/" + encodeURIComponent(stripscript(text)) + "$!{html}";
+                }
+            }
+
+            function stripscript(s) {
+                var pattern = new RegExp("[`~!@#$^&*()<>《》‘’=|{}':;',\\[\\].<>/?~！@#￥……&*（）&mdash;—|{}【】‘；：”“'。，、？]");
+                var rs = "";
+                for (var i = 0; i < s.length; i++) {
+                    rs = rs + s.substr(i, 1).replace(pattern, '');
+                }
+                return rs;
+            }
+</script><script type="text/javascript">
+    //载入资讯列表
+    var oldList = jQuery('#results').html();
+    var click = 2;
+    function LoadList(pageIndex) {
+        jQuery.ajax({
+            type: "GET",
+            cache: false,
+            url: "/tools/ajax.aspx",
+            data: "act=GetSearchList&keyword=$!keyword&pagesize=$!pagesize&tlp=search&pageindex=" + pageIndex,
+            dataType: "html",
+            success: function (data) {
+                jQuery('#results').append(data);
+            }
+        });
+    }
+    $(function () {
+        $('#results').ajaxStart(function () {
+            $(".loading").show();
+            $("#more").hide();
+        });
+        $('#results').ajaxStop(function () {
+            $(".loading").hide();
+            $("#more").show();
+        });
+        $("#loadmore").click(function () {
+            if (click > $countPage) {
+                $("#loadmore").html("没有更多了");
+            }
+            else {
+                LoadList(click);
+                click++;
+            }
+
+            //click = click <= $countPage ? click : $countPage;
+        })
+    })
+</script>
+</body>
+</html>

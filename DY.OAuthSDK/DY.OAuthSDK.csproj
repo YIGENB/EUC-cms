@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E52FB7D9-C281-44AD-8812-DCDAC64DB6CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DY.OAuthSDK</RootNamespace>
+    <AssemblyName>DY.OAuthSDK</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entitys\ADictionary.cs" />
+    <Compile Include="Entitys\AList.cs" />
+    <Compile Include="Entitys\ApiError.cs" />
+    <Compile Include="Entitys\ApiResult.cs" />
+    <Compile Include="Entitys\ApiToken.cs" />
+    <Compile Include="Entitys\AppEntity.cs" />
+    <Compile Include="Entitys\OAuthEntity.cs" />
+    <Compile Include="Helpers\HttpHelper.cs" />
+    <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\SecurityHelper.cs" />
+    <Compile Include="Helpers\UtilHelper.cs" />
+    <Compile Include="Helpers\XmlHelper.cs" />
+    <Compile Include="OAuthConfig.cs" />
+    <Compile Include="OAuths\Kaixins\KaixinOAuth.cs" />
+    <Compile Include="OAuths\Kaixins\Models\KaixinMError.cs" />
+    <Compile Include="OAuths\Kaixins\Models\KaixinMRecord.cs" />
+    <Compile Include="OAuths\Kaixins\Models\KaixinMRecordList.cs" />
+    <Compile Include="OAuths\Kaixins\Models\KaixinMToken.cs" />
+    <Compile Include="OAuths\Kaixins\Models\KaixinMUser.cs" />
+    <Compile Include="OAuths\Kaixins\Models\KaixinMUserList.cs" />
+    <Compile Include="OAuths\Neasys\Models\NeasyMError.cs" />
+    <Compile Include="OAuths\Neasys\Models\NeasyMStatus.cs" />
+    <Compile Include="OAuths\Neasys\Models\NeasyMStatusList.cs" />
+    <Compile Include="OAuths\Neasys\Models\NeasyMToken.cs" />
+    <Compile Include="OAuths\Neasys\Models\NeasyMUser.cs" />
+    <Compile Include="OAuths\Neasys\Models\NeasyMUserList.cs" />
+    <Compile Include="OAuths\Neasys\NeasyOAuth.cs" />
+    <Compile Include="OAuths\OAuthAPI.cs" />
+    <Compile Include="OAuths\OAuthApp.cs" />
+    <Compile Include="OAuths\OAuthBase.cs" />
+    <Compile Include="OAuths\OAuthCache.cs" />
+    <Compile Include="OAuths\OAuthStatic.cs" />
+    <Compile Include="OAuths\QQ_Sinas\AccessToken.cs" />
+    <Compile Include="OAuths\QQ_Sinas\Connect.cs" />
+    <Compile Include="OAuths\QQ_Sinas\CreateConnect.cs" />
+    <Compile Include="OAuths\QQ_Sinas\SkyUtility.cs" />
+    <Compile Include="OAuths\QQ_Sinas\Tencent.cs" />
+    <Compile Include="OAuths\QQ_Sinas\UserInfo.cs" />
+    <Compile Include="OAuths\QQ_Sinas\WeiBo.cs" />
+    <Compile Include="OAuths\QQ_Sinas\WeiboParaeter.cs" />
+    <Compile Include="OAuths\Qzones\Models\QzoneMError.cs" />
+    <Compile Include="OAuths\Qzones\Models\QzoneMToken.cs" />
+    <Compile Include="OAuths\Qzones\Models\QzoneMTweet.cs" />
+    <Compile Include="OAuths\Qzones\Models\QzoneMUser.cs" />
+    <Compile Include="OAuths\Qzones\QzoneOAuth.cs" />
+    <Compile Include="OAuths\Renrens\Models\RenrenMBasicInfo.cs" />
+    <Compile Include="OAuths\Renrens\Models\RenrenMError.cs" />
+    <Compile Include="OAuths\Renrens\Models\RenrenMImage.cs" />
+    <Compile Include="OAuths\Renrens\Models\RenrenMLike.cs" />
+    <Compile Include="OAuths\Renrens\Models\RenrenMSchool.cs" />
+    <Compile Include="OAuths\Renrens\Models\RenrenMStatus.cs" />
+    <Compile Include="OAuths\Renrens\Models\RenrenMToken.cs" />
+    <Compile Include="OAuths\Renrens\Models\RenrenMUser.cs" />
+    <Compile Include="OAuths\Renrens\Models\RenrenMWork.cs" />
+    <Compile Include="OAuths\Renrens\RenrenOAuth.cs" />
+    <Compile Include="OAuths\Sinas\Models\SinaMError.cs" />
+    <Compile Include="OAuths\Sinas\Models\SinaMPicUrl.cs" />
+    <Compile Include="OAuths\Sinas\Models\SinaMStationToken.cs" />
+    <Compile Include="OAuths\Sinas\Models\SinaMStatus.cs" />
+    <Compile Include="OAuths\Sinas\Models\SinaMStatusList.cs" />
+    <Compile Include="OAuths\Sinas\Models\SinaMToken.cs" />
+    <Compile Include="OAuths\Sinas\Models\SinaMUser.cs" />
+    <Compile Include="OAuths\Sinas\Models\SinaMUserList.cs" />
+    <Compile Include="OAuths\Sinas\SinaApiError.cs" />
+    <Compile Include="OAuths\Sinas\SinaOAuth.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMComp.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMEdu.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMError.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMMusic.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMTag.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMTweet.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMTweetData.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMTweetDataList.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMUser.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMUserData.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMUserDataList.cs" />
+    <Compile Include="OAuths\Tencs\Models\TencMVideo.cs" />
+    <Compile Include="OAuths\Tencs\TencOAuth.cs" />
+    <Compile Include="OAuths\Weixin\Models\WeixinMError.cs" />
+    <Compile Include="OAuths\Weixin\Models\WeixinMToken.cs" />
+    <Compile Include="OAuths\Weixin\Models\WeixinMTweet.cs" />
+    <Compile Include="OAuths\Weixin\Models\WeixinMUser.cs" />
+    <Compile Include="OAuths\Weixin\WeixinOAuth.cs" />
+    <Compile Include="OAuths\Toutiao\Models\ToutiaoMError.cs" />
+    <Compile Include="OAuths\Toutiao\Models\ToutiaoMToken.cs" />
+    <Compile Include="OAuths\Toutiao\Models\ToutiaoMTweet.cs" />
+    <Compile Include="OAuths\Toutiao\Models\ToutiaoMUser.cs" />
+    <Compile Include="OAuths\Toutiao\ToutiaoOAuth.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

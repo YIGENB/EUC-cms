@@ -1,0 +1,60 @@
+﻿#parse("include/page_head.html")
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+  <div id="case">
+        <div id="floor2" class="floor2">
+            <div class="case_t">
+                <div class="case_Tcen wd1100">
+                    <h2>
+                        您的眼光高度，决定您的品牌厚度。</h2>
+                    <h3>
+                        是时候揭开新的篇章，迎接属于我们的时代，我们只为有品牌意识的客户提供优质的服务，10+上市公司的选择，多年一路同行，更显珍贵。</h3>
+                </div>
+            </div>
+            <div class="wedo">
+                <div class="wedo_select">
+                    <ul class="clearfix">
+                        #foreach($row in $Caches.NewsCat(3)) 
+                    	<li #if($row.cat_id==$this_id) class="on"  #end><a href="#CMSCatLink()">$!cityname$row.cat_name</a></li>
+                        #end
+                    </ul>
+                </div>
+                <div class="wedo_list">
+                    <ul class="clearfix">
+                    #foreach($row in $list) #set($index=$velocityCount+1)	
+                        <li class="web4">
+                            <div class="wedo_list_li">
+                                <div class="wedo_img">
+                                    <a href="#CMSLink()">
+                                        <img src="$row.photo" alt="$row.title" alt="$row.title"></a>
+                                </div>
+                                <div class="wedo_show">
+                                    <div class="wedo_shL fl">
+                                        <div class="wedo_shtitle">
+                                            <a href="#CMSLink()">$row.title</a></div>
+                                        <div class="wedo_shintro">
+                                            $SiteUtils.GetTopic($row.des,30)
+                                        </div>
+                                    </div>
+                                    <div class="wedo_more fr">
+                                        <a href="#CMSLink()"><span></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        #end
+                    </ul>
+                    <style>.page a{color:#888}</style>
+                    <div class="page cl" style="margin:0 auto;width:450px;">
+                    $pager
+                </div>
+                </div>
+            </div>
+            <div class="case_load" style="padding: 0px;">
+            </div>
+            <!--  <div class="case_load"><a href="javascript:;">加载查看更多<span>>></span></a></div> -->
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+#parse("include/page_foot.html")
+

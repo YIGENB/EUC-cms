@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://119.145.9.12/services/emsServices" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://119.145.9.12/services/emsServices" targetNamespace="http://119.145.9.12/services/emsServices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://119.145.9.12/services/emsServices">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ArrayOf_xsd_string">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="sendSMSRequest">
+    <wsdl:part name="enterpriseID" type="xsd:string" />
+    <wsdl:part name="loginName" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="smsId" type="xsd:string" />
+    <wsdl:part name="subPort" type="xsd:string" />
+    <wsdl:part name="content" type="xsd:string" />
+    <wsdl:part name="mobiles" type="xsd:string" />
+    <wsdl:part name="sendTime" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendSMSResponse">
+    <wsdl:part name="sendSMSReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getSmsReportRequest">
+    <wsdl:part name="enterpriseID" type="xsd:string" />
+    <wsdl:part name="loginName" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getSmsMoRequest">
+    <wsdl:part name="enterpriseID" type="xsd:string" />
+    <wsdl:part name="loginName" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getSmsMoResponse">
+    <wsdl:part name="getSmsMoReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="batchSingleSendSMSResponse">
+    <wsdl:part name="batchSingleSendSMSReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="batchSingleSendSMSRequest">
+    <wsdl:part name="enterpriseID" type="xsd:string" />
+    <wsdl:part name="loginName" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="batchSmsId" type="impl:ArrayOf_xsd_string" />
+    <wsdl:part name="subPort" type="xsd:string" />
+    <wsdl:part name="batchContent" type="impl:ArrayOf_xsd_string" />
+    <wsdl:part name="batchMobiles" type="impl:ArrayOf_xsd_string" />
+    <wsdl:part name="sendTime" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getUserInfoRequest">
+    <wsdl:part name="enterpriseID" type="xsd:string" />
+    <wsdl:part name="loginName" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getSmsBalanceRequest">
+    <wsdl:part name="enterpriseID" type="xsd:string" />
+    <wsdl:part name="loginName" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getSmsBalanceResponse">
+    <wsdl:part name="getSmsBalanceReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getSmsFiltratesRequest">
+    <wsdl:part name="enterpriseID" type="xsd:string" />
+    <wsdl:part name="loginName" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="content" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getSmsReportResponse">
+    <wsdl:part name="getSmsReportReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getUserInfoResponse">
+    <wsdl:part name="getUserInfoReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getSmsFiltratesResponse">
+    <wsdl:part name="getSmsFiltratesReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="EmsServices">
+    <wsdl:operation name="getUserInfo" parameterOrder="enterpriseID loginName password">
+      <wsdl:input name="getUserInfoRequest" message="impl:getUserInfoRequest" />
+      <wsdl:output name="getUserInfoResponse" message="impl:getUserInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getSmsBalance" parameterOrder="enterpriseID loginName password">
+      <wsdl:input name="getSmsBalanceRequest" message="impl:getSmsBalanceRequest" />
+      <wsdl:output name="getSmsBalanceResponse" message="impl:getSmsBalanceResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendSMS" parameterOrder="enterpriseID loginName password smsId subPort content mobiles sendTime">
+      <wsdl:input name="sendSMSRequest" message="impl:sendSMSRequest" />
+      <wsdl:output name="sendSMSResponse" message="impl:sendSMSResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="batchSingleSendSMS" parameterOrder="enterpriseID loginName password batchSmsId subPort batchContent batchMobiles sendTime">
+      <wsdl:input name="batchSingleSendSMSRequest" message="impl:batchSingleSendSMSRequest" />
+      <wsdl:output name="batchSingleSendSMSResponse" message="impl:batchSingleSendSMSResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getSmsReport" parameterOrder="enterpriseID loginName password">
+      <wsdl:input name="getSmsReportRequest" message="impl:getSmsReportRequest" />
+      <wsdl:output name="getSmsReportResponse" message="impl:getSmsReportResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getSmsMo" parameterOrder="enterpriseID loginName password">
+      <wsdl:input name="getSmsMoRequest" message="impl:getSmsMoRequest" />
+      <wsdl:output name="getSmsMoResponse" message="impl:getSmsMoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getSmsFiltrates" parameterOrder="enterpriseID loginName password content">
+      <wsdl:input name="getSmsFiltratesRequest" message="impl:getSmsFiltratesRequest" />
+      <wsdl:output name="getSmsFiltratesResponse" message="impl:getSmsFiltratesResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="emsServicesSoapBinding" type="impl:EmsServices">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="getUserInfo">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getUserInfoRequest">
+        <wsdlsoap:body use="encoded" namespace="http://webservice.protal.ems.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="getUserInfoResponse">
+        <wsdlsoap:body use="encoded" namespace="http://119.145.9.12/services/emsServices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSmsBalance">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getSmsBalanceRequest">
+        <wsdlsoap:body use="encoded" namespace="http://webservice.protal.ems.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="getSmsBalanceResponse">
+        <wsdlsoap:body use="encoded" namespace="http://119.145.9.12/services/emsServices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendSMS">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="sendSMSRequest">
+        <wsdlsoap:body use="encoded" namespace="http://webservice.protal.ems.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="sendSMSResponse">
+        <wsdlsoap:body use="encoded" namespace="http://119.145.9.12/services/emsServices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="batchSingleSendSMS">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="batchSingleSendSMSRequest">
+        <wsdlsoap:body use="encoded" namespace="http://webservice.protal.ems.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="batchSingleSendSMSResponse">
+        <wsdlsoap:body use="encoded" namespace="http://119.145.9.12/services/emsServices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSmsReport">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getSmsReportRequest">
+        <wsdlsoap:body use="encoded" namespace="http://webservice.protal.ems.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="getSmsReportResponse">
+        <wsdlsoap:body use="encoded" namespace="http://119.145.9.12/services/emsServices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSmsMo">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getSmsMoRequest">
+        <wsdlsoap:body use="encoded" namespace="http://webservice.protal.ems.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="getSmsMoResponse">
+        <wsdlsoap:body use="encoded" namespace="http://119.145.9.12/services/emsServices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSmsFiltrates">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getSmsFiltratesRequest">
+        <wsdlsoap:body use="encoded" namespace="http://webservice.protal.ems.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="getSmsFiltratesResponse">
+        <wsdlsoap:body use="encoded" namespace="http://119.145.9.12/services/emsServices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EmsServicesService">
+    <wsdl:port name="emsServices" binding="impl:emsServicesSoapBinding">
+      <wsdlsoap:address location="http://119.145.9.12/services/emsServices" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

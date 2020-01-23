@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0063)http://www.17sucai.com/preview/2236/2013-06-23/setup/index.html -->
+<html  xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>网页向导Jquery插件wlGuide</title>
+<link  rel="stylesheet"  type="text/css"  href="./网页向导Jquery插件wlGuide_files/jquery.guide.css">
+<style  type="text/css">
+.tmp{
+	display:block;
+	position:absolute;
+	height:30px;
+	line-height:30px;
+	width:auto;
+	background:#690;
+	margin:0 auto;
+	cursor:pointer;
+}
+.button {
+	height: 37px;
+	width: 200px;
+	margin: 16px;
+	color: #FFFFFF !important;
+	font-size: 16px;
+	display: block;
+	background: #8FC63B;
+	line-height: 37px !important;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none!important;
+	font-weight: bold;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+	outline: none;
+}
+</style>
+<script  src="./网页向导Jquery插件wlGuide_files/jquery.min.js"  type="text/javascript"></script>
+<script  type="text/javascript"  src="./网页向导Jquery插件wlGuide_files/jquery.guide.min.js"></script>
+<script  type="text/javascript">		
+$(document).ready(function(){
+		var guide = [
+			{ele:$("#tmp1"),title:"STEP #1",text:"这是第一步"},
+			{ele:$("#tmp2"),title:"STEP #2",text:"这是第二步"},
+			{ele:$("#tmp3"),title:"STEP #3",text:"这是第三步"},
+			{ele:$("#tmp4"),title:"STEP #4",text:"这是第四步"}
+		];
+		$("#startDemo").click(function(){
+			$.wlGuide(guide);
+		});
+});
+
+</script>
+
+</head>
+<body><div  class="cGuide_blank"  style="display: none;"><div  class="cGuide_blank_t"  style="opacity: 0.5; width: 1903px; height: 299px; left: 0px; top: 0px;"></div><div  class="cGuide_blank_r"  style="opacity: 0.5; height: 32px; width: 974px; left: 929px; top: 299px;"></div><div  class="cGuide_blank_b"  style="opacity: 0.5; width: 1903px; height: 605px; left: 0px; top: 331px;"></div><div  class="cGuide_blank_l"  style="opacity: 0.5; height: 32px; width: 799px; left: 0px; top: 299px;"></div></div><div  id="wlGuide_boxD1399537842612"  class="cGuide_box"  style="display: none; left: 800px; top: 345px;"><span  class="cGuide_arrow"></span><div  class="cGuide_content"><h2  class="cGuide_title">STEP #4</h2><span  class="cGuide_scount">(4/4)</span><div  class="cGuide_content_text"><p>这是第四步</p></div><a  href="javascript:void(0)"  class="cGuide_button">上一步</a><a  href="javascript:void(0)"  class="cGuide_button_unable">下一步</a><a  href="javascript:void(0)"  class="cGuide_button">关闭</a></div></div>
+
+<pre>/*使用方法****
+var guide = [
+		{
+			ele: "#tmp1",//要绑定的目标焦点对象，可以给定jQuery选择符，DOM，jQuery元素对象等
+			title: "该步骤标题",
+			text: "该步骤的内容"	
+		},
+		{
+			//和上面一样的格式，这里是下一个步骤的内容	
+		},
+		//.....
+
+	];
+
+$.wlGuide(guide);//调用,具体使用可参见index.html的使用方法
+
+*/	
+</pre>
+<a  id="startDemo"  href="javascript:void(0)"  class="button">点击启动向导插件</a>
+<a  id="tmp1"  class="tmp">第一步的焦点元素</a><br>
+<a  id="tmp2"  class="tmp"  style="left:300px">第二步的焦点元素</a><br>
+<a  id="tmp3"  class="tmp"  style="left:300px; top: 1300px">第三步的焦点元素</a><br>
+<a  id="tmp4"  class="tmp"  style="left:800px;top:300px">第四步的焦点元素</a><br>
+
+
+</body></html>

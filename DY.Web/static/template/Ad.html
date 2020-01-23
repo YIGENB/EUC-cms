@@ -1,0 +1,95 @@
+﻿#foreach($row in $ads)
+##============图片=========================================================================================
+#if ($row.position_type == 1)
+    #if ($row.ad_link.Length > 0)
+    document.write('<a href="$row.ad_link"><img src="$row.ad_code" width="$row.ad_width" height="$row.ad_height"/></a>');
+    #else
+    document.write('<img src="$row.ad_code" width="$row.ad_width" height="$row.ad_height" />');
+    #end
+#end
+##============Flash========================================================================================
+#if ($row.position_type == 2)
+        document.write('<div><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cabversion=6,0,0,0" width="'+ $row.ad_width +'" height="'+ $row.ad_height +'">');
+	    document.write('<param name="movie" value="$row.ad_code">');
+	    document.write('<param name="quality" value="high"><param name="wmode" value="opaque">');
+	    document.write('<embed src="$row.ad_code" quality="high" width="' + $row.ad_width + '" height="' + $row.ad_height + '" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />');
+	    document.write('</object></div>');
+	    var ad_name="$row.ad_name";
+#end
+
+##============文字==========================================================================================
+#if ($row.position_type == 4)
+    document.write('$SiteUtils.GetTemplateString($context,$row.ad_code)');
+#end
+#set( $position_type = $row.position_type)
+
+#if ($position_type == 3)
+##============图片轮播2=====================================================================================
+   #*  var focus_width = 0;
+    var focus_height = 0;
+    var text_height = 0;
+   
+	var pics = "", links = "", texts = "";
+	var istrue=0;
+	#foreach($row in $ads)
+	    #if($velocityCount==0)
+	        pics="$row.ad_code";
+	        links="$row.ad_link";
+	        texts="$row.ad_name";
+	    #else
+	        pics=pics+"|$row.ad_code";
+	        links=links+"|$row.ad_link";
+	        texts=texts+"|$row.ad_name";
+	    #end
+	    focus_width="$row.ad_width";
+	    focus_height="$row.ad_height";
+	    #if($row.is_show_text)text_height=20;#end
+	    #if ($row.position_type == 3)
+	    istrue="1";
+	    #end
+	#end
+	var swf_height=focus_height;
+	if(text_height>0){ focus_height=focus_height-text_height;}
+	
+	if(istrue=="1")
+	{
+        document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="' + focus_width + '" height="' + swf_height + '">');
+        document.write('<param name="movie" value="/include/images/focus1.swf"><param name="bgcolor" value="#F0F0F0">');
+        document.write('<param name="quality" value="high"><param name="wmode" value="opaque">');
+        document.write('<param name="FlashVars" value="pics=' + pics + '&links=' + links + '&texts=' + texts + '&borderwidth=' + focus_width + '&borderheight=' + focus_height + '&textheight=' + text_height + '">');
+        document.write('<embed src="/include/images/focus1.swf" FlashVars="pics=' + pics + '&links=' + links + '&texts=' + texts + '&borderwidth=' + focus_width + '&borderheight=' + focus_height + '&textheight=' + text_height + '" quality="high" width="' + focus_width + '" height="' + swf_height + '" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />');
+        document.write('</object>');
+	} *#
+	
+	
+document.write('<script src="js/jquery.KinSlideshow-1.1.js" type="text/javascript"></script>');
+document.write('<script type="text/javascript">');
+document.write('$(function(){');
+document.write('$("#KinSlideshow").KinSlideshow({isHasTitleBar: false,isHasTitleFont: false,btn: { btn_bgColor: "#FFFFFF", btn_bgHoverColor: "#1072aa", btn_fontColor: "#000000",btn_fontHoverColor: "#FFFFFF", btn_borderColor: "#cccccc",btn_borderHoverColor: "#1188c0", btn_borderWidth: 1, btn_bgAlpha: 0.5}});');
+document.write('})');
+document.write('</script>');
+var code="";
+        #foreach($row in $ads)
+        code=code+'<a href="$!{row.ad_link}" target="_blank"><img src="$!{row.ad_code}" alt="$!{row.ad_name}" width="$!{row.ad_width}" height="$!{row.ad_height}" /></a>';
+        #end
+document.write('<div id="KinSlideshow" style="visibility:hidden;">');
+        document.write(code);
+document.write('</div>');
+#end
+
+
+##============视频==========================================================================================
+#if ($row.position_type == 5)
+    document.write('<div id="a$!{row.position_id}"></div>');    document.write('<script type="text/javascript" src="/include/ckplayer/ckplayer.js" charset="utf-8"></script>');
+    document.write('<script type="text/javascript">');
+    document.write("function ckmarqueeadv(){return '$!{row.position_desc}'}");
+    document.write('var flashvars = {');
+    document.write('f: "$!{row.ad_code}",c: 0};');
+    document.write('var params = { bgcolor: "#FFF", allowFullScreen: true, allowScriptAccess: "always", wmode: "transparent" };');
+    document.write('CKobject.embedSWF("/include/ckplayer/ckplayer.swf","a$!{row.position_id}", "ckplayer_a$!{row.position_id}", "$!{row.ad_width}", "$!{row.ad_height}", flashvars, params);');
+    //document.write("var video = ['http://movie.ks.js.cn/flv/other/1_0.mp4->video/mp4', 'http://www.ckplayer.com/webm/0.webm->video/webm', 'http://www.ckplayer.com/webm/0.ogv->video/ogg'];");
+    //document.write("var support = ['iPad', 'iPhone', 'ios', 'android+false', 'msie10+false'];");
+    document.write("CKobject.embedHTML5('a$!{row.position_id}', 'ckplayer_a$!{row.position_id}', $!{row.ad_width}, $!{row.ad_height}, flashvars, support);");
+    document.write('</script>');
+#end
+#end

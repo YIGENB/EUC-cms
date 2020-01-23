@@ -1,0 +1,62 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            备份数据库</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>数据库</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    #if (!$IsBackup)
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-danger alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+                您当前的数据库不支持在线备份。（本功能仅限在SQL2000、SQL2008中使用，请确保您的网站服务器安装了SQL2000，部分SQL2008可以支持在线备份）
+            </div>
+        </div>
+    </div>
+    #end
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+                为了保障网站的数据安全，请您按时对数据库进行备份，数据库备份文件存放于网站根目录的“Backup/Database/”文件夹下
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                要进行备份的文件名：</label>
+                            <div class="col-sm-9">
+                                <div class="input-group m-b">
+                                    <input name="bak_name" type="text" value="${back_name}" class="form-control" />
+                                    <span class="input-group-addon">.bak</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit" #if (!$IsBackup) disabled #end>
+                                    <i class="fa fa-check"></i>备份</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")

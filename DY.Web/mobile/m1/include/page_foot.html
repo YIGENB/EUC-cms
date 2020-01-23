@@ -1,0 +1,91 @@
+﻿#if(!$uc_ua)
+<footer id="box_footerBody" style="bottom: -1px;background:$!{mstyle.foot_bg_color}">
+		<div name="下方工具条" id="elem-Toolbar_show01-001" class="columnSpace"> 
+<div class="Toolbar_show01-d1_c1" id="Toolbar_show01-001">
+		<div class="footerToolStyle1 whiteIcon grayIcon">
+			<ul class="footerWrap" style="background:$!{mstyle.in_foot_font_color}">
+                            <li class="active">
+							<a href="tel:$config.ShoppingTel">
+								<div id="yptel">
+									<span class="icon tel"></span>
+									<span class="text" style="color:$!{mstyle.foot_font_color}">$Tel</span>
+								</div>
+								</a>
+                                
+                                
+							</li>
+							<li class="active">
+							<a href="/page/sendmail$!{html}">
+								<div id="email">
+									<span class="icon email"></span>
+									<span class="text" style="color:$!{mstyle.foot_font_color}">$Email</span>
+								</div>
+					        </a>
+							</li>
+							<li class="active">
+                           #foreach($row in $Caches.AllLbs(1))
+							<a href="/map/$!{row.id}$!{html}">
+								<div id="map">
+									<span class="icon map"></span>
+									<span class="text">$Map</span>
+								</div>
+								</a>
+                                #end
+							</li>
+							<li class="active">
+							<a href="/page/share$!{html}">
+								<div id="share">
+									<span class="icon share"></span>
+									<span class="text" style="color:$!{mstyle.foot_font_color}">$Share</span>
+								</div>
+								</a>
+							</li>
+							<li class="active">
+							<a href="/page/zxly$!{html}">
+								<div id="message">
+									<span class="icon message"></span>
+									<span class="text" style="color:$!{mstyle.foot_font_color}">$Message</span>
+								</div>
+								</a>
+							</li>
+			</ul>
+			<div style="display:none" id="toolMoreWrap" class="toolMoreWrap">
+				<div class="whiteIcon grayIcon">
+	   				<ul class="contWrap">
+	     				
+					</ul>
+					<div class="contArrow">
+	  					<em></em>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+		</div>
+	</footer>
+	<div name="客户端提示下载" id="elem-ClientDownLoadTs_ajaxIsopents01-001" class="columnSpace">
+<div class="ClientDownLoadTs_ajaxIsopents01-d1_c1" id="ClientDownLoadTs_ajaxIsopents01-001">
+	<section class="ClientDownLoadTs_ajaxIsopents01-d1_c1">
+	<div id="iphonetype" style="display: none" class="z3g-alertWindow">
+		<div class="z3g-iphoneStart">
+			<span class="contWrap">请点击此处<em class="icon"></em>，选择 <em class="z3g-textRed">添加到屏幕</em> 
+				从主屏幕启动本应用。
+			</span>
+			<div class="contArrow">
+				<em>◆</em>
+			</div>
+		</div>
+	</div>
+	<div id="androidtype" style="display: none" class="z3g-alertWindow">
+		<div class="z3g-androidStart">
+			<div class="active install"><span class="icon"></span>立即体验客户端</div>
+			<div class="later">稍后再说&gt;&gt;</div>
+		</div>
+	</div>
+	</section>
+</div>
+</div>
+</div>
+#end
+</body>
+</html>

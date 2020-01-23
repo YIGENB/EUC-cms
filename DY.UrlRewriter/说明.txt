@@ -1,0 +1,12 @@
+UrlRewriter.NET是一个开源的、轻量级、高配置的URL重写组件，支持ASP.NET 1.1 和ASP.NET 2.0。UrlRewriter.NET提供地址重写的功能，它类似于Apache服务器中使用.htaccecc进行地址重写。而且使用本组件，您无需安装任何类似于ISAPI Rewrite filter的ISAPI组件。本组件是免费开源的，遵循MIT-style licence开源协议。
+UrlRewriter.NET是一个非常棒的搜索引擎优化（Search Engine Optimization，简称SEO）工具。使用它，您可以创建包含指定关键字的Url，从而提高您网站在搜索引擎的排名。
+使用UrlRewriter.NET您可以做到：
+为实际的Url提供一个面向用户和搜索引擎的更加友好的Url格式（例如隐藏Url里面的.aspx扩展名，甚至去掉所有的扩展名，实现语意化的Url地址）。 
+当您的网站改版之后，可以自动将旧的访问地址转到新的地址，而用户无需参与任何多余的操作。这有利于搜索引擎对您的网站执行更好的收录。 
+阻拦一些来自于非法的或者您不想让其访问的一些来访请求。比如可以根据User-Agent来判断是否搜索引擎，强制其无法收录您不想让其收录的内容（可以不必设置robots.txt）。 
+根据来访者的IP地址来为其提供不同的服务，比如禁止某IP段的访问请求。 
+还有很多，都需要您的潜心挖掘…… 
+UrlRewriter.NET是一个纯粹使用C#编写的.NET组件，并且它无需任何其他ISAPI组件的支持。您可以使用XML文档格式来为其配置重写规则，默认包含在web.config文件里面，当然，您也可以自定义一个规则文件。
+就介绍到这里吧，希望UrlRewriter.NET能够不负众望！
+最后，向支持UrlRewriter.NET的用户们致谢！非常感谢你们的关注和支持！
+—— 原创作者： Kelvin

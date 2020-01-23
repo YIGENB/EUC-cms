@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>$!pagetitle-重庆新闻资讯网24小时实时更新热点！</title>
+<meta name="keywords" content="重庆新闻,重庆娱乐,媒体,重庆大渝网,重庆晚报,重庆之窗,房产" />
+<meta name="description" content="重庆资讯网是易优创科技有限公司旗下采集整理的实时热点新闻，涵盖新闻,娱乐,体育,财经,房产,媒体,女人,健康，生活等信息！" />
+<link rel="stylesheet" type="text/css" href="/static/css/news/style.css"/>
+</head>
+<body class="bd">
+ <div class="nav">
+    <ul>
+
+<li><a href="/news$html" ><strong>首页</strong></a></li>
+	<li><a href="/news/news$html">新闻</a></li>
+	<li><a href="/news/ent$html" >娱乐</a></li>
+    <li><a href="/news/sports$html" >体育</a></li>
+	<li><a href="/news/finance$html" >财经</a></li>
+	<li><a href="/news/tech$html" >科技</a></li>
+    <li><a href="/news/games$html" >游戏</a></li>
+    <li><a href="/news/auto$html" >汽车</a></li>
+    <li><a href="/news/luxury$html" >时尚</a></li>
+     <li><a href="/news/edu$html" >教育</a></li>
+      <li><a href="/news/house$html" >房产</a></li>
+    </ul>
+  </div>
+
+
+<div class="nr">
+  <div class="zuo">
+    <div class="biaoti">
+    <h2>最新更新</h2>
+    </div>
+    <ul>
+    #foreach($row in $list)
+    <li><em>$row.catename</em><a href="$row.href" target="_blank">$row.name</a><span>$row.time</span></li>    
+    #end
+    </ul>
+    #if($thispage>1) #set($onpage=$thispage - 1) #else #set($onpage=1) #end
+    #if($thispage<=$count) #set($nextpage=$thispage+1) #else #set($nextpage=$thispage) #end
+  </div>
+  <div style=" clear: both;"></div>
+      <div class="pages">
+    <a href="/news/$site/1$html">首页</a>
+    <a href="/news/$site/$onpage$html">上一页</a><a href="/news/$site/$nextpage$html">下一页</a><a href="/news/$site/$count$html">末页</a>
+
+    </div>
+</div>
+
+<div class="foot">
+<p>声明：本网部分信息转载于其他网站，如稿件涉及版权等问题，请联系我们！$tongjiCode</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+﻿#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">#if($id == 0)添加#else修改#end规则</span> 
+</div>
+<div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=list"><span class="left"></span><em><cite class="icon"></cite><cite>规则列表</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+</div>	
+<div class="main-div">
+  <form method="post" name="theForm" id="theForm" onsubmit="return validate()">
+    <table cellspacing="1" cellpadding="3" width="100%">
+      <tr>
+        <td class="label">规则名称</td>
+        <td><input type="text" name="discount_name" value="$!{entity.discount_name}" size="40" /><span class="require-field">*</span></td>
+      </tr>
+      <tr>
+        <td class="label">开始时间</td>
+        <td><input name="star_date" type="text" id="start_date" size="24" value="$!{entity.star_date.ToString("yyyy-MM-dd")}" readonly="readonly" /><input name="selbtn1" type="button" id="selbtn1" onclick="WdatePicker({el:'start_date',dateFmt:'yyyy-MM-dd'})" value="选择" class="button"/></td>
+      </tr>
+      <tr>
+        <td class="label">结束时间</td>
+        <td><input name="end_date" type="text" id="end_date" value="$!{entity.end_date.ToString("yyyy-MM-dd")}" size="24" readonly="readonly" /><input name="selbtn2" type="button" id="selbtn2" value="选择" onclick="WdatePicker({el:'end_date',dateFmt:'yyyy-MM-dd'})" class="button"/></td>
+      </tr>
+      <tr>
+        <td class="label">规则类型</td>
+        <td><input type="radio" name="discount_class" value="CashReturn" onclick="showType(0)" checked />满立减
+        <label style=" display:none;"><input type="radio" name="discount_class" value="CashRebate" onclick="showType(1)" />打折</label></td>
+      </tr>
+      <tr>
+        <td class="label">规则内容</td>
+        <td><label id="mlj">满 <input type="text" size="6" name="discount_para" value="$SiteUtils.SplitReturn($!entity.discount_para,0)" /> 减 <input type="text" size="6" name="discount_para" value="$SiteUtils.SplitReturn($!entity.discount_para,1)" /></label>
+        <label id="dz" style=" display:none;">打 <input type="text" size="6" name="para_zk" /> 折</label></td>
+      </tr>
+      <tr align="center">
+        <td colspan="2">
+          <input type="submit" value="确定" class="button" />
+          <input type="reset" value="重围" class="button" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<script language="JavaScript"> 
+<!--
+    var catname_empty = "规则名称不能为空!";
+    /**
+    * 检查表单输入的数据
+    */
+    function validate() {
+        validator = new Validator("theForm");
+        validator.required("discount_name", catname_empty);
+        validator.required("star_date", "请选择开始时间");
+        validator.required("end_date", "请选择结束时间");
+        return validator.passed();
+    }
+
+    function showType(val) {
+        if (val == 0) {
+            $('#mlj').show();
+            $('#dz').hide();
+        }
+        else {
+            $('#mlj').hide();
+            $('#dz').show();
+        }
+    }
+//-->
+</script>
+#parse("pagefooter.html")

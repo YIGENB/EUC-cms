@@ -1,0 +1,42 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<script type="text/javascript" src="js/listtable.js"></script>
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">推广统计列表</span> 
+    </div>
+<form method="post" action="" name="listForm">
+<div class="list-div" id="listDiv">
+#end
+<table cellpadding="3" cellspacing="1">
+  <tr class="list_tr">
+    <th>$SiteUtils.GetSortImg("pid","推广ID")</th>
+    <th>$SiteUtils.GetSortImg("website","网址")</th>
+    <th>$SiteUtils.GetSortImg("ip","ip地址")</th>
+    <th>$SiteUtils.GetSortImg("input_time","添加时间")</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+    <tr >
+    <td align="center"><span>${row.pid}</span></td>
+    <td align="center"><span>${row.website}</span></td>
+    <td align="center"><span>${row.ip}</span></td>
+    <td align="center"><span>${row.input_time}</span></td>
+    <td align="center"><span>  
+      <a href="javascript:;" onclick="listTable.remove(${row.id}, '您确认要删除这条记录吗?')" title="删除">删除</a></span>
+    </td>
+  </tr>
+  #end
+</table>
+<!-- 分页 -->
+  <table id="page-table" cellspacing="0">
+    <tr>
+      <td align="right" nowrap="true">${pager}</td>
+    </tr>
+  </table>
+#if (!$isajax)
+</div>
+</form>
+#parse("pagefooter.html")
+#end

@@ -1,0 +1,169 @@
+﻿#parse("pageheader.html")
+#TreeFile()
+<script src="/include/Hplus/js/fat_function.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        var tree = $("#tree").ligerTree({
+            url: 'tree/treelist.aspx?act=configlisttree',
+            parentIDFieldName: 'parent_id', idFieldName: 'id', textFieldName: 'name', childIcon: null, parentIcon: null, checkbox: false, topParentIDValue: '0',
+            onClick: function (nodedata, target) { $(".fat_class").val(nodedata.data.name); $(".parent_id").val(nodedata.data.id); }
+        }); //分类树
+
+    });
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            网站功能设置</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>网站功能设置</strong> </li>
+        </ol>
+        </br>
+       
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+ <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+              本功能只针对开发人员，请在操作功能后务必修改网站Config实体类代码。
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">网站功能列表</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!---->
+                <div class="panel-body">
+                    <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                    <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    功能名称：</label>
+                                <div class="col-sm-9">
+                                    <input id="name" name="name" maxlength="50" type="text" class="form-control"
+                                        required="" aria-required="true" value="$!{entity.name}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            上级：</label>
+                                  <div class="col-sm-9 father_img">
+                                <i class="fa fa-caret-down i_img"></i>
+                                  <input   style="cursor:default; background-color:inherit; " type="text" readonly=readonly class="form-control fat_class" value="#if($!{entity.parent_id}>0)$!Caches.ConfigInfos($!{entity.parent_id}).name #else 请选择分类... #end">
+                                  <input class="parent_id" name="parent_id" type="hidden" value="$!{entity.parent_id}" />
+                                    <div class="tree_class">
+                                        <ul id="tree">
+                                        </ul>
+                                    </div>
+                                </div>
+                                </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    功能代码：</label>
+                                <div class="col-sm-9">
+                                    <input id="code" name="code" maxlength="50" type="text" class="form-control" value="$!{entity.code}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    type：</label>
+                                <div class="col-sm-9">
+                              <select name="type" class="form-control">
+                                <option value="group" #if($!{entity.type}=="group")selected="selected"#end>group</option>
+                                <option value="text" #if($!{entity.type}=="text")selected="selected"#end>text</option>
+                                <option value="textarea" #if($!{entity.type}=="textarea")selected="selected"#end>textarea</option>
+                                <option value="file" #if($!{entity.type}=="file")selected="selected"#end>file</option>
+                                <option value="radio" #if($!{entity.radio}=="radio")selected="selected"#end>radio</option>
+                                <option value="password" #if($!{entity.type}=="password")selected="selected"#end>password</option>
+                                <option value="checkbox" #if($!{entity.type}=="checkbox")selected="selected"#end>checkbox</option>
+                                </select>
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    提示文字：</label>
+                                <div class="col-sm-9">
+                                    <input id="tip" name="tip" maxlength="50" type="text" class="form-control" value="$!{entity.tip}">
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    大小：</label>
+                                <div class="col-sm-9">
+                                    <input id="size" name="size" maxlength="50" type="text" class="form-control"
+                                        required="" aria-required="true" value="$SiteUtils.DefaultValue($!{entity.size},"40")"><span>一般大小40</span>
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    选择按钮文字：</label>
+                                <div class="col-sm-9">
+                                    <input id="store_range" name="store_range" maxlength="50" type="text" class="form-control"
+                                       value="$!{entity.store_range}"><span class="notice-span">英文逗号隔开，例：否,是</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    值：</label>
+                                <div class="col-sm-9">
+                                    <input id="value" name="value" maxlength="50" type="text" class="form-control" value="$!{entity.value}">
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    排序：</label>
+                                <div class="col-sm-9">
+                                    <input id="sort_order" name="sort_order" maxlength="50" type="text" class="form-control" value="$!{entity.sort_order}">
+                                </div>
+                            </div>
+                              <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    是否显示：</label>
+                                <div class="col-sm-9  radio i-checks">
+                                    <label>
+                                    <input type="radio" #if($!{entity.isshow})checked#end $SiteUtils.DefaultValue($!{entity.isshow},"checked")  value="1" name="isshow"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.isshow} == false)checked#end  value="0" name="isshow"> <i></i> 否</label>
+
+                                </div>
+                            </div>
+                        </div>
+                                    
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2 col-sm-offset-2">
+                                    <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-check"></i>提交</button>
+                                    <button class="btn btn-white" type="reset">
+                                        取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")

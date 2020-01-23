@@ -1,0 +1,45 @@
+﻿#parse("include/kefu.html")
+<!--底部-start-->
+    <div class="footer cl">
+        <div class="foot_top wd1100">
+            <div class="love_link">
+             #foreach($row in $Caches.FriendLink())  #set($count=$Caches.FriendLink().count)
+                <a target="_blank" title="$row.link_name" href="$row.link_url" #if($row.is_tuijian)rel="nofollow"#end>$row.link_name</a>
+             #end   
+            </div>
+        </div>
+        <div class="foot_d">
+            <div class="foot_down wd1100">
+                    <div style="">
+                        #set($content='重庆网站建设、重庆网络营销、重庆手机网站、重庆移动互联网营销、重庆全网营销、重庆微网站建设。专注网络营销10年，服务过近百家行业龙头型企业，集团或上市公司，对营销型网站、SEM营销、移动互联网营销经验丰富，结合10年来我们服务客户的经验，易优创将产品整合到服务解决方案里，给客户提供优质高效的服务。易优创和一流的企业合作，目的为客户提供一体化整体解决方案，全盘考虑客户在pc端和移动互联网端的营销平衡，让企业高效的开展互联网下的立体营销。')
+	       $SystemConfig.CreateLiskTextFr($content)   
+                    </div>
+                <div class="foot_dshare">
+                    #foreach($row in $Caches.AllCsh(4))  #set($index=$velocityCount+1)  
+                    #if($index==1)
+                    <a href="$!{row.csh_con}" target="_blank" class="foot_dshare1"  rel="nofollow"></a>
+                    #end
+                    #end
+                    <a href="javascript:;" class="foot_dshare2"  rel="nofollow"></a>
+                    <a href="javascript:;" class="foot_dshare3"  rel="nofollow"></a>
+                    #foreach($row in $Caches.AllCsh(1))
+                    <div class="foot_shWx">
+                        <img width="80" height="80" alt="$row.csh_title" src="$row.csh_pic" /></div>
+                    #end
+                    #foreach($row in $Caches.AllCsh(6))
+                    <div class=" foot_shTelWx">
+                        <img width="80" height="80" alt="$row.csh_title" src="$row.csh_pic" /></div>
+                    #end
+                </div>
+                <div class="copyright">
+                    Copyright &copy; $config.Copyright <a target="_blank" href="http://www.miitbeian.gov.cn"  rel="nofollow">$config.IcpNumber</a> &nbsp;$tongjiCode $config.StatsCode&nbsp;
+                    <br />
+                    #foreach($row in $Caches.AllCsh(8)) $row.csh_title：$!{row.csh_con} #end<br />
+                    #foreach($row in $Caches.AllCsh(7)) $row.csh_title：$!{row.csh_con} #end
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部-end-->
+</body>
+</html>

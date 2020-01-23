@@ -1,0 +1,603 @@
+﻿#parse("pageheader.html")
+#set($GoodsId = $SiteUtils.DefaultValue($!{entity.goods_id},0))
+#set($GoodsCatId = $SiteUtils.DefaultValue($!{entity.cat_id},0))
+#set($GoodsBrandId = $SiteUtils.DefaultValue($!{entity.brand_id},0))
+<script src="js/swfupload.js" type="text/javascript"></script>
+<script src="js/handlers.js" type="text/javascript"></script>
+<script src="../include/fckeditor/fckeditor.js" type="text/javascript"></script>
+<h1 id="Menu">
+<span class="action-span"><a href="?act=list">商品列表</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">#if($id == 0)添加#else修改#end商品</label> </span>
+<div style="clear:both"></div>
+</h1>
+<!-- start goods form -->
+<div class="tab-div">
+    <!-- tab bar -->
+    <div id="tabbar-div">
+      <p>
+        <span class="tab-front" id="all-tab">商品总览</span>
+        <span class="tab-back" id="general-tab">基本信息</span><span
+        class="tab-back" id="gallery-tab">商品相册</span><span
+        class="tab-back" id="detail-tab">详细描述</span><span
+        class="tab-back" id="spec_tab">商品规格</span><span
+        class="tab-back" id="properties-tab">商品属性</span><span
+        class="tab-back" id="seo-tab">SEO</span>
+      </p>
+    </div>
+
+    <!-- tab body -->
+    <div id="tabbody-div">
+      <form action="" method="post" name="theForm" onsubmit="return validate();">
+        <h4>基本信息</h4>
+        <!-- 通用信息 -->
+        <table width="100%" id="general-table">
+          <tr>
+            <td class="label">是否为积分商品</td>
+            <td><input type="checkbox" name="is_alone_sale" value="0" onclick="hidIntegerGoods(this)" /> 打勾则表示为积分商品</td>
+          </tr>
+          <tr>
+            <td class="label">主名称：</td>
+            <td><input type="text" name="goods_name" value="$!{entity.goods_name}" size="50" />&nbsp;
+            <span class="require-field">*</span></td>
+          </tr>
+          <tr>
+            <td class="label">特点：</td>
+            <td><input type="text" name="goods_subname" value="$!{entity.goods_subname}" size="40" /> </td>
+          </tr>
+          <tr>
+            <td class="label">商品简介：</td>
+            <td>
+            <textarea name="goods_desc" cols="50" rows="5">$!{entity.goods_desc}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td class="label">
+            商品货号： </td>
+            <td><input type="text" name="goods_sn" value="$!{entity.goods_sn}" size="20" /><span id="goods_sn_notice"></span>
+            <span class="notice-span" id="noticeGoodsSN">如果您不输入商品货号，系统将自动生成一个唯一的货号。</span></td>
+          </tr>
+          <tr>
+            <td class="label">商品分类：</td>
+            <td><select name="cat_id" >
+            <option value="0" name="">请选择...</option>
+            #GoodsCatSelectUI($GoodsCatId)
+            </select> <span class="require-field">*</span>            </td>
+          </tr>
+          <tr>
+            <td class="label">扩展分类：</td>
+            <td>
+              <input type="button" value="添加" onclick="addOtherCat(this.parentNode)" class="button" />
+              #foreach($row in $othercat)
+              #set($GoodsOtherSelectCatId = $SiteUtils.DefaultValue($row.cat_id,0))
+              <select name="other_cat[]">
+              <option value="">请选择...</option>
+              #GoodsCatSelectUI($GoodsOtherSelectCatId)
+              </select>
+              #end
+                          </td>
+          </tr>
+          <tr>
+            <td class="label">商品品牌：</td>
+            <td><select name="brand_id">
+            <option value="0">请选择...</option>
+             #GoodsBrandSelectUI($GoodsBrandId)
+            </select></td>
+          </tr>
+          <tr>
+            <td class="label">购买单位：</td>
+            <td><input type="text" id="weight_unit" name="weight_unit" value="$!{entity.weight_unit}" size="5" /><input type="text" name="goods_weight" value="" size="20" style="display:none;" /> 
+            </td>
+          </tr>
+          <tr>
+            <td class="label">$!{config.PriceName1}：</td>
+            <td><input type="text" id="market_price" name="market_price" value="$SiteUtils.DefaultValue($!{entity.market_price},0)" size="20" />
+              <input type="button" value="取整数" onclick="integral_market_price()" />
+            </td>
+          </tr>
+          <tr>
+            <td class="label">$!{config.PriceName2}：</td>
+            <td><input type="text" id="shop_price" name="shop_price" value="$SiteUtils.DefaultValue($!{entity.shop_price},0)" size="20"/>
+            </td>
+          </tr>
+          <tbody class="hid">
+          <tr>
+            <td class="label">会员价格：</td>
+            <td>
+                #foreach($row in $userRankPrice)
+                $!{row.rank_name}
+                <span id="nrank_$!{row.rank_id}"></span>
+                <input type="text" id="rank_$!{row.rank_id}" name="user_price" #if ($!{row.user_price} != "")value="$!{row.user_price}"#else value="-1"#end onkeyup="if(parseInt(this.value)<-1){this.value='-1';};set_price_note($!{row.rank_id})" size="8" />
+                <input type="hidden" name="user_rank" value="$!{row.rank_id}" />
+                #end
+            <br />
+              <span class="notice-span" style="display:block"  id="noticeUserPrice">会员价格为-1时表示会员价格按会员等级折扣率计算。你也可以为每个等级指定一个固定价格</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="label">赠送积分数：</td>
+            <td><input type="text" name="give_integral" value="$!{entity.give_integral}" size="20" /></td>
+          </tr>
+          </tbody>
+          <tr>
+            <td class="label">积分购买额度：</td>
+            <td><input type="text" name="integral" value="$!{entity.integral}" size="20" />
+              <br /><span class="notice-span" style="display:block"  id="noticPoints">如果作为礼品销售，则需使用多少积分进行兑换</span>
+            </td>
+          </tr>
+          <tbody class="hid">
+          <tr>
+            <td class="label"><label for="is_promote"><input type="checkbox" id="is_promote" name="is_promote" value="1" #if($!{entity.is_promote})checked#end onclick="handlePromote(this.checked);" /> 促销价：</label></td>
+            <td id="promote_3"><input type="text" id="promote_1" name="promote_price" value="$!{entity.promote_price}" size="20" /></td>
+          </tr>
+          <tr id="promote_4">
+            <td class="label" id="promote_5">促销日期：</td>
+            <td id="promote_6">
+              <input name="promote_start_date" type="text" id="promote_start_date" size="24" value="$!{entity.promote_start_date}" readonly="readonly" /><input name="selbtn1" type="button" id="selbtn1" onclick="WdatePicker({el:'promote_start_date',dateFmt:'yyyy-MM-dd'})" value="选择" class="button"/> - <input name="promote_end_date" type="text" id="promote_end_date" value="$!{entity.promote_end_date}" size="24" readonly="readonly" /><input name="selbtn2" type="button" id="selbtn2" value="选择" onclick="WdatePicker({el:'promote_end_date',dateFmt:'yyyy-MM-dd'})" class="button"/>
+            </td>
+          </tr>
+          </tbody>
+          <tr>
+            <td class="label">商品库存数量：</td>
+            <td><input type="text" name="goods_number" size="5" value="$SiteUtils.DefaultValue($!{entity.goods_number},0)" size="20"  /> 为0则不限制库存</td>
+          </tr>
+          <tr>
+            <td class="label">库存警告数量：</td>
+            <td><input type="text" name="warn_number" size="5" value="$SiteUtils.DefaultValue($!{entity.warn_number},10)" size="20" /></td>
+          </tr>  
+          <tbody class="hid">        
+          <tr>
+            <td class="label">最低购买数量：</td>
+            <td>
+                <input name="lowest_quantity" type="text" size="5" value="$SiteUtils.DefaultValue($!{entity.lowest_quantity},0)" /> 为0不单独限制最小购买数量
+                          </td>
+          </tr>
+          <tr>
+            <td class="label">最大购买数量：</td>
+            <td>
+                <input name="max_quantity" type="text" size="5" value="$SiteUtils.DefaultValue($!{entity.max_quantity},0)" /> 为0不单独限制最大购买数量
+                          </td>
+          </tr>
+          </tbody>
+          <tr>
+            <td class="label">排序：</td>
+            <td>
+                <input name="sort_order" size="5" type="text" value="$SiteUtils.DefaultValue($!{entity.sort_order},0)" /> 值越大，排序越靠前
+                          </td>
+          </tr>
+          <tr id="alone_sale_1">
+            <td class="label" id="alone_sale_2">上架：</td>
+            <td id="alone_sale_3"><input type="checkbox" name="is_on_sale" value="1" $SiteUtils.DefaultValue($!{entity.is_on_sale},"checked") #if($!{entity.is_on_sale})checked#end /> 打勾表示允许显示，否则不在前台显示。</td>
+          </tr>
+        <tr>
+            <td class="label">加入推荐：</td>
+            <td><input type="checkbox" name="is_best" value="1" #if($!{entity.is_best})checked#end  />推荐(商品是卡号时这项为精品) <input type="checkbox" name="is_new" value="1" #if($!{entity.is_new})checked#end  />新品(商品是卡号时这项为特价) <input type="checkbox" name="is_hot" value="1" #if($!{entity.is_hot})checked#end />热销(商品是卡号时这项为精选)</td>
+          </tr>
+          <tr>
+        <td class="label">显示模板</td>
+        <td><input type="text" name="info_tlp" value='$!{entity.info_tlp}' size="30"><br /><span class="notice-span">请确认模板目录下有相关模板，如模板名为“template.vm”，则只须填写“template”</span>
+        </td>
+        </tr>
+        <tr>
+            <td class="label">浏览次数：</td>
+            <td>
+                <input name="click_count" size="5" type="text" value="$SiteUtils.DefaultValue($!{entity.click_count},0)" />
+                          </td>
+          </tr>
+          </table>
+        
+                
+        <h4>商品相册</h4>
+        <!-- 商品相册 -->
+        <table width="100%" id="gallery-table">
+        <tr>
+            <td class="label">上传商品默认图片：</td>
+            <td>
+                <input name="original_img" id="original_img" size="56" type="text" value="$!{entity.original_img}" /> <a href="javascript:void(0);" onclick="upload(this,'','original_img','')" title="点击上传"><img src="images/up.gif" border="0" align="middle" /></a> 
+                <br /><span class="notice-span">这里的图片显示在数据列表及详细页，也可以从相册里选择一张作为默认图片</span>
+                          </td>
+          </tr>
+          <!-- 上传图片 -->
+          <tr>
+            <td colspan="2">
+                <table>
+                <tr>
+                    <td><span id="spanButtonPlaceholder"></span></td>
+                    <td><span id="divFileProgressContainer"></span></td>
+                </tr>
+                </table>
+            </td>
+          </tr>
+          <!-- 图片列表 -->
+          <tr>
+            <td colspan="2">
+                <div id="swfu_container" style="margin: 0px 10px;">
+		            <div id="thumbnails">
+		            #foreach($row in $Goods.GetGoodsGalleryList($GoodsId))
+		            <div class="fl" id="gallery_$row.img_id">
+                    <a href="javascript:void(0);" title="设为默认" onclick="setDefault(this)"><img src="$row.goods_img" #if ($!{entity.original_img} == $row.original_img)class="cur insertImg"#else class="normal insertImg"#end /></a><br/>
+                    <input type="text" name="img_desc" value="$row.img_desc" size="10" />
+                    <input type="text" name="img_desc" value="$row.order_id" size="4" />
+                    <a href="javascript:dropImg($row.img_id);" title="删除图片"><img src="images/delete.gif" /></a>
+                    <input type="hidden" name="img_id" value="$row.img_id" size="10" />
+                    </div>#end
+		            <div class="clear"></div></div>
+	            </div>
+            </td>
+          </tr>
+        </table>
+        
+        <h4>详细描述</h4>
+        <!-- 详细描述 -->
+        <table width="100%" id="detail-table">
+          <tr>
+            <td colspan="2">
+            <textarea  name="goods_content" id="goods_content" cols="60" rows="20"  style="width: 100%" >$!{entity.goods_content}</textarea>
+            <script type="text/javascript">
+                var oFCKeditor = new FCKeditor('goods_content');
+                oFCKeditor.Height = 400;
+                oFCKeditor.ReplaceTextarea();
+		    </script>
+		    <input type="button" value="将商品相册图片插入到编辑区" class="bt" onclick="insertToEditor()" />
+        </td>
+          </tr>
+        </table>
+        
+        <h4>商品规格</h4>
+        <!-- 属性 -->
+        <table width="100%" id="spec-table">
+        #foreach($row in $specList)
+        <tr>
+            <td class="label">$row.spec_name</td>
+            <td>
+                #foreach($attr in $Goods.GetSpecValues($row.spec_id,$GoodsId))
+                <input type="checkbox" name="spec_value_id" value="$attr.spec_value_id" #if ($attr.id > 0)checked#end />
+                $attr.spec_value 
+                #end</td>
+        </tr>
+        #end
+        <tbody style=" display:none;">
+        <tr>
+            <td class="label"></td>
+            <td>
+            <input type="hidden" name="spec_ids" id="spec_ids" value="" />
+            <input type="button" value="生成货品" class="bt" onclick="makeSpec()" /></td>
+        </tr>
+        </tbody>
+        <tr>
+            <td colspan="2">
+                <div class="list-div" id="listDiv"></div>
+            </td>
+        </tr>
+        </table>
+        
+        <h4>商品属性</h4>
+        <!-- 属性 -->
+        <table width="100%" id="properties-table">
+          <tr>
+              <td class="label"></td>
+              <td>
+                <select name="goods_type" onchange="getAttrList(0)">
+                <option value="0">请选择...</option>
+                #foreach($row in $Goods.GetGoodsTypeList())
+                <option value="$row.cat_id" #if($row.cat_id == $!entity.goods_type)selected#end>$row.cat_name</option>
+                #end
+                </select>
+              </td>
+          </tr>
+          <tr>
+            <td id="tbody-goodsAttr" colspan="2" style="padding:0">
+            </td>
+          </tr>
+        </table>
+        
+        <h4>SEO</h4>
+        <table width="100%" id="seo-table">
+          <tr>
+            <td class="label">页面标题</td>
+            <td><input type="text" name="pagetitle" size="50" value="$!{entity.pagetitle}" /></td>
+          </tr>
+          <tr>
+            <td class="label">页面关键词</td>
+            <td><textarea name="pagekeywords" cols="60" rows="5">$!{entity.pagekeywords}</textarea></td>
+          </tr>
+          <tr>
+            <td class="label">页面描述</td>
+            <td><textarea name="pagedesc" cols="60" rows="8">$!{entity.pagedesc}</textarea></td>
+          </tr>
+          <tr style=" display:none;">
+            <td class="label">自定义Url</td>
+            <td><input type="text" name="urlrewriter" size="50" value="$!{entity.urlrewriter}" /><br />
+            不填写则自动生成</td>
+          </tr>
+        </table>
+
+        <div class="button-div">
+          <input type="hidden" name="goods_id" value="0" />
+                    <input type="submit" value=" 确定 " class="button" />
+          <input type="reset" value=" 重置 " class="button" />
+        </div>
+        <input type="hidden" name="act" value="insert" />
+      </form>
+    </div>
+</div>
+<!-- end goods form -->
+<script type="text/javascript" src="js/tab.js"></script>
+<script type="text/javascript">
+  var goodsId = $GoodsId;
+  var elements = document.forms['theForm'].elements;
+  var marketPriceRate = $config.MarketPriceRate;
+  var integralPercent = 0;
+  var swfu;
+  var goods_name_not_null = "商品名称不能为空。";
+var goods_cat_not_null = "商品分类必须选择。";
+var category_cat_not_null = "分类名称不能为空";
+var brand_cat_not_null = "品牌名称不能为空";
+var goods_cat_not_leaf = "您选择的商品分类不是底级分类，请选择底级分类。";
+var shop_price_not_null = "本店售价不能为空。";
+var shop_price_not_number = "本店售价不是数值。";
+
+
+  onload = function()
+  {
+      handlePromote(document.forms['theForm'].elements['is_promote'].checked);
+      
+      getAttrList(goodsId);
+      
+      #foreach($row in $UserRank)
+      set_price_note($!{row.rank_id});
+      #end
+            
+      document.forms['theForm'].reset();
+      
+      swfu = new SWFUpload({
+		// Backend Settings
+		upload_url: "goods.aspx?act=upload",
+        post_params : {
+            "ASPSESSID" : "$SessionID"
+        },
+
+		// File Upload Settings
+		file_size_limit : "800 kb",
+		file_types : "*.jpg;*.gif",
+		file_types_description : "JPG Images",
+		file_upload_limit : "0",    // Zero means unlimited
+
+		// Event Handler Settings - these functions as defined in Handlers.js
+		//  The handlers are not part of SWFUpload but are part of my website and control how
+		//  my website reacts to the SWFUpload events.
+		file_queue_error_handler : fileQueueError,
+		file_dialog_complete_handler : fileDialogComplete,
+		upload_progress_handler : uploadProgress,
+		upload_error_handler : uploadError,
+		upload_success_handler : uploadSuccess,
+		upload_complete_handler : uploadComplete,
+
+		// Button settings
+		button_image_url : "images/swfuploadbutton4.jpg",
+		button_placeholder_id : "spanButtonPlaceholder",
+		button_width: 193,
+		button_height: 38,
+		button_text : '<span class="button">点击选择需要上传的图片<br><span class="buttonSmall">(每张图片大小不能超过800kb)</span></span>',
+		button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 14pt; color:#ffffff; } .buttonSmall { font-size: 12pt; }',
+		button_text_top_padding: 1,
+		button_text_left_padding: 5,
+
+		// Flash Settings
+		flash_url : "images/swfupload.swf",	// Relative to this file
+
+		custom_settings : {
+			upload_target : "divFileProgressContainer"
+		},
+
+		// Debug Settings
+		debug: false
+	});
+  }
+  function validate()
+  {
+      var validator = new Validator('theForm');
+      validator.required('goods_name', goods_name_not_null);
+      if (document.forms['theForm'].elements['cat_id'].value == 0)
+      {
+          validator.addErrorMsg(goods_cat_not_null);
+      }
+      validator.required('original_img', "请上传商品图片");
+      return validator.passed();
+  }
+
+  /**
+   * 切换商品类型
+   */
+  function getAttrList(goodsId)
+  {
+      var selGoodsType = document.forms['theForm'].elements['goods_type'];
+
+      if (selGoodsType != undefined)
+      {
+          var goodsType = selGoodsType.options[selGoodsType.selectedIndex].value;
+
+          Ajax.call('goods_attribute.aspx?is_ajax=1&act=GetAttr&goods_id='+goodsId, 'goods_type=' + goodsType, setAttrList, "GET", "JSON");
+      }
+  }
+
+  function setAttrList(result, text_result)
+  {
+    document.getElementById('tbody-goodsAttr').innerHTML = result.content;
+  }
+
+  function rapidCatAdd()
+  {
+      var cat_div = document.getElementById("category_add");
+
+      if(cat_div.style.display != '')
+      {
+          var cat =document.forms['theForm'].elements['addedCategoryName'];
+          cat.value = '';
+          cat_div.style.display = '';
+      }
+  }
+
+  /**
+   * 添加扩展分类
+   */
+  function addOtherCat(conObj)
+  {
+      var sel = document.createElement("SELECT");
+      var selCat = document.forms['theForm'].elements['cat_id'];
+
+      for (i = 0; i < selCat.length; i++)
+      {
+          var opt = document.createElement("OPTION");
+          opt.text = selCat.options[i].text;
+          opt.value = selCat.options[i].value;
+          if (Browser.isIE)
+          {
+              sel.add(opt);
+          }
+          else
+          {
+              sel.appendChild(opt);
+          }
+      }
+      conObj.appendChild(sel);
+      sel.name = "other_cat[]";
+      sel.onChange = function() {checkIsLeaf(this);};
+  }
+
+  /**
+   * 删除图片
+   */
+  function dropImg(imgId)
+  {
+    Ajax.call('goods.aspx?is_ajax=1&act=DropGallery', "img_id="+imgId, dropImgResponse, "GET", "JSON");
+  }
+
+  function dropImgResponse(result)
+  {
+      if (result.error == 0)
+      {
+          document.getElementById('gallery_' + result.message).style.display = 'none';
+          
+          if (result.content == $('#goods_img').val())
+          {
+            $('#goods_img').val('');
+          }
+      }
+      else
+      {
+          alert(result.message);
+      }
+  }
+  
+  /**
+   *设置默认图片
+   */
+  function setDefault(obj)
+  {
+    var img = $(obj).children('img');
+    
+    $('img.normal,img.cur').removeClass('cur').addClass('normal');
+    $(img).addClass('cur');
+    
+    if ($(img).attr('src').indexOf("goods.aspx?act=thumbnail&id=") >= 0) {
+        $('#original_img').val($(obj).attr('rel'));
+    }
+    else {
+        $('#original_img').val($(img).attr('src').replace('list',''));
+    }
+  }
+  
+  function insertToEditor()
+  {
+  // Get the editor instance that we want to interact with.
+	var oEditor = FCKeditorAPI.GetInstance('goods_content') ;
+
+	// Check the active editing mode.
+	if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG )
+	{
+	    $('.insertImg').each(function(){
+            if ($(this).attr('src').indexOf("goods.aspx?act=thumbnail&id=") >= 0) {
+                oEditor.InsertHtml('<img src="'+ $(this).attr('rel') +'" />');
+            }
+            else {
+                oEditor.InsertHtml('<img src="'+ $(this).attr('src').replace('list','') +'" />');
+            }
+        });
+	}
+	else {
+		alert( '请切换到编辑模式!' ) ;
+    }
+  }
+  function handlePromote(checked)
+  {
+      document.forms['theForm'].elements['promote_price'].disabled = !checked;
+      document.forms['theForm'].elements['selbtn1'].disabled = !checked;
+      document.forms['theForm'].elements['selbtn2'].disabled = !checked;
+  }
+  function hidIntegerGoods(obj)
+  {
+    if (obj.checked)
+        $('.hid').hide();
+    else
+        $('.hid').show();
+  }
+
+  /**
+   * 将市场价格取整
+   */
+  function integral_market_price()
+  {
+    document.forms['theForm'].elements['market_price'].value = parseInt(document.forms['theForm'].elements['market_price'].value);
+  }
+
+  /**
+  * 检查货号是否存在
+  */
+  function checkGoodsSn(goods_sn, goods_id)
+  {
+    if (goods_sn == '')
+    {
+        document.getElementById('goods_sn_notice').innerHTML = "";
+        return;
+    }
+
+    var callback = function(res)
+    {
+      if (res.error > 0)
+      {
+        document.getElementById('goods_sn_notice').innerHTML = res.message;
+        document.getElementById('goods_sn_notice').style.color = "red";
+      }
+      else
+      {
+        document.getElementById('goods_sn_notice').innerHTML = "";
+      }
+    }
+    Ajax.call('goods.aspx?is_ajax=1&act=check_goods_sn', "goods_sn=" + goods_sn + "&goods_id=" + goods_id, callback, "GET", "JSON");
+  }
+  
+  function enableSpec(spec_id,obj)
+  {
+    if (obj.checked){
+        $('#specBody-'+spec_id).show();
+        $('#spec_ids').val($('#spec_ids').val() + spec_id+',');
+    } else {
+        $('#specBody-'+spec_id).hide();
+        $('#spec_ids').val($('#spec_ids').val().replace(spec_id+',',''));
+    }
+  }
+  function makeSpec()
+  { 
+    Ajax.call('goods.aspx?act=get_spec&is_ajax=1','spec_ids='+ $('#spec_ids').val() +'&rows=6',function(data){
+            if (data.error > 0)
+            {
+                alert(data.message);
+            }
+            else
+            {
+                $('#listDiv').html(data.content);
+            }
+        },'GET','json');
+  }
+</script>
+#parse("pagefooter.html")

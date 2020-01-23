@@ -1,0 +1,89 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+             广告位置</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong> 广告位置</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+               <div class="ibox-content">
+                <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加广告位</a>
+                    </div>
+            <form method="post" action="" name="listForm" id="listForm">
+<div class="ibox-content" id="listDiv">
+#end
+<table cellpadding="3" cellspacing="1" class="table table-striped table-bordered table-hover">
+  <tr  class="list_tr">
+    <th>$SiteUtils.GetSortImg("position_name","广告位名称")</th>
+    <th>$SiteUtils.GetSortImg("position_type","类型")</th>
+    <th>$SiteUtils.GetSortImg("ad_width","位置宽度")</th>
+    <th>$SiteUtils.GetSortImg("ad_height","位置高度")</th>
+    <th>$SiteUtils.GetSortImg("is_show_text","是否显示文字")</th>
+    <th>投放代码</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+    <tr >
+    <td>
+    <span onclick="javascript:listTable.edit(this, 'position_name', ${row.position_id})">${row.position_name}</span>
+    </td>
+    <td >
+    #if(${row.position_type} == 1)
+    图片
+    #elseif(${row.position_type} == 2)
+    动画
+    #elseif(${row.position_type} == 3)
+    图片轮播
+    #elseif(${row.position_type} == 4)
+    自定义文字
+    #elseif(${row.position_type} == 5)
+    视频
+    #end</td>
+    <td ><span onclick="javascript:listTable.edit(this, 'ad_width', ${row.position_id})">${row.ad_width}</span></td>
+    <td ><span onclick="javascript:listTable.edit(this, 'ad_height', ${row.position_id})">${row.ad_height}</span></td>
+    <td ><img src="images/${row.is_show_text}.gif" onclick="listTable.toggle(this, 'is_show_text', ${row.position_id})" /></td>
+    <td ><input type="text" onclick="this.select();" value="<script type=&quot;text/javascript&quot; src=&quot;http://$SiteUtils.GetDomain()/ad/${row.position_id}.js&quot;></script>" /></td>
+    <td >
+      <a href="ads.aspx?act=list&pid=${row.position_id}" title="查看广告内容">
+      广告内容</a>
+      <a href="?act=edit&id=${row.position_id}" title="修改">
+      修改</a>
+      <a href="javascript:;" onclick="listTable.remove(${row.position_id}, '您确认要删除这条记录吗?')" title="删除">删除</a>
+    </td>
+  </tr>
+  #end
+</table>
+  <!-- 分页 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info">
+                                    <!--<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选"
+                                        class="selectall" />--></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    ${pager}
+                                </div>
+                            </div>
+                        </div>
+#if (!$isajax)
+</div>
+</form>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")
+#end

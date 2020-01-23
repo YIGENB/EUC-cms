@@ -1,0 +1,48 @@
+﻿#if (!$isajax)
+#parse("include/page_head.html") 
+<div id="content">
+#end
+#if($cartlist.Count <=0)<div class="null_shopping"><div class="cart_pic"></div><h4>您还没有宝贝，赶快去逛逛吧！</h4><p><a class="enter" href="/">马上去逛逛</a></p></div>#end
+    #if($cartlist.Count > 0)
+    <h3 id="chose_all">
+        <b class="ico">全选商品</b></h3>
+    <ul class="cart_list" id="cart-content">
+     #set($goods_integral = 0)
+     #set($goods_number = 0)
+    #foreach($row in $cartlist)
+        <li id="cart_item_125">
+            <p class="goods_info">
+                #if($row.goods_img != "")<span class="img"><a href="#GoodsLinkc()">
+                    <img width="80" height="80" src="$row.goods_img"></a></span>
+                    #end
+                    #set($goods_integral = $row.give_integral + $goods_integral)
+                    #set($goods_number = $row.goods_number + $goods_number)
+                    <span class="tit">
+                    <a href="#GoodsLinkc()">$row.goods_name</a><br>
+                        <span>价格:</span><span class="price1">￥$row.goods_price</span><br>
+                        <span>数量:</span><span><img style="vertical-align: middle; width:16px" alt="decrease" onclick="store.ChangeNumber(this,'cut',$row.rec_id)" src="/include/images/cut.jpg">
+                        <input type="text" style="height: 20px;" class="text1 width3" value="$row.goods_number" id="input_item_125">
+                        <img style="vertical-align: middle;width:16px" alt="increase" onclick="store.ChangeNumber(this,'plus',$row.rec_id)" src="/include/images/plus.jpg"></span><br>
+                        <span><a onclick="javascript:store.RemoveCartGoods($row.rec_id);" href="javascript:;" class="del">
+                            <img style="vertical-align: middle; height: 20px; width: 20px" src="/include/images/del.png"></a>
+                            </span>
+                            </span>
+                            </p>
+            <p class="buy_info">
+                <span class="total"><span>小计:</span><span id="item125_subtotal" class="price2">#set($xj = ${row.goods_price} * ${row.goods_number}) ￥$xj</span></span></p>
+        </li>
+        #end
+    </ul>
+    #end
+    #if($cartlist.Count > 0)
+    <div class="buy_foot">
+        <p class="goods_amount">
+            <span>商品总价:</span><strong id="cart_amount" class="fontsize1">￥$goods_amount</strong></p>
+        <p class="jiesuan_btn">
+            <a class="btn" href="checkout.aspx"><span>去结算</span></a></p>
+    </div>
+    #end
+#if (!$isajax)
+</div>
+#parse("include/page_foot.html") 
+#end 

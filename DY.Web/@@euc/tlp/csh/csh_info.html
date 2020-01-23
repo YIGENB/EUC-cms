@@ -1,0 +1,121 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end客服中心</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>客服中心</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">内部链接列表</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!---->
+                <div class="panel-body">
+                    <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                    <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    标题：</label>
+                                <div class="col-sm-9">
+                                    <input id="csh_title" name="csh_title" maxlength="50" type="text" class="form-control"
+                                        required="" aria-required="true" value="$!{entity.csh_title}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    客服号码/其他信息：</label>
+                                <div class="col-sm-9">
+                                    <input name="csh_con" id="csh_con" type="text" class="form-control " 
+                                        value="$!{entity.csh_con}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    图片：</label>
+                                <div class="col-sm-9">
+                                    <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.csh_pic},"images/slt.jpg")' />
+                                        <input type="hidden" name="csh_pic" id="csh_pic" value="$!{entity.csh_pic}" />
+                                        <span class="help-inline">
+                                            <button name="button" class="btn select_img btn-white btn-sm" type="button">
+                                                点击上传</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    类型：</label>
+                                  <div class="col-sm-9 father_img">
+                                         <select name="csh_type" class="form-control m-b"  required="" aria-required="true">
+                                        <option value="0" >请选择...</option>
+                                            #foreach($row in $cshtypelist)
+                                            <option value="$!{row.type_id}" #if($!{entity.csh_type} == $row.type_id)selected#end>$!{row.type_name}</option>
+                                            #end
+                                        </select>
+                            </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    排序：</label>
+                                <div class="col-sm-9">
+                                    <input type='text' name='csh_order' maxlength="20" class="form-control" value='$SiteUtils.DefaultValue($!{entity.csh_order},0)'
+                                        size='27' />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2 col-sm-offset-2">
+                                    
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-check"></i>提交</button>
+                                    <button class="btn btn-white" type="reset">
+                                        取消</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end tab form -->
+<script type="text/javascript" src="js/tab.js"></script>
+<script language="JavaScript"> 
+<!--
+    document.forms['theForm'].elements['csh_title'].focus();
+    var catname_empty = "标题不能为空!";
+    /**
+    * 检查表单输入的数据
+    */
+    function validate() {
+        validator = new Validator("theForm");
+        validator.required("csh_title", catname_empty);
+        //validator.required("measure_unit", "商品单位不能为空");
+        return validator.passed();
+    }
+//-->
+</script>
+#parse("pagefooter.html")

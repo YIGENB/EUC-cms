@@ -1,0 +1,18 @@
+﻿<div class="top">
+        <div class="top_a">
+            <a href="/" class="logo"><img src="$config.ShopLogo" alt="创同盟-全网营销服务专家" width="148" height="21"></a>
+            <div class="top_aa">创同盟-全网营销服务专家</div>
+        </div>
+        <div class="top_b">
+             <a href="javascript:;" class="top_bb"></a>
+             <div class="aaa_cz">
+            <div class="xj_nav">
+                #foreach($row in $Caches.Nav())
+    	            #set($index=$velocityCount+1) #set($count=$Caches.Nav().count)
+				<a href="$row.url" #if($row.opennew) target="_blank" #end #if($navid==$row.id) class="" #end>$row.name</a>
+                #end
+            </div>
+            </div>
+          <div class="top_ba">Memu</div>
+        </div>
+    </div>

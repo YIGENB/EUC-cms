@@ -1,0 +1,12 @@
+﻿             #foreach($row in $list)
+            <a class="clla_a" href="#CMSLink()">
+            	<div class="clla_al">
+                	<p>$row.showtime.tostring("dd")</p>
+                    $row.showtime.tostring("yyyy-MM")
+                </div>
+                <div class="clla_ar">
+                	<p>$row.title</p>
+                    $SiteUtils.GetTopic($row.des,150)
+                </div>
+            </a>
+            #end

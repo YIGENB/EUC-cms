@@ -1,0 +1,43 @@
+﻿#parse("include/page_head.html")
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<div id="case" style="padding-top: 70px;">
+    <div class="case_l fl">
+        $body
+    </div>
+    <div class="case_r fr">
+        <div class="case_logo" style="text-align: center;"><h1 style="font-size: 30px;color: #000;">$cmsinfo.title</h1></div>
+        <div class="case_con">
+            $cmsinfo.des
+        </div>
+        <div class="case_infor">
+            <table width="100%" border="0">
+                #foreach($row in $Goods.GetNewsAttr($cmsinfo.article_id,$cmsinfo.cms_type).Rows)
+                <tr>
+                    <td class="case_wd1">
+                        $row.attr_name
+                    </td>
+                    <td class="case_wd2">
+                        $row.attr_value
+                    </td>
+                </tr>
+                #end
+            </table>
+                    #if($cmsinfo.tag!="")
+                <div class="newsIn_b" style="padding: 20px 0;">
+                    #foreach($row in $CMS.GetTags($cmsinfo.tag)) <a href="#TagLink()" class="tags" target="_blank">
+                        $row.tag_name</a> #end
+                </div>
+                #end
+        </div>
+        <div class="case_click">
+            <a href="/article/case$!{html}" title="返回" class="case_click1"></a>
+            #if($CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,false).Count<=0) <a href="javascript:;" title="没有了" class="case_click2"></a>#end 
+            #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,false)) <a href="#CMSLink()" title="$row.title" class="case_click2"></a>#end 
+            #if($CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,true).Count<=0)
+            <a href="javascript:;" title="没有了" class="case_click3"></a>
+            #end 
+            #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,true)) <a href="#CMSLink()" title="$row.title" class="case_click3"></a>#end
+        </div>
+    </div>
+</div>
+#parse("include/page_foot.html") 

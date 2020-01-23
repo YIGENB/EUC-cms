@@ -1,0 +1,21 @@
+﻿#foreach($row in $promotegoods)
+<div id="PromoteGoods$velocityCount" class="top_bar countdown" style=" position:relative; display:none; background:#a70707; height:50px;">
+    <div class="pos">
+        <span class="title">$row.goods_name</span>
+        <span class="price">只售$row.promote_price</span>
+        <span class="time" id="time$velocityCount"></span>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#PromoteGoods$velocityCount').slideDown('slow');
+        $('#PromoteGoods$velocityCount').click(function() {
+            location.href = '#GoodsLink()';
+        });
+        var endtime = new Date();
+        endtime.setFullYear($row.promote_end_date.Year, $row.promote_end_date.Month - 1, $row.promote_end_date.Day);
+        endtime.setHours(0, 0, 0);
+        countdown(endtime, '#time$velocityCount');
+    });
+</script>
+#end

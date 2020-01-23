@@ -1,0 +1,87 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            选择支付方式</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>添加订单</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<form method="post" action="" name="theForm" id="listForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    
+                    <div id="listDiv" class="ibox-content">
+                        <table id='list-table' class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                            支付名称
+                                        </th>
+                                        <th>
+                                            描述
+                                        </th>
+                                </tr>
+                            </thead>
+                            #foreach($row in $payment_list)
+                            <tr>
+                                <td bgcolor="#FFFFFF" width="20">
+                                    <input type="radio" name="payment" class="radio i-checks" value="${row.pay_id}" />
+                                </td>
+                                <td bgcolor="#FFFFFF">
+                                    ${row.pay_name}
+                                </td>
+                                <td bgcolor="#FFFFFF" width="80%">
+                                    ${row.pay_desc}
+                                </td>
+                            </tr>
+                            #end
+                        </table>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <input type="button" value="上一步" class="btn btn-w-m btn-white" onclick="history.back()" />
+        <input name="next" type="submit" class="btn btn-w-m btn-primary" value="下一步" />
+        <input type="button" value="取消" class="btn btn-w-m btn-white" onclick="location.href='order.aspx?act=add&step=delete&order_id=${order_id}'" />
+    </div>
+  </form>
+</div>
+<script language="JavaScript">
+
+    function checkPayment(form) {
+        if (!radioChecked('payment')) {
+            alert_toastr("请选择支付方式");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+    * 返回某 radio 是否被选中一个
+    * @param string radioName
+    */
+    function radioChecked(radioName) {
+        var eles = document.forms['theForm'].elements;
+
+        for (var i = 0; i < eles.length; i++) {
+            if (eles[i].name == radioName && eles[i].checked) {
+                return true;
+            }
+        }
+        return false;
+    }
+</script>
+#parse("pagefooter.html")

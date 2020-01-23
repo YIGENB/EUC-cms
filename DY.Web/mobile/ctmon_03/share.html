@@ -1,0 +1,116 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<div class="content">
+<section class="PublicConfig_showShare01-d1_c1">
+<div class="shareWrap">
+						<p class="shareText">请点击分享到相应平台</p>
+					
+						
+							
+							<ul>
+							<li id="sina" class="active weiboSina"><div><span class="icon"></span><span class="text">新浪微博</span></div></li>
+							<li id="tengXun" class="active weiboQQ"><div><span class="icon"></span><span class="text">腾讯微博</span></div></li>
+							
+							<li id="qzone" class="active spaceQQ"><div><span class="icon"></span><span class="text">QQ空间</span></div></li>
+							<li id="wangyi" class="active weiboWangyi"><div><span class="icon"></span><span class="text">网易微博</span></div></li>
+							
+							<li id="souhu" class="active weiboSohu"><div><span class="icon"></span><span class="text">搜狐微博</span></div></li>
+							<li id="pengyou" class="active friend"><div><span class="icon"></span><span class="text">朋友网</span></div></li>
+							
+							<li id="renren" class="active renren"><div><span class="icon"></span><span class="text">人人网</span></div></li>
+							<li id="kaixin" class="active kaixin"><div><span class="icon"></span><span class="text">开心网</span></div></li>
+							
+							<li id="douban" class="active douban"><div><span class="icon"></span><span class="text">豆瓣网</span></div></li>
+							<li id="souhubai" class="active baishequ"><div><span class="icon"></span><span class="text">搜狐白社区</span></div></li>
+							
+							<li id="tianya" class="active tianya"><div><span class="icon"></span><span class="text">天涯社区</span></div></li>
+							<li id="fanfou" class="active fanfou"><div><span class="icon"></span><span class="text">饭否</span></div></li>
+							<li id="renjian" class="active renjian"><div><span class="icon"></span><span class="text">人间网</span></div></li>
+							
+							
+							
+							<li id="taojiang" class="active taojianghu"><div><span class="icon"></span><span class="text">淘江湖</span></div></li>
+							
+							<li id="hexun" class="active hexun"><div><span class="icon"></span><span class="text">和讯</span></div></li>
+							 
+							<li id="diandian" class="active diandian"><div><span class="icon"></span><span class="text">点点</span></div></li>
+							<li id="xinlangqing" class="active sinaQingbo"><div><span class="icon"></span><span class="text">新浪轻博</span></div></li>
+							 
+							
+							</ul>
+							
+						
+						 
+					
+						
+					</div>
+</section>
+			</div>
+			#end
+#parse("include/page_foot.html")
+<script type="text/javascript">
+    $(function() {
+        var opts = {
+            url: window.location.href,
+            summary: "",
+            shareTitle: document.title
+        };
+        $("#sina").click(function(){
+					window.open("http://api.bshare.cn/share/mweibo?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+			
+				});
+		
+				$("#tengXun").click(function(){
+					
+					window.open("http://api.bshare.cn/share/qqmb?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				
+				$("#qzone").click(function(){
+					
+					window.open("http://api.bshare.cn/share/qzone?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#wangyi").click(function(){
+					
+					window.open("http://api.bshare.cn/share/neteasemb?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#souhu").click(function(){
+					window.open("http://api.bshare.cn/share/sohuminiblog?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#pengyou").click(function(){
+					window.open("http://api.bshare.cn/share/qqxiaoyou?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#renren").click(function(){
+					window.open("http://api.bshare.cn/share/renren?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#kaixin").click(function(){
+					window.open("http://api.bshare.cn/share/kaixin001?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#douban").click(function(){
+					window.open("http://api.bshare.cn/share/9dian?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#souhubai").click(function(){
+					window.open("http://api.bshare.cn/share/sohubai?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#fanfou").click(function(){
+					window.open("http://api.bshare.cn/share/fanfou?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#renjian").click(function(){
+					window.open("http://api.bshare.cn/share/renjian?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#taojiang").click(function(){
+					window.open("http://api.bshare.cn/share/taojianghu?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#hexun").click(function(){
+					window.open("http://api.bshare.cn/share/hexunmb?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#diandian").click(function(){
+					window.open("http://api.bshare.cn/share/diandian?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#xinlangqing").click(function(){
+					window.open("http://api.bshare.cn/share/sinaqing?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+				$("#tianya").click(function(){
+					window.open("http://api.bshare.cn/share/tianya?url="+opts.url+"&title="+opts.shareTitle+"&publisherUuid=82f0883f-0045-4f70-9022-d7be1d1687ad&summary="+opts.summary);
+				});
+    })
+</script>

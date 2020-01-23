@@ -1,0 +1,19 @@
+﻿<div class="navigation" style="background:$!{mstyle.top_bg_color}">
+	<div class="navigation-wrapper">
+          #foreach($row in $Caches.Nav())
+        <div class="nav-item">
+        <a href="$row.url" class="#if($Caches.Nav($row.id).Count>0) submenu-item #else landing-icon #end" style="background-image:url($row.mobile_ico)">$row.name<em class="unselected-item"></em></a>
+            #if($Caches.Nav($row.id).Count>0)
+                <div class="submenu">
+                 #foreach($row in $Caches.Nav($row.id)) 
+                    	<a href="$row.url">$row.name<em class="unselected-item"></em></a>
+                 #end
+            </div>
+            #end
+        </div>
+        #end
+    </div>
+</div>
+
+<div class="page-header-clear"></div>
+  

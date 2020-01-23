@@ -1,0 +1,83 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+#TreeFile()
+    <script type="text/javascript">
+        //列表生成
+        $(function () {
+            $("#maingrid").ligerGrid({
+                columns: [
+                  { display: '名称', name: 'action_text', width: '30%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                      var showhtml = "listTable.edit(this, 'action_text'," + rowdata.action_id + ")";
+                      var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.action_text + '</span>';
+                      return isshow;
+                  }
+                  },
+                 { display: 'code', name: 'action_code', width: '30%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'action_code'," + rowdata.action_id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.action_code + '</span>';
+                     return isshow;
+                 }
+                 },
+
+                 { display: '是否有效', name: 'isenable', width: '10%', align: 'left', editor: { type: 'text' }, render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.toggle(this, 'isenable'," + rowdata.action_id + ")";
+                     var isshow = '<img src="images/' + rowdata.isenable + '.gif" onclick="' + showhtml + '" />';
+                     return isshow;
+                 }
+                 },
+                { display: '操作', isSort: false, width: '20%', render: function (rowdata, rowindex, value) {
+                    var h = "";
+                    h += '  <a href="?act=edit&id=' + rowdata.action_id + '" title="修改">修改</a> ';
+                    var delhtml = "'删除的数据不能恢复，确定执行吗？'";
+                    h += '<a href="javascript:;" id="deltr' + rowdata.action_id + '" onclick="listTable.treeremove(' + rowdata.action_id + ',' + delhtml + ' )" title="删除">删除</a> ';
+                    return h;
+                }
+                }
+                ], width: '98%', height: '58px', headerRowHeight: '38px', align: 'left',
+            url: 'tree/treelist.aspx?act=adminactiontree', alternatingRow: false, tree: { columnName: 'action_text' }, checkbox: false,
+                autoCheckChildren: false, usePager: false, enabledSort: false, isScroll: false
+            }
+            );
+        });
+    </script>
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            网站权限设置</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>网站权限设置</strong> </li>
+        </ol>
+        </br>
+        <p ></p>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+              本功能只针对开发人员，请在操作功能后务必修改网站Config实体类代码。
+            </div>
+        </div>
+    </div>
+<div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加权限</a>
+                    </div>
+   <div id="listDiv" class="ibox-content">
+      <div id="maingrid">
+    </div>
+    </div>
+        </div>
+</div>
+    </div>
+</div>
+    </div>
+#parse("pagefooter.html")
+#end

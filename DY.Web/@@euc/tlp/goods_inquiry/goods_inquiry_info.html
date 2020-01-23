@@ -1,0 +1,167 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+           留言详情</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong> 留言详情</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">产品询价列表</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!---->
+                <div class="panel-body">
+                    <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                    <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                        
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    姓名：</label>
+                                <div class="col-sm-9">
+                                <input type="text" readonly=readonly class="form-control" value="  $!{entity.name}">
+                                  
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    公司：</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  readonly=readonly class="form-control" value="  $!{entity.company}">
+                                   
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    电话：</label>
+                                <div class="col-sm-9">
+                                 <input type="text"  readonly=readonly class="form-control" value="$!{entity.tel}">
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    地址：</label>
+                                <div class="col-sm-9">
+                                <input type="text"  readonly=readonly class="form-control" value="$!{entity.address}">
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    邮箱：</label>
+                                <div class="col-sm-9">
+                                <input type="text"  readonly=readonly class="form-control" value="$!{entity.email}">
+                                    
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    内容：</label>
+                                <div class="col-sm-9">
+                                       <textarea id="des"  readonly=readonly class="form-control" name="des" cols="70" rows="5">$!{entity.advice}</textarea>
+                                    
+                                </div>
+                            </div>
+                            #if($!{entity.userid}>0)
+                             
+                              <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    用户名：</label>
+                                <div class="col-sm-9">
+                                      
+                                       <input type="text"  readonly=readonly class="form-control" value="$!{entity.username}">
+                                </div>
+                            </div>
+                              <div class="form-group">
+                              <label class="col-sm-1 control-label">相关产品：</label>
+                                  <div class="col-sm-9">
+                             <div class="table-responsive m-t">
+                                    <table class="table invoice-table">
+                                        <thead>
+                                            <tr>
+                                                <th width=50% align="left">
+                                                    商品名称
+                                                </th>
+                                            
+                                                <th  width=50% align="left" style=" text-align:left;">
+                                                    数量 
+                                                </th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         #foreach($row in $goodst.Rows)
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                      #set($id=${row.goods_id})
+                                <a href="#GoodsLink($id)" target=_blank>
+                                <img src="$!Caches.GoodsInfos($id).original_img" width=170px />
+                                <p style=" text-align:center;width: 170px;">
+                                $!Caches.GoodsInfos($id).goods_name</p></a>
+                                                    </div>
+                                                </td>
+                                                <td style=" text-align:left;font-size: 35px;">
+                                                   <span> ${row.goods_number}</span>
+                                                </td>
+                                           
+                                            </tr>
+                                        #end
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                                 </div>
+                                 #else
+                                 <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    相关产品：</label>
+                                <div class="col-sm-9">
+                              
+                                 #foreach($row in $list_id) 
+                                  #set($id=${row})
+                                <a href="#GoodsLink($id)" target=_blank>
+                                <img src="$!Caches.GoodsInfos($id).original_img" width=170px />
+                                <p style=" text-align:center;width: 170px;">
+                                $!Caches.GoodsInfos($id).goods_name</p></a>#end
+                                
+                             
+                                    
+                                </div>
+                            </div>
+                                 #end
+                        </div>
+                   
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.col-sm-9 a
+{
+	float:left; 
+	margin-left:5px;
+}
+</style>
+#parse("pagefooter.html")

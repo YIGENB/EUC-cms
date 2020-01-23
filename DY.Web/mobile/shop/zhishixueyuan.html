@@ -1,0 +1,21 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+<div class="content-section">
+    <h1 class="left-text">一列组合</h1>
+    <em class="left-text">投资组合的变化！</em>
+    <div class="overlay"></div>
+    <img alt="img" src="images/general-nature/1w.jpg" class="responsive-image">
+</div>
+<div class="content">
+    <div class="container no-bottom">
+    <h4>$pageinfo.title</h4>
+    <p>
+        $body
+    </p>
+    </div>
+    <div class="decoration"></div>
+</div>
+#end
+#parse("include/page_foot.html")

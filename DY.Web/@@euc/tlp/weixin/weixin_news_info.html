@@ -1,0 +1,200 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end自定义内容</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>微信公众号</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list&pid=$pid" class="btn btn-primary ">自定义回复列表</a>
+                    </div>
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                         <label class="col-sm-1 control-label">
+                               关键词：</label>
+                        <div class="col-sm-9">
+                        <input name="keyword" type="text" maxlength="50" class="form-control" required="" value="$!{entity.keyword}">
+                        </div>
+                       </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                关键词类型：</label>
+                            <div class="col-sm-9">
+                                <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio"value="0" #if($!{entity.type})checked#end $SiteUtils.DefaultValue($!{entity.type},"checked") name="type"> <i></i> 完全匹配</label>
+                                                    <label>
+                                                    <input type="radio" #if($!{entity.type} == false)checked#end  value="0" name="type" disabled> <i></i> 包含匹配</label>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            选择类型：</label>
+                                        <div class="col-sm-9">
+                                                      <select name="radio_type" id="radio_type" onchange="onchanged()" class="form-control m-b">
+                                                        <option value="1" #if($!{entity.radio_type}==1)selected="selected"#end>文章资讯</option>
+                                                        <option value="2" #if($!{entity.radio_type}==2)selected="selected"#end>产品</option>
+                                                        <option value="3" #if($!{entity.radio_type}==3)selected="selected"#end>文本</option>
+                                                        <option value="0" #if($!{entity.radio_type}==0)selected="selected"#end>图文</option>
+<!--                                                        <option value="4" #if($!{entity.radio_type}==4)selected="selected"#end>音乐</option>
+                                                        <option value="5" #if($!{entity.radio_type}==5)selected="selected"#end>图片</option>
+                                                        <option value="6" #if($!{entity.radio_type}==6)selected="selected"#end>语音</option>
+                                                        <option value="7" #if($!{entity.radio_type}==7)selected="selected"#end>视频</option>-->
+                                                        </select>
+                                        </div>
+                                    </div>
+                                    
+                            <div class="form-group sjk">
+                                        <label class="col-sm-1 control-label">
+                                            内容：</label>
+                                        <div class="col-sm-9">
+                                                 <select name="double_news" id="type_goods_content" class="form-control m-b" >
+                                                     </select>
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="con">
+                                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            标题：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="title" type="text" class="form-control" value="$!{entity.title}" />
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            图文封面：</label>
+                                        <div class="col-sm-9">
+                                                    <div class="upload_img">
+                                                    <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                                        src='$SiteUtils.DefaultValue($!{entity.pic},"images/slt.jpg")' />
+                                                    <input type="hidden" name="pic" id="pic" value="$!{entity.pic}" />
+                                                    <span class="help-inline">
+                                                        <button name="button" class="btn select_img btn-white btn-sm" type="button">
+                                                            点击上传</button></span>
+                                                </div>
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            简介：</label>
+                                        <div class="col-sm-9">
+                                                 <textarea id="des" name="des" class="form-control" rows="5" maxlength="200">$!{entity.des}</textarea>
+                                        </div>
+                                    </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                               详细内容：</label>
+                            <div class="col-sm-9">
+                                <textarea id="content" name="content" style="height:300px; width:100%;">$!{entity.content}</textarea>
+                            </div>
+                        </div>
+                          <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            Url：</label>
+                                        <div class="col-sm-9">
+                                         <input name="url" type="text" class="form-control" value="$!{entity.url}" />
+                                        </div>
+                                    </div>
+                                    </div>
+                          <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否有效：</label>
+                                        <div class="col-sm-9">
+                                        <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio" #if ($!{entity.enabled})checked#end $SiteUtils.DefaultValue($!{entity.enabled},"checked")  value="1" name="enabled"> <i></i> 是</label>
+                                                    <label>
+                                                    <input type="radio" #if ($!{entity.enabled}==false)checked#end  value="0" name="enabled"> <i></i> 否</label>
+                                    </div>
+                                        </div>
+                                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                                <button class="btn btn-white" type="reset">
+                                    取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+  //-->
+  function onchanged() {
+      var radio_type = $("#radio_type").val();
+      if (radio_type == 0 || radio_type == 3) {
+          $(".sjk").hide();
+          $(".con").show();
+          $("#type_goods_content").empty();
+      } else if (radio_type == 2) {
+          $(".sjk").show();
+          $(".con").hide();
+          $("#type_goods_content").empty();
+          $("#type_goods_content").append('<option value="1">推荐产品</option>');
+          $("#type_goods_content").append('<option value="2">新品产品</option>');
+          $("#type_goods_content").append('<option value="3">热卖产品</option>');
+          $("#type_goods_content").append('<option value="4">特价产品</option>');
+          $("#type_goods_content").append('<option value="5">最新产品</option>');
+      }
+      else if (radio_type == 1) {
+          $(".sjk").show();
+          $(".con").hide();
+          $("#type_goods_content").empty();
+          $("#type_goods_content").append('<option value="1">推荐资讯</option>');
+          $("#type_goods_content").append('<option value="2">置顶资讯</option>');
+          $("#type_goods_content").append('<option value="3">最新资讯</option>');
+      }
+     else if(radio_type==4||radio_type==5||radio_type==6||radio_type==7)
+      {
+          $(".sjk").hide();
+          $("#type_goods_content").empty();
+      }
+  }
+  $(function () {
+      var editor = KindEditor.create('textarea[name="content"]');
+      var radio_type = $("#radio_type").val();
+      if (radio_type == 2) {
+          $(".sjk").show();
+          $(".con").hide();
+          $("#type_goods_content").empty();
+          $("#type_goods_content").append('<option value="1" #if(${entity.double_news}==1)selected #end>推荐产品</option>');
+          $("#type_goods_content").append('<option value="2" #if(${entity.double_news}==2)selected #end>新品产品</option>');
+          $("#type_goods_content").append('<option value="3" #if(${entity.double_news}==3)selected #end>热卖产品</option>');
+          $("#type_goods_content").append('<option value="4" #if(${entity.double_news}==4)selected #end>特价产品</option>');
+          $("#type_goods_content").append('<option value="5" #if(${entity.double_news}==5)selected #end>最新产品</option>');
+      }
+      else if (radio_type == 1) {
+          $(".sjk").show();
+          $(".con").hide();
+          $("#type_goods_content").empty();
+          $("#type_goods_content").append('<option value="1" #if(${entity.double_news}==1)selected #end>推荐资讯</option>');
+          $("#type_goods_content").append('<option value="2" #if(${entity.double_news}==2)selected #end>置顶资讯</option>');
+          $("#type_goods_content").append('<option value="3" #if(${entity.double_news}==3)selected #end>最新资讯</option>');
+      } else {
+          $("#type_goods_content").empty();
+          $(".sjk").hide();
+          $(".con").show();
+      }
+  })
+</script>
+#parse("pagefooter.html")

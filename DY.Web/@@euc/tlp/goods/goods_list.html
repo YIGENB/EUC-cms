@@ -1,0 +1,230 @@
+﻿#if (!$isajax) #parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            产品列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>产品</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <form name="searchForm" id="searchForm" onsubmit=";return false;">
+        <div id="search-box">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select name="cat_id" id="cat_id" class="form-control m-b">
+                        <option value="0">所有分类...</option>
+                        #GoodsCatSelectUI(-1)
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select name="field" class="form-control m-b" onchange="listTable.changeField()">
+                        <optgroup label="文本">
+                            <option value="goods_name">商品名称</option>
+                            <option value="goods_sn">商品货号</option>
+                        </optgroup>
+                        <optgroup label="数值">
+                            <option value="goods_id">编号</option>
+                            <option value="shop_price">${config.PriceName2}</option>
+                            <option value="market_price">${config.PriceName1}</option>
+                            <option value="sort_order">排序位置</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <select name="target" class="form-control m-b">
+                        <option value="like">包含</option>
+                        <option value="istext">等于</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="text" placeholder="输入关键词" class="form-control" name="val" value="">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="checkbox-inline i-checks">
+                        <input type="checkbox" name="is_on_sale" value="1" />上架</label>
+                    <label class="checkbox-inline i-checks">
+                        <input type="checkbox" name="is_best" value="1" />推荐</label>
+                    <label class="checkbox-inline i-checks">
+                        <input type="checkbox" name="is_new" value="1" />新品</label>
+                    <label class="checkbox-inline i-checks">
+                        <input type="checkbox" name="is_hot" value="1" />热卖</label>
+                    <label class="checkbox-inline i-checks">
+                        <input type="checkbox" name="is_specials" value="1" />特价</label>
+                    <button class="btn btn-primary " type="button" onclick="listTable.searchData()">
+                        <i class="fa fa-check"></i>&nbsp;搜索</button>
+                    <input type="button" value="ALL" onclick="listTable.searchReset(this)" disabled="disabled"
+                        class="btn btn-primary" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加新产品</a>
+                    </div>
+                    <form method="post" action="?act=del" name="listForm" id="listForm">
+                    <div id="listDiv" class="ibox-content">
+                        #end
+                        <table id='list-table' class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选"
+                                            class="selectall" />
+                                    </th>
+                                    <th>
+                                        $SiteUtils.GetSortImg("goods_id","编号")
+                                    </th>
+                                    <th>
+                                        $SiteUtils.GetSortImg("goods_name","商品名称")
+                                    </th>
+                                    <th>
+                                        图片
+                                    </th>
+                                    <th>
+                                        $SiteUtils.GetSortImg("is_on_sale","上架")
+                                    </th>
+                                    <th>
+                                        $SiteUtils.GetSortImg("is_best","推荐")
+                                    </th>
+                                    <th>
+                                        $SiteUtils.GetSortImg("is_new","新品")
+                                    </th>
+                                    <th>
+                                        $SiteUtils.GetSortImg("is_hot","热卖")
+                                    </th>
+                                    <!--<th>$SiteUtils.GetSortImg("is_specials","特价")</th>-->
+                                    <!--<th>$SiteUtils.GetSortImg("is_promote","促销")</th>-->
+                                    <th>
+                                        $SiteUtils.GetSortImg("sort_order","排序")
+                                    </th>
+                                    <th>
+                                        分享
+                                    </th>
+                                    <th>
+                                        操作
+                                    </th>
+                                </tr>
+                            </thead>
+                            #foreach($row in $list)
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkboxes" value="${row.goods_id}" />
+                                </td>
+                                <td>
+                                    ${row.goods_id}
+                                </td>
+                                <td>
+                                    <span onclick="listTable.edit(this, 'goods_name', ${row.goods_id})">${row.goods_name}</span>
+                                    <a href="#ProductLink()" title="预览" target="_blank">
+                                        <img src="images/url.gif" /></a>
+                                </td>
+                                <td>
+                                    <img src="$SiteUtils.DefaultValue(${row.goods_thumb},"images/slt.jpg")" width="100" />
+                                </td>
+                                <td>
+                                    <img src="images/${row.is_on_sale}.gif" onclick="listTable.toggle(this, 'is_on_sale', ${row.goods_id})" />
+                                </td>
+                                <td>
+                                    <img src="images/${row.is_best}.gif" onclick="listTable.toggle(this, 'is_best', ${row.goods_id})" />
+                                </td>
+                                <td>
+                                    <img src="images/${row.is_new}.gif" onclick="listTable.toggle(this, 'is_new', ${row.goods_id})" />
+                                </td>
+                                <td>
+                                    <img src="images/${row.is_hot}.gif" onclick="listTable.toggle(this, 'is_hot', ${row.goods_id})" />
+                                </td>
+                                <!--<td align="center"><img src="images/${row.is_specials}.gif" onclick="listTable.toggle(this, 'is_specials', ${row.goods_id})" /></td>-->
+                                <td>
+                                    <div onclick="javascript:listTable.edit(this, 'sort_order', ${row.goods_id})" style="width:100%;">${row.sort_order}</div>
+                                </td>
+                                <td>
+                                    <!-- JiaThis Button BEGIN -->
+                                    <div class="jiathis_style">
+                                        <span class="jiathis_txt">分享到：</span>
+                                        <div onmouseover="javascript:setShare('${row.goods_name}','http://$SiteUtils.GetDomain()#GoodsLink()')">
+                                            <a class="jiathis_button_weixin"></a>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+                                    <!-- JiaThis Button END -->
+                                </td>
+                                <td>
+                                    <a href="?act=edit&id=${row.goods_id}" title="修改">修改</a> 
+                                    <a href="javascript:;" onclick="listTable.remove(${row.goods_id}, '删除的数据不能恢复，确定执行吗？')"
+                                        title="删除">删除</a>
+                                </td>
+                            </tr>
+                            #end
+                        </table>
+                        <!-- 分页 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info">
+                                    <!--<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选"
+                                        class="selectall" />-->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    ${pager}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 批量 -->
+                        <div class="row" id="page-batch">
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacth('is_delete',1)">
+                                <i class="fa fa-trash"></i>&nbsp;放入回收站</button>
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacthAction('CompletelyDelete')">
+                                <i class="fa fa-trash"></i>&nbsp;永久删除</button>
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacth('is_on_sale',1)">
+                                <i class="fa fa-cart-plus"></i>&nbsp;上架</button>
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacth('is_on_sale',0)">
+                                <i class="fa fa-cart-arrow-down"></i>&nbsp;下架</button>
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacth('is_best',1)">
+                                <i class="fa  fa-thumbs-up"></i>&nbsp;推荐</button>
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacth('is_best',0)">
+                                <i class="fa  fa-thumbs-down"></i>&nbsp;取消推荐</button>
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" id="editcat">
+                                <i class="fa  fa-share-square"></i>&nbsp;修改分类</button>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $("#editcat").click(function () {
+                                        if (confirm('批量修改分类，请确认')) {
+                                            var cat_id = $('#cat_id').val();
+                                            if (cat_id != 0) {
+                                                listTable.bacth('cat_id', cat_id)
+                                            } else {
+                                                alert("请先选择分类...");
+                                                $("#cat_id").focus();
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                        #if (!$isajax)
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html") #end 

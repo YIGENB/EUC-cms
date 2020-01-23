@@ -1,0 +1,174 @@
+﻿#if (!$isajax)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>购物车 - $config.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="$config.Keywords" />
+    <meta name="Description" content="$config.Desc" />
+    <link href="/include/css/store.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/include/js/jquery/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="/include/js/common.js"></script>
+    <script type="text/javascript" src="/include/js/store.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#J_Auctions>ul.tabs>li').click(function() {
+                $('#J_Auctions>ul.tabs>li').removeClass('current');
+                $(this).addClass('current');
+
+                $('#J_Auctions>div.pannel').hide();
+                $($('#J_Auctions>div.pannel').get($('#J_Auctions>.tabs>li').index(this))).show();
+            });
+        });
+    </script>
+</head>
+ 
+
+<body>
+    <div id="page">
+        <div id="content">
+            <div id="crumbs">
+                <strong>您的位置：</strong>
+                <ol class="crumbs">
+                    <li><a href="/">首页</a> </li>
+                    <li class="current">我的购物车</li>
+                </ol>
+                <span class="cart-tip">您在购物过程中有任何疑问，请查阅 <a href="">帮助中心</a> 或 <a href="">联系客服</a></span>
+            </div>
+            <!-- Content Start -->
+            <div class="flow-steps">
+                <ol class="num5">
+                    <li class="current-prev"><span class="first">1. 挑选商品</span></li>
+                    <li class="current"><span>2. 查看购物车</span></li>
+                    <li><span>3. 填写购物信息</span></li>
+                    <li><span>4. 支付货款</span></li>
+                    <li class="last"><span>5. 完成订购</span></li>
+                </ol>
+            </div>
+            <div id="cart-content">
+#end            
+            <div id="cart">
+                #if($cartlist.Count > 0)
+                <table width="100%">
+                <thead>
+                    <tr>
+                        <th>商品</th>
+                        <th>名称</th>
+                        <th>规格</th>
+                        <th>赠送积分</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>小计</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    #set($goods_integral = 0)
+                    #set($goods_number = 0)
+                    #foreach($row in $cartlist)
+                    <tr>
+                        <td align="center">#if($row.goods_img != "")<img src="$row.goods_img" width="48" />#end</td>
+                        <td><a href="/goods-${row.goods_id}.aspx">$row.goods_name</a></td>
+                        <td align="center">$row.goods_attr</td>
+                        <td align="right">$row.give_integral分</td>
+                        <td align="right">￥$row.goods_price</td>
+                        <td align="center">
+                            <a href="#" onclick="store.ChangeNumber(this,'cut',$row.rec_id)"><img src="/include/images/cut.jpg" /></a>
+                            <input type="text" value="$row.goods_number" size="4" readonly="readonly" title="更改数量请点击左右的加减按钮" />
+                            <a href="#" onclick="store.ChangeNumber(this,'plus',$row.rec_id)"><img src="/include/images/plus.jpg" /></a>
+                        </td>
+                        <td align="right">#set($xj = ${row.goods_price} * ${row.goods_number}) ￥$xj</td>
+                        <td align="center"><a href="javascript:store.RemoveCartGoods($row.rec_id);">删除</a></td>
+                    </tr>
+                    #set($goods_integral = $row.give_integral + $goods_integral)
+                    #set($goods_number = $row.goods_number + $goods_number)
+                    #end
+                </tbody>
+                </table>
+                <div id="cart-info">
+                    <div class="fl">
+                        #if ($discount_list.Count > 0)
+                        <div class="discount">
+                            <h3>当前促销：</h3>
+                            <ol>
+                                #foreach($disinfo in $discount_list)
+                                <li><span>$disinfo.discount_name</span></li>
+                                #end
+                            </ol>
+                        </div>
+                        #end
+                    </div>
+                    <div class="fr">
+                        <div class="cart-info">
+                            <p>商品数量总计：$goods_number件 &nbsp; 赠送积分总计：$goods_integral分 &nbsp; #if ($discount > 0)优惠：￥$discount &nbsp; #end产品金额总计(不含运费)：#if($discount > 0)$goods_amount - $discount = #set($goods_amount = $goods_amount - $discount)#end<span class="price">￥$goods_amount</span></p>
+                        </div>
+                        <div class="checkout">
+                            <a href="/category.aspx"><img src="/include/images/btn_re_shop.gif" /></a>
+                            <a href="checkout.aspx"><img src="/include/images/btn_re_account.gif" /></a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                #end
+            </div>
+            #if($cartlist.Count == 0)
+            <div id="empty">
+                <h2>
+                    您的购物车还是空的，赶紧行动吧！您可以：</h2>
+                <ul>
+                    <li>我们为您在本台电脑上保存最近一周的购物车信息</li>
+                    <li>马上去 <a href="/category.aspx">挑选宝贝</a></li>
+                </ul>
+            </div>
+            #end
+#if (!$isajax)
+            </div>
+            <div id="interested">
+                <h3> &nbsp; 您可能感兴趣的商品：</h3>
+                <div class="con" id="J_Auctions">
+                    <ul class="tabs">
+                        #if ($fav_list.Count > 0)
+                        <li class="current"><a href="#"><span>最近收藏的</span></a></li>
+                        #end
+                        <li #if ($fav_list.Count == 0)class="current"#end><a href="#"><span>最近浏览过的</span></a></li>
+                        <li><a href="#"><span>我们推荐的</span></a></li>
+                    </ul>
+                    #if ($fav_list.Count > 0)
+                    <!-- 最近收藏的 -->
+                    <div class="pannel">
+                        <ul>
+                            #foreach($row in $fav_list)
+                            <li>
+                                <a class="pic" href="#GoodsLink()" target="_blank"><img src="$row.goods_img" /></a> 
+                                <a class="desc" href="#GoodsLink()" target="_blank">$row.goods_name</a>
+                                <span class="price">$row.shop_price</span> 
+                            </li>
+                            #end
+                        </ul>
+                    </div>
+                    #end
+                    <!-- 最近浏览过的 -->
+                    <div class="pannel"  #if ($fav_list.Count > 0)style=" display:none;"#end>
+                       #if($showview!="")
+                       $showview
+                       #end
+                    </div>
+                    <!-- 我们推荐的 -->
+                    <div class="pannel" style=" display:none;">
+                        <ul>
+                            #foreach($row in $Caches.GetGoodsBest(5))
+                            <li>
+                                <a class="pic" href="#GoodsLink()" target="_blank"><img src="$row.goods_img" /></a> 
+                                <a class="desc" href="#GoodsLink()" target="_blank">$row.goods_name</a>
+                                <span class="price">$row.shop_price</span> 
+                            </li>
+                            #end
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+#end

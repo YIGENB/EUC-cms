@@ -1,0 +1,56 @@
+﻿2017/1/12 10:31:33	RENYI-PC	System.InvalidOperationException: ConnectionString 属性尚未初始化。
+   在 System.Data.SqlClient.SqlConnection.PermissionDemand()
+   在 System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 DY.Data.DbHelper.ExecuteNonQuery(CommandType commandType, String commandText, DbParameter[] commandParameters) 位置 F:\易优创\暂时用的代码\DY\DY.Data\DbHelper.cs:行号 464
+   在 DY.Data.SqlServer.DataProvider.GetLastExecuteScheduledEventDateTime(String key, String serverName) 位置 F:\易优创\暂时用的代码\DY\DY.Data.SqlServer\SystemManage.cs:行号 375
+   在 DY.ScheduledEvents.Event.get_ShouldExecute() 位置 F:\易优创\暂时用的代码\DY\DY.Site\ScheduledEvents\Event.cs:行号 141
+   在 DY.ScheduledEvents.EventManager.Execute() 位置 F:\易优创\暂时用的代码\DY\DY.Site\ScheduledEvents\EventManager.cs:行号 75
+   在 DY.Web.Global.ScheduledEventWorkCallback(Object sender) 位置 F:\易优创\暂时用的代码\DY\DY.Web\Global.asax.cs:行号 36
+2017/1/12 10:32:33	RENYI-PC	System.InvalidOperationException: ConnectionString 属性尚未初始化。
+   在 System.Data.SqlClient.SqlConnection.PermissionDemand()
+   在 System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 DY.Data.DbHelper.ExecuteNonQuery(CommandType commandType, String commandText, DbParameter[] commandParameters) 位置 F:\易优创\暂时用的代码\DY\DY.Data\DbHelper.cs:行号 464
+   在 DY.Data.SqlServer.DataProvider.GetLastExecuteScheduledEventDateTime(String key, String serverName) 位置 F:\易优创\暂时用的代码\DY\DY.Data.SqlServer\SystemManage.cs:行号 375
+   在 DY.ScheduledEvents.Event.get_ShouldExecute() 位置 F:\易优创\暂时用的代码\DY\DY.Site\ScheduledEvents\Event.cs:行号 141
+   在 DY.ScheduledEvents.EventManager.Execute() 位置 F:\易优创\暂时用的代码\DY\DY.Site\ScheduledEvents\EventManager.cs:行号 75
+   在 DY.Web.Global.ScheduledEventWorkCallback(Object sender) 位置 F:\易优创\暂时用的代码\DY\DY.Web\Global.asax.cs:行号 36
+2017/1/23 16:17:47	PC-20140720RSXL	自动删除邮件留言垃圾信息
+2017/1/23 16:17:48	PC-20140720RSXL	System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 DY.Site.SiteUtils.GetDomain() 位置 F:\我的文档\易优创\暂时用的代码\DY\DY.Site\SiteUtils.cs:行号 686
+   在 DY.Event.更新自定义错误页.UpdateError() 位置 F:\我的文档\易优创\暂时用的代码\DY\DY.Event\ErrorEvent.cs:行号 44
+   在 DY.Event.更新自定义错误页.DY.ScheduledEvents.IEvent.Execute(Object state) 位置 F:\我的文档\易优创\暂时用的代码\DY\DY.Event\ErrorEvent.cs:行号 29
+2017/1/23 16:17:59	PC-20140720RSXL	
+2017/1/23 16:19:20	PC-20140720RSXL	
+2017/1/23 16:20:17	PC-20140720RSXL	127.0.0.1
+2017/1/23 16:20:20	PC-20140720RSXL	发送微博：，发送成功
+2017/1/23 16:20:20	PC-20140720RSXL	发送文章（头条）：，发送成功
+2017/1/23 16:20:54	PC-20140720RSXL	System.Threading.ThreadAbortException: 正在中止线程。
+   在 SNIReadSyncOverAsync(SNI_ConnWrapper* , SNI_Packet** , Int32 )
+   在 SNINativeMethodWrapper.SNIReadSyncOverAsync(SafeHandle pConn, IntPtr& packet, Int32 timeout)
+   在 System.Data.SqlClient.TdsParserStateObject.ReadSniSyncOverAsync()
+   在 System.Data.SqlClient.TdsParserStateObject.TryReadNetworkPacket()
+   在 System.Data.SqlClient.TdsParserStateObject.TryPrepareBuffer()
+   在 System.Data.SqlClient.TdsParserStateObject.TryReadByteArray(Byte[] buff, Int32 offset, Int32 len, Int32& totalRead)
+   在 System.Data.SqlClient.TdsParserStateObject.TryReadByteArray(Byte[] buff, Int32 offset, Int32 len)
+   在 System.Data.SqlClient.TdsParserStateObject.TryReadStringWithEncoding(Int32 length, Encoding encoding, Boolean isPlp, String& value)
+   在 System.Data.SqlClient.TdsParser.TryReadSqlStringValue(SqlBuffer value, Byte type, Int32 length, Encoding encoding, Boolean isPlp, TdsParserStateObject stateObj)
+   在 System.Data.SqlClient.TdsParser.TryReadSqlValue(SqlBuffer value, SqlMetaDataPriv md, Int32 length, TdsParserStateObject stateObj, SqlCommandColumnEncryptionSetting columnEncryptionOverride, String columnName)
+   在 System.Data.SqlClient.SqlDataReader.TryReadColumnInternal(Int32 i, Boolean readHeaderOnly)
+   在 System.Data.SqlClient.SqlDataReader.TryReadColumn(Int32 i, Boolean setTimeout, Boolean allowPartiallyReadColumn)
+   在 System.Data.SqlClient.SqlDataReader.GetValueInternal(Int32 i)
+   在 System.Data.SqlClient.SqlDataReader.GetValue(Int32 i)
+   在 DY.Site.SiteBLL.ReaderToEntity(IDataRecord reader, Object entity) 位置 F:\我的文档\易优创\暂时用的代码\DY\DY.Site\SiteBLL\SiteBLL.cs:行号 25
+   在 DY.Site.SiteBLL.GetCmsAllList(String FieldOrder, String strFields, String Where) 位置 F:\我的文档\易优创\暂时用的代码\DY\DY.Site\SiteBLL\CmsBLL.cs:行号 52
+   在 DY.Site.SiteBLL.GetCmsAllList(String FieldOrder, String Where) 位置 F:\我的文档\易优创\暂时用的代码\DY\DY.Site\SiteBLL\CmsBLL.cs:行号 35
+   在 DY.Event.更新站点地图.createSietmap() 位置 F:\我的文档\易优创\暂时用的代码\DY\DY.Event\SiteMapEvent.cs:行号 108
+   在 DY.Event.更新站点地图.DY.ScheduledEvents.IEvent.Execute(Object state) 位置 F:\我的文档\易优创\暂时用的代码\DY\DY.Event\SiteMapEvent.cs:行号 29

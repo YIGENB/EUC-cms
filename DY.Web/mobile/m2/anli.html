@@ -1,0 +1,23 @@
+﻿#parse("include/page_head.html")	
+<div class="container">
+            <h4 class="heading-icon">客户案例</h4>
+            <p class="no-bottom">我们在企业电子商务基础服务领域服务超过10年，服务过上万的企业客户</p>
+                #foreach($row in $Caches.NewsCat($cat_id)) #set($index=$velocityCount+1)	
+		        #if($index<8)
+				<a class="no-bottom demo-button button-minimal  #if($row.cat_id==$this_id) grey-minimal #else gblue-minimal #end" href="#CMSCatLink()">$row.cat_name</a>
+				#end
+				#end
+</div>
+<div class="decoration"></div>
+<ul class="gallery">
+            #foreach($row in $list)
+            <li>
+                    <a class="swipebox" href="$row.photo" title="$!row.title" url="#CMSLink()">
+                        <img src="$row.photo" alt="$row.title">
+                    </a>
+                </li>
+            #end
+</ul>
+<p class="test2" >$pager </p>
+
+#parse("include/page_foot.html")

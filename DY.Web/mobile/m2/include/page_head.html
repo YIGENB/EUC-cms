@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+#IncludeHead()
+#IncludeStyle()
+#IncludeScript()
+</head>
+<body>
+<div id="preloader">
+	<div id="status">
+    	<p class="center-text">
+			玩命加载中...
+            <em>加载过程取决于您的网速！</em>
+        </p>
+    </div>
+</div>
+
+<div class="all-elements">
+    <div id="sidebar" class="page-sidebar">
+        <div class="page-sidebar-scroll">
+			<div class="sidebar-header">
+            	<a href="javascript:;" class="delete-sidebar"></a>
+            	<img class="sidebar-logo" src="$config.MobileLogo" width="63" alt="logo">
+            </div>
+            
+            <p class="sidebar-separator">导航</p>
+            #foreach($row in $Caches.Nav())
+            <a href="$row.url" class="nav-item home-nav">$row.name<em class="nav-onit"></em></a>
+            #end
+<!--            <a href="http://paultrifa.com/envato/themeforest/chalis/type.html" class="nav-item type-nav">						TYPOGRAPHY	<em class="nav-page"></em></a>
+            <a href="http://paultrifa.com/envato/themeforest/chalis/jquer.html" class="nav-item jquery-nav">					jQUERY		<em class="nav-page"></em></a>
+            <a href="http://paultrifa.com/envato/themeforest/chalis/other.html" class="nav-item other-nav">					OTHERS		<em class="nav-page"></em></a>
+            <a href="http://paultrifa.com/envato/themeforest/chalis/gallery.html" class="nav-item gallery-nav">				GALLERY		<em class="nav-page"></em></a>
+            <a href="http://paultrifa.com/envato/themeforest/chalis/portfolio.html" class="nav-item portfolio-nav">			PORTFOLIO	<em class="nav-page"></em></a>
+            <a href="http://paultrifa.com/envato/themeforest/chalis/videos.html" class="nav-item videos-nav">					VIDEOS		<em class="nav-page"></em></a>
+            <a href="http://paultrifa.com/envato/themeforest/chalis/contact.html" class="nav-item contact-nav no-border">		CONTACT		<em class="nav-page"></em></a>-->
+            <p class="sidebar-separator">联系我们</p>
+            <a href="mailto:dm@ctmon.com" class="nav-item contact-nav">								邮箱		<em class="nav-link"></em></a>
+            <a href="tel:4006066638" class="nav-item call-nav">										一键电话		<em class="nav-link"></em></a>
+            <a href="sms:15160331523" class="nav-item text-nav">										一键短信		<em class="nav-link"></em></a>
+            <a href="#" class="nav-item facebook-nav">				LBS	<em class="nav-link"></em></a>
+            <a href="#" class="nav-item twitter-nav">						微信		<em class="nav-link"></em></a>
+        </div>
+    </div>
+    <div id="content" class="page-content" style="">
+        <div class="page-header">
+            <p class="logo">
+                <img src="$config.MobileLogo" width="63">
+            </p>
+            <a href="javascript:;" class="deploy-sidebar"></a>
+        </div>   

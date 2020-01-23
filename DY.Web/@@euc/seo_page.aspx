@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="seo_page.aspx.cs" Inherits="DY.Web.admin.seo_page" %>

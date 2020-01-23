@@ -1,0 +1,77 @@
+﻿#if(!$uc_ua)
+<div class="content">
+    <div class="decoration">
+    </div>
+    <div class="container">
+        <div class="footer-socials">
+            <a href="#" class="facebook-footer"></a><a href="#" class="goup-footer"></a><a href="#"
+                class="twitter-footer"></a>
+        </div>
+        <p class="copyright uppercase center-text no-bottom">
+            Copyright &copy; $config.Copyright</p>
+    </div>
+</div>
+<div class="foot">
+    <div class="footertool">
+        <ul class="footerWrap">
+            <li class="active" style="background:$!{mstyle.in_foot_font_color}"><a href="tel:$config.ShoppingTel">
+                <div>
+                    <span class="icon tel"></span><span class="text">电话</span>
+                </div>
+            </a></li>
+            <li class="active" style="background:$!{mstyle.in_foot_font_color}"><a href="/page/sendmail$!{html}">
+                <div>
+                    <span class="icon email"></span><span class="text">邮件</span>
+                </div>
+            </a></li>
+            #foreach($row in $Caches.AllLBS(1))
+            <li class="active" style="background:$!{mstyle.in_foot_font_color}"><a href="/map/$!{row.id}$!{html}">
+                <div id="map">
+                    <span class="icon map"></span><span class="text">地图</span>
+                </div>
+            </a></li>
+            #end
+            <li class="active" style="background:$!{mstyle.in_foot_font_color}">
+                <div id="share">
+                    <span class="icon share"></span><span class="text">分享</span>
+                </div>
+            </li>
+            <li class="active" style="background:$!{mstyle.in_foot_font_color}"><a href="/page/zxly$!{html}">
+                <div>
+                    <span class="icon message"></span><span class="text">留言</span>
+                </div>
+            </a></li>
+        </ul>
+    </div>
+</div>
+</div>
+<div style="display:none">$tongjiCode $config.StatsCode</div>
+#end 
+</body> 
+</html>
+<script>
+//    $("body").touchwipe({
+//        min_move_x: 40, //横向灵敏度
+//        min_move_y: 2, //纵向灵敏度
+//        wipeLeft: function () {
+//        }, //左侧滑动事件
+//        wipeRight: function () { }, //右侧滑动事件
+//        wipeUp: function () {
+//                if ($(window).scrollTop() > 60) {
+//                    $(".header").hide();
+//                    $(".foot").show();
+//                }
+//                else {
+//                    $(".header").show();
+//                    $(".foot").hide();
+//                }
+//        }, //向上滑动事件
+//        wipeDown: function () {
+//            $(".header").show();
+//            $(".foot").hide();
+//        }, //向下滑动事件
+//        wipe: function () { }, //触摸事件
+//        wipehold: function () { }, //触摸保持事件
+//        preventDefaultEvents: false //阻止默认事件
+//    });
+</script>

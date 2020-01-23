@@ -1,0 +1,72 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+<div class="content">
+	<div class="decoration"></div>
+    <div class="container no-bottom">
+        #foreach($row in $list) #set($index=$velocityCount+1) #set($count=$list.Count)
+        <div>
+            <a href="$!row.goods_img" class="cboxElement">
+                <img alt="img" src="$!row.goods_img" class="responsive-image">
+            </a>
+            <a href="#GoodsLink()"><h4>$!row.goods_name </h4></a>
+            <p>$SiteUtils.GetTopic($row.des,142)</p>
+        </div>
+        #if($index>1&&$index<$count)<div class="decoration"></div>#end
+        #end
+    </div>
+    <div class="decoration"></div>
+    <div class="container no-bottom" style="text-align:center;padding-bottom:10px">
+				<div class="moreWrap active" id="more">
+					<span>
+						查看更多
+					</span>
+				</div>
+		        <div style="display:none;text-align:center" class="moreWrap active loading">
+			    <span>
+				<img id="win8lodding" src="http://img04.taobaocdn.com/tps/i4/T14Wg1XjXbXXaY1rfd-32-32.gif" />
+			</span>
+		</div>
+    </div>
+</div>
+#end
+#parse("include/page_foot.html")
+<script type="text/javascript">
+    //载入资讯列表
+    var oldList = jQuery('.container').html();
+    var click = 2;
+    function LoadList(pageIndex) {
+        jQuery.ajax({
+            type: "GET",
+            cache: false,
+            url: "/tools/ajax.aspx",
+            data: "act=GetGoodsList&cat_id=$!this_id&pagesize=$!pagesize&pageindex=" + pageIndex,
+            dataType: "html",
+            success: function (data) {
+                jQuery('.container no-bottom').append(data);
+            }
+        });
+    }
+    $(function () {
+        $('.container').ajaxStart(function () {
+            $(".loading").show();
+            $("#more").hide();
+        });
+        $('.container').ajaxStop(function () {
+            $(".loading").hide();
+            $("#more").show();
+        });
+        $("#more").click(function () {
+            if (click > $countPage) {
+                $("#more").html("没有更多了");
+            }
+            else {
+                LoadList(click);
+                click++;
+            }
+
+            //click = click <= $countPage ? click : $countPage;
+        })
+    })
+		</script>

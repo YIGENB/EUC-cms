@@ -1,0 +1,69 @@
+﻿#**
+ * 功能描述：Tag添加修改模板
+ * 创建时间：2010-01-11 12:23:45
+ * 最后修改时间：2010-01-14 9:43:22
+ * 作者：gudufy
+ * ============================================================================
+ * 2009-2015 小K版权所有，并保留所有权利
+ * 联系邮箱：421643133@qq.com、QQ：421643133
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
+ * 使用；不允许对程序代码以任何形式任何目的的再发布。
+ * ============================================================================
+ *#
+#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">#if($id == 0)添加#else修改#end表单项</span> 
+    </div>
+    <div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=list"><span class="left"></span><em><cite class="icon"></cite><cite>表单列表</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>	
+<div class="main-div">
+<form method="post" name="theForm" id="theForm" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">表单名称：</td>
+    <td><input type="text" name="position_name" maxlength="60" size="40" value="$!{entity.position_name}" class="required" /><span class="require-field">*</span></td>
+  </tr>
+  <tr>
+    <td class="label">表单描述：</td>
+    <td>
+    <textarea name="position_desc">$!{entity.position_desc}</textarea>
+    </td>
+  </tr>
+  <tr>
+        <td class="label">表单class:</td>
+        <td>
+         <input  name="position_classname" type="text"  value="$!{entity.position_classname}" />
+        </td>
+      </tr>
+     
+  <tr>
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value=" 确定 " />
+      <input type="reset" class="button" value=" 重置 " />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+<script language="JavaScript"> 
+<!--
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+  validator = new Validator("theForm");
+  validator.required('position_name', "表单名称不能为空");
+  return validator.passed();
+}
+//-->
+</script>
+#parse("pagefooter.html")

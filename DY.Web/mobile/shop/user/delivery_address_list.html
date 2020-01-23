@@ -1,0 +1,37 @@
+﻿#parse("include/page_head.html")
+<div id="content">
+    <div class="wrap">
+        <div title="新增地址" class="eject_btn">
+            <a href="/delivery-add.htm" class="enter">新增地址</a></div>
+        <!-----------
+        <ul class="address_list"><li class="no_address"><span class="noaddress">您没有添加收货地址</span></li></ul>        ------>
+        <ul class="address_list">
+            #foreach($row in $list)
+            <li>
+                <p>
+                    $!{row.consignee}($row.mobile)</p>
+                <p>
+                    [$SystemConfig.GetRegionNameById($row.country) 
+    $SystemConfig.GetRegionNameById($row.province) 
+    $SystemConfig.GetRegionNameById($row.city) 
+    $SystemConfig.GetRegionNameById($row.district)] $row.address</p>
+                <p class="new_line">
+                    <br>
+                </p>
+                <p class="address_action">
+                    <span class="edit"><a href="/delivery-edit-$!{row.id}.htm"><i class="edit_icon">
+                    </i>编辑</a></span><span><a class="delete float_none" href="/delivery-remove-$!{row.id}.htm"><i
+                        class="delete_icon"></i>删除</a></span></p>
+            </li>
+            #end
+        </ul>
+        #if($list.Count<=0)
+        <div class="public table">
+            您没有添加收货地址
+        </div>
+        #end
+        <div class="wrap_bottom">
+        </div>
+    </div>
+</div>
+#parse("include/page_foot.html")

@@ -1,0 +1,42 @@
+﻿    <!--浮动qq-start-->
+    <div class="float_qq">
+        <ul>
+            <li class="float_qq1"><a href="javascript:;" id="top"><img width="24" height="24" src="images/float_qqicon1.png" alt="返回顶部"/></a></li>
+            #foreach($row in $Caches.AllCsh(2))  #set($index=$velocityCount+1)  
+            #if($index==1)
+            <li class="float_qq2"><a href="tencent://message/?uin=$!{row.csh_con}&Menu=yes"  rel="nofollow"><img width="24" height="24" src="images/float_qqicon2.png" alt="$row.csh_title"/>$row.csh_title</a></li>
+            #end
+            #end
+            <li class="float_qq3"><a href="javascript:;">
+                <img width="24" height="24" src="images/float_qqicon3.png" alt="$config.ShoppingTel"/>$config.ShoppingTel</a></li>
+            #foreach($row in $Caches.AllCsh(1))  #set($index=$velocityCount+1)  
+            #if($index==1)
+            <li class="float_qq4"><a href="javascript:;">
+                <img width="24" height="24" src="images/float_qqicon4.png" alt="$row.csh_title"/></a>
+                <div class="float_shwx">
+                    <img width="188" height="188" alt=" $row.csh_title" src="$row.csh_pic" /></div>
+            </li>
+            #end
+            #end
+        </ul>
+    </div>
+    <script>
+        $(function () {
+            $("#top").click(function () {
+                $("html,body").animate({ "scrollTop": 0 }, 300);
+            });
+        })
+    </script>
+    <!--浮动qq-end-->
+    <!--[if lte IE 6]>
+<script type="text/javascript">
+alert("您的浏览器版本严重过低，将无法正常浏览")
+</script>
+<![endif]-->
+    <!--<script type="text/javascript">
+
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F82657da251e57be69f65e8d056e4113d' type='text/javascript'%3E%3C/script%3E"));
+
+</script>-->

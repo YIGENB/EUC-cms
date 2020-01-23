@@ -1,0 +1,154 @@
+﻿#parse("pageheader.html")
+ <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end内容</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>广告位置</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">广告位置列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                         
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告位名称：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="position_name" name="position_name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.position_name}">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告位类型：</label>
+                                           <div class="col-sm-9 father_img">
+                               <select name="position_type" class="form-control m-b" required="0" aria-required="true">
+                <option value="0">请选择...</option>
+                <option value="1" #if($!{entity.position_type} == 1)selected#end>图片</option>
+                <option value="2" #if($!{entity.position_type} == 2)selected#end>Flash</option>
+                <option value="3" #if($!{entity.position_type} == 3)selected#end>图片轮播</option>
+                <option value="4" #if($!{entity.position_type} == 4)selected#end>文字</option>
+                <option value="5" #if($!{entity.position_type} == 5)selected#end>视频</option>
+            </select>
+                                </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告位宽度：</label>
+                                        <div class="col-sm-9">
+                                            <input id="ad_width" name="ad_width" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.ad_width}">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告位高度：</label>
+                                        <div class="col-sm-9">
+                                            <input id="ad_height" name="ad_height" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.ad_height}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告位描述：</label>
+                                        <div class="col-sm-9">
+                                        <input  name="position_desc" maxlength="50" type="text" class="form-control"  value="$!{entity.position_desc}">
+                                        </div>
+                                    </div>
+<!--                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告位所在页面：</label>
+                                        <div class="col-sm-9">
+                                        <input  name="position_url" maxlength="50" type="text" class="form-control"  value="$!{entity.position_url}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告位模板：</label>
+                                        <div class="col-sm-9">
+                                          <textarea id="position_style" class="form-control" name="position_style" cols="70" rows="5">$!{entity.position_style}</textarea>
+                                        </div>
+                                    </div>-->
+
+                        </div>
+
+
+                           
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+<script type="text/javascript"> 
+var posit_name_empty = "广告位名称不能为空!";
+var ad_width_empty = "请输入广告位的宽度!";
+var ad_height_empty = "请输入广告位的高度!";
+var ad_width_number = "广告位的宽度必须是一个数字!";
+var ad_height_number = "广告位的高度必须是一个数字!";
+var no_outside_address = "建议您指定该广告所要投放的站点的名称，方便于该广告的来源统计!";
+var width_value = "广告位的宽度值必须在1到1024之间!";
+var height_value = "广告位的高度值必须在1到1024之间!";
+var ad_name_empty = "请输入广告名称!";
+var ad_link_empty = "请输入广告的链接URL!";
+var ad_code_empty = "广告的内容不能为空!";
+var empty_position_style = "广告位的模版不能为空!";
+var no_position_type = "请选择广告位类型";
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("position_name",   posit_name_empty);
+    validator.required("ad_width",        ad_width_empty);
+    validator.required("ad_height",       ad_height_empty);
+    validator.isNumber("ad_width",        ad_width_number, true);
+    validator.isNumber("ad_height",       ad_height_number, true);
+    validator.isNullOption('position_type',no_position_type);
+    //validator.required("position_style",  empty_position_style);
+//    if (document.forms['theForm'].elements['ad_width'].value > 1024 || document.forms['theForm'].elements['ad_width'].value == 0)
+//    {
+//        alert(width_value);
+//        return false;
+//    }
+//    if (document.forms['theForm'].elements['ad_height'].value > 1024 || document.forms['theForm'].elements['ad_height'].value == 0)
+//    {
+//        alert(height_value);
+//        return false;
+//    }
+    return validator.passed();
+}
+</script>
+
+#parse("pagefooter.html")

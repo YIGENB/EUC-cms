@@ -1,0 +1,23 @@
+﻿<div id="floor4" class="floor4">
+            <div class="top wd1100">
+                <div class="top_en">
+                    OUR CLIENT</div>
+                <div class="top_cn">
+                    <span><b>我们的客户</b></span></div>
+                <div class="client">
+                    多家大型企业、世界500强集团，行业顶尖公司都是我们的好案例，见证我们的成长吧！</div>
+            </div>
+            <div class="client_table">
+                <table width="1100" border="1" bordercolor="#dfdfdf">
+                    <tr>
+                         #foreach($row in $SiteUtils.GetImgUrl($Caches.Content("content","kehu"))) #set($index=$velocityCount+1)  
+                        <td>
+                            <a href="javascript:;"  rel="nofollow">
+                                <img width="219" height="128" src="$row" alt="合作伙伴" /></a>
+                        </td>
+                        #if($index%5==0) </tr>                    <tr>#end
+                        #end
+                    </tr>
+                </table>
+            </div>
+        </div>

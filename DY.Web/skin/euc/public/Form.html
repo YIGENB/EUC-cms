@@ -1,0 +1,49 @@
+﻿document.write('<script type="text/javascript" src="/include/js/jquery/jquery.form.js"></script>');
+document.write('<script type="text/javascript" src="/include/js/utils.js"></script>');
+document.write('<script type="text/javascript" src="/include/js/validator.js"></script>');
+
+document.write('<form action="/fromsubmit.aspx?act=Submit" id="TheForm$!{pid}" method="post" class="sub" onsubmit="return Insertfeedbook(this,"TheForm$!{pid}")" >');
+#foreach($row in $form)
+##============Text=========================================================================================
+#if ($row.type == "text")
+    document.write('$!{row.name}:<input type="text" class="$!{row.class_name}" name="value[$!{row.allform_id}]" />');
+    document.write('<input type="hidden" value="$!{row.allform_id}" name="allform_id[$!{row.allform_id}]" />');
+#end
+##============textarea========================================================================================
+#if ($row.type == "textarea")
+        document.write('$!{row.name}:<textarea class="$!{row.class_name}" name="value[$!{row.allform_id}]"></textarea>');
+        document.write('<input type="hidden" value="$!{row.allform_id}" name="allform_id[$!{row.allform_id}]" />');
+#end
+##============checkbox==========================================================================================
+#if ($row.type =="checkbox")
+    document.write('$!{row.name}:');
+    #foreach($str in $SiteUtils.Split($!{row.store_range},",")) 
+        document.write('<input type="checkbox" class="$!{row.class_name}" name="value[$!{row.allform_id}]" value="$str" />$str');
+    #end
+    document.write('<input type="hidden" value="$!{row.allform_id}" name="allform_id[$!{row.allform_id}]" />');
+#end
+##============radio==========================================================================================
+#if ($row.type =="radio")
+    document.write('$!{row.name}:');
+    #foreach($str in $SiteUtils.Split($!{row.store_range},",")) 
+        document.write('<input type="radio" class="$!{row.class_name}" name="value[$!{row.allform_id}]" value="$str" />$str');
+    #end
+    document.write('<input type="hidden" value="$!{row.allform_id}" name="allform_id[$!{row.allform_id}]" />');
+#end
+##============select=====================================================================================
+#if ($row.type =="select")
+    document.write('$!{row.name}:');
+    document.write('<select name="value[$!{row.allform_id}]"  class="$!{row.class_name}" id="$!{row.allform_id}">');
+    #foreach($str in $SiteUtils.Split($!{row.store_range},",")) 
+        document.write('<option value="$str">$str</option>');
+    #end
+    document.write('</select>');
+    document.write('<input type="hidden" value="$!{row.allform_id}" name="allform_id[$!{row.allform_id}]" />');
+#end
+document.write('<script>');
+
+document.write('</script>');
+#end
+document.write('<input type="hidden" value="$!{pid}" name="parent_id[$!{pid}]" />');
+document.write('<input type="submit" value="提交" />');
+document.write('</form>');

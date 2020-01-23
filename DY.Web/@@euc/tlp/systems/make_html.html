@@ -1,0 +1,156 @@
+﻿#if (!$isajax) #parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            生成静态页</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>站点地图</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    #if (!$config.EnableHtml)
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+                本功能只有在网站启用了“<a href="config.aspx?act=all">使用静态详细页</a>”功能后才可正常使用
+            </div>
+        </div>
+    </div>
+    #end
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+                为了提高网站的访问速度，建议将网站首页和详情页生成静态页面，不过要记得经常更新内容哦。
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div id="listDiv" class="ibox-content">
+                        #end
+                        <form method="post" action="" onsubmit="return validate()">
+                        <div class="main-div">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <h2>
+                                            商品分类</h2>
+                                    </td>
+                                    <td>
+                                        <select name="goods_cat" multiple="multiple" size="10" style="height: auto">
+                                            #foreach($row in $goodscat.Rows)
+                                            <option value="$row.cat_id">$SiteUtils.MakeSpace($row.cat_level)$row.cat_name</option>
+                                            #end
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <h2>
+                                            内容</h2>
+                                    </td>
+                                    <td>
+                                        <select name="cms_cat" multiple="multiple" size="10" style="height: auto">
+                                            #foreach($row in $cmscat.Rows)
+                                            <option value="$row.cat_id">$SiteUtils.MakeSpace($row.cat_level)$row.cat_name</option>
+                                            #end
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <h2>
+                                            页面</h2>
+                                    </td>
+                                    <td>
+                                        <select name="page_id" multiple="multiple" size="10" style="height: auto">
+                                            #foreach($row in $pages)
+                                            <option value="$row.page_id">$row.title</option>
+                                            #end
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr><br /></tr>
+                                <tr>
+                                    <td>
+                                        <h2>
+                                            下载目录</h2>
+                                    </td>
+                                    <td>
+                                        <select name="download_cat" multiple="multiple" size="10" style="height: auto">
+                                            #foreach($row in $downloadcat.Rows)
+                                            <option value="$row.cat_id">$SiteUtils.MakeSpace($row.cat_level)$row.cat_name</option>
+                                            #end
+                                        </select>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <p>
+                                                <!--<input type="checkbox" name="brand" value="1"/>所有品牌
+                        <input type="checkbox" name="login" value="login,reg,forget"/>登录,注册,找回密码&nbsp;&nbsp;
+                        <input type="checkbox" name="feedback" value="1"/>在线咨询&nbsp;&nbsp;-->
+                                                #if ($haveindex)
+                                                <input type="radio" name="is_index" value="true" checked />同时生成网站首页静态文件
+                                                <input type="radio" name="is_index" value="false" />删除网站首页静态文件 #else
+                                                <input type="checkbox" name="is_index" value="true" />同时生成网站首页静态文件 #end</p>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                            <center>
+                                <p>
+                                    <input name="submit" type="submit" value="点这里生成静态页" class="button" />
+                                    <input type="checkbox" name="SelectAll" onclick="SelectUnSelectAll(this)" />全部选择</p>
+                            </center>
+                        </div>
+                        </form>
+                        #if (!$isajax)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function SelectUnSelectAll(obj) {
+        if (obj.checked) {
+            $('option').each(function () {
+                $(this).attr('selected', 'selected');
+            });
+        }
+        else {
+            $('option').each(function () {
+                $(this).removeAttr('selected');
+            });
+            $('#is_index').attr('checked', '');
+        }
+    }
+
+    function validate() {
+        $('.button').val('正在生成静态页，请稍候......').attr('disabled', 'disabled');
+
+        return true;
+    }
+</script>
+#parse("pagefooter.html") #end 

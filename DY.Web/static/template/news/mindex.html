@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>$!pagetitle-重庆新闻资讯网24小时实时更新热点！</title>
+<meta name="keywords" content="重庆新闻,重庆娱乐,媒体,重庆大渝网,重庆晚报,重庆之窗,房产" />
+<meta name="description" content="重庆资讯网是易优创科技有限公司旗下采集整理的实时热点新闻，涵盖新闻,娱乐,体育,财经,房产,媒体,女人,健康，生活等信息！" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="/static/css/news/m-newsdetail.css" />
+    <script>
+        (function () {
+            var baseFontSize = 100;
+            var baseWidth = 320;
+            var clientWidth = document.documentElement.clientWidth || window.innerWidth;
+            var innerWidth = Math.max(Math.min(clientWidth, 480), 320);
+
+            var rem = 100;
+
+            if (innerWidth > 362 && innerWidth <= 375) {
+                rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.9);
+            }
+
+            if (innerWidth > 375) {
+                rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.84);
+            }
+
+            window.__baseREM = rem;
+            document.querySelector('html').style.fontSize = rem + 'px';
+        } ());
+    </script>
+    <style>
+        .channel-list a.bold{font-weight:bold;}
+        .lincoapp-article-content .pages{
+  text-align: center;
+}
+.lincoapp-article-content .pages a{
+  margin-right: 15px;
+}
+    </style>
+</head>
+<body class="bd">
+    <div class="lincowebapp-wrapper" id="wrapper">
+        <div class="pages virtualPage">
+            <div id="lincowebapp-page-home" class="page">
+                <div class="lincoapp-header-wrapper">
+                    <header class="lincoapp-header">
+               <h2 class="title">
+                    手机腾讯网
+                  <span class="dot"></span>
+                  <a href="/news$html">新闻</a>
+               </h2>
+               <!--<span class="iright ichannel"></span>-->
+        </header>
+                    <div class="nav-top" style="position: static;">
+                        <div class="nav-box">
+                            <h3>
+                                <span>频道</span></h3>
+                            <div class="channel-list">
+                                <a href="/news$html">首页</a> 
+                                <a href="/news/news$html" #if($site=="news") class="bold" #end>新闻</a> 
+                                <a href="/news/ent$html" #if($site=="ent") class="bold" #end>娱乐</a> 
+                                <a href="/news/sports$html" #if($site=="sports") class="bold" #end>体育</a> 
+                                <a href="/news/finance$html" #if($site=="finance") class="bold" #end>财经</a> 
+                                <a href="/news/tech$html" #if($site=="tech") class="bold" #end>科技</a> 
+                                <a href="/news/games$html" #if($site=="games") class="bold" #end>游戏</a>
+                                <a href="/news/auto$html" #if($site=="auto") class="bold" #end>汽车</a> 
+                                <a href="/news/luxury$html" #if($site=="luxury") class="bold" #end>时尚</a> 
+                                <a href="/news/edu$html" #if($site=="edu") class="bold" #end>教育</a> 
+                                <a href="/news/house$html" #if($site=="house") class="bold" #end>房产</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="lincoapp-article-content">
+                    <div class="lincoapp-section">
+                        <div class="lincoapp-relatedNews">
+                           #foreach($row in $list)
+                            <div class="lincoapp-graphic-list2">
+                                <a href="$row.href" class="a-lk">
+                                    <div class="detail">
+                                        <strong class="tit">$row.name</strong><div class="info">
+                                            <span class="resource">$row.catename</span><span class="type6">$row.time</span></div>
+                                    </div>
+                                    <!--<span class="u-img">
+                                        <img src=""
+                                            alt="$row.name" style="width: 100%;"></span>-->
+                                </a>
+                            </div>
+                            #end
+                        </div>
+                            #if($thispage>1) #set($onpage=$thispage - 1) #else #set($onpage=1) #end
+    #if($thispage<=$count) #set($nextpage=$thispage+1) #else #set($nextpage=$thispage) #end
+                                                      <div style=" clear: both;"></div>
+      <div class="pages">
+    <a href="/news/$site/1$html">首页</a>
+    <a href="/news/$site/$onpage$html">上一页</a><a href="/news/$site/$nextpage$html">下一页</a><a href="/news/$site/$count$html">末页</a>
+
+    </div>
+                    </div>
+                </div>
+                <div class="lincoapp-footer" id="footer">
+                    <div class="lk-footer">
+                        <a href="/news$html">首页</a>
+                        <a href="/news/news$html">新闻</a>
+                        <a href="/news/ent$html">娱乐</a>
+                            <a href="/news/tech$html">科技</a>
+                                </div>
+                    <p class="copyright">
+                        声明：本网部分信息转载于其他网站，如稿件涉及版权等问题，请联系我们！$tongjiCode</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

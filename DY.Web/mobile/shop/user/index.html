@@ -1,0 +1,25 @@
+﻿<div class="wrap">
+    <ul class="address_list">
+        <li>
+            <p>
+                累计登陆：$userinfo.login_count 次</p>
+            <p>
+                Email:$userinfo.email</p>
+            <p>
+                性别：#if($!{userinfo.sex} == 0)保密#end #if($!{userinfo.sex} == 1)男#end #if($!{userinfo.sex}== 2)女#end</p>
+            <p>
+                生日：$!userinfo.birthday.ToString("yyyy-MM-dd")</p>
+            #foreach($row in $userFields)
+            <p>
+                $row.reg_field_name：
+            </p>
+            <p>
+                $row.field_value
+            </p>
+            #end
+            <p class="new_line">
+                <br>
+            </p>
+        </li>
+    </ul>
+</div>

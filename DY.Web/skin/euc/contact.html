@@ -1,0 +1,98 @@
+﻿#parse("include/page_head.html")
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<div class="contact_banner">
+        <div class="contact_banimg">
+            <div class="contact_cen wd1100">
+                <div class="contact_infor">
+                    <h2>
+                        $pageinfo.title</h2>
+                    <h3>
+                        $pageinfo.des</h3>
+                </div>
+                <div class="contact">
+                    <ul>
+                        <li><a href="javascript:;">
+                            <img width="72" height="54" src="images/contact_Cicon1.png" /><span>$config.ShoppingTel</span></a></li>
+                        <li><a href="mailTo:$config.SmtpMail">
+                            <img width="72" height="54" src="images/contact_Cicon2.png" /><span>$config.SmtpMail</span></a></li>
+                        #foreach($row in $Caches.AllCsh(2))  #set($index=$velocityCount+1)  
+                        #if($index==1)
+                        <li><a href="tencent://message/?uin=$!{row.csh_con}&Menu=yes">
+                            <img width="72" height="54" src="images/contact_Cicon3.png" /><span>$row.csh_title</span></a></li>
+                        #end
+                        #end
+                          #foreach($row in $Caches.AllLBS(1))
+                        <li class="contact_click"><a href="javascript:;">
+                            <img width="72" height="54" src="images/contact_Cicon4.png" /><span>$!{row.address}</span></a><span class="contact_more">查看详细地址</span> </li>
+                        #end
+                    </ul>
+                    <div class="contact_show">
+                        <div class="contact_shclose fr">
+                        </div>
+                        <div class="contact_shbox">
+                            #foreach($row in $Caches.AllLBS(1))
+                            <iframe src="/map/$!{row.id}$!{html}" width="700px" height="453px" frameborder="0"></iframe>
+                            #end
+                        </div>
+                    </div>
+                </div>
+                <div class="contact_mess cl">
+                   <form id="reviewForm" onsubmit="return Insertfeedbook(this,'reviewForm')" method="post" action="/tools/ajax.aspx?act=feedbook" name="reviewForm">
+	                <input type="hidden" name="type" value="0" />
+                    <table width="700" border="0">
+                        <tr height="43">
+                            <td>
+                                <input type="text" class="cont_messText" placeholder="您的姓名" name="name" id="name" />
+                            </td>
+                        </tr>
+                        <tr height="43">
+                            <td>
+                                <input type="text" class="cont_messText" placeholder="您的联系电话" name="tel" id="tel" />
+                            </td>
+                        </tr>
+                        <tr height="43">
+                            <td>
+                                <input type="text" class="cont_messText" placeholder="您的邮箱" name="email" id="email" />
+                            </td>
+                        </tr>
+                        <tr height="112">
+                            <td>
+                                <textarea class="cont_messarea" style="padding: 18px 11px 0 11px;" placeholder="详细描述"
+                                    name="remark" id="remark"></textarea>
+                            </td>
+                        </tr>
+                        <tr height="">
+                            <td>
+                                <input type="submit" class="cont_messSub" value="提 交" />
+                            </td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+#parse("include/page_foot.html")
+ <script src="js/script.js"></script>
+ <script type="text/javascript" src="/include/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="/include/js/utils.js"></script>
+<script type="text/javascript" src="/include/js/validator.js"></script>
+<script type="text/javascript">
+    function Insertfeedbook(form, formnae) {
+        $(form).ajaxSubmit({
+            beforeSubmit: function () {
+                var validator = new Validator(formnae);
+                validator.required("name", "请输入用户名!");
+                validator.isEmail("email", "邮件格式错误", true);
+                validator.required("remark", "请输入留言内容！");
+                return validator.passed();
+            },
+            dataType: 'json',
+            resetForm: true,
+            success: function (data) {
+                alert(data.message);
+            }
+        });
+        return false;
+    }
+</script>

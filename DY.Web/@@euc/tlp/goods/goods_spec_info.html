@@ -1,0 +1,79 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end规格</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>产品</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list" class="btn btn-primary ">规格列表</a>
+                    </div>
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                名称：</label>
+                            <div class="col-sm-9">
+                                <input name="spec_name" type="text" class="form-control" required=""
+                                    aria-required="true" value="$!{entity.spec_name}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                备注：</label>
+                            <div class="col-sm-9">
+                                <input name="spec_memo" type="text" class="form-control" value="$!{entity.spec_memo}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                别名：</label>
+                            <div class="col-sm-9">
+                                <input name="spec_alias" type="text" class="form-control" placeholder="用 | 分割" value="$!{entity.spec_alias}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                显示类型：</label>
+                            <div class="col-sm-9">
+                                <div class="radio i-checks">
+                                   <label><input type="radio" name="spec_type" value="0" #if($!entity.spec_type == 0)checked=""#end $SiteUtils.DefaultValue($!{entity.spec_type},"checked") /> <i></i> 文字</label>
+                                   <label><input type="radio" name="spec_type" value="1" #if($!entity.spec_type == 1)checked=""#end/> <i></i> 图片</label>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                显示方式：</label>
+                            <div class="col-sm-9">
+                                <div class="radio i-checks">
+                                   <label><input type="radio" name="spec_show_type" value="0" #if($!entity.spec_show_type == 0)checked=""#end $SiteUtils.DefaultValue($!{entity.spec_type},"checked")/> <i></i> 平铺</label>
+                                   <label><input type="radio" name="spec_show_type" value="1" #if($!entity.spec_show_type == 1)checked=""#end/> <i></i> 下拉</label>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                                <button class="btn btn-white" type="reset">
+                                    取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")

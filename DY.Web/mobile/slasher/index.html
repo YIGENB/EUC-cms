@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    #if(!$uc_ua) #IncludeHead() #IncludeStyle() #IncludeScript() #end
+</head>
+<body>
+#parse("include/notips.html")
+#if(!$uc_ua)   
+#parse("include/loading.html")
+<div class="homepage-wrapper">
+	<img class="homepage-logo" src="$mstyle.index_logo" alt="$config.Name">
+    <!--<em class="homepage-logo-sub">$config.Name</em>-->
+    
+    <div class="homepage-navigation">
+            #foreach($row in $Caches.Nav())
+            <a class="home-icon" href="$row.url" style="background-image:url($row.mobile_ico)">$row.name</a>
+			#end        
+        <div class="clear"></div>
+    </div>
+    
+    <div class="footer">
+    	<a class="tel-icon" href="tel:$config.ShoppingTel"></a>
+<!--        <a class="email-icon" href="/p_sendmail.htm"></a>-->
+    #foreach($row in $Caches.AllCsh(8)) #set($index=$velocityCount+1)
+                            #if($index<2)
+        <a class="map-icon" href="	http://map.baidu.com/mobile/webapp/place/list/qt=s&wd=$!{row.csh_con}&ie=utf-8&vt=map/vt=map&i=0"></a>
+        #end #end
+<!--        <a class="share-icon" href="javascript:;" id="share"></a>-->
+        <a class="message-icon" href="/page/zxly$html"></a>
+        <div class="clear"></div>
+        <p class="homepage-copyright">Copyright &copy; $config.Copyright</p>
+    </div>
+#parse("include/tips.html")
+</div>
+#end
+<div class="homepage-background">
+	<div class="bg-pattern"></div>
+    <div class="bg-overlay"></div>
+	<img class="bgwidth" id="bg" src="$mstyle.index_bg" alt="img">
+</div>
+<div style="display:none">$tongjiCode $config.StatsCode</div>
+</body>
+</html>

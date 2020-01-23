@@ -1,0 +1,51 @@
+﻿#parse("include/page_head.html")
+<script src="js/scrollfix.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script type="text/javascript">
+    $(function () {
+        var fixtop = $(".blog_r");
+        fixtop.scrollFix({ distanceTop: 20, endPos: 300 });
+    })
+</script>
+ <div id="blog">
+        <div class="blog_c wd1100">
+            <div class="blog_l fl">
+                <div class="position">
+                    <span><a href="/">首页</a>  $catnav</span>
+                </div>
+                <div class="blog_list">
+                    <ul>
+                        #foreach($row in $list)
+                        <li>
+                            <div class="blog_title">
+                                <a href="#CMSLink()" title="$row.title">$row.title</a></div>
+                            <div class="blog_img">
+                                <a href="#CMSLink()" title="$row.title">
+                                    <img width="690" height="190" src="$row.photo" /></a></div>
+                            <div class="blog_intro">
+                                &nbsp; &nbsp;&nbsp;$SiteUtils.GetTopic($row.des,150)
+                            </div>
+                            <div class="blog_share fl">
+                                <div class="blog_shName fl">
+                                    分享到：</div>
+                                <a href="#CMSLink()" class="blog_share1" title="$row.title"><span></span>
+                                </a><a href="#CMSLink()" class="blog_share2" title="$row.title"><span></span>
+                                </a><a href="#CMSLink()" class="blog_share3" title="$row.title"><span></span>
+                                </a>
+                            </div>
+                            <div class="blog_infor fl">
+                               <span>$row.showtime.tostring("yyyy-MM-dd") </span><!--<span>网络学堂</span>--></div>
+                            <div class="blog_more fr">
+                                <a href="#CMSLink()" title="$row.title">阅读全文>></a></div>
+                        </li>
+                        #end
+                    </ul>
+                </div>
+                <div class="page cl">
+                    $pager
+                </div>
+            </div>
+            #parse("include/cms_pub.html")
+        </div>
+    </div>
+#parse("include/page_foot.html")

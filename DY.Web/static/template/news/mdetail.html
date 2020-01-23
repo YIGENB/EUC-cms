@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>$!RollNewsDetailInfo.title -重庆新闻资讯网24小时实时更新热点！</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="Keywords" content="$RollNewsDetailInfo.pagekeywords" />
+    <meta name="Description" content="$RollNewsDetailInfo.pagedesc" />
+    <link rel="stylesheet" type="text/css" href="/static/css/news/m-newsdetail.css" />
+    <script type="text/javascript" src="/include/js/jquery/jquery-1.7.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("article img").removeAttr("height").removeAttr("width").css("width", "100%");
+            $(".iright,.pop-layer").click(function () {
+                $(".nav-top").toggle();
+                $(".pop-layer").toggle();
+            })
+        })
+</script>
+    <script>
+        (function () {
+            var baseFontSize = 100;
+            var baseWidth = 320;
+            var clientWidth = document.documentElement.clientWidth || window.innerWidth;
+            var innerWidth = Math.max(Math.min(clientWidth, 480), 320);
+
+            var rem = 100;
+
+            if (innerWidth > 362 && innerWidth <= 375) {
+                rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.9);
+            }
+
+            if (innerWidth > 375) {
+                rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.84);
+            }
+
+            window.__baseREM = rem;
+            document.querySelector('html').style.fontSize = rem + 'px';
+        } ());
+    </script>
+</head>
+<body class="bd">
+    <div class="lincowebapp-wrapper" id="wrapper">
+        <div class="pages virtualPage">
+            <div id="lincowebapp-page-home" class="page">
+                <div class="lincoapp-header-wrapper">
+                    <header class="lincoapp-header">
+            <a href="javascript:history.go(-1);" class="ileft lk-back"></a>
+               <h2 class="title">
+                    手机腾讯网
+                  <span class="dot"></span>
+                  <a href="/news$html">新闻</a>
+               </h2>
+               <span class="iright ichannel"></span>
+        </header>
+                    <div class="nav-top" style="display: none;">
+                        <div class="nav-box">
+                            <h3>
+                                <span>频道</span></h3>
+                            <div class="channel-list">
+                                <a href="/news$html"><strong>首页</strong></a> <a href="/news/news$html">新闻</a> <a
+                                    href="/news/ent$html">娱乐</a> <a href="/news/sports$html">体育</a> <a href="/news/finance$html">
+                                        财经</a> <a href="/news/tech$html">科技</a> <a href="/news/games$html">游戏</a>
+                                <a href="/news/auto$html">汽车</a> <a href="/news/luxury$html">时尚</a> <a href="/news/edu$html">
+                                    教育</a> <a href="/news/house$html">房产</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pop-layer" style="display: none;">
+                    </div>
+                </div>
+                <div class="lincoapp-article-content">
+                    <div class="lincoapp-article">
+                        <h1 class="title">
+                            $!RollNewsDetailInfo.title</h1>
+                        <div class="from">
+                            <span class="resource">$!RollNewsDetailInfo.source</span> <span class="time">$!RollNewsDetailInfo.time</span>
+                            <span class="font-setting" style="display: none;">T中</span>
+                        </div>
+                        <article>
+
+    $!RollNewsDetailInfo.content
+
+    </article>
+                        <!--        <div class="lincoapp-more"><a href="javascript:;" class="art-more news-viewall">继续阅读</a></div>
+    <div class="report-area"><span class="btn-report j-public-report" id="complaint">举报</span></div>
+                        <div class="art-extend">
+                            <span class="like" id="like_button"><em>51</em>人推荐</span> <span id="collect_button"
+                                class="favorite">收藏</span>
+                        </div>-->
+                        <div class="lincoapp-share2" id="share_banner">
+                            <div class="tit">
+                                <span>分享到</span></div>
+                            <div class="bdsharebuttonbox">
+                                <a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_sqq" data-cmd="sqq"
+                                    title="分享到QQ好友"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">
+                                </a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#"
+                                    class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren"
+                                        data-cmd="renren" title="分享到人人网"></a>
+                            </div>
+                            <script>                                window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "32" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+                        </div>
+                    </div>
+                    <div class="lincoapp-section" id="related_news">
+                        <div class="lincoapp-relatedNews">
+                            <div class="lincoapp-title skin-title">
+                                <h2 class="tit">
+                                    相关新闻</h2>
+                            </div>
+                            #foreach($row in $otherlist)
+                            <div class="lincoapp-graphic-list2">
+                                <a href="$row.url" class="a-lk">
+                                    <div class="detail">
+                                        <strong class="tit">$row.name</strong><div class="info">
+                                            <span class="resource">$row.source</span></div>
+                                    </div>
+                                    <!--<span class="u-img">
+                                        <img src=""
+                                            alt="$row.name" style="width: 100%;"></span>-->
+                                </a>
+                            </div>
+                            #end
+                        </div>
+                    </div>
+                </div>
+                <div class="lincoapp-footer" id="footer">
+                    <div class="lk-footer">
+                        <a href="/news$html">首页</a>
+                        <a href="/news/news$html">新闻</a>
+                        <a href="/news/ent$html">娱乐</a>
+                            <a href="/news/tech$html">科技</a>
+                                </div>
+                    <p class="copyright">
+                        声明：本网部分信息转载于其他网站，如稿件涉及版权等问题，请联系我们！$tongjiCode</p>
+                        <script>
+                            (function () {
+                                var bp = document.createElement('script');
+                                var curProtocol = window.location.protocol.split(':')[0];
+                                if (curProtocol === 'https') {
+                                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                                }
+                                else {
+                                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                                }
+                                var s = document.getElementsByTagName("script")[0];
+                                s.parentNode.insertBefore(bp, s);
+                            })();
+</script>
+    <script type="text/javascript">       
+        $(function () {
+            setTimeout(function () {
+                $("embed").attr("width", "100%");
+            }, 1000);
+        })
+</script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

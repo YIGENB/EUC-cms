@@ -1,0 +1,225 @@
+﻿#parse("pageheader.html")
+ <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end微信公众号</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>微信公众号</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <!--<div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            公众平台账号：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="username" name="username" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.username}">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            公众平台密码：</label>
+                                           <div class="col-sm-9 father_img">
+                                 <input type="text" class="form-control" name="password" required="" aria-required="true" value="$!{entity.password}" size="35" />
+                                </div>
+                                    </div>
+                                     
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            公众号名称：</label>
+                                        <div class="col-sm-9">
+                                                   <input name="name" id="name" type="text" class="form-control" required="" value="$!{entity.name}"/>
+                                    </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            公众号原始id：</label>
+                                        <div class="col-sm-9">
+                                        <input  name="ghid" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.ghid}"/>
+                                         <span class="help-inline">请认真填写，错了不能修改。比如：gh_423dwjkeww3<a href="/wechat/wxdirections"><i class="icon-question-sign"></i> 不懂问我?</a></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            微信号：</label>
+                                        <div class="col-sm-9">
+                                            <input id="code" name="code"  required="" aria-required="true" maxlength="75" type="text" class="form-control" value="$!{entity.code}">
+                                        </div>
+                                    </div>-->
+                                    
+                                   <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            接口地址：</label>
+                                        <div class="col-sm-9">
+                                            <label>$!{entity.iurl}</label>   
+                                                <input type="hidden" name="iurl" value="$!{entity.iurl}" size="35" />
+                                        </div>
+                                    </div>
+                                      <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            TOKEN：</label>
+                                        <div class="col-sm-9">
+                                            <label>$!{entity.token}</label>
+                                                <input type="hidden" name="token" value="$!{entity.token}" size="35" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            二维码：</label>
+                                        <div class="col-sm-9">
+                                        <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.photo},"images/slt.jpg")' />
+                                        <input type="hidden" name="photo" id="photo" value="$!{entity.head}" />
+                                        <span class="help-inline"><button name="button" class="btn select_img" type="button">点击上传 </button></span>
+                                    </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            EncodingAESKey：</label>
+                                        <div class="col-sm-9">
+                                                <input  name="encodingAESKey" maxlength="75" type="text" class="form-control" value="$!{entity.encodingAESKey}" placeholder="可不填写">
+                                        </div>
+                                    </div>
+                                         <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            appID：</label>
+                                        <div class="col-sm-9">
+                                            <input  required="" aria-required="true" name="appid" maxlength="75" type="text" class="form-control" value="$!{entity.appid}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            appsecret：</label>
+                                        <div class="col-sm-9">
+                                            <input  required="" aria-required="true" name="appsecret" maxlength="75" type="text" class="form-control" value="$!{entity.appsecret}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            关注时回复：</label>
+                                        <div class="col-sm-9">
+                                            
+                                            <div class="search">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="请输入关键词" class="input-sm form-control">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-sm btn-primary" id="sbuscribe_search">
+                                                                搜索</button>
+                                                        </span>
+            
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="input-group">
+                                                    <p><span class="label label-info">${sbuscribe}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row"><br /></div>
+                                            <div class="row">
+                                            <div class="table-responsive well" id="sbuscribe_list">
+    
+                                            </div>
+                                            </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                        <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            默认无匹配回复：</label>
+                                        <div class="col-sm-9">
+                                           <div class="search">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="input-group">
+                                                            <input type="text" placeholder="请输入关键词" class="input-sm form-control">
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-sm btn-primary" id="nomatch_search">
+                                                                    搜索</button>
+                                                            </span>
+            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="input-group">
+                                                        <p><span class="label label-info">${nomatch_replay}</span>
+                                                                                </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row"><br /></div>
+                                                <div class="row">
+                                                <div class="table-responsive well" id="nomatch_list">
+    
+                                                </div>
+                                                </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#sbuscribe_search").click(function () {
+                var key = $(this).parent().prev().val();
+                jQuery.get("weixin_news.aspx?is_ajax=1&act=GetWeixinNews", { key: key, type: 1 }, function (data) {
+                    $("#sbuscribe_list").html(data.content);
+                }, "json");
+            })
+            $("#nomatch_search").click(function () {
+                var key = $(this).parent().prev().val();
+                jQuery.get("weixin_news.aspx?is_ajax=1&act=GetWeixinNews", { key: key, type: 2 }, function (data) {
+                    $("#nomatch_list").html(data.content);
+                }, "json");
+            });
+
+            $('input:radio:checked').val();
+        })
+</script>
+
+
+#parse("pagefooter.html")

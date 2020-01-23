@@ -1,0 +1,295 @@
+﻿#parse("pageheader.html")
+ <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end广告</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>广告</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">广告列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                         
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告名称：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="ad_name" name="ad_name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.ad_name}">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告位置：</label>
+                                           <div class="col-sm-9 father_img">
+                                                   <select name="position_id" onchange="show_type(this);" class="form-control m-b" required="0" aria-required="true">
+                                                    <option value='0' media_type='0'>站外广告</option>
+                                                    #foreach($row in $!{adposlist})
+                                                    <option value="$!{row.position_id}" media_type='$!{row.position_type}' #if($!{entity.position_id} == $row.position_id)selected#end>$!{row.position_name} [$!{row.ad_width}x$!{row.ad_height}]</option>
+                                                    #end
+                                                    </select>
+                               
+                                </div>
+                                    </div>
+                                     <div class="form-group"  id="ad_type" >
+                                        <label class="col-sm-1 control-label">
+                                            广告位类型：</label>
+                                           <div class="col-sm-9 father_img">
+                                            <input id="media_type_value" name="media_type_value" value="$!{entity.media_type}" type="hidden" />
+                                             <select onchange="showMedia(this.value)" name="media_type" class="form-control m-b" required="0" aria-required="true">
+                                                   <option value='1' #if($!{entity.media_type} == 1)selected#end >图片</option>
+                                                    <option value='2' #if($!{entity.media_type} == 2)selected#end >Flash</option>
+                                                    <option value='3' #if($!{entity.media_type} == 3)selected#end >轮播</option>
+                                                    <option value='4' #if($!{entity.media_type} == 4)selected#end >文字</option>
+                                                    <option value='5' #if($!{entity.media_type} == 5)selected#end >视频</option>
+                                        </select>
+                                </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            开始日期：</label>
+                                        <div class="col-sm-9">
+                                            <input id="start_time"  required="" aria-required="true" name="start_time" maxlength="50" type="text" class="laydate-icon form-control layer-date" value="$!{entity.start_time}">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            结束日期：</label>
+                                        <div class="col-sm-9">
+                                            <input id="end_time"  required="" aria-required="true" name="end_time" maxlength="50" type="text" class="laydate-icon form-control layer-date" value="$!{entity.end_time}">
+                                        </div>
+                                    </div>
+                                    <div  id="ad1" #if($!{entity.media_type} == 1)#{else}style="display:none;"#end>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告链接：</label>
+                                        <div class="col-sm-9">
+                                        <input  name="ad_link"  type="text" class="form-control"  value="$!{entity.ad_link}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            图片文件：</label>
+                                        <div class="col-sm-9">
+                                      
+                                                      <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.ad_code},"images/slt.jpg")' />
+                                        <input type="hidden" name="img_url" id="img_url" value="$!{entity.ad_code}" />
+                                        <span class="help-inline">
+                                            <button name="button" class="btn select_img btn-white btn-sm" type="button">
+                                                点击上传</button></span>
+                                    </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div id="ad2" #if($!{entity.media_type} == 2)#{else}style="display:none;"#end>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            Flash文件：</label>
+                                        <div class="col-sm-9">
+                                      <div class="input-group m-b upload_file">
+                                                <img upload="file-single" class="img_show" style="display:none" />
+                                                <div class="input-group-btn">
+                                                    <button name="button" class="btn select_file btn-white" type="button">点击上传</button>
+                                                </div>
+                                                <input name="flash_url" id="flash_url" type="text" value="$!{entity.ad_code}"  class="form-control" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div  id="ad3" #if($!{entity.media_type} == 3)#{else}style="display:none;"#end>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告链接：</label>
+                                        <div class="col-sm-9">
+                                        <input  name="ad_link2" maxlength="50" type="text" class="form-control"  value="$!{entity.ad_link}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            图片文件：</label>
+                                        <div class="col-sm-9">
+                                      
+                                                      <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.ad_code},"images/slt.jpg")' />
+                                        <input type="hidden" name="img_url2" id="img_url2" value="$!{entity.ad_code}" />
+                                        <span class="help-inline">
+                                            <button name="button" class="btn select_img btn-white btn-sm" type="button">
+                                                点击上传</button></span>
+                                    </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div  id="ad4" #if($!{entity.media_type} == 4)#{else}style="display:none;"#end>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            输入广告代码：</label>
+                                        <div class="col-sm-9">
+                                          <textarea id="ad_code" class="form-control" name="ad_code" cols="70" rows="5">#if($!{entity.media_type} == 4)$!{entity.ad_code}#end</textarea>
+                                        </div>
+                                    </div>
+        
+                                    </div>
+
+                                    <div  id="ad5" #if($!{entity.media_type} == 5)#{else}style="display:none;"#end>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            视频文件：</label>
+                                        <div class="col-sm-9">
+                                      <div class="input-group m-b upload_file">
+                                                <img upload="file-single" class="img_show" style="display:none" />
+                                                <div class="input-group-btn">
+                                                    <button name="button" class="btn select_file btn-white" type="button">点击上传</button>
+                                                </div>
+                                                <input name="video_url" id="video_url" type="text" value="$!{entity.ad_code}"  class="form-control" readonly />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否有效：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.enabled})checked#end $SiteUtils.DefaultValue($!{entity.enabled},"checked")  value="1" name="enabled"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.enabled} == false)checked#end  value="0" name="enabled"> <i></i> 否</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            广告联系人：</label>
+                                        <div class="col-sm-9">
+                                        <input  name="link_man" maxlength="50" type="text" class="form-control"  value="$!{entity.link_man}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            联系人Email：</label>
+                                        <div class="col-sm-9">
+                                             <input  name="link_email" maxlength="50" type="text" class="form-control"  value="$!{entity.link_email}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            联系电话：</label>
+                                        <div class="col-sm-9">
+                                             <input  name="link_phone" maxlength="50" type="text" class="form-control"  value="$!{entity.link_phone}">
+                                        </div>
+                                    </div>
+                        </div>
+
+
+                           
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+<script>
+    //日期范围限制
+    var start = {
+        elem: '#start_time',
+        format: 'YYYY/MM/DD hh:mm:ss',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#end_time',
+        format: 'YYYY/MM/DD hh:mm:ss',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+</script>
+<script language="JavaScript">
+
+  var MediaList = new Array('1', '2', '3','4','5');
+  
+  function showMedia(AdMediaType)
+  {
+    for (I = 0; I < MediaList.length; I ++)
+    {
+      if (MediaList[I] == AdMediaType)
+        document.getElementById('ad'+AdMediaType).style.display = "";
+      else
+        document.getElementById('ad'+MediaList[I]).style.display = "none";
+    }
+    
+    document.getElementById("media_type_value").value = AdMediaType;
+  }
+  showMedia($!{entity.media_type});
+ 
+
+  function show_type(obj)
+  {
+     var media_type = obj.options[obj.selectedIndex].getAttribute('media_type');
+     
+     if (media_type >0)
+     {
+        document.getElementById("ad_type").style.display = "none";
+        showMedia(media_type);
+     }
+     else
+     {
+        document.getElementById("ad_type").style.display = "";
+     }
+  }
+  //-->
+  
+</script>
+#parse("pagefooter.html")

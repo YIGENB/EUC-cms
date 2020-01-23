@@ -1,0 +1,14 @@
+﻿<div class="about_menu_list">
+<ul>
+#if($Caches.NewsCat($cat_id).Count<1)
+<!--<li><a href='/n_#if(${catinfo.urlrewriter} == "")${catinfo.cat_id}#else${catinfo.urlrewriter}#end.htm '>$catinfo.cat_name</a></li>-->
+<li><a href='javascript:;'>$catinfo.cat_name</a></li>
+#else
+#foreach($row in $Caches.NewsCat($cat_id)) #set($index=$velocityCount+1)	
+#if($index<9)
+<li><a href='#CMSCatLink()'>$row.cat_name</a></li>
+#end
+#end
+#end
+</ul>
+</div>

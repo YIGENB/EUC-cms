@@ -1,0 +1,83 @@
+﻿<script type="text/javascript">
+//    $(function() {
+//        $("#searchmoney").click(function() {
+//            //$("#elem-Public_totalSearch01-001").show();
+//        var display = $("#Search").css("display");
+//            if (display == "none") {
+//                $("#Search").show();
+//            }
+//            else {
+//                $("#Search").hide();
+//            }
+//        })
+//    })
+</script>
+<div name="搜索" id="Search" class="columnSpace" style="display:none">
+<div class="Public_totalSearch01-d1_c1">
+	<input type="hidden" value="-1" id="fromfirstHTml">
+	<input type="hidden" value="" id="selectcontent">
+	<input type="hidden" value="1" id="selectTypeId">
+	<!-- 滑动栏 -->
+	<!-- z3g-search-c1-start -->
+	<section class="Public_totalSearch01-d1_c1">
+	<div id="searchweighing" class="z3g-alertWindow">
+	<form id="reviewForm" onsubmit="return reviewFormsub(this)" method="post" action="/tools/ajax.aspx?act=AddReview" name="reviewForm">
+	<div class="searchTab">
+		<div id="firstUL" class="searchTabScroll" style="overflow: hidden;">
+			<ul style="width: 96px; transition-property: -moz-transform; transform-origin: 0px 0px 0px; transform: translate(0px, 0px);">
+								<li value="1 " data-pagenum="1" class="current active js_selecttype">
+									<span>产品 </span>
+								</li>
+								<li value="2 " data-pagenum="2" class="active js_selecttype">
+									<span>资讯 </span>
+								</li>
+			</ul>
+			<span id="backToFromHtml" class="del active"></span>
+		</div>
+	</div>
+	<div class="searchInput z3g-noTouchMoveWrap">
+	<input type="hidden" value="1" id="type" name="type">
+		<input type="hidden" value="" id="action_page" name="action_page">
+		<span class="inputWrap"><input type="text" placeholder="请输入关键字" name="keywords" id="keywords" value="" class="z3g-input js_checkvalue">
+		</span>
+		<input type="submit" value="搜索" class="z3g-button active"/>
+	</div>
+	</form>
+		<div style="display: none;" id="newsmoreId" class="moreWrap active">
+			查看更多
+		</div>
+		<div style="display: none;" id="searchproductmoreId" class="moreWrap active j-productlist-more">
+					<span>显示更多 </span>
+		</div>
+		<div style="display: none;" class="moreWrap active j-productlist-more loading">
+					<span>正在更新...
+					</span>
+		</div>
+		<div style="display:none" id="infosmileface" value="1" class="z3g-noResult">
+					<div class="icon"></div>
+					<p>
+						对不起
+						,
+						没有找到相关资讯
+						<br>
+						请输入更准确的关键词再搜索
+					</p>
+		</div>
+		<div style="display:none" id="productsmileface" value="1" class="z3g-noResult">
+					<div class="icon"></div>
+					<p>
+						对不起
+						,
+						没有找到相关产品
+						<br>
+						请输入更准确的关键词再搜索
+					</p>
+		</div>
+		<input type="hidden" id="productsviewType">
+	<!-- 咨询 产品内容显示-->
+	<div id="js_searchResult" class="searchResult">
+	</div>
+	</div>
+	</section>
+</div>
+</div>

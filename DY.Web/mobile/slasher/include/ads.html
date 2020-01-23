@@ -1,0 +1,18 @@
+﻿<div class="slider-container">
+    <div class="homepage-slider" data-snap-ignore="true">      
+    #foreach($row in $Caches.GetAds(3).rows) #set($index=$velocityCount+1)          
+        <div>
+            <!--<div class="overlay"></div>
+            <div class="homepage-slider-caption">
+                <h3>${row.ad_name}</h3>
+                <p>Hope you enjoy our latest item!</p>
+            </div>-->
+            <img src="${row.ad_code}" class="responsive-image" alt="${row.ad_name}">
+        </div>
+        #end
+    </div>
+    <div class="homepage-slider-controls">
+        <a href="#" class="next-home"></a>
+        <a href="#" class="prev-home"></a>
+    </div>
+</div>

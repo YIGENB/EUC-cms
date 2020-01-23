@@ -1,0 +1,100 @@
+@charset "utf-8";
+/* CSS Document */
+html{margin:0;padding:0;}
+body {
+	margin: 0;
+	padding: 0;color:#111111;font-size:12px;font-family:"微软雅黑";background:#efefef;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+a {
+	text-decoration: none;
+}
+
+.investment_con_list{display:none;}
+.wfx_title{background:#fff;height:52px;}
+.wfx_title div{width:50%;float:left;display:block;height:50px;line-height:50px;text-align:center;}
+.wfx_title div span{border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;display:block;text-align:center;line-height:50px;color:#111111;font-size:15px;font-family:"微软雅黑";}
+.wfx_title div:last-child span{border-right:none;}
+.wfx_title div.on span{border-bottom:1px solid #ff6600;color:#ff7010;line-height:50px;}
+
+.investment_con{}
+
+.clear{clear:both;}
+.investment_con .wfx_box1 {border-top:1px solid #ddd;border-bottom:1px solid #ddd;margin:10px 0 0;background:#fff;font-family:"微软雅黑";font-size:14px;line-height:22px;color:#9e9e9e;padding:6px 10px;}
+.investment_con .wfx_box1 ul {margin-bottom:6px;}
+.investment_con .wfx_box1 ul li{width:50%;float:left;border-bottom:1px solid #dddddd;padding:10px 0;}
+.investment_con .wfx_box1 ul li h2{color:#9e9e9e;font-size:14px;line-height:22px;font-family:"微软雅黑";font-weight:normal;border-right:1px solid #dddddd;padding:0 5px;}
+.investment_con .wfx_box1 ul li h2 span{display:block;color:#9e9e9e;font-size:14px;line-height:22px;font-family:"微软雅黑";height:22px;overflow:hidden}
+.investment_con .wfx_box1 ul li h2 em{display:block;color:#111111;font-size:18px;line-height:25px;font-family:"微软雅黑";font-style:normal;height:25px;overflow:hidden}
+.investment_con .wfx_box1 ul li h2 em.orange{color:#ff6600;}
+.investment_con .wfx_box1 ul li:nth-of-type(2n+0) h2{border-right:none;padding:0 5px 0 15px;}
+
+.investment_con .wfx_box1 ul p{padding:8px 0 0 0;}
+
+.investment_con .investment_con_list .record{display:block;color:#111111;font-size:15px;font-family:"微软雅黑";line-height:25px;}
+.investment_con .investment_con_list .record_title{color:#111111;font-size:15px;font-family:"微软雅黑";line-height:35px;padding:0 10px;}
+
+.investment_con .investment_con_list .record .record_con{border-top:1px solid #ddd;border-bottom:1px solid #ddd;padding:5px 0 0;background:#fff;}
+.investment_con .investment_con_list .record .record_con ul li{padding:6px 0 6px 0;border-bottom:1px solid #ddd;position:relative;}
+.investment_con .investment_con_list .record .record_con ul li h2{height:22px;overflow:hidden;color:#111111;font-size:14px;line-height:22px;font-family:"微软雅黑";font-weight:normal;padding:0 30px 0 10px;}
+.investment_con .investment_con_list .record .record_con ul li h2 span{float:right;color:#111111;font-size:14px;line-height:22px;font-family:"微软雅黑";font-weight:normal;}
+.investment_con .investment_con_list .record .record_con ul li h3{height:20px;overflow:hidden;color:#d9d8d8;font-size:12px;line-height:20px;font-family:"微软雅黑";font-weight:normal;padding:0 30px 0 10px;}
+.investment_con .investment_con_list .record .record_con ul li h3 span{float:right;color:#d9d8d8;font-size:12px;line-height:20px;font-family:"微软雅黑";font-weight:normal;}
+.investment_con .investment_con_list .record .record_con ul li .detail-more{width:10px;height:10px;right:10px;top:23px;background:url(../images/bt_xiala_n.png) no-repeat 0 0;display:block;position:absolute;}
+
+.investment_con .investment_con_list .record .record_con ul li .record_con_detail{color:#5c5c5c;font-size:12px;line-height:20px;font-family:"微软雅黑";font-weight:normal;padding:5px 10px 0 10px;border-top:1px dotted #ddd;margin-top:5px;}
+
+
+
+
+
+.investment_con .investment_con_list .wfx_box2_title{color:#111111;font-size:15px;font-family:"微软雅黑";line-height:35px;padding:0 10px;}
+.investment_con .investment_con_list .wfx_box2_title em{color:#f42d09;font-size:15px;font-family:"微软雅黑";line-height:35px;font-style:normal;}
+.investment_con .wfx_box2 {border-top:1px solid #ddd;background:#fff;font-family:"微软雅黑";font-size:14px;line-height:22px;color:#9e9e9e;padding:0;}
+
+.investment_con .wfx_box2 .team_list{padding:8px 10px;;border-bottom:2px solid #ddd;position:relative;height:48px;}
+.investment_con .wfx_box2 .team_list .team_pic{width:48px;height:48px;float:left;margin:0 6px 0 0;}
+.investment_con .wfx_box2 .team_list .team_pic img{width:48px;height:48px;border-radius: 5px;  -moz-border-radius: 5px;-webkit-border-radius: 5px;}
+
+.investment_con .wfx_box2 .team_list .team_name{overflow:hidden;color:#111111;font-size:14px;line-height:25px;font-family:"微软雅黑";font-weight:normal;}
+.investment_con .wfx_box2 .team_list .team_name span{height:22px;display:block;overflow:hidden;color:#d9d8d8;font-size:12px;line-height:22px;font-family:"微软雅黑";font-weight:normal;}
+
+.investment_con .wfx_box2 .team_list  .team_price{float:right;padding:0 10px;border-left:2px solid #ddd;text-align:center;}
+.investment_con .wfx_box2 .team_list  .team_price h3{overflow:hidden;color:#111111;font-size:14px;line-height:25px;font-family:"微软雅黑";font-weight:normal;}
+.investment_con .wfx_box2 .team_list  .team_price h3 span{height:22px;display:block;overflow:hidden;color:#d9d8d8;font-size:12px;line-height:22px;font-family:"微软雅黑";font-weight:normal;}
+
+
+
+.investment_con .wfx_box3 {border-top:1px solid #ddd;border-bottom:1px solid #ddd;margin:10px 0 0;background:#fff;font-family:"微软雅黑";font-size:14px;line-height:22px;color:#9e9e9e;padding:10px;}
+
+.investment_con .wfx_box3 .commission{font-family:"微软雅黑";font-size:15px;line-height:25px;color:#999999;font-weight:normal;}
+.investment_con .wfx_box3 .commission h2{font-family:"微软雅黑";font-size:15px;line-height:20px;color:#a2a2a2;font-weight:normal;}
+.investment_con .wfx_box3 .commission h3{font-family:"微软雅黑";font-size:25px;line-height:30px;color:#ff6600;font-weight:normal;}
+.investment_con .wfx_box3 .commission .commission_btn{float:right;line-height:40px;padding:0 30px;display:block;color:#fff;background:#999;margin-top:6px;font-size:16px;font-family:"微软雅黑";border-radius: 6px;  -moz-border-radius: 6px;-webkit-border-radius: 6px;}
+.investment_con .wfx_box3  p{font-family:"微软雅黑";font-size:14px;line-height:30px;color:#999999;font-weight:normal;}
+.investment_con .wfx_box3 .green{font-style:normal;color:#7eb662;}
+
+.count_node, .count_user, .counter {
+margin: 5px auto;}
+.layermcont .frs,.cash-forms .frs {
+width: 85%;
+float:right;
+}
+.layermcont .frs input {
+width: 96%;
+height: 24px;
+line-height: 24px;
+border: 1px solid #A9A9A9;
+border-radius: 2px;
+padding:0;
+
+}
+.record_con_detail{display: none;}

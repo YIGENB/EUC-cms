@@ -1,0 +1,485 @@
+﻿#if (!$isajax) #parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            网站提交入口</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>设置</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+ <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+              网站建设完成之后，首要就是向各大搜索引擎提交新网站，搜索引擎提交包括提交给搜索引擎爬虫和提交给分类目录。提交给搜索引擎爬虫的目的是让搜索引擎将网站收录到索引数据库。
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#general-tab" >搜索引擎登录入口</a></li>
+                            <li><a data-toggle="tab" href="#seo-tab">分类目录登录入口</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="tab-content">
+                        <div id="general-tab" class="tab-pane active">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    中文搜索引擎：</label>
+                                <div class="col-sm-9">
+                                 <table cellspacing='1' cellpadding='3' id='list-table' class="table table-striped table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.baidu.com/search/url_submit.htm">百度</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://tool.cnzz.com/yahoo/ti.php">雅虎中国</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://cn.bing.com/docs/submit.aspx?FORM=WSDD2">必应</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://info.so.360.cn/site_submit.html">360搜索</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="https://www.google.com/webmasters/tools/submit-url?continue=/addurl">
+                                                    中文Google</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://tellbot.yodao.com/report">有道搜索</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://search.tom.com/tools/weblog/log.php">TOM搜索网站登录入口</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.soso.com/help/usb/urlsubmit.shtml">SOSO</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.sogou.com/feedback/urlfeedback.php">搜狗</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.antso.cn/apply.asp">蚁搜中文搜索引擎网站登录</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://221.12.147.106/url_submit.php">hao123</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.coodir.com/accounts/addsite.asp">Coodir酷帝网</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    英文搜索引擎：</label>
+                                <div class="col-sm-9">
+                                   <table cellspacing='1' cellpadding='3' id='Table1' class="table table-striped table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://search.yahoo.com/info/submit.html">英文雅虎</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.sekkaku.net/j/index.cgi?mode=new_url">sekkaku（日）</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="https://www.google.com/webmasters/tools/submit-url?continue=/addurl">
+                                                    英文Google</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.trafficzap.com/searchsubmit.php">快速登录20个中文搜索引擎</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://spotlight-site.tripod.com/hotbot/">HotBot</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://search.chol.com/">Chol</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.whatuseek.com/addurl.shtml">WhatUSeek</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.usfreeads.com/">US Freeads</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.sightquest.com/how-to-submit.htm">sightquest</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.altavista.com">AltaVista</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.gigablast.com">Gigablast</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.alexa.com/siteinfo">alexa</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://search.lycos.com/">Lycos</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.looksmart.com">LookSmart</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.bestyellow.com/addurl.html">Best Yellow</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.voodoo-it.de/">voodoo-it</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://dk.yahoo.com/">雅虎丹麦 </a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.voila.fr/">Voila</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.searchtheweb.com/suggest/">SearchTheWeb</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.a-z.x0.com/">a-z search</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.ilse.nl/">Ilse</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.neti.ee/">NETI</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.yahoo.co.jp/">Yahoo! JAPAN</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://jp.msn.com/">Msn Japan</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.infoseek.co.jp/">infoseekjp</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.sekkaku.net/j/">sekkaku</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.mayu-search.com/">mayu-search</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.the-search.jp/">the-search</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.fresheye.com/">Fresheye</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.nifty.com/search/">nifty</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.google.co.jp/">Google JP</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://search.biglobe.ne.jp/">Biglobe</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.alcarna.net">interconnect</a>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+           
+                        </div>
+                        
+                        <div id="seo-tab" class="tab-pane ">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    中文分类栏目：</label>
+                                <div class="col-sm-9">
+                                    <table cellspacing='1' cellpadding='3' id='Table2' class="table table-striped table-bordered table-hover">
+                                      <tbody>
+                                        <tr>
+                                            <td width="25%">
+                                                <a target="_blank" href="http://www.dmoz.org/World/Chinese_Simplified/">Dmoz免费登陆入口</a>
+                                            </td>
+                                            <td width="25%">
+                                                <a target="_blank" href="http://www.coodir.com/accounts/addsite.asp">Coodir</a>
+                                            </td>
+                                            <td width="25%">
+                                                <a target="_blank" href="http://www.beijixing.com.cn/cgi-bin/add.cgi">北极星免费登录入口</a>
+                                            </td>
+                                            <td width="25%">
+                                                <a target="_blank" href="http://www.law-lib.com/lawseek/wzdl.asp">法律网免费登录入口</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.k369.com/">美萍中文精品网址</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.360hang.com/">三百六十行在线登陆入口</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.baimin.com/baimin/add.htm">百鸣网址大全</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.wz360.com/dl/index.asp">网址360</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.love330.com/">love330</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.0018.cn/wzzj/add.asp">0018网址大全</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://dir.twseo.org/submit.php">台湾网站登录目录</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://directory.taiwanspot.com/submit.php">Taiwanspot</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.wjcyc.com/odp/wzdl.htm">Odp分类目录</a>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    英文分类栏目：</label>
+                                <div class="col-sm-9">
+                                    <table cellspacing='1' cellpadding='3' id='Table3' class="table table-striped table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.123india.com/help/detail.html">123india.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://123khoj.com/search/addurl.html">123khoj.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.claymont.com/cgi-bin/addurlsform.pl">claymont.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.alexa.com/site/help/webmasters">alexa</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.altavista.com/cgi-bin/query?pg=addurl">altavista.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.articleszones.com/directory/">articleszones.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.bestyellow.com/addurl.html">bestyellow.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.bizweb.com/InfoForm/">bizweb.com</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://directory.classifieds1000.com/">directory.classifieds1000.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.dmoz.org/add.html">Dmoz</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.exactseek.com/add.html">exactseek.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.submitexpress.com/submit.html">Freewebsite</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.general-website-directory.com/">general-website-directory.com</a>
+                                            </td>
+                                            <!-- <td><a href="http://www.alltheweb.com/add_url.php" target="_blank">alltheweb.com</a></td> -->
+                                            <td>
+                                                <a target="_blank" href="http://www.goguides.org/addurl.html">GoGuides</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.goguides.org/info/addurl.htm">goguides.org</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://himachalonline.com/lpage/">himachalonline.com</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://indiabook.com/links/">indiabook.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://indiabook.com/pages/">indiabook.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://indiabook.com/yp/">indiabook.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.infotiger.com/addurl.html">infotiger.com</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.jayde.com/cgi-bin/addurl.cgi">jayde.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.joeant.com/suggest.html">joeant.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://linkcentre.com/addurl.html">linkcentre.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://listings.looksmart.com/?synd=none&amp;chan=lshomeft">
+                                                    listings.looksmart.com</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.lycos.com/addasite.html">lycos.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.mastersite.com/addurl.htm">mastersite.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.netsearch.org/addurl.html">netsearch.org</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.nexusdirectory.info/submit.php">nexusdirectory.info</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.primefind.net/add-a-site.html">primefind.net</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://directory.sc4m.com/submit.html">sc4m.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://scoop.evansville.net/getaclue.html">scoop.evansville.net</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.scrubtheweb.com/addurl.html">scrubtheweb.com</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.searchtheweb.com/suggest/">SearchTheWeb</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.sekkaku.net/j/">sekkaku（日）</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.sightquest.com/how-to-submit.htm">sightquest</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://singaporesearchengine.com/links/">singaporesearchengine.com</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.stpt.com/directory/addsite.htm">stpt.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://search.yahoo.com/info/submit.html/free/request/">submit.search.yahoo.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.tattamangalam.com/free_web_directory/">tattamangalam.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.trafficzap.com/searchsubmit.php">TrafficZap</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a target="_blank" href="http://www.turnpike.net/directory.html?getentry">turnpike.net</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.tygo.com/submit-urls/">tygo</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.vipabout.com/directory/">vipabout.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://www.websavvy.cc/add.php">websavvy.cc</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="even">
+                                            <td>
+                                                <a target="_blank" href="http://www.whatuseek.com/addurl.shtml">whatuseek.com</a>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href="http://searchmarketing.yahoo.com/dirsb/index.php">Yahoo.com</a>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                        </div>
+                       
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+#parse("pagefooter.html") #end 

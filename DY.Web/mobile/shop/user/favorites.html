@@ -1,0 +1,40 @@
+﻿#if($fav_list.Count<=0)<div class="wrap">
+    <div class="public">
+        <div class="order_form member_no_records">
+            <span>没有符合条件的记录</span></div>
+        <div class="order_form_page">
+            <div class="page">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="wrap_bottom">
+    </div>
+</div>
+#end #foreach($row in $fav_list)
+<div class="order_form">
+    <p class="num">
+        加入收藏时间: $row.add_time</p>
+    <div class="con">
+        <p class="ware_pic">
+            <a href="#GoodsLink()">
+                <img width="80" height="80" src="$row.goods_thumb"></a></p>
+        <p class="ware_text">
+            <a href="#GoodsLink()">$row.goods_name</a><br>
+            <span class="attr"></span>
+        </p>
+        <p class="price">
+            价格: <span>¥$row.shop_price</span></p>
+    </div>
+    <div class="clear">
+    </div>
+    <div class="foot">
+        <div class="handle">
+            <div style="float: left;">
+                操作: <b><a href="javascript:goods.deleteFavorite($row.id);">删除</a> </b>
+            </div>
+        </div>
+    </div>
+</div>
+#end 

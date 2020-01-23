@@ -1,0 +1,200 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<div id="box_content" style="min-height: 484px;">
+				<div name="分类搜索" id="elem-ProductsCategory_show03-002" class="columnSpace" xmlns="">  
+				<div class="ProductsCategory_show03-d1_c1" id="ProductsCategory_show03-002">
+<div class="ProductsCategory_show03-d1_c1">
+  <section class="z3g-showMoreSection  " id="ProductsCategory_show03_height_1" style="top: 0px;">
+    <table cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td valign="top" class="barWrap active" id="pcategoryCloseBar"><span class="closeBar active"><em></em></span></td>
+        <td class="contWrap" style="min-height: 679px;"><div class="titleTabWrap"> <span class="active current" id="category_active">
+            $Sorting
+            </span>
+          </div>
+          <div id="hScrollList" style="height: 641px; overflow: hidden;"> 
+            <!-- 分类内容 -->
+            <div class="contTabWrap brandTabWrap classifyTabWrap" id="category_contTabWrap" style="transition-property: -moz-transform; transform-origin: 0px 0px 0px; transform: translate(0px, 0px);">
+              <input type="hidden" value="" id="chickedPmcId" style="display: none;">
+              <ul class="category_list" id="thelist">
+                      <li class="item active "> 
+                    	<span data-pmccolumid="1" data-pmcid="161" class="name js_linkProductList"> 2013春夏<em class="icon"></em></span> 
+                        <span class="number js_linkProductList" data-pmccolumid="1" data-pmcid="161">25</span> 
+                  <span class="curtMark"><em>◆</em></span>
+                  </li>
+              </ul>
+              <!-- 品牌内容 -->
+              <ul id="thelist" style="display: none;">
+              </ul>
+            </div>
+          </div></td>
+      </tr>
+    </tbody></table>
+ </section>
+ </div>
+</div> 
+				</div>
+#parse("include/detail_ad.html")
+				<div name="首页产品分类" id="elem-ProductsCategory_show02-002" class="columnSpace" xmlns="">  
+				  <div class="null" id="ProductsCategory_show02-002">
+				<section class="ProductsCategory_show02-d2_c1">
+					<div class="borderTitle z3g-bgColor03 active js_moreCategoryList" style="background:$!{mstyle.b_menu_bg_color}">
+						<span class="left">
+							<em class="icon"></em>
+							<em class="borderName " id="productListName" style="color:$!{mstyle.b_menu_font_color}">$ProductClassTitle</em>
+						</span>
+						<span class="right">
+							<em class="moreCont"></em>
+							<em class="active controlBar">
+								<cite class="icon"></cite>
+							</em>
+						</span>
+					</div>
+                    	<div class="NewsCategory_columns01-d1_c1">
+                            <div class="pro_plist"  id="pro_plist">
+		                <ul class="pro_bul">
+                        #foreach($row in $Caches.MobileProductCat($cat_id)) #set($index=$velocityCount+1)
+					    <li class="z3g-column2 pro_bull">
+					  
+						  <a href="#GoodsCatLink()"  style="#if($index==1) margin-left:10px;#elseif($index==$Caches.MobileProductCat(0).count)  margin-right:10px;#end">$row.cat_name</a>
+                        </li>
+                        #end
+					    
+		</ul>
+	</div>
+<script type="text/javascript">
+    var pro_class;
+    function pro_liresize() {
+        var pro_classw = $(".pro_plist").width();
+        $(".pro_bull").width(pro_classw / 2);
+        pro_class.refresh();
+    }
+
+    $(function () {
+        pro_class = new iScroll("pro_plist", {
+            snap: true,
+            momentum: false,
+            vScroll: false,
+            hScroll: true,
+            hScrollbar: false
+        });
+        $(window).load(function (e) {
+            pro_liresize();
+        });
+
+        $(window).resize(function (e) {
+            pro_liresize();
+        });
+
+    });
+</script>
+                        </div>
+
+
+
+				</section>
+</div> 
+				</div>
+				<div name="手机商品列表" id="elem-Products_mobilelist01-002" class="columnSpace"> 
+				<section class="Products_mobilelist01-d1_c3" id="product-list-Products_mobilelist01-002">
+	<div class="borderTitle z3g-bgColor03 active" style="background:$!{mstyle.b_menu_bg_color}">
+		<span class="left">
+			<em class="icon"></em>
+			<em class="borderName " style="color:$!{mstyle.b_menu_font_color}">$ProductListTitle </em>
+		</span>
+		<span class="right">
+			<em class="moreCont"></em>
+			<em class="active controlBar">
+				<cite class="icon"></cite>
+			</em>
+		</span>
+	</div>
+<div class="productListCont ">		
+				<dl class="rows">
+				#foreach($row in $list) #set($index=$velocityCount+1)
+				<dd class="active ">
+					<div alt="" data-otherlink="0" data-phref="#GoodsLink()" class="productatag">
+						<div class="imgWrap"><a href="#GoodsLink()"><img src="$!row.goods_img"></a></div>
+						<div class="infoWrap">
+							<h3 class="productTitle"><a href="#GoodsLink()"><span class="name ">$!row.goods_name </span></a></h3>
+							<p class="code ">$!row.goods_sn </p>
+							<p class="mark">
+							</p>
+						</div>
+					</div>
+				</dd>
+				#if($index%3==0)
+				</dl>
+				<dl class="rows">
+				#end
+				#end
+				</dl>
+
+                		<script type="text/javascript">
+                		    //载入资讯列表
+                		    var oldList = jQuery('.productListCont').html();
+                		    var click = 2;
+                		    function LoadList(pageIndex) {
+                		        jQuery.ajax({
+                		            type: "GET",
+                		            cache: false,
+                		            url: "/tools/ajax.aspx",
+                		            data: "act=GetGoodsList&tlp=goods&cat_id=$!this_id&pagesize=$!pagesize&pageindex=" + pageIndex,
+                		            dataType: "html",
+                		            success: function (data) {
+                		                jQuery('.productListCont').append(data);
+                		            }
+                		        });
+                		    }
+                		    $(function () {
+                		        $('#productListCont').ajaxStart(function () {
+                		            $(".loading").show();
+                		            $("#more").hide();
+                		        });
+                		        $('#productListCont').ajaxStop(function () {
+                		            $(".loading").hide();
+                		            $("#more").show();
+                		        });
+                		        $("#more").click(function () {
+                		            if (click > $countPage) {
+                		                $("#more span").html("$NoMore");
+                		            }
+                		            else {
+                		                LoadList(click);
+                		                click++;
+                		            }
+
+                		            //click = click <= $countPage ? click : $countPage;
+                		        })
+                		    })
+		</script>
+				<div class="moreWrap active" id="more">
+					<span>
+						$ViewMore
+					</span>
+				</div>
+		<div style="display:none;" class="moreWrap active loading">
+			<span style="text-align:center">
+				<img id="win8lodding" src="http://img04.taobaocdn.com/tps/i4/T14Wg1XjXbXXaY1rfd-32-32.gif" />
+			</span>
+		</div>
+	</div>
+</section>
+				</div>
+			</div>
+
+<div name="bottom" id="elem-PublicConfig_showBottom01-001" class="columnSpace">
+			
+
+
+
+
+
+	#parse("include/addr.html")
+</div>
+#parse("include/search.html")
+</div>
+<div style="position: absolute; z-index: 100; width: 7px; bottom: 2px; top: 2px; right: 1px; pointer-events: none; transition-property: opacity; overflow: hidden; opacity: 0;"><div style="position: absolute; z-index: 100; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.9); -moz-box-sizing: border-box; width: 100%; border-radius: 3px 3px 3px 3px; pointer-events: none; transition-property: -Moz-transform; transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); transform: translate(0px, 19.9865px); height: 429px;"></div></div>
+</div>
+#end
+#parse("include/page_foot.html")

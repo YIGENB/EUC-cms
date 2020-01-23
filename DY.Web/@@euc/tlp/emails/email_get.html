@@ -1,0 +1,47 @@
+﻿#parse("pageheader.html")
+<h1 id="Menu">
+<span class="action-span"><a href="?act=list">邮件订阅列表</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">获取邮件地址</label> </span>
+<div style="clear:both"></div>
+</h1>
+<div class="main-div">
+<form method="post" name="theForm"  onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">请选择要搜索的表</td>
+    <td>
+        <input name="table" value="DY_Users" type="checkbox" checked /> 会员表 
+        <input name="table" value="DY_Order_Info" type="checkbox" checked /> 订单表
+        <input name="table" value="DY_Comment" type="checkbox" checked /> 评论表
+        <input name="table" value="DY_User_Address" type="checkbox" checked /> 收货地址表
+        <input name="table" value="DY_Feedback" type="checkbox" checked /> 用户反馈表</td>
+  </tr>
+  <tr>
+    
+  
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value=" 确定 " />
+      <input type="reset" class="button" value=" 重置 " />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+    function validate() {
+        var ischecked = false;
+
+        for (var i = 0; i < document.all.table.length; i++) {
+            if (document.all.table[i].checked == true)
+                ischecked = true;
+        }
+
+        if (!ischecked) {
+            alert('请选择要搜索的表');
+            return false;
+        }
+
+        return true;
+    }
+</script>
+#parse("pagefooter.html")

@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{70EB77E3-F592-426C-B046-8D91F825231B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DY.Site</RootNamespace>
+    <AssemblyName>DY.Site</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\CShop.Web\bin\CShop.Site.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CookComputing.XmlRpcV2">
+      <HintPath>..\CShop.Web\bin\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\CShop.Web\bin\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.SQLDMO, Version=8.0.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CShop.Web\bin\Interop.SQLDMO.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJSON">
+      <HintPath>..\CShop.Web\bin\LitJSON.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\CShop.Web\bin\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NVelocity, Version=1.0.3.0, Culture=neutral, PublicKeyToken=44382d1b57473eda, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CShop.Web\bin\NVelocity.dll</HintPath>
+    </Reference>
+    <Reference Include="NVelocityTemplateEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CShop.Web\bin\NVelocityTemplateEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="PanGu">
+      <HintPath>..\CShop.Web\bin\PanGu.dll</HintPath>
+    </Reference>
+    <Reference Include="PanGu.HighLight">
+      <HintPath>..\CShop.Web\bin\PanGu.HighLight.dll</HintPath>
+    </Reference>
+    <Reference Include="PanGu.Lucene.Analyzer">
+      <HintPath>..\CShop.Web\bin\PanGu.Lucene.Analyzer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Apis\SubmitZhiZhuChi.cs" />
+    <Compile Include="Apis\SelectZhiZhuChi.cs" />
+    <Compile Include="Apis\RollNewsFromQQ.cs" />
+    <Compile Include="Caches\News.cs" />
+    <Compile Include="Caches\Products.cs" />
+    <Compile Include="Caches\Pages.cs" />
+    <Compile Include="Caches\Csh.cs" />
+    <Compile Include="Caches\Downloads.cs" />
+    <Compile Include="Caches\Sites.cs" />
+    <Compile Include="Caches\Ads.cs" />
+    <Compile Include="Caches\Job.cs" />
+    <Compile Include="Caches\Form.cs" />
+    <Compile Include="CiKuWords\Common\Config.cs" />
+    <Compile Include="CiKuWords\Common\HttpHelper.cs" />
+    <Compile Include="CiKuWords\Common\Utils.cs" />
+    <Compile Include="CiKuWords\Common\WordQuery.cs" />
+    <Compile Include="CiKuWords\Enum\Module.cs" />
+    <Compile Include="CiKuWords\Model\JsonBaseModel.cs" />
+    <Compile Include="CiKuWords\Model\WordModel.cs" />
+    <Compile Include="CityStation.cs" />
+    <Compile Include="CommentsFactory.cs" />
+    <Compile Include="CommentsSimple.cs" />
+    <Compile Include="DuoshuoComments.cs" />
+    <Compile Include="Apis\Express100.cs" />
+    <Compile Include="Apis\Expressabstract.cs" />
+    <Compile Include="Apis\ExpressControl.cs" />
+    <Compile Include="Apis\Expressjishu.cs" />
+    <Compile Include="Apis\ExpressMethod.cs" />
+    <Compile Include="Install.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JSSDK.cs" />
+    <Compile Include="MetaWeblog.cs" />
+    <Compile Include="Payment\PayPal\Carts.cs" />
+    <Compile Include="ScheduledEvents\Event.cs" />
+    <Compile Include="ScheduledEvents\EventLogs.cs" />
+    <Compile Include="ScheduledEvents\EventManager.cs" />
+    <Compile Include="ScheduledEvents\IEvent.cs" />
+    <Compile Include="SendSMS.cs" />
+    <Compile Include="SiteBLL\CityStationBLL.cs" />
+    <Compile Include="SiteBLL\CshTypeBLL.cs" />
+    <Compile Include="SiteBLL\WeblogBLL.cs" />
+    <Compile Include="SiteBLL\ExchangeLogBLL.cs" />
+    <Compile Include="SiteBLL\FromvalueBLL.cs" />
+    <Compile Include="Search.cs" />
+    <Compile Include="SoftReg.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <None Include="Caches.cs2" />
+    <None Include="Caches.cs1" />
+    <Compile Include="Caches.cs" />
+    <Compile Include="CMS.cs" />
+    <Compile Include="CookieHelper.cs" />
+    <Compile Include="CustomMessageHandler\CustomMessageContext.cs" />
+    <Compile Include="CustomMessageHandler\CustomMessageHandler.cs" />
+    <Compile Include="CustomMessageHandler\CustomMessageHandler_Events.cs" />
+    <Compile Include="CustomMessageHandler\EventService.cs" />
+    <Compile Include="CustomMessageHandler\LocationService.cs" />
+    <Compile Include="CustomMessageHandler\HandleResponseMessage.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="Discount\CashContext.cs" />
+    <Compile Include="Discount\CashFacade.cs" />
+    <Compile Include="Discount\CashNormal.cs" />
+    <Compile Include="Discount\CashRebate.cs" />
+    <Compile Include="Discount\CashReturn.cs" />
+    <Compile Include="Discount\CashSuper.cs" />
+    <Compile Include="Download.cs" />
+    <Compile Include="Explorer.cs" />
+    <Compile Include="GZip.cs" />
+    <Compile Include="IPlugin.cs" />
+    <Compile Include="MoreOAuth.cs" />
+    <Compile Include="MSSqlDatabase.cs" />
+    <Compile Include="Goods.cs" />
+    <Compile Include="MenuManage.cs" />
+    <Compile Include="AdminPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminUser.cs" />
+    <Compile Include="AdminLog.cs" />
+    <Compile Include="OnlineAdminUsers.cs" />
+    <Compile Include="PageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PathHelper.cs" />
+    <Compile Include="Payment.cs" />
+    <Compile Include="Payment\Alipay\AlipayConfig.cs" />
+    <Compile Include="Payment\Alipay\AlipayCore.cs" />
+    <Compile Include="Payment\Alipay\AlipayNotify.cs" />
+    <Compile Include="Payment\Alipay\AlipayService.cs" />
+    <Compile Include="Payment\Alipay\AlipaySubmit.cs" />
+    <Compile Include="Payment\kuaiqian.cs" />
+    <Compile Include="Payment\payway.cs" />
+    <Compile Include="Payment\tenpay.cs" />
+    <Compile Include="Payment\tenpay\MD5Util.cs" />
+    <Compile Include="Payment\tenpay\PayRequestHandler.cs" />
+    <Compile Include="Payment\tenpay\PayResponseHandler.cs" />
+    <Compile Include="Payment\tenpay\RequestHandler.cs" />
+    <Compile Include="Payment\tenpay\ResponseHandler.cs" />
+    <Compile Include="Payment\tenpay\TenpayUtil.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomController.cs" />
+    <Compile Include="RemoveCache.cs" />
+    <Compile Include="RunZIP.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Service References\SMS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SiteBLL\AdBLL.cs" />
+    <Compile Include="SiteBLL\AdminActionBLL.cs" />
+    <Compile Include="SiteBLL\AdminLogBLL.cs" />
+    <Compile Include="SiteBLL\AdminMenuBLL.cs" />
+    <Compile Include="SiteBLL\AdminUserBLL.cs" />
+    <Compile Include="SiteBLL\AdPositionBLL.cs" />
+    <Compile Include="SiteBLL\AppstoreBLL.cs" />
+    <Compile Include="SiteBLL\AwardBLL.cs" />
+    <Compile Include="SiteBLL\BonusBLL.cs" />
+    <Compile Include="SiteBLL\BonusTypeBLL.cs" />
+    <Compile Include="SiteBLL\CardBLL.cs" />
+    <Compile Include="SiteBLL\CartBLL.cs" />
+    <Compile Include="SiteBLL\CmsBLL.cs" />
+    <Compile Include="SiteBLL\CmsCatBLL.cs" />
+    <Compile Include="SiteBLL\CmsLinkBLL.cs" />
+    <Compile Include="SiteBLL\CmsPageBLL.cs" />
+    <Compile Include="SiteBLL\CommentBLL.cs" />
+    <Compile Include="SiteBLL\ConfigBLL.cs" />
+    <Compile Include="SiteBLL\CshBLL.cs" />
+    <Compile Include="SiteBLL\DeliveryAddressBLL.cs" />
+    <Compile Include="SiteBLL\DeliveryAreaBLL.cs" />
+    <Compile Include="SiteBLL\DeliveryBLL.cs" />
+    <Compile Include="SiteBLL\DepartureDateBLL.cs" />
+    <Compile Include="SiteBLL\DiscountBLL.cs" />
+    <Compile Include="SiteBLL\DownloadBLL.cs" />
+    <Compile Include="SiteBLL\DownloadCategoryBLL.cs" />
+    <Compile Include="SiteBLL\EmailListBLL.cs" />
+    <Compile Include="SiteBLL\ExchangeBLL.cs" />
+    <Compile Include="SiteBLL\FavoritesBLL.cs" />
+    <Compile Include="SiteBLL\FeedbackBLL.cs" />
+    <Compile Include="SiteBLL\FormAllBLL.cs" />
+    <Compile Include="SiteBLL\FormPositionBLL.cs" />
+    <Compile Include="SiteBLL\FriendLinkBLL.cs" />
+    <Compile Include="SiteBLL\GoodsAttrBLL.cs" />
+    <Compile Include="SiteBLL\GoodsAttributeBLL.cs" />
+    <Compile Include="SiteBLL\GoodsBLL.cs" />
+    <Compile Include="SiteBLL\GoodsBrandBLL.cs" />
+    <Compile Include="SiteBLL\GoodsCatBLL.cs" />
+    <Compile Include="SiteBLL\GoodsCategoryBLL.cs" />
+    <Compile Include="SiteBLL\GoodsGalleryBLL.cs" />
+    <Compile Include="SiteBLL\GoodsInquiryBLL.cs" />
+    <Compile Include="SiteBLL\GoodsLinkBLL.cs" />
+    <Compile Include="SiteBLL\GoodsSpecBLL.cs" />
+    <Compile Include="SiteBLL\GoodsSpecIndexBLL.cs" />
+    <Compile Include="SiteBLL\GoodsSpecValuesBLL.cs" />
+    <Compile Include="SiteBLL\GoodsTypeBLL.cs" />
+    <Compile Include="SiteBLL\GoodsUserPriceBLL.cs" />
+    <Compile Include="SiteBLL\GoodsVisitStatBLL.cs" />
+    <Compile Include="SiteBLL\GrabBLL.cs" />
+    <Compile Include="SiteBLL\InternalLinksBLL.cs" />
+    <Compile Include="SiteBLL\JobDepartmentBLL.cs" />
+    <Compile Include="SiteBLL\JobPositionBLL.cs" />
+    <Compile Include="SiteBLL\KeywordsBLL.cs" />
+    <Compile Include="SiteBLL\LbsBLL.cs" />
+    <Compile Include="SiteBLL\MailTemplatesBLL.cs" />
+    <Compile Include="SiteBLL\MStyleBLL.cs" />
+    <Compile Include="SiteBLL\NavigateBLL.cs" />
+    <Compile Include="SiteBLL\OauthBLL.cs" />
+    <Compile Include="SiteBLL\OrderActionBLL.cs" />
+    <Compile Include="SiteBLL\OrderGoodsBLL.cs" />
+    <Compile Include="SiteBLL\OrderInfoBLL.cs" />
+    <Compile Include="SiteBLL\PaymentBLL.cs" />
+    <Compile Include="SiteBLL\ProductsBLL.cs" />
+    <Compile Include="SiteBLL\QuickMenuBLL.cs" />
+    <Compile Include="SiteBLL\ReceivingBLL.cs" />
+    <Compile Include="SiteBLL\RegFieldsBLL.cs" />
+    <Compile Include="SiteBLL\RegFieldsValueBLL.cs" />
+    <Compile Include="SiteBLL\RegionBLL.cs" />
+    <Compile Include="SiteBLL\RobotsBLL.cs" />
+    <Compile Include="SiteBLL\SearchBLL.cs" />
+    <Compile Include="SiteBLL\TagBLL.cs" />
+    <Compile Include="SiteBLL\TpcommentsBLL.cs" />
+    <Compile Include="SiteBLL\UserAccountBLL.cs" />
+    <Compile Include="SiteBLL\UserAddressBLL.cs" />
+    <Compile Include="SiteBLL\UserDistributionBLL.cs" />
+    <Compile Include="SiteBLL\UserEmailBLL.cs" />
+    <Compile Include="SiteBLL\UserFeedBLL.cs" />
+    <Compile Include="SiteBLL\UserIntegralBLL.cs" />
+    <Compile Include="SiteBLL\UserRankBLL.cs" />
+    <Compile Include="SiteBLL\UsersBLL.cs" />
+    <Compile Include="SiteBLL\UserSignBLL.cs" />
+    <Compile Include="SiteBLL\UserWithdrawalsBLL.cs" />
+    <Compile Include="SiteBLL\VoteBLL.cs" />
+    <Compile Include="SiteBLL\VoteLogBLL.cs" />
+    <Compile Include="SiteBLL\VoteOptionBLL.cs" />
+    <Compile Include="SiteBLL\SiteBLL.cs" />
+    <Compile Include="SiteBLL\PromotionBLL.cs" />
+    <Compile Include="SiteBLL\PromotionLogBLL.cs" />
+    <Compile Include="SiteBLL\WebAddressBLL.cs" />
+    <Compile Include="SiteBLL\WeixinBLL.cs" />
+    <Compile Include="SiteBLL\WeixinMenuBLL.cs" />
+    <Compile Include="SiteBLL\WeixinNewsBLL.cs" />
+    <Compile Include="SiteBLL\WeixinUserBLL.cs" />
+    <Compile Include="SiteBLL\WeixinWordBLL.cs" />
+    <Compile Include="SiteCacheStrategy.cs" />
+    <Compile Include="SiteUtils.cs" />
+    <Compile Include="Store.cs" />
+    <Compile Include="SystemConfig.cs" />
+    <Compile Include="UeditorConfig.cs" />
+    <Compile Include="UeditorUploader.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="VerifyImage.cs" />
+    <Compile Include="WebPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineUsers.cs" />
+    <Compile Include="SiteMap.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeChatLogin\ImgandTxtMsg.cs" />
+    <Compile Include="WeChatLogin\WeiXin.cs" />
+    <Compile Include="WeChatLogin\WeiXinLogin.cs" />
+    <Compile Include="WeChatLogin\WeiXinRetInfo.cs" />
+    <Compile Include="Wx_MoniLoGin.cs" />
+    <None Include="Service References\SMS\emsServices.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DY.Cache\DY.Cache.csproj">
+      <Project>{3DB7B66A-72C0-4325-B956-2AC03214839F}</Project>
+      <Name>DY.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.Common\DY.Common.csproj">
+      <Project>{F468B1C1-6283-44B0-98C0-1EF153B3D003}</Project>
+      <Name>DY.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.Config\DY.Config.csproj">
+      <Project>{75BBD034-37AF-4540-8667-39F530A93254}</Project>
+      <Name>DY.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.Data\DY.Data.csproj">
+      <Project>{411F609C-4636-46B5-AE6C-F2A0EFF22F82}</Project>
+      <Name>DY.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.Entity\DY.Entity.csproj">
+      <Project>{85FF1451-8BFA-4CDB-A1CC-62373FA53E5B}</Project>
+      <Name>DY.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.LanguagePack\DY.LanguagePack.csproj">
+      <Project>{F2536695-DB91-4BFC-AE18-6988EC993CAE}</Project>
+      <Name>DY.LanguagePack</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.OAuthSDK\DY.OAuthSDK.csproj">
+      <Project>{E52FB7D9-C281-44AD-8812-DCDAC64DB6CA}</Project>
+      <Name>DY.OAuthSDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.Weixin.MP\DY.Weixin.MP.csproj">
+      <Project>{3AFA28E0-1630-4596-AE65-B892C1F57E0F}</Project>
+      <Name>DY.Weixin.MP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.Weixin\DY.Weixin.csproj">
+      <Project>{9820FFEB-5FFB-42A7-ACF9-D40AA03CFA06}</Project>
+      <Name>DY.Weixin</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="obj\Debug\CShop.Site.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\CShop.Site.dll" />
+    <Content Include="obj\Debug\CShop.Site.pdb" />
+    <Content Include="obj\Debug\Refactor\CShop.Site.dll" />
+    <Content Include="obj\Release\CShop.Site.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\CShop.Site.dll" />
+    <Content Include="obj\Release\CShop.Site.pdb" />
+    <None Include="Service References\SMS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\SMS\configuration.svcinfo" />
+    <None Include="Service References\SMS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obj\Debug\ResolveAssemblyReference.cache" />
+    <None Include="obj\Release\ResolveAssemblyReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="obj\Release\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SMS\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

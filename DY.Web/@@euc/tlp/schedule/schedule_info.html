@@ -1,0 +1,217 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end计划任务</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>计划任务</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-warning alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+                请勿随意添加计划任务,此功能适用于开发人员。 
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=list" class="btn btn-primary ">计划任务列表</a>
+                    </div>
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                         <label class="col-sm-1 control-label">
+                               计划任务名称：</label>
+                        <div class="col-sm-9">
+                        <input name="key" type="text" maxlength="50" class="form-control" required="" value="$!{entity.Key}" #if($!{entity.IsSystemEvent}) readonly #end>
+                        <input type="hidden" name="oldkey" runat="server" value="$!{oldkey}" />
+                        </div>
+                       </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">
+                                计划任务类型：</label>
+                            <div class="col-sm-9">
+                                <input name="scheduletype" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.ScheduleType}" placeholder="例如:Ctmon.Forum.AutoSiteMap,Ctmon.Event" #if($!{entity.IsSystemEvent}) readonly #end/>
+                            </div>
+                        </div>
+                        <div class="form-group type">
+                                        <label class="col-sm-1 control-label">
+                                            执行方式：</label>
+                                       <div class="col-sm-9 radio i-checks">
+                                        <label>
+                                    <input type="radio" #if($!{entity.TimeOfDay}!=-1)checked#end  value="1" name="type"> <i></i> 定时执行</label>
+                                    <label>
+                                    <input type="radio"  #if($!{entity.TimeOfDay} == -1)checked#end  value="2" name="type"> <i></i> 周期执行</label>
+
+
+                                        <!---->
+                                        </div>
+                                        </div>
+                        <div class="form-group type1" #if($!{entity.TimeOfDay}==-1)style="display:none;"#end >
+                            <label class="col-sm-1 control-label">
+                                定时执行：</label>
+                            <div class="col-sm-9">
+                                #set($hour=$!{entity.TimeOfDay} / 60)
+                                #set($minute=$!{entity.TimeOfDay} % 60)
+                               <!-- <select name="hour">
+	                                <option value="0" #if($hour==0) selected="selected"#end>00</option>
+	                                <option value="1" #if($hour==1) selected="selected"#end>01</option>
+	                                <option value="2" #if($hour==2) selected="selected"#end>02</option>
+	                                <option value="3" #if($hour==3) selected="selected"#end>03</option>
+	                                <option value="4" #if($hour==4) selected="selected"#end>04</option>
+	                                <option value="5" #if($hour==5) selected="selected"#end>05</option>
+	                                <option value="6" #if($hour==6) selected="selected"#end>06</option>
+	                                <option value="7" #if($hour==7) selected="selected"#end>07</option>
+	                                <option value="8" #if($hour==8) selected="selected"#end>08</option>
+	                                <option value="9" #if($hour==9) selected="selected"#end>09</option>
+	                                <option value="10" #if($hour==10) selected="selected"#end>10</option>
+	                                <option value="11" #if($hour==11) selected="selected"#end>11</option>
+	                                <option value="12" #if($hour==12) selected="selected"#end>12</option>
+	                                <option value="13" #if($hour==13) selected="selected"#end>13</option>
+	                                <option value="14" #if($hour==14) selected="selected"#end>14</option>
+	                                <option value="15" #if($hour==15) selected="selected"#end>15</option>
+	                                <option value="16" #if($hour==16) selected="selected"#end>16</option>
+	                                <option value="17" #if($hour==17) selected="selected"#end>17</option>
+	                                <option value="18" #if($hour==18) selected="selected"#end>18</option>
+	                                <option value="19" #if($hour==19) selected="selected"#end>19</option>
+	                                <option value="20" #if($hour==20) selected="selected"#end>20</option>
+	                                <option value="21" #if($hour==21) selected="selected"#end>21</option>
+	                                <option value="22" #if($hour==22) selected="selected"#end>22</option>
+	                                <option value="23" #if($hour==23) selected="selected"#end>23</option>
+                                </select>
+                                &nbsp;时&nbsp;
+                                <select name="minute">
+	                                <option value="0" #if($minute==0) selected="selected"#end>00</option>
+	                                <option value="1" #if($minute==1) selected="selected"#end>01</option>
+	                                <option value="2" #if($minute==2) selected="selected"#end>02</option>
+	                                <option value="3" #if($minute==3) selected="selected"#end>03</option>
+	                                <option value="4" #if($minute==4) selected="selected"#end>04</option>
+	                                <option value="5" #if($minute==5) selected="selected"#end>05</option>
+	                                <option value="6" #if($minute==6) selected="selected"#end>06</option>
+	                                <option value="7" #if($minute==7) selected="selected"#end>07</option>
+	                                <option value="8" #if($minute==8) selected="selected"#end>08</option>
+	                                <option value="9" #if($minute==9) selected="selected"#end>09</option>
+	                                <option value="10" #if($minute==10) selected="selected"#end>10</option>
+	                                <option value="11" #if($minute==11) selected="selected"#end>11</option>
+	                                <option value="12" #if($minute==12) selected="selected"#end>12</option>
+	                                <option value="13" #if($minute==13) selected="selected"#end>13</option>
+	                                <option value="14" #if($minute==14) selected="selected"#end>14</option>
+	                                <option value="15" #if($minute==15) selected="selected"#end>15</option>
+	                                <option value="16" #if($minute==16) selected="selected"#end>16</option>
+	                                <option value="17" #if($minute==17) selected="selected"#end>17</option>
+	                                <option value="18" #if($minute==18) selected="selected"#end>18</option>
+	                                <option value="19" #if($minute==19) selected="selected"#end>19</option>
+	                                <option value="20" #if($minute==20) selected="selected"#end>20</option>
+	                                <option value="21" #if($minute==21) selected="selected"#end>21</option>
+	                                <option value="22" #if($minute==22) selected="selected"#end>22</option>
+	                                <option value="23" #if($minute==23) selected="selected"#end>23</option>
+	                                <option value="24" #if($minute==24) selected="selected"#end>24</option>
+	                                <option value="25" #if($minute==25) selected="selected"#end>25</option>
+	                                <option value="26" #if($minute==26) selected="selected"#end>26</option>
+	                                <option value="27" #if($minute==27) selected="selected"#end>27</option>
+	                                <option value="28" #if($minute==28) selected="selected"#end>28</option>
+	                                <option value="29" #if($minute==29) selected="selected"#end>29</option>
+	                                <option value="30" #if($minute==30) selected="selected"#end>30</option>
+	                                <option value="31" #if($minute==31) selected="selected"#end>31</option>
+	                                <option value="32" #if($minute==32) selected="selected"#end>32</option>
+	                                <option value="33" #if($minute==33) selected="selected"#end>33</option>
+	                                <option value="34" #if($minute==34) selected="selected"#end>34</option>
+	                                <option value="35" #if($minute==35) selected="selected"#end>35</option>
+	                                <option value="36" #if($minute==36) selected="selected"#end>36</option>
+	                                <option value="37" #if($minute==37) selected="selected"#end>37</option>
+	                                <option value="38" #if($minute==38) selected="selected"#end>38</option>
+	                                <option value="39" #if($minute==39) selected="selected"#end>39</option>
+	                                <option value="40" #if($minute==40) selected="selected"#end>40</option>
+	                                <option value="41" #if($minute==41) selected="selected"#end>41</option>
+	                                <option value="42" #if($minute==42) selected="selected"#end>42</option>
+	                                <option value="43" #if($minute==43) selected="selected"#end>43</option>
+	                                <option value="44" #if($minute==44) selected="selected"#end>44</option>
+	                                <option value="45" #if($minute==45) selected="selected"#end>45</option>
+	                                <option value="46" #if($minute==46) selected="selected"#end>46</option>
+	                                <option value="47" #if($minute==47) selected="selected"#end>47</option>
+	                                <option value="48" #if($minute==48) selected="selected"#end>48</option>
+	                                <option value="49" #if($minute==49) selected="selected"#end>49</option>
+	                                <option value="50" #if($minute==50) selected="selected"#end>50</option>
+	                                <option value="51" #if($minute==51) selected="selected"#end>51</option>
+	                                <option value="52" #if($minute==52) selected="selected"#end>52</option>
+	                                <option value="53" #if($minute==53) selected="selected"#end>53</option>
+	                                <option value="54" #if($minute==54) selected="selected"#end>54</option>
+	                                <option value="55" #if($minute==55) selected="selected"#end>55</option>
+	                                <option value="56" #if($minute==56) selected="selected"#end>56</option>
+	                                <option value="57" #if($minute==57) selected="selected"#end>57</option>
+	                                <option value="58" #if($minute==58) selected="selected"#end>58</option>
+	                                <option value="59" #if($minute==59) selected="selected"#end>59</option>
+
+                                </select>
+                                &nbsp;分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" value="$SiteUtils.DefaultValue($!{hour},"0"):$SiteUtils.DefaultValue($!{minute},"0")" name="timeofday" />
+                                    <span class="input-group-addon">
+                                            <span class="fa fa-clock-o"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group type2" #if($!{entity.TimeOfDay}!=-1)style="display:none;"#end >
+                            <label class="col-sm-1 control-label">
+                                周期执行：</label>
+                            <div class="col-sm-9">
+                                <input name="timeserval" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.Minutes}" placeholder="分钟"/>
+                            </div>
+                        </div>
+                          <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            启用：</label>
+                                        <div class="col-sm-9">
+                                        <div class="radio i-checks">
+                                                   <label>
+                                                    <input type="radio" #if ($!{entity.Enabled})checked#end $SiteUtils.DefaultValue($!{entity.Enabled},"checked")  value="1" name="enabled"> <i></i> 是</label>
+                                                    <label>
+                                                    <input type="radio" #if ($!{entity.Enabled}==false)checked#end  value="0" name="enabled"> <i></i> 否</label>
+                                    </div>
+                                        </div>
+                                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>提交</button>
+                                <button class="btn btn-white" type="reset">
+                                    取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+<script src="js/plugins/clockpicker/clockpicker.js"></script>
+<script>
+    $(function () {
+        $('.clockpicker').clockpicker();
+        $('.type .i-checks').on('ifChecked', function (event) {
+            var val = $(event.target).val();
+            if (val == 1) {
+                $(".type1").show();
+                $(".type2").hide();
+            }
+            else {
+                $(".type2").show();
+                $(".type1").hide();
+            }
+        });  
+    })
+</script>
+
+#parse("pagefooter.html")

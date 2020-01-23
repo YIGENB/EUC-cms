@@ -1,0 +1,84 @@
+﻿#parse("include/page_head.html")
+<script type="text/javascript" src="/include/js/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="/include/js/common.js"></script>
+<script type="text/javascript" src="/include/js/formV/formV.js"></script><script type="text/javascript" src="/include/js/formV/formVR.js"></script><script type="text/javascript" src="/include/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="/include/js/utils.js"></script>
+<script type="text/javascript" src="/include/js/validator.js"></script>
+<script>
+    function Insertfeedbook(form, formnae) {
+        $(form).ajaxSubmit({
+            beforeSubmit: validate,
+            url: '/login.aspx?act=forget',
+            dataType: 'json',
+            resetForm: true,
+            success: function(data) {
+                if (data.error == 1) {
+                    alert(data.message);
+                }
+                else {
+                    alert("邮件已发送！");
+                    //window.location = "/";
+                }
+            }
+        });
+        return false;
+    }
+    function validate(formData, jqForm, options) {
+        var validator = new Validator("forgetForm");
+        validator.required("username", "请输入用户名");
+        validator.isEmail("email", "邮件地址格式错误", true);
+
+        return validator.passed();
+    }
+</script>
+<div class="s-nav-wrap">
+      <div class="s-nav">
+        <span><a href="/" >首页</a>»找回密码</span>
+      </div>
+    </div>
+<form id="forgetForm" method="post" action="/login.aspx?act=forget" autocomplete="off" onsubmit="return Insertfeedbook(this,'forgetForm')">
+<div class="userinput" style=" width:1000px; margin:auto; ">
+<div>
+<div style="height: 50px;"></div>
+<div style=" margin-left:210px;">
+<div><span class="fontc">用&nbsp;&nbsp;户&nbsp;&nbsp;名：</span><input id="username" name="username" class="yhm"  type="text" /></div>
+<div style=" margin-top:10px;"><span class="fontc" style="margin-left: 2px;">注册邮箱：</span><input  id="email" name="email" class="yhm"  type="text" /></div>
+<div style=" margin-top:10px;"><span class="fontc">验&nbsp;&nbsp;证&nbsp;&nbsp;码：</span>
+  #if ($config.CaptchaReg)<input type="text" id="captcha" name="captcha" size="5"  style="color: #666;font-size: 20px; vertical-align:middle;border: 1px solid #ccc;" /> <img src="/tools/verifyimagepage.aspx" class="captcha"  style="vertical-align:middle;" /><a href="javascript:ReloadCaptcha();">看不清？</a>#end
+</div>
+<div style=" margin-top:20px;margin-left: 25px;"><span class="fontc" style=" color:White;">验证码：</span>
+<input name="" type="submit" value="确定" class="one">
+
+</div></div>
+</div>
+
+</div>
+<!--<DIV class="ContentsBox">
+   <div class="LoginUser">
+      <div class="LoginUserBox">
+         <div class="LoginUserBoxT"><img src="/skin/TJ/login/images/LostPass.jpg" /></div>
+         <div class="LoginUserBoxBg">
+            <ul>
+               <li>
+                  <div class="LoginInput"><label for="username">用户名：&emsp;</label><input type="text" id="username" name="username" /></div>
+               </li>
+               <li>
+                  <div class="LoginInput"><label for="email">注册邮箱：</label><input type="text" id="email" name="email"  /></div>
+               </li>
+                <li>                  <div class="LoginInput"><label for="captcha">验证码：&nbsp;</label>                  #if ($config.CaptchaReg)<input type="text" id="captcha" name="captcha" size="5"  style="vertical-align:middle;" /> <img src="/tools erifyimagepage.aspx" class="captcha"  style="vertical-align:middle;" /><a href="javascript:ReloadCaptcha();">看不清？</a>                    <script type="text/javascript">                    $(document).ready(function() {                        ReloadCaptcha();                    });                    </script>                  #end                </div>               </li>
+               <li style="padding-top:10px;"><input type="image" src="/skin/TJ/login/images/LostPassbtn.gif" value="" style="height:auto;"  /> 
+                        <span id="result"></span></li>
+            </ul>
+         </div>
+         <div class="LoginUserBoxB"></div>
+      </div>
+   </div>
+</DIV>--><!--Left_End-->
+   
+   
+<!--内容框架_ContentsBox_End-->
+<!--KillIE6--><DIV class="KillIE6"></DIV><!--KillIE6_End-->
+</form>
+
+
+#parse("include/page_foot.html")

@@ -1,0 +1,58 @@
+﻿#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">信息导入</span> 
+		<span class="z3g-btn-filter-open"><a href="/include/excel/demo/users_demo.xls" title="会员excel模板">会员excel模板</a> |<a href="javascript:;" title="刮刮卡excel模板">刮刮卡excel模板</a></span>
+    </div>
+<div class="message message-err">
+<p style="padding: 0 10px">请按照模板格式导入数据，其他格式无法导入</p>
+</div>
+<div class="main-div">
+    <form method="post" name="theForm" onsubmit="return validate();">
+    <table width="100%" id="general-table">
+    <tr>
+        <td class="label">
+            选择导入类别
+        </td>
+        <td>
+            <select id="excel_tyle" name="excel_tyle">
+            <option value="1">会员</option>
+            <option value="2">刮刮卡</option>
+            </select>
+        </td>
+    </tr>
+        <tr>
+            <td class="label">
+                选择导入文件
+            </td>
+            <td>
+                <input name="excel" id="excel" type="text"  size="30" />
+                <a href="javascript:void(0);" onclick="upload(this,'file','excel','')" title="点击上传">
+                    <img src="images/up.gif" border="0" align="middle" /></a>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                &nbsp;
+            </td>
+            <td>
+                <input type="submit" value=" 确定 " class="button" />
+                <input type="reset" value=" 重置 " class="button" />
+            </td>
+        </tr>
+    </table>
+    </form>
+    <script type="text/javascript">
+        var excel = "没有选择导入文件";
+        var no_cat = "没有选择导入分类";
+        function validate() {
+            var validator = new Validator('theForm');
+            validator.required('excel', excel);
+            validator.isNullOption('excel_tyle', no_cat);
+            return validator.passed();
+        }
+
+</script>
+</div>
+#parse("pagefooter.html")

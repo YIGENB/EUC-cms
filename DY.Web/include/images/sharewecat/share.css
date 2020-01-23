@@ -1,0 +1,66 @@
+﻿body {
+}
+
+#mcover {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 20000;
+}
+#mcover img {
+    height: 180px !important;
+    position: fixed;
+    right: 18px;
+    top: 5px;
+    width: 260px !important;
+    z-index: 20001;
+}
+img {
+    max-width: 100% !important;
+}
+#mess_share {
+    display: block;
+    margin: 15px 0;
+}
+
+#shareWeixinFriend {
+    display: block;
+    float: left;
+    width: 49%;
+}
+.text {
+    color: #727272;
+    font-size: 14px;
+    margin: 15px 0;
+    word-wrap: break-word;
+}
+#shareWeixinTimeline {
+    display: block;
+    float: right;
+    width: 49%;
+}
+.button2 {
+    background-color: #E8E8E8;
+    background-image: linear-gradient(to top, #DBDBDB, #F4F4F4);
+    border: 1px solid #ADADAB;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.45), 0 1px 1px #EFEFEF inset;
+    color: #000000;
+    font-size: 16px;
+    padding: 8px 0;
+    text-align: center;
+    text-shadow: 0.5px 0.5px 1px #FFFFFF;
+    width: 100%;
+}
+
+#mess_share img {
+    border: 0 none;
+    height: 22px !important;
+    vertical-align: top;
+    width: 22px !important;
+    float:left;
+}

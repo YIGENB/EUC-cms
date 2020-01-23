@@ -1,0 +1,83 @@
+﻿#if (!$isajax) #parse("pageheader.html") #set($regionType = ${region_type} + 1)
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            地区列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>设置</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    #if($regionType > 1)
+                    <div class="">
+                        <a href="?act=list&parent_id=${entity.parent_id}" class="btn btn-primary ">返回上一级</a>
+                    </div>
+                    #end
+                    <form method="post" action="?act=add&parent_id=${parent_id}" name="theForm" class="form-horizontal"
+                    id="commentForm">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">
+                            增加$regionType级地区：</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="region_name" class="form-control" required="" aria-required="true"
+                                maxlength="150" />
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="hidden" name="region_type" value="$regionType" />
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-check"></i>提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form method="post" action="?act=del" name="listForm" id="listForm">
+                    <div id="listDiv" class="ibox-content">
+                        #end
+                        <table id='list-table' class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">
+                                        #if($regionType > 1)[${entity.region_name}]#end $regionType级地区
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                #foreach($row in $list) #if($velocityCount % 3 == 0)
+                            </tr>
+                            <tr>
+                                #end
+                                <td>
+                                    <span onclick="listTable.edit(this, 'region_name', '${row.region_id}'); return false;">
+                                        ${row.region_name}</span>
+                                    <img src="images/${row.is_show}.gif" onclick="listTable.toggle(this, 'is_show', ${row.region_id})"
+                                        alt="是否显示" title="是否显示" />&nbsp; #if ($regionType ==2)
+                                    <img src="images/${row.is_pay}.gif" onclick="listTable.toggle(this, 'is_pay', ${row.region_id})"
+                                        alt="是否为热门城市" title="是否为热门城市" />
+                                    #end <span class="link-span">#if ($regionType < 4) <a href="?act=list&parent_id=${row.region_id}"
+                                        title="管理">管理</a>&nbsp;&nbsp;#end <a href="javascript:listTable.remove(${row.region_id}, '确定删除该地区吗', 'remove')"
+                                            title="删除">删除</a> </span>
+                                </td>
+                                #end
+                            </tr>
+                        </table>
+                        #if (!$isajax)
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html") #end

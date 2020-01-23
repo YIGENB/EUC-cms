@@ -1,0 +1,109 @@
+﻿#parse("pageheader.html")
+
+ <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end多平台信息</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>多平台信息</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            平台名称：</label>
+                                        <div class="col-sm-9">
+                                                   <label class="ico ${oauthEntity.name}">
+     <span></span>
+        ${oauthEntity.cnname}
+        <label>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            AppKey：</label>
+                                           <div class="col-sm-9 father_img">
+                                 <input type="text" class="form-control" name="clientId" required="" aria-required="true" value="$!{entity.AppKey}" size="35" />
+                                </div>
+                                    </div>
+                                     
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            AppSecret：</label>
+                                        <div class="col-sm-9">
+                                                   <input name="clientSecret" id="name" type="text" class="form-control" required="" value="$!{entity.AppSecret}"/>
+                                    </div>
+                                    </div>
+                                    #if($!{oauthEntity.isAt}>0)
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            随机@：</label>
+                                        <div class="col-sm-9">
+                                                   <textarea id="randomAT" name="randomAT" class="form-control" rows="5" maxlength="100" placeholder="一行一个">$!{entity.randomAT}</textarea>
+                                    </div>
+                                    </div>
+                                    #end
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            回传地址：</label>
+                                        <div class="col-sm-9">
+                                       <label>$!{entity.redirectUri}</label><span class="require-field">系统自动生成</span>
+                                        </div>
+                                    </div>
+
+                                    
+                                    
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+<script type="text/javascript">
+var clientId = "请填写AppKey";
+var clientSecret = "请填写AppSecret";
+function validate()
+{
+  var validator = new Validator('theForm');
+  validator.required('clientId', clientId);
+  validator.required('clientSecret', clientSecret);
+  return validator.passed();
+}
+
+</script>
+#parse("pagefooter.html")

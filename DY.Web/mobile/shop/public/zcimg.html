@@ -1,0 +1,4 @@
+﻿    #foreach($row in $Caches.GetAds(10).rows) #set($index=$velocityCount+1)
+
+                <img src="${row.ad_code}" alt="${row.ad_name}" height="350" width="100%" />
+                #end

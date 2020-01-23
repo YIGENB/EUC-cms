@@ -1,0 +1,222 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<link href="styles/menu.css" rel="stylesheet" type="text/css" />
+<script src="js/old/custommenu.js?v=22" type="text/javascript"></script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            自定义菜单</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>微信公众号</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="message message-err">
+ <p>注意：1级菜单最多只能开启3个，2级子菜单最多开启5个!</p>
+                                <p>只有保存主菜单后才可以添加子菜单</p>
+                                <p>生成自定义菜单,必须在已经保存的基础上进行,临时勾选启用点击生成是无效的! 第一步必须先修改保存状态！第二步点击生成!</p>
+                                <p>当您为自定义菜单填写链接地址时请填写以"http://"开头，这样可以保证用户手机浏览的兼容性更好</p>
+                                <p>撤销自定义菜单：撤销后，您的微信公众帐号上的自定义菜单将不存在；如果您想继续在微信公众帐号上使用自定义菜单，请点击“生成自定义菜单”按钮，将重新启用！</p>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=create&pid=$pid" class="btn btn-primary ">生成菜单</a>
+                        <a href="?act=del&pid=$pid" class="btn btn-primary ">撤销菜单</a>
+                    </div>
+                    <div id="listDiv" class="ibox-content">
+                        #end
+                        <div class="row">
+                        <div class="Custom">
+                            <div class="CustomTop">
+                                <div class="CustomChoose">
+							<!--#if($appid.length>0)<button class="Sorting openMenu" style="background: #CCC;">开启自定义菜单</button>#else
+                            <button class="Sorting closeMenu" style="height:31px;">关闭自定义菜单</button>#end-->
+	<div class="CustomPop openCustomMenu">
+        <div class="CustomBox">
+            <h1>
+                <span>配置</span>
+                <img src="images/menu/Close.gif" class="CustomClose" height="20" width="20">
+            </h1>
+            <ul>
+                <p>请登陆微信公众平台   &gt; 进入开发模式   &gt; 接口配置查看以下内容</p>
+                <li><span>AppId：</span><input class="AppId" type="text" value="$appid"></li>
+                <li><span>AppSecret：</span><input class="AppSecret" type="text" value="$appsecret"></li>
+                <a href="javascript:bindCustom($pid);" class="bindCustom">提交</a>
+                <!--  <em>账号或密码错误，请认真确认后输入</em>-->
+            </ul>
+        </div>
+        <div class="CustomBg"></div>
+    </div>
+
+    <div style="display: none;" class="CustomPop openCustomMenuok">
+        <div class="CustomBox">
+            <h1>
+                <span>提示</span>
+                
+            </h1>
+            <dl>
+                <dt class="Success">成功开启自定义菜单！</dt>
+                <a href="#" class="CustomCloseOk">关闭</a>
+            </dl>
+        </div>
+        <div class="CustomBg"></div>
+    </div>
+    
+    <div style="display: none;" class="CustomPop openCustomMenuokFail">
+        <div class="CustomBox">
+            <h1>
+                <span>提示</span>
+                
+            </h1>
+            <dl>
+                <dt class="Failure">检测失败，请核实您的自定义菜单权限！</dt>
+                <dd>解决方法：<br>登陆微信公众平台，查看账号类型是否为服务号；或<font onclick="location.href='/mpweixin/entrustche.jsp'" style="cursor: pointer;" color="green">自动配置</font>公众平台号</dd>
+                <a href="#" class="CustomCloseOk">关闭</a>
+            </dl>
+        </div>
+        <div class="CustomBg"></div>
+    </div>
+    <input type="hidden" id="wxpid" value="$pid" />
+    <div style="display: none;" class="CustomPop openCustomMenuerror">
+      <div class="CustomBox">
+        <h1>
+                <span>提示</span>
+          </h1>
+          <dl>
+              <dt class="Failure">信息填写不正确，请核实后重新输入！</dt>
+              <dd>
+                <span>解决方法：</span>
+                <span> 登陆微信公众平台&nbsp;&gt;&nbsp;进入开发模式&nbsp;&gt;&nbsp;查看账号信息</span>
+              </dd>
+              <a href="#" class="CustomClose">关闭</a>
+          </dl>
+        </div>
+        <div class="CustomBg"></div>
+    </div>
+				                               		  
+                                    
+                                 
+                                </div>
+                                
+                                <!--<div class="CustomPROOF">
+                                    <label>
+										<a class="Btn-A"><button class="view_btn"><div class="view_btn1"><em class="view_btn_tu"></em></div>效果预览</button></a>
+									</label>
+                               		<div class="CustomPROOF_view">
+                               			<div class="Custom_view">
+                               			</div>
+                               			<div class="Custom_viewbtm">
+                               				<div class="view_toggle_btn view_toggle_btn_1"></div>
+                               				<div style="display:none;" class="view_toggle_btn view_toggle_btn_2"></div>
+                               				<ul class="view_Custom">
+                               				</ul>
+                               				<ul class="view_Custom_test">
+                               					<input type="text">
+                               					<button class="mysend_send_m"></button>
+                               				</ul>
+                               			</div>
+                               		</div>
+                                </div> -->
+                            </div>
+                            <div class="CustomCer">
+                                <div class="CustomLt">
+                                    <div class="CustomLt1">
+                                        <span></span>
+                                    </div>
+                                    #set($indexcount=$SystemConfig.GetWeixinMenuData(0).Rows.Count)
+                                    <div class="CustomLt2">
+			                                <ul class="allMenus">
+                                                #foreach($row in $SystemConfig.GetWeixinMenuData(0).Rows) #set($count=$SystemConfig.GetWeixinMenuData($!{row.menu_id}).Rows.Count)
+				                                	<li class="secondMenu">
+				                                    	<font title="$row.name" menuid="$row.menu_id" class="Modify Modify$!{row.menu_id}" trigger_word="$row.trigger_word" addtype="1" parent="$row.parent_id">$row.name </font>
+                                                        #if($count==0)<dl class="subMenus"><dt class="addMenu" addtype="0" parent="$row.menu_id">添加</dt><span><img width="9" height="6" src="images/menu/CustomLt23.png"></span></dl>#end
+                                                        #if($count>0)
+				                                    	<dl class="subMenus">
+                                                        #if($count<5)<dt class="addMenu" addtype="0" parent="$row.menu_id">添加</dt>#end
+                                                            #foreach($row in $SystemConfig.GetWeixinMenuData($!{row.menu_id}).Rows)
+				                                        	<dd><font title="$row.name" menuid="$row.menu_id" class="Modify Modify$!{row.menu_id}" trigger_word="$row.trigger_word" addtype="1" parent="$row.parent_id">$row.name</font><img src="images/menu/CustomLt22.png" width="7" height="7" class="CustomDelete" /><img src="images/menu/CustomLt23.png" width="5" height="3" /></dd>
+                                                            #end
+                                                            <span><img width="9" height="6" src="images/menu/CustomLt23.png"></span>
+				                                        </dl>
+                                                        #end
+                                                        <img width="9" height="6" class="CustomDelete" src="images/menu/CustomLt22.png">
+				                                    </li>
+			                                    #end
+			                                    #if($indexcount<3)  <li class="secondMenu addMenu"> 添加</li>
+                                                #elseif($indexcount<2)  
+                                                <li class="secondMenu addMenu"> 添加</li>
+                                                <li class="secondMenu addMenu"> 添加</li>
+                                                #elseif($indexcount<1)  
+                                                <li class="secondMenu addMenu"> 添加</li>
+                                                <li class="secondMenu addMenu"> 添加</li>
+                                                <li class="secondMenu addMenu"> 添加</li>
+                                                #end
+			                                </ul>
+                                    </div>
+                                </div>
+                                <div class="CustomRt">
+                                	<!--  
+                                	
+                                	<a class="Syncbtns" style="display: none;"><button class="Syncbtn">同步到公众号</button></a>
+                                	
+                                	-->
+                                    <div class="Initialize">
+                                        <span><img width="47" height="47" src="images/menu/Initialize.gif"></span>
+                                        <p>请在左边列表中选择一个菜单。<br>如果您还未创建任何菜单请点击左边菜单自定义菜单列表 右边的添加进行添加。</p>
+                                    </div>
+                                    <div style="float:left; width:auto; margin:0;display: none; padding-top:50px;" class="FunctionCer">
+                                    <div style=" background:none; border:0; padding:0;margin-bottom:30px" class="right_box YNmenu menuUpdateTop">
+                                        
+                                        <dl style="padding:0px 12px;" class="r_title">
+                                            <dt>菜单标题：</dt>
+                                            <dd style="position:relative;">
+                                                <input type="text" class="menutitle form-control" id="menuname" maxlength="16" style=" float:left;">
+                                            </dd>
+                                            
+                                        </dl>
+                                        <div style="line-height:22px; color:#999999;clear:both;padding:0px 12px;">注：主菜单按钮文字不超过4个汉字或8个字母，<br>子菜单标题最多不得超过8个汉字或16个字母。</div>
+                                        <dl style="padding:5px 12px;" class="r_title">
+                                            <dt>触发关键词或链接地址：</dt>
+                                            <dd style="position:relative; ">
+                                                <input type="text" class="menutitle form-control" id="trigger_word" style=" float:left;">
+                                            </dd>
+                                            
+                                        </dl>
+                                        <div class="text-center">
+                                            <input type="hidden" value="" id="addtype"/>
+                                            <input type="hidden" value="" id="menuid"/>
+                                            <input type="hidden" value="" id="parent_id"/>
+                                            <input type="hidden" value="" id="index"/>
+                                            <button class="btn btn-primary" type="submit" onclick="javascript:SaveMenu();"><i class="fa fa-check"></i>提交</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="CustomFor">
+                                <dl>
+                                    <dt>帮助说明</dt>
+                                    <dd>最多创建3 个一级菜单，每个一级菜单下最多可以创建 5 个二级菜单，菜单最多支持两层。<br><!-- 主菜单按钮文字不得超过5个字，主菜单按钮总文字不超过12个字子菜单标题最多不得超过13字。<br />当设置完菜单顺序后，在符合以上规则的情况下，菜单顺序可自定调整 --></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        </div>
+                        #if (!$isajax)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+#parse("pagefooter.html")
+#end

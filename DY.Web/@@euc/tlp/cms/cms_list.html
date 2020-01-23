@@ -1,0 +1,238 @@
+﻿#if (!$isajax) #parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            文章列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>文章</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <form name="searchForm" id="searchForm" onsubmit="return false;">
+        <div id="search-box">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select name="cat_id" id="cat_id" class="form-control m-b">
+                        <option value="0">所属分类...</option>
+                        #CMSCatSelectUI(-1)
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select name="field" onchange="listTable.changeField()" class="form-control m-b">
+                        <optgroup label="文本">
+                            <option value="title">文章标题</option>
+                            <option value="author">作者</option>
+                            <option value="source">来源</option>
+                            <option value="editor">编辑</option>
+                            <option value="tag">标签</option>
+                            <option value="des">摘要</option>
+                        </optgroup>
+                        <optgroup label="数值">
+                            <option value="click_count">点击数</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select name="target" class="form-control m-b">
+                        <option value="like">包含</option>
+                        <option value="istext">等于</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="text" name="val" value="" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-5" style="width: auto;">
+                <div class="form-group">
+                    <label class="checkbox-inline i-checks">
+                        <input type="checkbox" name="is_show" value="1" />显示</label>
+                    <label class="checkbox-inline i-checks">
+                        <input type="checkbox" name="is_best" value="1" />推荐</label>
+                    <label class="checkbox-inline i-checks">
+                        <input type="checkbox" name="is_top" value="1" />置顶</label>
+                    <input class="btn btn-primary " type="button" value="搜索" onclick="listTable.searchData()" />
+                    <input type="button" value="ALL" class="btn btn-primary" onclick="listTable.searchReset(this)"
+                        disabled="disabled" />
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加新资讯</a>
+                    </div>
+                    <form method="post" action="" name="listForm" id="listForm">
+                    <div class="ibox-content" id="listDiv">
+                        #end
+                        <table cellspacing='1' cellpadding='3' id='list-table' class="table table-striped table-bordered table-hover">
+                            <col style="width: 20px;" />
+                            <tr class="list_tr" align="left">
+                                <th>
+                                    <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox">
+                                </th>
+                                <th>
+                                    $SiteUtils.GetSortImg("article_id","编号")
+                                </th>
+                                <th>
+                                    $SiteUtils.GetSortImg("title","文章标题")
+                                </th>
+                                <th>
+                                    $SiteUtils.GetSortImg("is_show","是否显示")
+                                </th>
+                                <!--<th>$SiteUtils.GetSortImg("is_newopen","新窗口")</th>-->
+                                <th>
+                                    $SiteUtils.GetSortImg("is_best","推荐")
+                                </th>
+                                <th>
+                                    $SiteUtils.GetSortImg("is_top","置顶")
+                                </th>
+                                <th>
+                                    $SiteUtils.GetSortImg("cat_id","分类")
+                                </th>
+                                <!--<th>$SiteUtils.GetSortImg("is_hot","热门")</th>
+                                <th>
+                                    $SiteUtils.GetSortImg("tag","标签")
+                                </th>-->
+                                <th>$SiteUtils.GetSortImg("editor","编辑")</th>
+                                <th>
+                                    $SiteUtils.GetSortImg("click_count","浏览次数")
+                                </th>
+                                <th>
+                                    $SiteUtils.GetSortImg("sort_order","排序")
+                                </th>
+                                <th>
+                                    分享
+                                </th>
+                                <th>
+                                    操作
+                                </th>
+                            </tr>
+                            #foreach($row in $list) #set($index=$velocityCount+1)
+                            <tr class="#if($index%2==0) even #end sort" data="${row.article_id}" sort_order="${row.sort_order}"
+                                align="left">
+                                <td>
+                                    <span>
+                                        <input name="checkboxes" type="checkbox" value="${row.article_id}" dataname="${row.title}" /></span>
+                                </td>
+                                <td>
+                                    ${row.article_id}
+                                </td>
+                                <td>
+                                    <span onclick="javascript:listTable.edit(this, 'title', ${row.article_id})">${row.title}</span>
+                                    #if($SiteUtils.GetDateDiff(${row.add_time},"d")==0)<span class="label label-info pull-right">New</span>#end
+                                    <a href="#CMSLink()" title="预览" target="_blank">
+                                        <img src="images/url.gif" /></a>
+                                </td>
+                                <td>
+                                    <span>
+                                        <img src="images/${row.is_show}.gif" onclick="listTable.toggle(this, 'is_show', ${row.article_id})" /></span>
+                                </td>
+
+                                <!--  <td><span>
+    <img src="images/${row.is_newopen}.gif" onclick="listTable.toggle(this, 'is_newopen', ${row.article_id})" /></span></td>-->
+                                <td>
+                                    <span>
+                                        <img src="images/${row.is_best}.gif" onclick="listTable.toggle(this, 'is_best', ${row.article_id})" /></span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <img src="images/${row.is_top}.gif" onclick="listTable.toggle(this, 'is_top', ${row.article_id})" /></span>
+                                </td>
+                                <td><span>$CMS.GetPrevCMSCat(${row.cat_id}).cat_name</span></td>
+                                <td><span>${row.editor}</span></td>
+
+
+                                <td>
+                                    $row.click_count
+                                </td>
+                                <td>
+
+                                    <div onclick="javascript:listTable.edit(this, 'sort_order', ${row.article_id})" style="width:100%;">${row.sort_order}</div>
+
+                                </td>
+                                <td>
+                                    <!-- JiaThis Button BEGIN -->
+                                    <div class="jiathis_style">
+                                        <span class="jiathis_txt">分享到：</span>
+                                        <div onmouseover="javascript:setShare('${row.title}','http://$SiteUtils.GetDomain()#CMSLink()')">
+                                            <a class="jiathis_button_weixin"></a>
+                                        </div>
+                                        <!--<a class="jiathis_counter_style"></a>-->
+                                    </div>
+                                    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+                                    <!-- JiaThis Button END -->
+                                </td>
+                                <td nowrap="true">
+                                    <span><a href="?act=edit&t=iframe&id=${row.article_id}" title="修改">修改</a>&nbsp; <a
+                                        href="javascript:;" onclick="listTable.remove(${row.article_id}, '您确认要删除这篇文章吗？')"
+                                        title="删除">删除</a></span>
+                                </td>
+                            </tr>
+                            #end
+                        </table>
+                        <!-- 分页 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    ${pager}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 批量 -->
+                        <div class="row" id="page-batch" style="padding-left: 15px;">
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacthAction('CompletelyDelete')">
+                                <i class="fa fa-trash"></i>&nbsp;永久删除</button>
+                            #if($userid==2)
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacth('is_show',1)">
+                                <i class="fa fa-cart-plus"></i>&nbsp;发布</button>
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacth('is_show',0)">
+                                <i class="fa fa-cart-arrow-down"></i>&nbsp;取消发布</button>
+                            #end
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacth('is_best',1)">
+                                <i class="fa  fa-thumbs-up"></i>&nbsp;推荐</button>
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" onclick="listTable.bacth('is_best',0)">
+                                <i class="fa  fa-thumbs-down"></i>&nbsp;取消推荐</button>
+                            <button class="btn btn-primary btn-sm btnSubmit" type="button" id="editcat">
+                                <i class="fa  fa-share-square"></i>&nbsp;修改分类</button>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $("#editcat").click(function () {
+                                        if (confirm('批量修改分类，请确认')) {
+                                            var cat_id = $('#cat_id').val();
+                                            if (cat_id != 0) {
+                                                listTable.bacth('cat_id', cat_id)
+                                            } else {
+                                                alert("请先选择分类...");
+                                                $("#cat_id").focus();
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                        #if (!$isajax)
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html") #end

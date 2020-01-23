@@ -1,0 +1,60 @@
+﻿#if (!$isajax) #parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            网站统计</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>设置</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="btn btn-primary" id="loadpoint">
+                    提交到蜘蛛池</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="progress" style="display:none">
+                        <div style="width: 43%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="1"
+                            role="progressbar" class="progress-bar">
+                            <span class="sr-only">43% Complete (success)</span>
+                        </div>
+                    </div>
+                    <div class="row" id="content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //加载积分
+        jQuery.post("/tools/apistore.aspx?act=selectzhizhuchi", null, function (data) {
+            $("#content").append("剩余积分：" + data.point + "<br/><br/>");
+            if (data.point <= 0) {
+                $("#loadpoint").attr("disabled", "disabled");
+            }
+            //alert(data.point);
+        }, "json");
+
+
+
+        $("#loadpoint").click(function () {
+            //提交蜘蛛池
+            jQuery.post("/tools/apistore.aspx?act=submitzhizhuchi", null, function (data) {
+                $(".progress div").css("width", "100%").attr("aria-valuenow", "100");
+                $("#content").append("已经提交站点地图到超级站长蜘蛛池，本次消耗1积分。<br/><br/>注：积分为0时不允许提交！");
+            }, "json");
+        });
+    })
+</script>
+#parse("pagefooter.html") #end 

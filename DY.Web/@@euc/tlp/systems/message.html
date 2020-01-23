@@ -1,0 +1,83 @@
+﻿#** * 功能描述：配送方式添加修改模板 * 创建时间：2010-01-11 12:23:45 * 最后修改时间：2010-01-14 9:43:22 * 作者：gudufy
+* ============================================================================ *
+2009-2015 小K版权所有，并保留所有权利 * 联系邮箱：421643133@qq.com、QQ：421643133 * ----------------------------------------------------------------------------
+* 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和 * 使用；不允许对程序代码以任何形式任何目的的再发布。 * ============================================================================
+*#
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>管理中心 - 管理员列表 </title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/bootstrap.min.css?v=3.3.0" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=2.0.0" rel="stylesheet">
+</head>
+<body>
+    <h1 id="Menu">
+        <span class="action-span1"><a href="main.aspx">管理中心</a> -
+            <label id="cur_menu">
+                操作提示</label>
+        </span>
+        <div style="clear: both">
+        </div>
+    </h1>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>
+                操作提示</h2>
+            <ol class="breadcrumb">
+                <li><a href="main.aspx">管理中心</a> </li>
+                <li><strong>操作提示</strong> </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInUp">
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="text-center p-lg">
+                        <div class="alert alert-${msg_type}">
+                                  <h2>${msg_detail}</h2>
+                                </div>
+                        <span>如果您不做出选择，将在</span> <span id="spanSeconds">3</span> 秒后跳转到第一个链接地址。
+                        <div class="well">
+                            <a href="${default_url}">点这里返回</a> #foreach($row in $links) <a href="$row.Value">$row.Key</a>
+                            #end
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" language="JavaScript">
+        var seconds = 3;
+        var defaultUrl = "${default_url}";
+
+        window.onload = function () {
+            if (defaultUrl == 'javascript:history.go(-1)' && window.history.length == 0) {
+                document.getElementById('redirectionMsg').innerHTML = '';
+                return;
+            }
+
+            window.setInterval(redirection, 1000);
+        }
+        function redirection() {
+            if (seconds <= 0) {
+                window.clearInterval();
+                return;
+            }
+
+            seconds--;
+            document.getElementById('spanSeconds').innerHTML = seconds;
+
+            if (seconds == 0) {
+                window.clearInterval();
+                location.href = defaultUrl;
+            }
+        }
+    </script>
+#parse("pagefooter.html")

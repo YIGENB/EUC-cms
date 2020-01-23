@@ -1,0 +1,99 @@
+﻿#parse("include/page_head.html")
+<script src="js/scrollfix.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script type="text/javascript">
+    $(function () {
+        var fixtop = $(".blog_r");
+        fixtop.scrollFix({ distanceTop: 20, endPos: 300 });
+    })
+</script>
+ <div id="blog">
+        <div class="blog_c wd1200">
+            <div class="blog_l fl">
+                <div class="position">
+                    <span><a href="/">首页</a>  $catnav</span>
+                </div>
+                <div class="xx_top">
+                <div class="datatime">$cmsinfo.showtime.ToString("yyyy")<br>
+                $cmsinfo.showtime.ToString("MM-dd")</div>
+                <div class="a_title">
+                <h1>$cmsinfo.title</h1>
+                <div class="a_copy"><span class="ico_user">$cmsinfo.source</span><span class="ico_fenlei">$catinfo.cat_name</span><span class="ico_fenlei">$cmsinfo.click_count</span><span class="ico_data">编辑日期：$cmsinfo.showtime.ToString("yyyy-MM-dd")</span></div>
+                </div>
+                </div>
+                <p style="padding-top:10px;clear:both;" align="center">
+<a href="http://www.baidu.com/s?wd=$cmsinfo.title" target="_blank">&nbsp;百度</a>&nbsp;
+<a href="http://www.google.com/search?hl=zh-CN&amp;q=$cmsinfo.title" target="_blank">&nbsp;谷歌</a>&nbsp;
+<a href="http://search.cn.yahoo.com/s?q=$cmsinfo.title" target="_blank">&nbsp;雅虎</a>&nbsp;
+<a href="http://www.sogou.com/web?query=$cmsinfo.title" target="_blank">&nbsp;搜狗</a>&nbsp;
+<a href="http://www.soso.com/q?pid=s.idx&amp;w=$cmsinfo.title" target="_blank">&nbsp;搜搜</a>&nbsp;
+<a href="http://www.youdao.com/search?q=$cmsinfo.title" target="_blank">&nbsp;有道</a>&nbsp;
+<a href="http://so.360.cn/s?ie=utf8&amp;src=hao_phome&amp;q=$cmsinfo.title" target="_blank">&nbsp;360搜索</a>&nbsp;
+<a href="http://www.qihoo.com/wenda.php?kw=$cmsinfo.title" target="_blank">&nbsp;奇虎</a>&nbsp;
+</p>
+                <div class="content cl">
+                	$body
+                </div>
+                #if($cmsinfo.tag!="")
+                <div class="newsIn_b">
+                    热点聚合：#foreach($row in $CMS.GetTags($cmsinfo.tag)) <a href="#TagLink()" class="tags" target="_blank">
+                        $row.tag_name</a> #end
+                </div>
+                #end
+                                <div class="share">
+
+                	<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>    window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "32" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+
+                </div>
+                <div class="newsIn_b">
+                    #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,false))
+                            <a href="#CMSLink()" class="newsIn_be">$row.title</a>
+                     #end
+                     #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,true))
+                            <a href="#CMSLink()" class="newsIn_br">$row.title</a>
+                     #end
+              </div>
+              <p style="padding-bottom:10px" align="center">
+            <a href="http://www.baidu.com/s?wd=$pagekeywords" target="_blank">&nbsp;百度</a>&nbsp;
+            <a href="http://www.google.com/search?hl=zh-CN&amp;q=$pagekeywords" target="_blank">&nbsp;谷歌</a>&nbsp;
+            <a href="http://search.cn.yahoo.com/s?q=$pagekeywords" target="_blank">&nbsp;雅虎</a>&nbsp;
+            <a href="http://www.sogou.com/web?query=$pagekeywords" target="_blank">&nbsp;搜狗</a>&nbsp;
+            <a href="http://www.soso.com/q?pid=s.idx&amp;w=$pagekeywords" target="_blank">&nbsp;搜搜</a>&nbsp;
+            <a href="http://www.youdao.com/search?q=$pagekeywords" target="_blank">&nbsp;有道</a>&nbsp;
+            <a href="http://so.360.cn/s?ie=utf8&amp;src=hao_phome&amp;q=$pagekeywords" target="_blank">&nbsp;360搜索</a>&nbsp;
+            <a href="http://www.qihoo.com/wenda.php?kw=$pagekeywords" target="_blank">&nbsp;奇虎</a>&nbsp;
+            </p>
+            <div id="hm_t_114342"></div>
+            #if($CMS.TagsToCMS(10,0,$cmsinfo.tag).count>0)
+            <div class="morelist boxshadow">
+                <h4 class="titleh4">相关文章</h4>
+                <ul>
+                 #foreach($row in $CMS.TagsToCMS(10,5,$cmsinfo.tag))
+                            <li><span>$row.showtime.tostring("yyyy-MM-dd") </span><a href="#CMSLink()" title="$row.title" target="_blank">$row.title</a></li>
+                            #end
+                </ul>
+            </div>
+            #end
+            #if($CMS.TagsToCMS(6,3,$cmsinfo.tag).count>0)
+            <div class="morelistpic boxshadow">
+                <h4 class="titleh4">猜你感兴趣$catinfo.cat_name案例</h4>
+                <ul>
+                 #foreach($row in $CMS.TagsToCMS(6,3,$cmsinfo.tag))
+                            <li><a href="#CMSLink()"><img src="$row.photo" title="$row.title " alt="$row.title " width="242" height="150"></a>
+                            <p class="h30"><a href="#CMSLink()" rel="nofollow">$row.title </a></p>
+                            </li>
+                            #end
+                </ul>
+            </div>
+            #end
+                <div class="message">
+                #parse("include/duoshuo.html")
+
+                </div>
+            </div>
+            #parse("include/cms_pub.html")
+        </div>
+    </div>
+#parse("include/page_foot.html")
+

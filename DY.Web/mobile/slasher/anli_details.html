@@ -1,0 +1,91 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+<div class="content">
+    <div class="container no-bottom" style="padding-top: 15px;">
+        <h3>$cmsinfo.title</h3>
+        <p>$cmsinfo.showtime.ToString("yyyy-MM-dd")&nbsp;&nbsp;&nbsp;&nbsp;阅读次数：$cmsinfo.click_count</p>
+        <div class="container">
+            <div class="toggle-1">
+                <a class="deploy-toggle-1" href="#">摘要</a>
+                <div class="toggle-content" style="display: none;">
+                    <p>
+                        $SiteUtils.GetTopic($cmsinfo.des,182)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p style="padding-bottom:10px;font-size:12px;color:#CDCDCD;" align="center">
+        <a href="http://www.baidu.com/s?wd=$cmsinfo.title" target="_blank" style="color:#CDCDCD;">&nbsp;百度</a>&nbsp;
+        <a href="http://www.google.com/search?hl=zh-CN&amp;q=$cmsinfo.title" target="_blank" style="color:#CDCDCD;">&nbsp;谷歌</a>&nbsp;
+        <a href="http://search.cn.yahoo.com/s?q=$cmsinfo.title" target="_blank" style="color:#CDCDCD;">&nbsp;雅虎</a>&nbsp;
+        <a href="http://www.sogou.com/web?query=$cmsinfo.title" target="_blank" style="color:#CDCDCD;">&nbsp;搜狗</a>&nbsp;
+        <a href="http://www.soso.com/q?pid=s.idx&amp;w=$cmsinfo.title" target="_blank" style="color:#CDCDCD;">&nbsp;搜搜</a>&nbsp;
+        <a href="http://www.youdao.com/search?q=$cmsinfo.title" target="_blank" style="color:#CDCDCD;">&nbsp;有道</a>&nbsp;
+        <a href="http://so.360.cn/s?ie=utf8&amp;src=hao_phome&amp;q=$cmsinfo.title" target="_blank" style="color:#CDCDCD;">&nbsp;360搜索</a>&nbsp;
+        <a href="http://www.qihoo.com/wenda.php?kw=$cmsinfo.title" target="_blank" style="color:#CDCDCD;">&nbsp;奇虎</a>&nbsp;
+        </p>
+        <!--<div class="one-half-responsive">
+            <div class="sliding-door">
+                <div class="sliding-door-top">
+                    <a href="#"><em></em>
+                        摘要
+                    </a>
+                </div>    
+                <div class="sliding-door-bottom">
+                    <a href="javascript:;"><em></em>
+                        $SiteUtils.GetTopic($cmsinfo.des,142)
+                    </a>
+                </div>
+            </div>
+            <div class="sliding-door-clear"></div>
+        </div>-->
+    <div class="cimg">
+        $body.Replace("p0","")
+    </div>
+        #if($cmsinfo.tag!="")
+            <!--<h3>热点聚合</h3>-->
+            #foreach($row in $CMS.GetTags($cmsinfo.tag)) <a href="#TagLink()" class="button button-dark">
+                        $row.tag_name</a> #end
+     #end
+    #sharewecat()
+			<div style="text-align:center;">
+                #foreach($row in $Caches.WeiXin(1)) #set($index=$velocityCount+1)   
+                #if($index==1) 	
+				<img src="$row.head" width="60%" alt="二维码" style="margin:0 auto;" />
+                #end
+                #end
+				<h4>扫描关注</h4>
+			</div>
+    <div class="code">
+           #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,false)) 
+           <span class="wline"> 
+            上一篇：<a href="#CMSLink()" style="color:#666666">$row.title</a>
+           </span> 
+            #end
+            #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,true))
+            <span class="gline"> 
+            下一篇：<a href="#CMSLink()" style="color:#666666">$row.title</a>
+            </span>
+            #end
+        </div>
+<p style="padding-bottom:10px;font-size:12px;" align="center">
+<a href="http://www.baidu.com/s?wd=$pagekeywords" target="_blank" style="color:#CDCDCD;">&nbsp;百度</a>&nbsp;
+<a href="http://www.google.com/search?hl=zh-CN&amp;q=$pagekeywords" target="_blank" style="color:#CDCDCD;">&nbsp;谷歌</a>&nbsp;
+<a href="http://search.cn.yahoo.com/s?q=$pagekeywords" target="_blank" style="color:#CDCDCD;">&nbsp;雅虎</a>&nbsp;
+<a href="http://www.sogou.com/web?query=$pagekeywords" target="_blank" style="color:#CDCDCD;">&nbsp;搜狗</a>&nbsp;
+<a href="http://www.soso.com/q?pid=s.idx&amp;w=$pagekeywords" target="_blank" style="color:#CDCDCD;">&nbsp;搜搜</a>&nbsp;
+<a href="http://www.youdao.com/search?q=$pagekeywords" target="_blank" style="color:#CDCDCD;">&nbsp;有道</a>&nbsp;
+<a href="http://so.360.cn/s?ie=utf8&amp;src=hao_phome&amp;q=$pagekeywords" target="_blank" style="color:#CDCDCD;">&nbsp;360搜索</a>&nbsp;
+<a href="http://www.qihoo.com/wenda.php?kw=$pagekeywords" target="_blank" style="color:#CDCDCD;">&nbsp;奇虎</a>&nbsp;
+</p>
+        <div class="clear"></div>
+    </div>
+    <div class="decoration"></div>
+</div>
+#end
+<script>
+    var shareWeixinData = { toggle: true, link: 'http://$SiteUtils.GetDomain()/article/detail/$!{cmsinfo.article_id}${html}', title: '$cmsinfo.title', img: "http://test.ctmon.com/$cmsinfo.photo", desc: '$cmsinfo.des' };
+      </script>
+#parse("include/page_foot.html")

@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3053467E-A925-4210-BF9D-3A7FF421DFE9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DY.Data.SqlServer</RootNamespace>
+    <AssemblyName>DY.Data.SqlServer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\CShop.Web\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\CShop.Web\bin\DY.Data.SqlServer.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminUserManage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CMSManage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GoodsManage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiteManage\AdManage.cs" />
+    <Compile Include="SiteManage\AdminActionManage.cs" />
+    <Compile Include="SiteManage\AdminLogManage.cs" />
+    <Compile Include="SiteManage\AdminMenuManage.cs" />
+    <Compile Include="SiteManage\AdminUserManage.cs" />
+    <Compile Include="SiteManage\AdPositionManage.cs" />
+    <Compile Include="SiteManage\AppstoreManage.cs" />
+    <Compile Include="SiteManage\AwardManage.cs" />
+    <Compile Include="SiteManage\BonusManage.cs" />
+    <Compile Include="SiteManage\BonusTypeManage.cs" />
+    <Compile Include="SiteManage\CardManage.cs" />
+    <Compile Include="SiteManage\CartManage.cs" />
+    <Compile Include="SiteManage\CityStationManager.cs" />
+    <Compile Include="SiteManage\CmsCatManage.cs" />
+    <Compile Include="SiteManage\CmsLinkManage.cs" />
+    <Compile Include="SiteManage\CmsManage.cs" />
+    <Compile Include="SiteManage\CmsPageManage.cs" />
+    <Compile Include="SiteManage\CommentManage.cs" />
+    <Compile Include="SiteManage\ConfigManage.cs" />
+    <Compile Include="SiteManage\CshManage.cs" />
+    <Compile Include="SiteManage\CshTypeManage.cs" />
+    <Compile Include="SiteManage\DeliveryAddressManage.cs" />
+    <Compile Include="SiteManage\DeliveryAreaManage.cs" />
+    <Compile Include="SiteManage\DeliveryManage.cs" />
+    <Compile Include="SiteManage\DepartureDateManage.cs" />
+    <Compile Include="SiteManage\DiscountManage.cs" />
+    <Compile Include="SiteManage\DownloadCategoryManage.cs" />
+    <Compile Include="SiteManage\DownloadManage.cs" />
+    <Compile Include="SiteManage\EmailListManage.cs" />
+    <Compile Include="SiteManage\ExchangeLogManager.cs" />
+    <Compile Include="SiteManage\ExchangeManage.cs" />
+    <Compile Include="SiteManage\FavoritesManage.cs" />
+    <Compile Include="SiteManage\FeedbackManage.cs" />
+    <Compile Include="SiteManage\FormAllManage.cs" />
+    <Compile Include="SiteManage\FormPositionManage.cs" />
+    <Compile Include="SiteManage\FriendLinkManage.cs" />
+    <Compile Include="SiteManage\FromvalueManage.cs" />
+    <Compile Include="SiteManage\GoodsAttributeManage.cs" />
+    <Compile Include="SiteManage\GoodsAttrManage.cs" />
+    <Compile Include="SiteManage\GoodsBrandManage.cs" />
+    <Compile Include="SiteManage\GoodsCategoryManage.cs" />
+    <Compile Include="SiteManage\GoodsCatManage.cs" />
+    <Compile Include="SiteManage\GoodsGalleryManage.cs" />
+    <Compile Include="SiteManage\GoodsInquiryManage.cs" />
+    <Compile Include="SiteManage\GoodsLinkManage.cs" />
+    <Compile Include="SiteManage\GoodsManage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SiteManage\GoodsSpecIndexManage.cs" />
+    <Compile Include="SiteManage\GoodsSpecManage.cs" />
+    <Compile Include="SiteManage\GoodsSpecValuesManage.cs" />
+    <Compile Include="SiteManage\GoodsTypeManage.cs" />
+    <Compile Include="SiteManage\GoodsUserPriceManage.cs" />
+    <Compile Include="SiteManage\GoodsVisitStatManage.cs" />
+    <Compile Include="SiteManage\GrabManage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SiteManage\InternalLinksManage.cs" />
+    <Compile Include="SiteManage\JobDepartmentManage.cs" />
+    <Compile Include="SiteManage\JobPositionManage.cs" />
+    <Compile Include="SiteManage\KeywordsManage.cs" />
+    <Compile Include="SiteManage\LbsManage.cs" />
+    <Compile Include="SiteManage\MailTemplatesManage.cs" />
+    <Compile Include="SiteManage\MStyleManage.cs" />
+    <Compile Include="SiteManage\NavigateManage.cs" />
+    <Compile Include="SiteManage\OauthManage.cs" />
+    <Compile Include="SiteManage\OrderActionManage.cs" />
+    <Compile Include="SiteManage\OrderGoodsManage.cs" />
+    <Compile Include="SiteManage\OrderInfoManage.cs" />
+    <Compile Include="SiteManage\PaymentManage.cs" />
+    <Compile Include="SiteManage\ProductsManage.cs" />
+    <Compile Include="SiteManage\QuickMenuManage.cs" />
+    <Compile Include="SiteManage\ReceivingManage.cs" />
+    <Compile Include="SiteManage\RegFieldsManage.cs" />
+    <Compile Include="SiteManage\RegFieldsValueManage.cs" />
+    <Compile Include="SiteManage\RegionManage.cs" />
+    <Compile Include="SiteManage\RobotsManage.cs" />
+    <Compile Include="SiteManage\SearchManager.cs" />
+    <Compile Include="SiteManage\TagManage.cs" />
+    <Compile Include="SiteManage\TpcommentsManage.cs" />
+    <Compile Include="SiteManage\UserAccountManage.cs" />
+    <Compile Include="SiteManage\UserAddressManage.cs" />
+    <Compile Include="SiteManage\UserDistributionManager.cs" />
+    <Compile Include="SiteManage\UserEmailManage.cs" />
+    <Compile Include="SiteManage\UserFeedManage.cs" />
+    <Compile Include="SiteManage\UserIntegralManage.cs" />
+    <Compile Include="SiteManage\UserRankManage.cs" />
+    <Compile Include="SiteManage\UserSignManage.cs" />
+    <Compile Include="SiteManage\UsersManage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SiteManage\UserWithdrawalsManager.cs" />
+    <Compile Include="SiteManage\VoteLogManage.cs" />
+    <Compile Include="SiteManage\VoteManage.cs" />
+    <Compile Include="SiteManage\VoteOptionManage.cs" />
+    <Compile Include="SiteManage\PromotionManage.cs" />
+    <Compile Include="SiteManage\PromotionLogManage.cs" />
+    <Compile Include="SiteManage\WebAddressManage.cs" />
+    <Compile Include="SiteManage\WeblogManage.cs" />
+    <Compile Include="SiteManage\WeixinManage.cs" />
+    <Compile Include="SiteManage\WeixinMenuManage.cs" />
+    <Compile Include="SiteManage\WeixinNewsManage.cs" />
+    <Compile Include="SiteManage\WeixinUserManage.cs" />
+    <Compile Include="SiteManage\WeixinWordManage.cs" />
+    <Compile Include="SqlServerProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StoreManage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SystemManage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserManage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DY.Config\DY.Config.csproj">
+      <Project>{75BBD034-37AF-4540-8667-39F530A93254}</Project>
+      <Name>DY.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.Data\DY.Data.csproj">
+      <Project>{411F609C-4636-46B5-AE6C-F2A0EFF22F82}</Project>
+      <Name>DY.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.Entity\DY.Entity.csproj">
+      <Project>{85FF1451-8BFA-4CDB-A1CC-62373FA53E5B}</Project>
+      <Name>DY.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\CShop.Data.SqlServer.dll" />
+    <Content Include="bin\Debug\CShop.Data.SqlServer.pdb" />
+    <Content Include="bin\Debug\CShop.DBUtility.dll" />
+    <Content Include="bin\Debug\CShop.DBUtility.pdb" />
+    <Content Include="bin\Debug\CShop.IDAL.dll" />
+    <Content Include="bin\Debug\CShop.IDAL.pdb" />
+    <Content Include="bin\Debug\CShop.Model.dll" />
+    <Content Include="bin\Debug\CShop.Model.pdb" />
+    <Content Include="bin\Debug\CShop.SqlServerDAL.dll" />
+    <Content Include="bin\Debug\CShop.SqlServerDAL.pdb" />
+    <Content Include="bin\Release\CShop.Cache.dll" />
+    <Content Include="bin\Release\CShop.Cache.pdb" />
+    <Content Include="bin\Release\CShop.Cache.xml" />
+    <Content Include="bin\Release\CShop.Common.dll" />
+    <Content Include="bin\Release\CShop.Common.pdb" />
+    <Content Include="bin\Release\CShop.Common.xml" />
+    <Content Include="bin\Release\CShop.Config.dll" />
+    <Content Include="bin\Release\CShop.Config.pdb" />
+    <Content Include="bin\Release\CShop.Config.xml" />
+    <Content Include="bin\Release\CShop.Data.dll" />
+    <Content Include="bin\Release\CShop.Data.pdb" />
+    <Content Include="bin\Release\CShop.Data.SqlServer.dll" />
+    <Content Include="bin\Release\CShop.Data.SqlServer.pdb" />
+    <Content Include="bin\Release\CShop.Data.xml" />
+    <Content Include="bin\Release\CShop.Entity.dll" />
+    <Content Include="bin\Release\CShop.Entity.pdb" />
+    <Content Include="bin\Release\CShop.Entity.xml" />
+    <Content Include="obj\Debug\CShop.Data.SqlServer.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\CShop.Data.SqlServer.dll" />
+    <Content Include="obj\Debug\CShop.Data.SqlServer.pdb" />
+    <Content Include="obj\Debug\CShop.SqlServerDAL.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\CShop.SqlServerDAL.dll" />
+    <Content Include="obj\Debug\CShop.SqlServerDAL.pdb" />
+    <Content Include="obj\Debug\Refactor\CShop.Data.SqlServer.dll" />
+    <Content Include="obj\Release\CShop.Data.SqlServer.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\CShop.Data.SqlServer.dll" />
+    <Content Include="obj\Release\CShop.Data.SqlServer.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obj\Debug\ResolveAssemblyReference.cache" />
+    <None Include="obj\Release\ResolveAssemblyReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="obj\Release\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

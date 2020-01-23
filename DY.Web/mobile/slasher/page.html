@@ -1,0 +1,20 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+#parse("include/ads.html")
+<div class="content cimg">
+    <div class="container no-bottom">
+    <h4>$pageinfo.title</h4>
+     <div class="decoration"></div>
+    <p>
+        $mbody
+    </p>
+    #sharewecat()
+    </div>
+</div>
+<script>
+    var shareWeixinData = { toggle: true, link: 'http://$SiteUtils.GetDomain()/page/$!{pageinfo.urlrewriter}${html}', title: '$pagetitle', img: "http://$SiteUtils.GetDomain()/include/Hplus/img/logo.png", desc: '$pageinfo.des' };
+      </script>
+#end
+#parse("include/page_foot.html")

@@ -1,0 +1,31 @@
+﻿.menuvice
+{
+    margin:0px auto;
+    width:320px;
+    text-align: center;
+    overflow: hidden;
+    display:block;
+ }
+ .menuvice a{
+     display:inline-block;
+     width:45.5%;
+    height:45px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color:rgba(10,86,146,0.7);  
+    text-align: center;
+    background-size:40px;
+     }
+      .menuvice a:nth-child(2n+1){
+       float:left;
+        margin:0px 0px 10px 10px; 
+     }
+     .menuvice a:nth-child(2n+2){
+         float:right;
+        margin:0px 10px 10px 0px; 
+     }
+   .menuvice a span{
+     color:#fff;
+     line-height: 45px;
+     }

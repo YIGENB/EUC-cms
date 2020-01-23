@@ -1,0 +1,64 @@
+﻿#parse("pageheader.html")
+<h1 id="Menu">
+<span class="action-span"><a href="?act=list&user_id={$this.getRequestInt("user_id")}">消费记录</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">添加消费记录</label> </span>
+<div style="clear:both"></div>
+</h1>
+<div class="main-div">
+<form method="post" name="theForm" onsubmit="return validate()">
+<table width="100%" id="general-table">
+  <tr>
+    <td class="label">对象</td>
+    <td style="color:Red;">
+        {$this.users.user_name} （可用资金：￥{$this.users.user_money}元）
+    </td>
+  </tr>
+  <tr>
+    <td class="label">性质</td>
+    <td>
+        <input name="type" type="radio" value="0" checked />收入 <input name="type" type="radio" value="1" />支出 
+    </td>
+  </tr>
+  <tr>
+    <td class="label">交易金额</td>
+    <td>
+      <input type='text' name='price' value='' size="30"  />
+    </td>
+  </tr>
+  <tr>
+    <td class="label">备注</td>
+    <td>
+      <input type='text' name='content'  value=""  size="30"  />
+    </td>
+  </tr>
+    <tr>
+    <td class="label">&nbsp;</td>
+    <td>
+      <input type="submit" value=" 确定 " class="button" />
+      <input type="reset" value=" 重置 " class="button" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+<script language="JavaScript">
+<!--
+var link_name_empty = "请输入链接名称!";
+var link_url_empty = "请输入链接地址!";
+var show_order_type = "显示的顺序必须是一个数字!";
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("link_name",      link_name_empty);
+    validator.required("link_url",       link_url_empty);
+    validator.isNumber("show_order",     show_order_type);
+    return validator.passed();
+}
+
+//-->
+</script>
+#parse("pagefooter.html")

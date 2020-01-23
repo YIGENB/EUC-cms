@@ -1,0 +1,836 @@
+﻿#parse("pageheader.html")
+#set($GoodsId = $SiteUtils.DefaultValue($!{entity.goods_id},0)) #set($GoodsBrandId=$SiteUtils.DefaultValue($!{entity.brand_id},0))
+#set($GoodsCatId = $SiteUtils.DefaultValue($!{entity.cat_id},0))
+#if($config.Site_word) 
+<script>
+    $(function () {
+        //拓词工具定时执行
+        setInterval("getWord('goods_name','goods_content')", 5000);
+    })
+</script>
+#end
+<style>
+.cur{width:120px;height:120px;border:1px solid #f00}
+.htmlimg{position:relative;float:left;margin-right:10px;width:120px}
+.delpic{position:absolute;top:0;right:0}
+.promore{width:120px;height:120px}
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end产品</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>产品</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">产品列表</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#general-tab">基本信息</a></li>
+                            <li><a data-toggle="tab" href="#gallery-tab">产品相册</a></li>
+                            <li><a data-toggle="tab" href="#content-tab">产品介绍</a></li>
+                            <li><a data-toggle="tab" href="#spec-tab">产品规格</a></li>
+                            <li><a data-toggle="tab" href="#properties-tab">产品属性</a></li>
+                            <li><a data-toggle="tab" href="#linkgoods-tab">关联商品</a></li>
+                            <li><a data-toggle="tab" href="#linkcms-tab">关联资讯</a></li>
+                            <li><a data-toggle="tab" href="#linkdownload-tab">关联下载</a></li>
+                            <li><a data-toggle="tab" href="#seo-tab">SEO</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form action="" method="post" name="theForm" class="form-horizontal" id="commentForm">
+                        <div class="tab-content">
+                        <div id="general-tab" class="tab-pane active">
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            请选择：</label>
+                                        <div class="col-sm-9">
+                                                    <label class="checkbox-inline i-checks"><input type="checkbox" name="is_alone_sale" value="1" #if(${entity.is_alone_sale}=="True")checked #end />积分商品</label>
+                                                    <label class="checkbox-inline i-checks"><input type="checkbox" name="is_on_sale" value="1" checked="$SiteUtils.DefaultValue($!{entity.is_on_sale},'checked') #if($!{entity.is_on_sale})checked#end"  />上架</label>
+                                                    <label class="checkbox-inline i-checks"><input type="checkbox" name="is_best" value="1" checked="#if($!{entity.is_best})checked#end"  />推荐</label>
+                                                    <label class="checkbox-inline i-checks"><input type="checkbox" name="is_new" value="1" checked="#if($!{entity.is_new})checked#end"  />新品</label>
+                                                    <label class="checkbox-inline i-checks"><input type="checkbox" name="is_hot" value="1" checked="#if($!{entity.is_hot})checked#end"  />热卖</label>
+                                                    <label class="checkbox-inline i-checks"><input type="checkbox" name="is_specials" value="1" checked="#if($!{entity.is_specials})checked#end"  />特价</label>
+                                                    <!--取缔推送到手机-->
+                                        </div>
+                                    </div>
+                                      <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            名称：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="goods_name" name="goods_name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.goods_name}"/>
+                                        </div>
+                                    </div>
+                                      <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            副标题：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="goods_subname" name="goods_subname" maxlength="75" type="text" class="form-control" value="$!{entity.goods_subname}">
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            产品简介：</label>
+                                        <div class="col-sm-9">
+                                                    <textarea id="goods_desc" name="goods_desc" class="form-control" rows="5" maxlength="200">$!{entity.goods_desc}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            产品货号：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="goods_sn" id="goods_sn" maxlength="20" type="text" class="form-control" value="$!{entity.goods_sn}" placeholder="如果您不输入，系统将自动生成一个唯一的货号"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            产品分类：</label>
+                                        <div class="col-sm-9 father_img">
+                                <i class="fa fa-caret-down i_img"></i>
+                                  <input   style="cursor:default; background-color:inherit; " type="text" readonly=readonly class="form-control fat_class" value="#if($!{entity.cat_id}>0)$!Caches.GoodsCatInfos($!{entity.cat_id}).cat_name #else 请选择分类... #end">
+                                  <input class="parent_id" name="cat_id" type="hidden" value="$!{entity.cat_id}" />
+                                    <div class="tree_class">
+                                        <ul id="tree">
+                                        </ul>
+                                    </div>
+                                </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            拓展分类：</label>
+                                        <div class="col-sm-9">
+                                                     <input type="button" value="添加" onclick="addOtherCat(this.parentNode)" class="btn btn-primary btn-sm" />
+                                                     <input type="button" value="删除" onclick="delOtherCat()" class="btn btn-primary btn-sm" />
+                                                    #foreach($row in $othercat) #set($GoodsOtherSelectCatId = $SiteUtils.DefaultValue($row.cat_id,0))
+                                                    <select name="other_cat[]" class="form-control m-b" required="" aria-required="true">
+                                                        <option value="">请选择...</option>
+                                                        #GoodsCatSelectUI($GoodsOtherSelectCatId)
+                                                    </select>
+                                                    #end
+                                        </div>
+                                    </div>
+                                    #if($config.ShowBrand)
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            产品品牌：</label>
+                                        <div class="col-sm-9">
+                                                    <select name="brand_id" class="form-control m-b">
+                                                        <option value="0" name="">请选择...</option>
+                                                        #GoodsBrandSelectUI($GoodsBrandId)
+                                                    </select>
+                                        </div>
+                                    </div>
+                                    #end
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            $!{config.PriceName1}：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="market_price" id="market_price" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.market_price},0)">
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            $!{config.PriceName2}：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="shop_price" id="shop_price" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.shop_price},0)">
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            会员价格：</label>
+                                        <div class="col-sm-9">
+                                                    #foreach($row in $userRankPrice)
+                                                    $!{row.rank_name}
+                                                    <span id="nrank_$!{row.rank_id}"></span>
+                                                    <input type="text" id="rank_$!{row.rank_id}" name="user_price" #if ($!{row.user_price} != "")value="$!{row.user_price}"#else value="-1"#end onkeyup="if(parseInt(this.value)<-1){this.value='-1';};set_price_note($!{row.rank_id})" size="8" class="form-control number" required="" />
+                                                    <input type="hidden" name="user_rank" value="$!{row.rank_id}" />
+                                                    #end
+                                                    <span class="help-block">会员价格为-1时表示会员价格按会员等级折扣率计算。你也可以为每个等级指定一个固定价格</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            赠送积分：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="give_integral" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.give_integral},0)" />
+                                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            积分购买额度：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="integral" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.integral},0)" />
+                                                    <span class="help-block">如果作为礼品销售，则需使用多少积分进行兑换</span>
+                                        </div>
+                                    </div>
+                                    <!--请参考原版模板，暂时去掉促销价格，促销时间，商品库存，最低购买数量-->
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            排序：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="sort_order" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.sort_order},0)" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            浏览次数：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="click_count" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.click_count},0)" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            显示模板：</label>
+                                        <div class="col-sm-9">
+                                                    <!--<input name="info_tlp" type="text" class="form-control number" value="$!{entity.info_tlp}" />-->
+                                                    #if($entity.info_tlp.length>0)<button type="button" class="btn btn-w-m btn-white" onclick="javascript:updateTlp(this);">$!{entity.info_tlp}</button>#end
+                                                    <select name="info_tlp" id="info_tlp" class="form-control m-b" #if($entity.info_tlp.length>0)style="display:none"#end>
+                                                        <option value="">请选择...</option>
+                                                        #foreach($row in $Caches.GetSiteTlp().Rows) #set($fname=$row.name.Substring(0,$row.name.LastIndexOf(".")))
+                                                        <option value="$fname" #if($fname == $!entity.info_tlp)selected #end>$row.name#TlpSelect($fname) </option>
+                                                        #end
+                                                    </select>
+                                        </div>
+                                    </div>
+
+                        </div>
+
+                        <div id="gallery-tab" class="tab-pane">
+                             <div class="form-group">
+                                   <div class="col-sm-6">
+                                                    <input id="original_img" name="original_img" maxlength="350" type="text" class="form-control" required="" aria-required="true" value="$!{entity.original_img}" placeholder="从相册里选择一张作为默认图片,此图是产品详细页以及列表显示图片">
+                                    </div>
+                                    <div class="col-sm-6">
+                                                    <button class="btn btn-primary " type="button" id="J_selectImage"><i class="fa fa-file-photo-o"></i>&nbsp;添加图片</button>
+
+                                        </div>
+
+                                    </div>
+
+                             <div class="form-group">
+                                        <div id="J_imageView" >
+                                            #foreach($row in $Goods.GetGoodsGalleryList($GoodsId))
+                                            <div class="htmlimg"><div><a onclick="setDefault(this)" title="设为默认" href="javascript:void(0);"><img src="$row.original_img" data="$row.original_img" class="promore#if($!{entity.original_img} == $row.original_img) cur#else normal#end"></a></div><div id="$row.img_id" class="delpic" onclick="javascript:delpic(this)"><a title="删除图片" href="javascript:;"> <img src="images/delete.png"></a></div><div class="propicpx">排序：<br /><input type="text" title="" size="4" value="$row.order_id" name="order_id"></div><div><input type="hidden" style="" title="" size="10" value="$row.img_id" name="img_id"></div>
+                                            <input type="hidden" name="img_desc" value="" size="10" >
+                                            </div>
+
+                                                    #end
+                                          </div>
+                                    </div>
+#* 新版上传图片
+                            <div class="row">
+                                <div class="ibox-content">
+                                上传成功的图片：
+                                <div class="dropzone" id="myDropzone">
+                                    <div class="dropzone-previews"></div>
+                                    <button type="button" class="btn btn-primary pull-right">提交</button>
+                                </div>
+                            </div>
+                            <div id="img_id"></div>
+                            </div>
+                                <!-- DROPZONE -->
+    <link href="css/plugins/dropzone/basic.css" rel="stylesheet">
+    <link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">
+    <script src="js/plugins/dropzone/dropzone.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("div#myDropzone").dropzone({
+                url: "updatemoreimg/Savapropic.aspx?act=InsertGrabs",
+                //最大文件大小，单位是 MB  
+                maxFilesize: 5,
+                //默认false。如果设为true，则会给文件添加上传取消和删除预览图片的链接  
+                addRemoveLinks: false,
+                //指明允许上传的文件类型，格式是逗号分隔的 MIME type 或者扩展名。例如：image/*,application/pdf,.psd,.obj  
+                acceptedFiles: "image/*",
+                //指明是否允许 Dropzone 一次提交多个文件。默认为false。如果设为true，则相当于 HTML 表单添加multiple属性。  
+                uploadMultiple: true,
+                //关闭自动上传功能，默认会true会自动上传  
+                //也就是添加一张图片向服务器发送一次请求  
+                autoProcessQueue: false,
+                //每次上传的最多文件数，经测试默认为2，  
+                //记得修改web.config 限制上传文件大小的节  
+                parallelUploads: 100,
+                dictDefaultMessage: "拖拽图片或者点击",
+                dictFileTooBig: "图片最大5M",
+                dictInvalidFileType: "只能上传图片",
+                dictRemoveFile: "删除",
+
+                // Dropzone settings
+                init: function () {
+                    var myDropzone = this;
+
+                     #if($Goods.GetGoodsGalleryList($GoodsId).count>3)
+                        $(".dz-default").hide();
+                     #end
+                    this.element.querySelector("button[type=button]").addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+
+                    //当添加图片后的事件，上传按钮恢复可用  
+                    this.on("addedfile", function () {
+                        //alert(msg);
+                    });
+
+                    //当上传完成后的事件，接受的数据为JSON格式  
+                    this.on("complete", function (data) {
+                        if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                            var res = eval('(' + data.xhr.responseText + ')');
+                             var html = '<div class="htmlimg"><div><a href="javascript:void(0);" onclick="setDefault(this)" title="设为默认"><img class="promore" src="' + res.message + '" data="' +  res.message + '"></a></div>';
+                                html+='<div onclick="javascript:delpic(this)" class="delpic" id="' + res.content + '">';
+                                html+='<a href="javascript:;" title="删除图片"> <img src="images/delete.png"></a></div><div class="propicpx">排序：<br/><input type="text" name="order_id" value="0" size="4" title=""></div>';
+                                 html += '<div><input type="hidden" name="img_desc" value="" size="10" ><input type="hidden" name="img_id" value="' + res.content + '" size="10"  /></div></div>';
+                                 $('#J_imageView').append(html); //增加图片html
+                        }
+                    });
+
+                    this.on("sendingmultiple", function () { });
+                    this.on("successmultiple", function (files, response) { });
+                    this.on("errormultiple", function (files, response) { });
+
+                    //删除图片的事件，当上传的图片为空时，使上传按钮不可用状态  
+                    this.on("removedfile", function (file) {
+                        //alert(file.name);
+                        if(confirm("删除的数据无法恢复，确定执行该操作吗？"))
+                        {
+                            jQuery.post("/admin/updatemoreimg/Savapropic.aspx?act=Deletedpic", { file: file.name }, function () {
+                            });
+                        }
+                    });
+
+                }
+            });
+        });
+    </script>
+*#
+                        </div>
+
+                        <div id="content-tab" class="tab-pane">
+                             <div class="form-group">
+                                        <textarea id="goods_content" class="content" name="goods_content" type="text/plain" style="width:100%;height:500px;">$!{entity.goods_content}</textarea>
+                            </div>
+                        </div>
+
+                        <div id="spec-tab" class="tab-pane">
+                             <div class="form-group">
+                                        <textarea id="goods_gg" class="content" name="goods_gg" type="text/plain" style="width:100%;height:500px;">$!{entity.goods_gg}</textarea>
+                            </div>
+                        </div>
+
+                        <div id="properties-tab" class="tab-pane">
+                             <div class="form-group">
+                                   <div class="col-sm-4">
+                                                    <select id="goods_type" name="goods_type" onchange="getAttrList(0)" class="form-control m-b" multiple>
+                                                        <option value="0">请选择...</option>
+                                                        #foreach($row in $Goods.GetGoodsTypeLists())#set($index=$velocityCount+1)
+                  
+                                                        <option value="$row.cat_id" #if($row.cat_id == $!entity.goods_type)selected #elseif($index<2)selected #end>$row.cat_name</option>
+                                                        #end
+                                                    </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                                    <div id="content-goodsAttr"></div>
+
+                                        </div>
+
+                                    </div>
+                        </div>
+
+                        <div id="linkgoods-tab" class="tab-pane">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                             <div class="row">
+                                                <div class="col-md-2">
+                                                    <select name="cat_id1" class="form-control m-b">
+                                                    <option value="0">所有分类</option>
+                                                     #GoodsCatSelectUI($GoodsCatId)
+                                                 </select>
+                                                </div>
+                                                #if($config.ShowBrand)
+                                                <div class="col-md-2">
+                                                    <select name="brand_id1" class="form-control m-b">
+                                                     <option value="0">所有品牌</option>
+                                                      #GoodsBrandSelectUI($GoodsBrandId)
+                                                     </select>
+                                                </div>
+                                                #end
+                                                <div class="col-md-2">
+                                                    <input type="text" name="keyword1" class="form-control" placeholder="关键词">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button class="btn btn-primary " type="button" onclick="searchGoods(sz1, 'cat_id1','brand_id1','keyword1')"><i class="fa  fa-search"></i>&nbsp;搜索</button>
+                                                </div>
+                            </div>
+
+                                        <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>可选商品</label>
+                                                    <select name="source_select1" size="20" class="form-control" style="width: 100%" ondblclick="sz1.addItem(false, 'add_link_goods', goodsId, this.form.elements['is_single'][0].checked,'0')"
+                        multiple="true">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group"></div>
+                                                    <div class="form-group text-center">
+                                                    <div class="radio i-checks">
+                                                        <label>
+                                                            <input type="radio" disabled="" checked="" value="1" name="is_single"> <i></i> 单向关联</label>
+                                                    </div>
+                                                    <div class="radio i-checks">
+                                                        <label>
+                                                            <input type="radio" disabled="" value="0" name="is_single"> <i></i> 双向关联</label>
+                                                    </div>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz1.addItem(true, 'add_link_goods', goodsId, this.form.elements['is_single'][0].checked,'0')"><i class="fa fa-angle-double-right"></i></button>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz1.addItem(false, 'add_link_goods', goodsId, this.form.elements['is_single'][0].checked,'0')"><i class="fa fa-angle-right"></i></button>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz1.dropItem(false, 'drop_link_goods', goodsId, elements['is_single'][0].checked,'0')"><i class="fa  fa-angle-left"></i></button>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz1.dropItem(true, 'drop_link_goods', goodsId, elements['is_single'][0].checked,'0')"><i class="fa fa-angle-double-left"></i></button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>跟该商品关联的商品</label>
+                                                    <select name="target_select1" size="20" class="form-control" style="width: 100%" ondblclick="sz1.dropItem(false, 'drop_link_goods', goodsId, elements['is_single'][0].checked,'0')" multiple="true">
+                                                    #foreach($row in $goodsLink)
+                                                    <option value="$row.link_goods_id">$Goods.getGoodsInfo($row.link_goods_id).goods_name</option>
+                                                    #end
+                                                </select>
+                                                </div>
+                            </div>
+
+                            </div>
+                            </div>
+                        </div>
+
+                        <div id="linkcms-tab" class="tab-pane">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                             <div class="row">
+                                                <div class="col-md-2">
+                                                    <select name="cat_id2" class="form-control m-b">
+                                                    <option value="0">所有分类</option>
+                                                     #foreach($row in $Caches.CMSCatFormat(0).Rows)
+                                                    <option value="$row.cat_id" #if($!{entity.cat_id}==$row.cat_id)selected="selected"#end>$row.cat_name</option>
+                                                    #end
+                                                 </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" name="keyword2" class="form-control" placeholder="关键词">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button class="btn btn-primary " type="button" onclick="searchCms(sz2, 'cat_id2','keyword2')"><i class="fa fa-search"></i>&nbsp;搜索</button>
+                                                </div>
+                            </div>
+
+                                        <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>可选信息</label>
+                                                    <select name="source_select2" size="20" class="form-control" style="width: 100%" ondblclick="sz2.addItem(false, 'add_link_goods', goodsId, this.form.elements['is_single1'][0].checked,'1')"
+                        multiple="true">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group"></div>
+                                                    <div class="form-group text-center">
+                                                    <div class="radio i-checks">
+                                                        <label>
+                                                            <input type="radio" disabled="" checked="" value="1" name="is_single1"> <i></i> 单向关联</label>
+                                                    </div>
+                                                    <div class="radio i-checks">
+                                                        <label>
+                                                            <input type="radio" disabled="" value="0" name="is_single1"> <i></i> 双向关联</label>
+                                                    </div>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz2.addItem(true, 'add_link_goods', goodsId, this.form.elements['is_single1'][0].checked,'1')"><i class="fa fa-angle-double-right"></i></button>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz2.addItem(false, 'add_link_goods', goodsId, this.form.elements['is_single1'][0].checked,'1')"><i class="fa fa-angle-right"></i></button>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz2.dropItem(false, 'drop_link_goods', goodsId, elements['is_single1'][0].checked,'1')"><i class="fa  fa-angle-left"></i></button>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz2.dropItem(true, 'drop_link_goods', goodsId, elements['is_single1'][0].checked,'1')"><i class="fa fa-angle-double-left"></i></button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>跟该商品关联的资讯</label>
+                                                    <select name="target_select2" size="20" class="form-control" style="width: 100%" ondblclick="sz2.dropItem(false, 'drop_link_goods', goodsId, elements['is_single1'][0].checked,'1')" multiple="true">
+                                                    #foreach($row in $cmsLink)
+                                                    <option value="$row.link_goods_id">$CMS.getCmsInfo($row.link_goods_id).title</option>
+                                                    #end
+                                                </select>
+                                                </div>
+                            </div>
+
+                            </div>
+                            </div>
+                        </div>
+
+                        <div id="linkdownload-tab" class="tab-pane">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                             <div class="row">
+                                                <div class="col-md-2">
+                                                    <select name="cat_id3" class="form-control m-b">
+                                                    <option value="0">所有分类</option>
+                                                     #foreach($row in $Caches.GetDownloadCat(0))
+                                                    <option value="$row.cat_id">$row.cat_name</option>
+                                                    #end
+                                                 </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" name="keyword3" class="form-control" placeholder="关键词">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button class="btn btn-primary " type="button" onclick="searchDownload(sz3, 'cat_id3','keyword3')"><i class="fa fa-search"></i>&nbsp;搜索</button>
+                                                </div>
+                            </div>
+
+                                        <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>可选信息</label>
+                                                    <select name="source_select3" size="20" class="form-control" style="width: 100%" ondblclick="sz3.addItem(false, 'add_link_goods', goodsId, this.form.elements['is_single3'][0].checked,'2')"
+                        multiple="true">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group"></div>
+                                                    <div class="form-group text-center">
+                                                    <div class="radio i-checks">
+                                                        <label>
+                                                            <input type="radio" disabled="" checked="" value="1" name="is_single3"> <i></i> 单向关联</label>
+                                                    </div>
+                                                    <div class="radio i-checks">
+                                                        <label>
+                                                            <input type="radio" disabled="" value="0" name="is_single3"> <i></i> 双向关联</label>
+                                                    </div>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz3.addItem(true, 'add_link_goods', goodsId, this.form.elements['is_single3'][0].checked,'2')"><i class="fa fa-angle-double-right"></i></button>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz3.addItem(false, 'add_link_goods', goodsId, this.form.elements['is_single3'][0].checked,'2')"><i class="fa fa-angle-right"></i></button>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz3.dropItem(false, 'drop_link_goods', goodsId, elements['is_single3'][0].checked,'2')"><i class="fa  fa-angle-left"></i></button>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                    <button class="btn btn-primary dim" type="button" onclick="sz3.dropItem(true, 'drop_link_goods', goodsId, elements['is_single3'][0].checked,'2')"><i class="fa fa-angle-double-left"></i></button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>跟该商品关联的下载</label>
+                                                    <select name="target_select3" size="20" class="form-control" style="width: 100%" ondblclick="sz3.dropItem(false, 'drop_link_goods', goodsId, elements['is_single3'][0].checked,'2')" multiple="true">
+                                                    #foreach($row in $downLink)
+                                                    <option value="$row.link_goods_id">$Download.getDownInfo($row.link_goods_id).title</option>
+                                                    #end
+                                                </select>
+                                                </div>
+                            </div>
+
+                            </div>
+                            </div>
+                        </div>
+
+                        <div id="seo-tab" class="tab-pane">
+                            <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            标签：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="tag" name="tag" maxlength="50" type="text" class="form-control" value="$!{entity.tag}" placeholder="使用英文半角符号隔开，单个tag限制10个字以内">
+                                        </div>
+                             </div>
+                             <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            页面标题：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="pagetitle" maxlength="80" type="text" class="form-control" value="$!{entity.pagetitle}" placeholder="一般不超过80个字符">
+                                        </div>
+                             </div>
+                             <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            页面关键词：</label>
+                                        <div class="col-sm-9">
+                                                    <textarea name="pagekeywords" class="form-control" rows="5" maxlength="100" placeholder="一般不超过100个字符">$!{entity.pagekeywords}</textarea>
+                                        </div>
+                                    </div>
+                                <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            页面描述：</label>
+                                        <div class="col-sm-9">
+                                                    <textarea name="pagedesc" class="form-control" rows="5" maxlength="200" placeholder="一般不超过200个字符">$!{entity.pagedesc}</textarea>
+                                        </div>
+                                    </div>
+                                 <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            自定义Url：</label>
+                                        <div class="col-sm-9">
+                                                    <input name="urlrewriter" type="text" class="form-control" value="$!{entity.urlrewriter}" placeholder="不填写则自动生成">
+                                        </div>
+                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                            <input type="hidden" name="goods_id" value="$!{entity.goods_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+                                           
+                                        </div>
+                                    </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--产品分类-->
+    #TreeFile()
+<script src="/include/Hplus/js/fat_function.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        var tree = $("#tree").ligerTree({
+            url: 'tree/treelist.aspx?act=goods_categorylisttree',
+            parentIDFieldName: 'parent_id', idFieldName: 'cat_id', textFieldName: 'cat_name', childIcon: null, parentIcon: null, checkbox: false, topParentIDValue: '0',
+            onClick: function (nodedata, target) { $(".fat_class").val(nodedata.data.cat_name); $(".parent_id").val(nodedata.data.cat_id); }
+        }); //分类树
+    });
+</script>
+
+    <!-- Web Uploader -->
+<!--    <script type="text/javascript">
+        // 添加全局站点信息
+        var BASE_URL = 'js/plugins/webuploader';
+    </script>
+    <script src="js/plugins/webuploader/webuploader.min.js"></script>
+
+    <script src="js/demo/webuploader-demo.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="css/demo/webuploader-demo.css">-->
+<script type="text/javascript" src="js/old/selectzone.js"></script>
+<script type="text/javascript">
+  var goodsId = $GoodsId;
+  var elements = document.forms['theForm'].elements;
+  var sz1 = new SelectZone(1, elements['source_select1'], elements['target_select1']);
+  var sz2 = new SelectZone(1, elements['source_select2'], elements['target_select2']);
+  var sz3 = new SelectZone(1, elements['source_select3'], elements['target_select3']);
+    ////////////////////
+    $(function () {
+         getAttrList(goodsId);
+        
+        #foreach($row in $UserRank)
+          set_price_note($!{row.rank_id});
+          #end
+          //限制输入数字和小数点
+          $(".number").keyup(function(){  
+                $(this).val($(this).val().replace(/[^0-9.]/g,''));  
+            }).bind("paste",function(){ //CTR+V事件处理  $(this).val($(this).val().replace(/[^0-9.]/g,''));   
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
+        //检测产品名称
+        $("#goods_name").keyup(function () {
+            jQuery.post("/admin/updatemoreimg/ajax.aspx?act=V_proname", { goods_name: $(this).val() }, function (data1) {
+                if (data1.content != "") {
+                    alert_toastr("已存在相同名称产品", "警告", 4);
+                    $(this).val("");
+                }
+            }, "json");
+        });
+
+        //检测产品货号
+        $("#goods_sn").keyup(function () {
+            jQuery.post("/admin/updatemoreimg/ajax.aspx?act=V_goods_sn", { goods_sn: $(this).val() }, function (data1) {
+                if (data1.content != "") {
+                    $(this).val("");
+                    alert_toastr("已存在相同名称产品货号", "警告", 4);
+                }
+            }, "json");
+        });
+
+    });
+
+
+    /**
+    * 添加扩展分类
+    */
+    function addOtherCat(conObj) {
+        var sel = document.createElement("SELECT");
+        var selCat = document.forms['theForm'].elements['tree'];
+         var selCatval = document.forms['theForm'].elements['cat_id'];
+
+
+        for (i = 0; i < $("#tree li").length; i++) {
+            var opt = document.createElement("OPTION");
+            opt.text = $("#tree span").eq(i).html();
+            opt.value =  $("#tree li").eq(i).attr("treedataindex");
+           
+            if ($("#tree li").eq(i).parent(".l-children").length>0) {
+     
+               opt.text =" "+" "+" "+" "+ $("#tree span").eq(i).html();
+            }
+            else {
+            
+                 opt.text = $("#tree span").eq(i).html();
+            }
+            sel.add(opt);
+        }
+        conObj.appendChild(sel);
+        sel.name = "other_cat[]";
+        sel.setAttribute("class", "form-control m-b");
+        sel.onChange = function () { checkIsLeaf(this); };
+    }
+
+    /**
+    * 删除扩展分类
+    */
+    function delOtherCat() {
+        $("select[name='other_cat[]']:last").remove();
+    }
+
+
+    //产品相架功能
+     function delpic(mpid) {
+
+         if ($(mpid).attr("id") != "") {
+             if (confirm("你确定删除此图片？ ")) {
+                 jQuery.post("/admin/updatemoreimg/Savapropic.aspx?act=Deletedpic", { img_id: $(mpid).attr("id") }, function () {
+
+                 });
+                 $(mpid).parent().html("");
+             }
+         }
+
+     }
+
+
+     //插件批量上传
+     KindEditor.ready(function (K) {
+         var editor = K.editor({
+             allowFileManager: true,
+             autoHeightMode: true
+         });
+
+         K('#J_selectImage').click(function () {
+             editor.loadPlugin('multiimage', function () {
+                 editor.plugin.multiImageDialog({
+                     clickFn: function (urlList) {
+                         var div = K('#J_imageView');
+                         K.each(urlList, function (i, data) {
+                             var html = '<div class="htmlimg"><div><a href="javascript:void(0);" onclick="setDefault(this)" title="设为默认"><img class="promore" src="' + data.url + '" data="' + data.url + '"></a></div>';
+                             jQuery.post("/admin/updatemoreimg/Savapropic.aspx?act=InsertGrab", { goods_id: 0, goods_thumb: data.url, goods_img: data.url, info_img: data.url, original_img: data.url, admin_user_id: $userid }, function (data1) {
+                                html+='<div onclick="javascript:delpic(this)" class="delpic" id="' + data1.content + '">';
+                                html+='<a   href="javascript:;" title="删除图片"> <img src="images/delete.png"></a></div><div class="propicpx">排序：<br/><input type="text" name="order_id" value="0" size="4" title=""></div>';
+                                 html += '<div><input type="hidden" name="img_desc" value="" size="10" ><input type="hidden" name="img_id" value="' + data1.content + '" size="10"  /></div></div>';
+                                 div.append(html); //增加图片html
+                             }, "json");
+                         });
+                         editor.hideDialog();
+                     }
+                 });
+             });
+         });
+     });
+
+
+  /**
+   * 切换商品类型
+   */
+  function getAttrList(goodsId)
+  {
+      var selGoodsType = document.forms['theForm'].elements['goods_type'];
+      if (selGoodsType != undefined)
+      {
+          var goodsType = selGoodsType.options[selGoodsType.selectedIndex].value;
+          //alert(goodsId);alert(goodsType);alert(setAttrList);
+          if($GoodsId==0)
+          Ajax.call('goods_attribute.aspx?is_ajax=1&act=GetAttr&goods_id='+goodsId, 'goods_type=' + goodsType, setAttrList, "GET", "JSON");
+          else
+          Ajax.call('goods_attribute.aspx?is_ajax=1&act=GetAttr&goods_id='+$GoodsId, 'goods_type=' + goodsType, setAttrList, "GET", "JSON");
+      }
+  }
+
+    function setAttrList(result, text_result)
+  {
+    document.getElementById('content-goodsAttr').innerHTML = result.content;
+  }
+
+  /**
+   *设置默认图片
+   */
+  function setDefault(obj)
+  {
+    var img = $(obj).children('img');
+    
+    $('img.normal,img.cur').removeClass('cur').addClass('normal');
+    $(img).addClass('cur');
+    
+    if ($(img).attr('src').indexOf("goods.aspx?act=thumbnail&id=") >= 0) {
+        $('#original_img').val($(obj).attr('rel'));
+    }
+    else {
+        $('#original_img').val($(img).attr('data').replace('list',''));
+    }
+  }
+
+
+/* 关联商品函数 */
+function searchGoods(szObject, catId, brandId, keyword)
+{
+  var filters = new Object;
+  filters.cat_id = elements[catId].value;
+  #if($config.ShowBrand)
+  filters.brand_id = elements[brandId].value;
+  #else
+   filters.brand_id = 0;
+  #end
+  filters.keyword =encodeURI(Utils.trim(elements[keyword].value));
+  //filters.exclude = document.forms['theForm'].elements['goods_id'].value;
+  szObject.loadOptions('get_goods_list', ""+ filters.cat_id +","+ filters.brand_id +","+ filters.keyword +","+ filters.exclude +"");
+}
+  /* 关联资讯函数 */
+function searchCms(szObject, catId, keyword)
+{
+  var filters = new Object;
+  filters.cat_id = elements[catId].value;
+  filters.keyword =encodeURI(Utils.trim(elements[keyword].value));
+  szObject.loadOptions('get_cms_list', ""+ filters.cat_id +","+ filters.keyword);
+}
+
+  /* 关联下载函数 */
+function searchDownload(szObject, catId, keyword)
+{
+  var filters = new Object;
+  filters.cat_id = elements[catId].value;
+  filters.keyword =encodeURI(Utils.trim(elements[keyword].value));
+  szObject.loadOptions('get_down_list', ""+ filters.cat_id +","+ filters.keyword);
+}
+</script>
+#parse("pagefooter.html")

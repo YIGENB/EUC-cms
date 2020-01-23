@@ -1,0 +1,117 @@
+﻿/*��ҳ*/
+.menuvice {
+    display: inline-block;
+    width: 97%;
+    margin: 10px 3% 0px 3%;
+}
+
+    .menuvice a {
+        display: block;
+        float: left;
+        text-indent:10px;
+        height:90px;
+        line-height:50px;
+       background-size: 60px;
+  background-position: center 31px;
+  background-repeat: no-repeat;
+    }
+
+        .menuvice a span {
+            display: block;
+            overflow: hidden;
+            white-space:nowrap ;
+            text-overflow: ellipsis;
+            background-repeat: no-repeat; 
+            background-size:32px 32px;
+             height:90px;
+             color:#fff;
+            
+        }
+
+        .menuvice a:nth-child(7n+1) {
+           background-color:#36aae7;
+           margin-right:10px;
+           width:40%;
+          
+      
+		  
+        }
+        .menuvice a:nth-child(7n+1) span
+        {
+             background-position:80% 45px;
+            }
+
+        .menuvice a:nth-child(7n+2) {
+            background-color:#688dde;
+            margin-right:10px;
+            width :25%;
+         
+            
+        }
+          .menuvice a:nth-child(7n+2) span
+        {
+            background-position:70% 45px;
+            }
+        .menuvice a:nth-child(7n+3) {
+            
+           background-color:#8d67e0;
+            width :25%;
+           
+        
+           
+        }
+          .menuvice a:nth-child(7n+3) span
+        {
+             background-position:70% 45px;
+            }
+        .menuvice a:nth-child(7n+4){
+             background-color:#84d018;
+           margin-right:10px;
+            width :60%;
+           margin-top:10px;
+          
+        }
+          .menuvice a:nth-child(7n+4) span
+        {
+        background-position: 90% 70%;
+        background-size: 40px 40px;
+            }
+        .menuvice a:nth-child(7n+5) 
+        {
+            background-color:#14c761;
+            width :33%;
+           margin-top:10px;
+      
+            
+        }
+          .menuvice a:nth-child(7n+5) span
+        {
+            background-position: 80% 80%;
+            background-size: 35px 35px;
+         }
+        .menuvice a:nth-child(7n+6) {
+            background-color:#f4b613;
+           margin-right:10px;
+            width :60%;
+           margin-top:10px;
+           margin-bottom:10px;
+         
+        }
+          .menuvice a:nth-child(7n+6) span
+        {
+           background-position: 90% 70%;
+           background-size: 45px 45px;
+        }
+        .menuvice a:nth-child(7n+7) 
+        {
+           background-color:#ff8a4a;
+           width :33%;
+           margin-top:10px;
+         margin-bottom:10px;
+         
+            
+        }
+          .menuvice a:nth-child(7n+7) span
+        {
+             background-position: 75% 40px;
+        }

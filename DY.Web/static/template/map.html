@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>$pagetitle</title>
+    <meta name="Keywords" content="$pagekeywords" />
+    <meta name="Description" content="$pagedesc" />
+
+    <style type="text/css">
+body{ margin:0;padding:0;font-family:Times New Roman, serif}
+p{ margin:0;padding:0}
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    outline: medium none;
+}
+
+#map_container{ width:100%;height:100%;}
+
+@media print{
+  #notes{ display:none}
+  #map_container{ margin:0}
+}
+/*]]>*/</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=4881cb1195ceb4b3db39b4f9a5b16e1b"></script>
+<script src="http://api.map.baidu.com/components?ak=4881cb1195ceb4b3db39b4f9a5b16e1b&v=1.0"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+	<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+</head>
+<body>
+
+#if($stat)
+<lbs-map style="height:100%; width:100%;">
+	<lbs-poi name="$!{mtit}" location="$!{center}" addr="$!{mcon}"  icon-src="http://api0.map.bdimg.com/images/marker_red_sprite.png" height="25px" width="39px"></lbs-poi>
+</lbs-map>
+#else
+<div id="map_container"></div>
+#if($lbs.type=="中文版")
+<script type="text/javascript">
+
+    var center = "$!{center}".split(","), zoom = "$!{zoom}", mtit = "$!{mtit}", mcon = "$!{mcon}", tel = "$!{tel}", addr = "$!{addr}", pic = "$!{pic}";
+
+    var x = center[0], y = center[1];
+
+    var map = new BMap.Map('map_container');
+    var poi = new BMap.Point(x, y);
+    map.centerAndZoom(poi, 16);
+    map.enableScrollWheelZoom();
+
+    var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
+                    '<img src="' + pic + '" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>' +
+                    '地址：' + addr + '<br/>电话：' + tel + '<br/>简介：' + mcon +
+                  '</div>';
+
+    //创建检索信息窗口对象
+    var searchInfoWindow = null;
+    searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+        title: mtit,      //标题
+        width: 290,             //宽度
+        height: 105,              //高度
+        panel: "panel",         //检索结果面板
+        enableAutoPan: true,     //自动平移
+        searchTypes: [
+				BMAPLIB_TAB_SEARCH,   //周边检索
+				BMAPLIB_TAB_TO_HERE,  //到这里去
+				BMAPLIB_TAB_FROM_HERE //从这里出发
+			]
+    });
+    var marker = new BMap.Marker(poi); //创建marker对象
+    marker.enableDragging(); //marker可拖拽
+    marker.addEventListener("click", function (e) {
+        searchInfoWindow.open(marker);
+    })
+    map.addOverlay(marker); //在地图中添加marker
+    searchInfoWindow.open(marker);
+
+
+
+</script>
+#elseif($lbs.type=="英文版")
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=b57a8b3a3a71c911ac7d08a615fb7743"></script>
+<style>
+    		span{
+			display: block;
+			width:180px;
+			text-align:center;
+			padding-left:10px;
+			padding-right:10px;
+			line-height:40px;
+			background-color:#fff;
+			border:1px solid #ccc;
+			color:#FF6BBB;
+			font-size:12px;
+			border-radius:3px;
+		}
+</style>
+#**
+    <script type="text/javascript">
+   	//初始化地图对象，加载地图
+	var map = new AMap.Map("map_container",{
+		resizeEnable: true,
+        lang:"en",
+    	view: new AMap.View2D({
+      		center:new AMap.LngLat($!{center}),//地图中心点
+      		zoom:13 //地图显示的缩放级别
+    	})
+    }); 	
+    //添加自定义点标记
+	addMarker();
+	
+	//添加带文本的点标记覆盖物
+	function addMarker(){ 
+	    //自定义点标记内容   
+		var markerContent = document.createElement("div");
+		markerContent.className = "markerContentStyle";
+	    
+		//点标记中的图标
+		var markerImg = document.createElement("img");
+	     markerImg.className = "markerlnglat";
+		 markerImg.src = "http://webapi.amap.com/images/0.png";	
+		 markerContent.appendChild(markerImg);
+		 
+		 //点标记中的文本
+		 var markerSpan = document.createElement("span");
+		 markerSpan.innerHTML =  '地址：$!{addr}<br/>电话：$!{tel} <br/>简介：$!{mcon}';
+		 markerContent.appendChild(markerSpan);
+		 var marker = new AMap.Marker({
+			map:map,
+			position: new AMap.LngLat($!{center}), //基点位置
+			offset: new AMap.Pixel(-18,-36), //相对于基点的偏移位置
+			draggable: false,  //是否可拖动
+			content: markerContent   //自定义点标记覆盖物内容
+		});
+		marker.setMap(map);  //在地图上添加点
+	}
+	</script>
+    **#
+   <script type="text/javascript">
+    	    //初始化地图对象，加载地图
+    	    var map = new AMap.Map("map_container", {
+    	        resizeEnable: true,
+                lang:"en",
+    	        //二维地图显示视口
+    	        view: new AMap.View2D({
+    	            center: new AMap.LngLat($!{center}), //地图中心点
+    	            zoom: 13 //地图显示的缩放级别
+    	        })
+    	    });
+    	    //地图中添加地图操作ToolBar插件
+    	    map.plugin(["AMap.ToolBar"], function () {
+    	        var toolBar = new AMap.ToolBar();
+    	        map.addControl(toolBar);
+    	    });
+
+    	    //创建信息窗体
+    	    var info = [];
+    	    info.push("<div style=\"padding:0px 0px 0px 4px;\"><b>$lbs.title</b>");
+    	    info.push("电话 : $tel ");
+    	    info.push("地址 : $addr");
+            info.push("简介 : $mcon </div></div>");
+
+           var marker = new AMap.Marker({
+			map:map,
+			position: new AMap.LngLat($!{center}), //基点位置
+			offset: new AMap.Pixel(-10,-20), //相对于基点的偏移位置
+			draggable: false,  //是否可拖动
+		});
+		marker.setMap(map);  //在地图上添加点
+    	    var infoWindow = new AMap.InfoWindow({
+    	        content: info.join("<br/>")
+    	    });
+    	    infoWindow.open(map, new AMap.LngLat($!{center})); //在地图上打开信息窗体
+	</script>
+#end
+#end
+
+</body>
+</html>

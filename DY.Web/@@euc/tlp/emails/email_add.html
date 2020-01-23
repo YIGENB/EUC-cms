@@ -1,0 +1,44 @@
+﻿#parse("pageheader.html")
+<h1 id="Menu">
+<span class="action-span"><a href="?act=list">邮件订阅列表</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">获取邮件地址</label> </span>
+<div style="clear:both"></div>
+</h1>
+<div class="main-div">
+<form method="post" name="theForm"  onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">昵称</td>
+    <td>
+        <input name="nickname" type="text" /></td>
+  </tr>
+  <tr>
+    <td class="label">邮件地址</td>
+    <td>
+        <input name="email" type="text" /> <span class="require-field">*</span></td>
+  </tr>
+  <tr>
+    <td class="label">手机号码</td>
+    <td>
+        <input name="mobile" type="text" /></td>
+  </tr>
+  <tr>
+    
+  
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value=" 确定 " />
+      <input type="reset" class="button" value=" 重置 " />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+    function validate() {
+        var validator = new Validator('theForm');
+        validator.required('email', "邮件地址不能为空");
+
+        return validator.passed();
+    }
+</script>
+#parse("pagefooter.html")

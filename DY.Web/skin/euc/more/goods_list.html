@@ -1,0 +1,14 @@
+﻿#foreach($row in $list) #set($index=$velocityCount+1) #set($count=$list.Count)
+<div class="portfolio-item-full-width">
+    <a href="$!row.goods_img" class="cboxElement">
+        <img alt="img" src="$!row.goods_img" class="responsive-image">
+    </a>
+    <h4>
+        $!row.goods_name
+    </h4>
+    <p>
+        $SiteUtils.GetTopic($row.des,142)</p>
+</div>
+#if($index>1&&$index<$count)<div class="decoration">
+</div>
+#end #end

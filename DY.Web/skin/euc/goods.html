@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    #IncludeHead() #IncludeStyle() #IncludeScript()
+<script type="text/javascript">
+    $(function() {
+        $(".bg_h4").click(function() {
+            $(this).next().toggle();
+        });
+    });
+    $(function() {
+        $(".jigua_h3").click(function() {
+            $(this).next().toggle();
+        });
+    });
+</script>
+    <script type="text/javascript">
+        $(function() {
+            jQuery.formValidator.initConfig({ formID: "info_form", alertmessage: true, onError: function(msg, obj, errorlist) { alert(msg); }, onSuccess: function() { res = true; } });
+            $("#name").formValidator().inputValidator({ min: 3, max: 50, onError: "请填写姓名" });
+            $("#email").formValidator().inputValidator({ min: 6, max: 100, onError: "请填写邮箱" }).regexValidator({ regExp: "^([\\w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([\\w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$", onError: "邮箱输入错误" });
+            $("#tel").formValidator().inputValidator({ min: 11, max: 11, onError: "请填写电话" }).regexValidator({ regExp: "^(13|15)[0-9]{9}$", onError: "电话输入错误" });
+            FormvSubmit("#info_form");
+        });
+</script>
+</head>
+<body>
+    #parse("html-head.html")
+    <div class="conn mt10">
+         	<div class="ileft">
+                #parse("include/goods-search.vm")
+                #parse("include/tlp-goods-cat.vm")
+                <div class="ryu mt10">
+                   <h2 class="htbb">荣誉客户</h2>
+                    #parse("include/page-lykh.vm")
+                </div>
+                <div class="ganyan mt10" style="height:auto;">
+                    <h2 class="htbb"><strong class="fl">客户感言</strong><a href="/cms/khgy.aspx" class="fr">更多>></a></h2>
+                    #parse("include/page-khgy.vm")
+                 </div>
+                 <div class="fa mt10">
+                    <h2 class="htbb"><strong class="fl">常见问题</strong><a href="/cms/cjwt.aspx" class="fr">更多>></a></h2>
+                    #parse("include/page-cjwt.vm")
+              </div>
+            </div>
+            <div class="iright">
+            	<div class="heng">
+                	<div class="banner"><script type="text/javascript" src="/tools/ad.aspx?pid=29"></script></div>
+                	<form id="info_form" action="/tools/ajax.aspx?act=InsertEmail" method="post">
+                    <div class="zqian">
+                    	<p>姓名：<input name="name" id="name" type="text" />必填</p>
+                        <p>电话：<input name="tel" id="tel" type="text" />必填</p>
+                        <p>邮箱：<input name="email" id="email" type="text" />必填</p>
+                        <input type="hidden" name="hash" value="index1" />
+                        <input type="submit" class="mfree" value="" />
+                    </div>
+                    </form>
+                </div>
+                <div class="icbot mt10">
+                    <div class="nheng"><a href="/">首页</a> $catnav $!cat_name</div>
+                    <div class="prolist">
+                        #foreach($row in $list)
+                    	    <dl class="lies mb10">
+                        	    <dt><a href="#GoodsLink()"><img src="$row.goods_img" alt="$row.goods_name" /></a></dt>
+                                <dd>
+                            	    <strong><a href="#GoodsLink()"><img src="/skin/cwgj/img/chaa.jpg" alt="" /></a>
+                            	    <a href="#GoodsLink()">$SiteUtils.GetTopic($!row.goods_name,35)</a></strong>
+                                    <p>$SiteUtils.GetTopic($row.goods_desc,500)</p>
+                                    <ul>
+                                        #foreach($row in $Goods.GetGoodsAttr($row.goods_id,$row.goods_type).Rows)
+                                            <li>$row.attr_name：$row.attr_value</li>
+                                        #end
+                                    </ul>
+                                </dd>
+                            </dl>
+                        #end
+                        <div class="page" style="padding:30px 0px;">
+                            $pager
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+    #parse("html-foot.html")
+</body>
+</html>

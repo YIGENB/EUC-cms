@@ -1,0 +1,14 @@
+﻿#parse("include/page_head.html")
+#foreach($row in $list) #set($count=$list.count)
+ <div class="portfolio-item-full-width">
+        		<a href="#CMSLink()" class="cboxElement">
+                	<img alt="img" src="$row.photo" class="responsive-image">
+                </a>
+                <h5 class="uppercase">$row.title</h5>
+                <p>$SiteUtils.GetTopic($row.des,242)</p>
+</div>
+#if($velocityCount+1!=$count)
+<div class="decoration"></div>
+#end
+#end
+#parse("include/page_foot.html")

@@ -1,0 +1,54 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+<div class="content">
+    <div class="container no-bottom">
+        <h3>$cmsinfo.title</h3>
+        <p>$cmsinfo.showtime.ToString("yyyy-MM-dd")&nbsp;&nbsp;&nbsp;&nbsp;$cmsinfo.source&nbsp;&nbsp;&nbsp;&nbsp;阅读次数：$cmsinfo.click_count</p>
+        <div class="container">
+            <div class="toggle-1">
+                <a class="deploy-toggle-1" href="#">摘要</a>
+                <div class="toggle-content" style="display: none;">
+                    <p>
+                        $SiteUtils.GetTopic($cmsinfo.des,182)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--<div class="one-half-responsive">
+            <div class="sliding-door">
+                <div class="sliding-door-top">
+                    <a href="#"><em></em>
+                        摘要
+                    </a>
+                </div>    
+                <div class="sliding-door-bottom">
+                    <a href="javascript:;"><em></em>
+                        $SiteUtils.GetTopic($cmsinfo.des,142)
+                    </a>
+                </div>
+            </div>
+            <div class="sliding-door-clear"></div>
+        </div>-->
+    <p>
+        $body
+    </p>
+    <div class="code">
+           #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,false)) 
+           <span class="wline"> 
+            上一篇：<a href="#CMSLink()" style="color:#666666">$row.title</a>
+           </span> 
+            #end
+            #foreach($row in $CMS.GetPreNext($cmsinfo.article_id,$cmsinfo.cat_id,true))
+            <span class="gline"> 
+            下一篇：<a href="#CMSLink()" style="color:#666666">$row.title</a>
+            </span>
+            #end
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="decoration"></div>
+</div>
+#end
+#parse("include/page_foot.html")

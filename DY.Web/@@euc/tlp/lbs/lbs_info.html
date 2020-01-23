@@ -1,0 +1,311 @@
+﻿#parse("pageheader.html")
+<script src="http://api.map.baidu.com/api?v=1.5&ak=1b0ace7dde0245f796844a06fb112734"></script>
+ <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end LBS</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>LBS</strong> </li>
+        </ol>
+    </div>
+</div>
+<script src="js/region.js" type="text/javascript"></script>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">LBS列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+           
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            名称：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="title" name="title" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.title}">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            所在地区：</label>
+                                        <div class="col-sm-9">
+                                            <div id="region">
+                                <div class="col-md-2">
+                <div class="form-group">
+                    <select name="regionid" id="lbsl_sheng" class="form-control m-b" onchange="region.changed(this, 2, 'lbsl_shi')">
+                            <option value="0">请选择省</option>
+                            #foreach($row in $SystemConfig.GetRegion(1,434))
+                            <option value="$!{row.region_id}" #if($!{entity.regionid}==$!{row.region_id}) selected="selected" #end>$!{row.region_name}</option>
+                            #end
+                        </select>
+                        </div></div>
+                                       <div class="col-md-2">
+                <div class="form-group">
+                        <select name="cityid" class="form-control m-b" id="lbsl_shi" onchange="region.changed(this, 3, 'lbsl_xianqu')">
+                            <option value="0">请选择市</option>
+                            #if($!{entity.cityid}>0)
+                            #foreach($row in $SystemConfig.GetRegion(2,$!{entity.regionid}))
+                            <option value="$!{row.region_id}" #if($!{entity.cityid}==$!{row.region_id}) selected="selected" #end>$!{row.region_name}</option>
+                            #end
+                            #end
+                        </select>
+                        </div></div>
+                                       <div class="col-md-2">
+                <div class="form-group">
+
+                       <select name="districtid" class="form-control m-b" id="lbsl_xianqu">
+                            <option value="0">请选择区县</option>
+                              #if($!{entity.districtid}>0)
+                              #foreach($row in $SystemConfig.GetRegion(3,$!{entity.cityid}))
+                            <option value="$!{row.region_id}" #if($!{entity.districtid}==$!{row.region_id}) selected="selected" #end>$!{row.region_name}</option>
+                            #end
+                            #end
+                        </select>     
+                        </div></div>
+                </div>
+
+                                    </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            地址:</label>
+                                        <div class="col-sm-9">
+                                        <input  name="address" id="lbsaddress" maxlength="50" type="text" class="form-control" value="$!{entity.address}">
+                                          <input class="btn btn-primary " type="button" id="locate-btn"  value="定位"   />
+                               
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                      <label class="col-sm-1 control-label"></label>
+                                        <div class="col-sm-9">
+                                             <input type="hidden" value = "$!{entity.xposition}" name="xposition" id="lbsjd" />
+                                    <input type="hidden" value = "$!{entity.yposition}" name="yposition" id="lbswd" />	
+
+                                       	<div id="map" style="width: 600px;height: 300px;margin-left: 100px;"></div>
+                                        </div>
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            电话:</label>
+                                        <div class="col-sm-9">
+                                        <input  name="tel" maxlength="50" type="text" class="form-control"  value="$!{entity.tel}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            展示图片:</label>
+                                        <div class="col-sm-9">
+                                                     <div class="upload_img">
+                                        <img upload="image-single" class="img_show" onerror="javascript:this.src='images/slt.jpg' "
+                                            src='$SiteUtils.DefaultValue($!{entity.pic},"images/slt.jpg")' />
+                                        <input type="hidden" name="pic" id="photo" value="$!{entity.pic}" />
+                                        <span class="help-inline">
+                                            <button name="button" class="btn select_img btn-white btn-sm" type="button">
+                                                点击上传</button></span>
+                                    </div>
+                                        </div>
+                                    </div>
+                                    
+                                       <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            简介:</label>
+                                        <div class="col-sm-9">
+                                         <textarea id="des" class="form-control" name="des" cols="70" rows="5">$!{entity.des}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            排序：</label>
+                                        <div class="col-sm-9">
+                                                   <input name="order_id" id="order_id" type="text" class="form-control number" required="" value="$SiteUtils.DefaultValue($!{entity.order_id},0)"/>
+                                    </div>
+                                    </div>
+                                 <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            版本选择：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.type}=="中文版")checked#end $SiteUtils.DefaultValue($!{entity.type},"checked")  value="中文版" name="type"> <i></i>中文版</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.type}=="英文版")checked#end  value="英文版" name="type"> <i></i>英文版</label>
+
+
+                                        </div>
+                                    </div>
+                                   
+
+                        </div>
+
+
+                           
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+           
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+<script type="text/javascript">
+    //是否从未保存过定位信息，如果从未保存过，并且有填地址信息，那么进入页面后自动定位
+    var located = true;
+    //定位坐标
+    var x = $('#lbsjd').val() == "" ? "116.403694" : $('#lbsjd').val(), y = $('#lbswd').val() == "" ? "39.916042" : $('#lbswd').val();
+
+    var destPoint = new BMap.Point(x, y);
+    $(function () {
+
+        /**开始处理百度地图**/
+        var map = new BMap.Map("map");
+        map.centerAndZoom(new BMap.Point(destPoint.lng, destPoint.lat), 12); //初始化地图
+        map.enableScrollWheelZoom();
+        map.addControl(new BMap.NavigationControl());
+        var marker = new BMap.Marker(destPoint);
+        map.addOverlay(marker); //添加标注
+
+        map.addEventListener("click", function (e) {
+            if (confirm("确认选择这个位置？")) {
+                destPoint = e.point;
+                $('#lbsjd').val(destPoint.lng);
+                $('#lbswd').val(destPoint.lat);
+                map.clearOverlays();
+                var marker1 = new BMap.Marker(destPoint);  // 创建标注
+                map.addOverlay(marker1);
+            }
+        });
+
+
+
+        var myValue;
+
+        var local;
+        function setPlace() {
+            map.clearOverlays();    //清除地图上所有覆盖物
+            local = new BMap.LocalSearch(map, { //智能搜索
+                renderOptions: { map: map }
+            });
+            located = true;
+            local.setMarkersSetCallback(callback);
+            local.search(myValue);
+        }
+
+        function addEventListener(marker) {
+            marker.addEventListener("click", function (data) {
+                destPoint = data.target.getPosition(0);
+            });
+        }
+        function callback(posi) {
+            $("#locate-btn").removeAttr("disabled");
+            for (var i = 0; i < posi.length; i++) {
+                if (i == 0) {
+                    destPoint = posi[0].point;
+                }
+                posi[i].marker.addEventListener("click", function (data) {
+                    destPoint = data.target.getPosition(0);
+                });
+            }
+        }
+
+        $("#lbsl_xianqu").change(function () {
+            $("#locate-btn").attr("disabled", "disabled");
+            local = new BMap.LocalSearch(map, { //智能搜索
+                renderOptions: { map: map }
+            });
+            located = true;
+            local.setMarkersSetCallback(callback);
+            local.search($("#lbsl_xianqu").find('option:selected').text());
+            return false;
+        });
+        $("#lbsl_shi").change(function () {
+            $("#locate-btn").attr("disabled", "disabled");
+            local = new BMap.LocalSearch(map, { //智能搜索
+                renderOptions: { map: map }
+            });
+            located = true;
+            local.setMarkersSetCallback(callback);
+            local.search($("#lbsl_shi").find('option:selected').text());
+            return false;
+        });
+        $("#locate-btn").click(function () {
+            if ($("#lbsaddress").val() == "") {
+                alert("请输入门店地址！");
+                return;
+            }
+            $("#locate-btn").attr("disabled", "disabled");
+            local = new BMap.LocalSearch(map, { //智能搜索
+                renderOptions: { map: map }
+            });
+            located = true;
+            local.setMarkersSetCallback(callback);
+            local.search($("#lbsaddress").val());
+            return false;
+        });
+        /**结束百度地图处理**/
+        $("#close-btn").click(function () {
+            if (confirm("你确定要停用LBS功能？")) {
+                var submitData = {
+                    "action": "close",
+                    "wuid": 19979,
+                    "lid": null
+                };
+                jQuery.post("/admin/lbsinfo", submitData, function (data) {
+                    if (data.success) {
+                        window.location.reload();
+                    } else {
+                        alert("停用失败");
+                    }
+                }, "json");
+            }
+        });
+        $("#lbsForm").submit(function () {
+            var cansv = true;
+            $(this).find('input[type="text"],select,textarea').each(function () {
+                if (jQuery.trim($(this).val()) == '') {
+                    cansv = false;
+                    $(this).css('backgroundColor', 'yellow');
+                    $(this).one('focus', function () {
+                        $(this).css('backgroundColor', 'transparent');
+                    });
+                }
+            });
+            if (!cansv) {
+                tusi('请将信息填写完整');
+            } else if ($('#picsethere').find('img').size() < 1) {
+                cansv = false;
+                tusi('请上传商家图片');
+            }
+            return cansv;
+        });
+    });
+</script>
+
+#parse("pagefooter.html")

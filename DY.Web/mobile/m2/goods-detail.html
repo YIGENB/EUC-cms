@@ -1,0 +1,343 @@
+﻿#parse("include/page_head.html")
+
+<div id="box_content" style="min-height: 556px;">
+				<div name="手机产品详细" id="elem-Products_detail01-001" class="columnSpace"> 
+				<script src="/widgets/SwipeCarousel/SwipeCarousel.js" type="text/javascript"></script>
+<div class="Products_detail01-d2_c1" id="Products_detail01-001">
+				<!-- 产品详细组件 开始 -->
+				<section class="Products_detail01-d2_c1">
+					<div class="z3g-headerSmallNew ">
+						<span class="active left">
+	                        <div class="z3g-btn active btnArrow btnArrowLeft back  js_goZMhistory">
+								<b>
+									<em></em>
+								</b>
+								<span>返回</span>
+							</div>										
+						</span>
+						<span class="center">产品详细</span>	
+						<span class="active right" href="">
+							<div class="z3g-btn textSizeBtn active">
+								<span>
+									字<sup>+</sup>
+								</span>
+								<div class="z3g-textSize">
+									<div class="contArrow"> <em>◆</em> <i>◆</i> </div>
+									<ul class="cont">
+										<li class="active" data-ac-code="1">小</li>
+										<li class="active" data-ac-code="2">中</li>
+										<li class="active current" data-ac-code="3">大</li>
+									</ul>
+								</div>
+							</div>
+						</span>
+					</div>
+					<h1 class="z3g-pageTitle ">
+						<span class="name " id="productDetailName">$goodsinfo.goods_name</span>
+						<span class="markWrap">
+						</span>
+						<div class="clear-both"></div>
+					</h1>
+					<!-- 图4-start -->
+						<section class="bannerWrap4_1">
+							<div>
+								<ul class="bannerList sc_scroller">
+									<li id="showproductPic" class="active js_showImageContentAll"><img alt="" src="$goodsinfo.info_img"></li>
+								</ul>
+							</div>							
+		                </section>
+						<section class="bannerWrap4_2">
+							<div class="prev4_2 disTap">				
+                				<span></span>
+                			</div>
+							<div id="bannerScroll4_2" style="overflow: hidden;">
+    								<ul class="bannerList sc_scroller notFour" style="transition-property: -moz-transform; transform-origin: 0px 0px 0px; transform: translate(0px, 0px); width: 68px;">
+    								    #foreach($row in $Goods.GetGoodsGalleryList($goodsinfo.goods_id))
+								         <li class="active">
+											<div data-psrc="$row.goods_thumb" data-pimageid="$row.goods_thumb" data-pdetailid="21" class="js_showImage">
+												<img alt="$row.img_desc" src="$row.goods_thumb">
+											</div>
+										 </li>
+										 #end
+									</ul>
+							</div>	
+							<div class="next4_2 disTap">
+                    			<span></span>
+                    		</div>
+		                </section>
+					<!-- 图4-end -->
+					<!-- 信息展示-start -->
+					<div class="tabInfoWrap">
+						<div class="borderTitle z3g-bgColor03">
+							<ul class="titleWrap">
+    								<li class="current z3g-column1">
+    									<div>
+    										<span class="text ">基本信息</span>
+    									</div>
+    								</li>
+							</ul>
+							<span class="active controlBar">
+								<em class="icon up"></em>
+							</span>
+						</div>
+						<!-- 产品规格-start -->
+						<div id="productbasic" class="borderCont productSpecifications">
+    						<ul class="textSizeWrap textSizeBig">
+    							<li class="code">产品编号：$goodsinfo.goods_sn </li>
+									<li class="time">发布时间：$goodsinfo.add_time.tostring("yyyy-MM-dd")</li>		
+									<li class="browsing">浏览次数：<span id="hitnumber">$goodsinfo.click_count</span></li>	
+    						</ul>
+                     <!-- 电话,咨询,位置按钮组-begin -->					
+							<div class="submitGroup">
+								<div class="group01">
+									<div class="active productdetailtel">
+										<a href="tel:4006789881"><span>4006789881</span></a>
+									</div>
+									<div class="active productdetailprice">
+										<span data-pid="21" class="js_gotoprice">咨询</span>
+									</div>
+								</div>
+								<div class="group02">
+										<div class="active productdetailmap">
+											<span class="js_gotomap">位置</span>
+										</div>
+								</div>
+							</div>
+							<!-- 电话,咨询,位置按钮组-end -->					
+    					</div>
+    					<!-- 产品规格-end -->
+						<!-- 产品参数-start -->
+    					<!-- 产品参数-end -->
+					</div>
+					<!-- 信息展示-end -->
+					<!-- 产品描述-start -->
+					<div class="productDescription">
+						<div class="borderTitle z3g-bgColor03">
+							<span class="left">
+								<em class="icon"></em>
+								<em class="borderName ">产品描述</em>
+							</span>
+							<span class="right">
+								<em class="moreCont"></em>
+								<em id="icon_desc_click" class="controlBar">
+									<cite class="icon up" id="icon_desc"></cite>
+								</em>
+							</span>
+						</div>
+						<div class="articleCont htmledit textSizeWrap"><p>$goodsinfo.goods_content</p></div>
+					</div>
+					<!-- 产品描述-end -->
+					<!-- 产品关键词-start -->
+                    <!-- 产品关键词-end -->			
+					<!-- 产品上一条下一条-start -->
+<!--					<div class="z3g-pageControlBar">
+						    <section data-otherlink="http://" data-isotherlink="0" data-pmcid="22" class="pagePrev  active js_haspreOrNext">
+							<p class="p1 ">上一个：</p>
+							<p class="p2 ">201322</p>
+							<p class="arrow"></p>		
+						</section>					
+						    <section data-otherlink="http://" data-isotherlink="0" data-pmcid="18" class="pageNext  active js_haspreOrNext">
+							<p class="p1 ">下一个：</p>
+							<p class="p2 ">201318</p>
+							<p class="arrow"></p>		
+						</section>
+					</div>-->
+					<!-- 产品上一条下一条-end -->
+					<!-- 相关信息 -start -->
+					<!-- 相关信息 -end -->
+					<script type="text/javascript">
+					CompInit.addCompInit('Products_detail01',{
+					    requireJs:'/include/publicScripts/products/Products_detail01.js' ,
+					    initFunc:function(){
+					 	var options={
+						img4_id:"21",
+						img4_img:"431dec91-7a15-4456-b43f-9c96584afb1d",
+					    pic_length:1,
+						styleV:"4",
+						relateproducts_length:0,
+						infovos_length:0,
+						return_url:"m.xiaozhubanna.pepco.com.cn",
+						product_id:"21",
+						info_link:"http://",
+						productColumnId:"1",
+						keywords:"",
+						brandId:"",
+						pmcType:"",
+						pmcId:"",
+						orderStr:"8",
+						aboutList:"",
+						findAllID:"",
+						nextproductId:"18",
+						preproductId:"22",
+						orderAddSuccess:"添加成功",
+						orderAddCart:"商品已经成功加入到购物车！",
+						orderGoCart:"去购物车",
+						orderGoShop:"继续购物"
+						}
+						Products_detail01.init(options);
+					}
+					})
+					</script>				
+				</section>
+				<!-- 产品详细组件 结束 -->
+</div> 
+				</div>
+				<div name="留言列表" id="elem-Messages_emit01-001" class="columnSpace"> 
+				
+
+
+
+<div class="Messages_emit01-d1_c1" id="Messages_emit01-001">
+
+<iframe src="/Messages.do?method=getFirstsession" style="display:none" name="myframe"></iframe>
+
+				
+<!-- 发表留言组件 开始 -->
+<section id="Messages_emit01-001_Messages_emit01-d1_c1" class="Messages_emit01-d1_c1">
+	
+	<form name="Messages_emit01-001_referForm" method="post" action="/Messages.do?method=emit01&amp;compId=Messages_emit01-001" id="Messages_emit01-001_referForm">
+		<input type="hidden" value="bb1ab70823d519ca898260dc7d4135bd" name="token" id="token">
+		<input type="hidden" value="" name="org.apache.struts.taglib.html.TOKEN">
+		<div class="relateStyle" id="msgTitle"><!--相关模式改为“normalStyle”-->
+			<div class="z3g-headerSmallNew">
+						<span class="active left">
+							<div class="z3g-btn active btnArrow btnArrowLeft back">
+								<b>
+									<em></em>
+								</b>
+								<span>返回</span>
+							</div>
+						</span>
+						<span class="center">在线留言</span>	
+						<span class="active right" href="">
+
+						</span>
+					</div>
+			
+			<div style="display:none;" class="z3g-headerSmall">
+			<span class="active back" href="javascript:void(0);">
+				<em class="icon">返回</em>
+			</span>
+			<span class="title">在线留言</span>	
+				<span class="active more" id="detail_more" href="javascript:void(0);">
+					<em class="icon"></em>
+				</span>
+			</div>
+			<div class="borderTitle">
+				<ul class="titleWrap">
+					<li class="active current" id="list">
+						<div><span class="text">相关留言</span>
+									
+						</div>
+					</li>
+					<li class="active" id="emit">
+						<div><span class="text">我要留言</span></div>										
+					</li>
+				</ul>
+				<span class="active controlBar">
+					<em class="icon up"></em>
+				</span>
+			</div>
+			<!-- 发表留言后的提示框  开始-->
+			<div style="display:none;" id="msgSuccessAlertInfo">	
+				<div class="z3g-alertWindow">		
+					<section class="z3g-alertInfoSuccess-c1">
+						<div class="alertInfoWrap">
+							<div class="alertInfoCont">
+								<div class="icon"></div>
+								<div class="info">
+									<p class="infoTitle">您的留言发送成功!</p>
+									<p class="infoOther">感谢您的留言，我们将会第一时间回复并与您联系，谢谢!</p>
+								</div>
+							</div>
+							<div class="alertInfoOperation">
+								<span class="time"><span id="msgMiao1">2</span>秒后自动</span>
+								<button type="button" class="active z3g-button">关闭</button>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div> 
+			<!-- z3g-alertInfoFault-c1 -->
+			<section style="display:none;" class="z3g-alertInfoFault-c1">
+				<div class="alertInfoWrap">
+					<div class="alertInfoCont">
+						<div class="icon"></div>
+						<div class="info">
+							<p class="infoTitle">您的留言发送失败!</p>
+							<p class="infoOther">感谢您的留言，我们将会第一时间回复并与您联系，谢谢!</p>
+						</div>
+					</div>
+					<div class="alertInfoOperation">
+						<span class="time"><span id="msgMiao2">2</span>秒后自动</span>
+						<button onclick="closeMsgInfo('z3g-alertInfoFault-c1');" type="button" class="active z3g-button">关闭</button>
+					</div>
+				</div>
+			</section>
+			<!-- 发表留言后的提示框  结束-->
+			
+			<div style="display: none;" id="borderContEmit" class="borderCont z3g-noTouchMoveWrap">
+				<ul>
+					<li class="tel">
+						<input type="tel" placeholder="您的电话" maxlength="32" name="phone" id="phone" class="z3g-input">
+					</li>		
+					<li class="cont">
+						<textarea placeholder="输入您的评论内容" id="content" name="content" class="z3g-textarea"></textarea>
+					</li>
+					<li class="name">
+						<input type="text" placeholder="您的姓名" maxlength="20" name="author" id="author" class="z3g-input">
+					</li>
+					<li class="email">
+						<input type="email" placeholder="输入您的邮箱" maxlength="50" name="mail" id="mail" class="z3g-input">
+					</li>
+					<li class="verificationCode">
+						<input type="text" placeholder="输入右侧验证码" maxlength="25" value="" name="verifyCode" id="verifyCode" class="z3g-input">
+						<img alt="" name="Messages_emit01-001_vcode" id="Messages_emit01-001_vcode" src="/verifyCode?1380355590579" class="verify-pic">
+						<input type="hidden" value="" name="ajaxverifyCode" id="ajaxverifyCode">
+						<input type="hidden" value="" name="Messages_emit01-001_chkcode" id="Messages_emit01-001_chkcode">
+						<input type="hidden" value="SubmitMessage" name="CompAction" id="CompAction">
+						<input type="hidden" value="forProduct" name="categoryType" id="categoryType">
+						<input type="hidden" value="" name="newsId" id="newsId">
+						<input type="hidden" value="21" name="productId" id="productId">
+						<input type="hidden" value="" name="productMenu" id="productMenu">
+					</li>
+					<li class="submitBtn">
+						<button type="button" class="z3g-button active" id="Messages_emit01-001_submit">发表留言</button>
+					</li>
+				</ul>
+			</div>
+			<div style="" id="borderContList" class="borderCont">
+						<div class="z3g-noResultMsg">
+							<div class="icon"></div>
+							<p class="row01">还没有人留言</p>
+							<p class="row02">点击“我要留言”，快来留言吧！</p>
+						</div>
+			</div>
+		</div>
+	</form>
+</section>
+<!-- 发表留言组件 结束 -->	
+<script type="text/javascript">
+CompInit.addCompInit('Messages_emit01',{
+	 requireJs:'/include/publicScripts/messages/Messages_emit01.js' ,
+	 initFunc:function(){ 
+		var options={
+				productId:'21',
+			messageCompId:'Messages_emit01-001'
+		}
+		Messages_emit01.init(options);
+	 }
+});
+</script>
+</div> 
+				</div>
+			</div>
+<div name="bottom" id="elem-PublicConfig_showBottom01-001" class="columnSpace">
+	<section class="PublicConfig_showBottom01-d1_c1">
+	#parse("include/addr.html")
+	</section>
+			</div>
+</div>
+<div style="position: absolute; z-index: 100; width: 7px; bottom: 2px; top: 2px; right: 1px; pointer-events: none; transition-property: opacity; overflow: hidden; opacity: 0;"><div style="position: absolute; z-index: 100; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.9); -moz-box-sizing: border-box; width: 100%; border-radius: 3px 3px 3px 3px; pointer-events: none; transition-property: -Moz-transform; transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); transform: translate(0px, 0px); height: 440px;"></div></div>
+</div>
+#parse("include/page_foot.html")

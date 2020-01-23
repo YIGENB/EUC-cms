@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>购物车 - $config.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="$config.Keywords" />
+    <meta name="Description" content="$config.Desc" />
+    <link href="/include/css/store.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/include/js/jquery/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="/include/js/common.js"></script>
+    <script type="text/javascript" src="/include/js/store.js"></script>
+    <style type="text/css">
+        .kqbank { padding: 10px 150px; border: 4px #f0fbff solid; }
+        .kqbank a{ margin:10px;}
+        .kqbank a img{ padding:2px;  border:1px solid #ccc;}
+    </style>
+</head>
+ 
+
+<body>
+    <div id="page">
+        <div id="content">
+            <div id="crumbs">
+                <strong>您的位置：</strong>
+                <ol class="crumbs">
+                    <li><a href="/">首页</a> </li>
+                    <li><a href="/cart.aspx">我的购物车</a></li>
+                    <li class="current">支付货款 </li>
+                </ol>
+                <span class="cart-tip">购物车帮您一次性完成批量购买与付款，下单更便捷，付款更简单！</span>
+            </div>
+            <!-- Content Start -->
+            <div class="flow-steps">
+                <ol class="num5">
+                    <li><span class="first">挑选商品</span></li>
+                    <li><span>查看购物车</span></li>
+                    <li class="current-prev"><span>填写购物信息</span></li>
+                    <li class="current"><span>支付货款</span></li>
+                    <li class="last"><span>完成订购</span></li>
+                </ol>
+            </div>
+            <div id="payment">
+                <table width="100%">
+                <tr>
+                    <td>
+                        <div style=" padding:0px 20px 20px 20px;">
+                            <center>
+                                <p><h3>跟据您递交的订单，系统为您生成了以下支付信息</h3></p>
+                            </center>
+                            <div style=" padding:0px 150px; font-size:14px; border:4px #f0fbff solid;">
+                                <p>
+                                    订单号：$orderinfo.order_sn<br />
+                                    订单总金额：￥$orderinfo.order_amount<br />
+                                    拆扣：￥$orderinfo.integral_money<br />
+                                    优惠券：￥$orderinfo.bonus<br />
+                                    您还需支付：<span class="price">#set($zf = $orderinfo.order_amount - $orderinfo.bonus -$orderinfo.integral_money) $zf </span>
+                                </p>
+                            </div>
+                            <br />
+                            <div style=" padding:10px 150px; border:4px #f0fbff solid;">
+                                <p>$pay_content</p>
+                            </div><br />
+                            <div class="kqbank">
+                               $kqbank
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<script>
+    listTable.filter['attr_type'] = $attr_type;
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            产品列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>产品属性类型</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add&attr_type=$attr_type" class="btn btn-primary ">添加类型</a>
+                    </div>
+                    <form method="post" action="" name="listForm" id="listForm">
+                    <div id="listDiv" class="ibox-content">
+                        #end
+                        <table id='list-table' class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        $SiteUtils.GetSortImg("cat_name","类型名称")
+                                    </th>
+                                    <th>
+                                        $SiteUtils.GetSortImg("enabled","有效")
+                                    </th>
+                                    <th>
+                                        操作
+                                    </th>
+                                </tr>
+                            </thead>
+                            #foreach($row in $list)
+                            <tr>
+                                <td>
+                                    <span onclick="listTable.edit(this, 'cat_name', ${row.cat_id})">${row.cat_name}</span>
+                                </td>
+                                <td>
+                                    <img src="images/${row.enabled}.gif" onclick="listTable.toggle(this, 'enabled', ${row.cat_id})" />
+                                </td>
+                                <td>
+                                    <a href="goods_attribute.aspx?act=list&amp;type_id=${row.cat_id}&amp;attr_type=$attr_type" title="属性管理">属性管理</a>
+                                    <a href="?act=edit&amp;id=${row.cat_id}&amp;attr_type=$attr_type" title="修改">修改</a>
+                                    <a href="javascript:;" onclick="listTable.removes(${row.cat_id}, '确认删除当前分类吗？',$attr_type)"  title="删除">删除</a>
+                                </td>
+                            </tr>
+                            #end
+                        </table>
+                        <!-- 分页 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info">
+                                    <!--<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选"
+                                        class="selectall" />--></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    ${pager}
+                                </div>
+                            </div>
+                        </div>
+                        #if (!$isajax)
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")
+#end

@@ -1,0 +1,62 @@
+﻿#parse("pageheader.html")
+<h1 id="Menu">
+<span class="action-span"><a href="?act=list">内部链接列表</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">#if($id == 0)添加#else修改#end内部链接</label> </span>
+<div style="clear:both"></div>
+</h1>
+<div class="main-div">
+<form method="post" name="theForm" onsubmit="return validate()">
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">
+        内部链接名称</td>
+      <td>
+        <input type="text" name="title" value="$!{entity.title}" size="35" /><span class="require-field">*</span>
+        
+      </td>
+    </tr>
+	<tr>
+      <td  class="label">重复次数</td>
+      <td>
+        <input type="text" name="frequency" value="$!{entity.frequency}" size="6" />          &nbsp;&nbsp;&nbsp;&nbsp;<span>*请输入数字！0表示不限次数</span>
+      </td>
+    </tr>
+    <tr>
+      <td  class="label">广告链接</td>
+      <td>
+        <input type="text" name="link" value="$!{entity.link}" size="35" /><span class="require-field">*</span>
+      </td>
+    </tr>
+    <tr>
+      <td  class="label">是否有效</td>
+      <td>
+        <input type="radio" name="is_enable" value="1"  checked="true"  />是        <input type="radio" name="is_enable" value="0"  />否      </td>
+    </tr>
+    <tr>
+      <td  class="label">备注</td>
+      <td>
+        <input type="text" name="remark" value="$!{entity.remark}" size="50" />
+      </td>
+    </tr>
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+        <input type="submit" value=" 确定 " class="button" />
+        <input type="reset" value=" 重置 " class="button" />
+       </td>
+    </tr>
+ </table>
+
+</form>
+</div>
+<script language="JavaScript">
+  document.forms['theForm'].elements['title'].focus();
+  
+  function validate() {
+      var validator = new Validator('theForm');
+      validator.required('title', "请输入内部链接名称");
+      validator.required('link', "请输入内部链接的链接URL!");
+      return validator.passed();
+  }
+</script>
+#parse("pagefooter.html")

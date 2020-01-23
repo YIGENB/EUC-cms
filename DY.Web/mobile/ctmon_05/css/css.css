@@ -1,0 +1,74 @@
+﻿/*��ҳ*/
+.menuvice {
+text-align: center;
+width: 320px;
+margin: 25px auto;
+overflow: hidden;
+}
+
+    .menuvice a {
+   	display: inline-block;
+	width: 90px;
+	height: 90px;
+	background-size:100%100%;
+	background-repeat:no-repeat;
+	background-size:58px;
+	background-position: center 0px;
+    }
+      .menuvice a span {
+      	display: block;
+		 overflow: hidden;
+		 white-space: nowrap;
+		 text-overflow: ellipsis;
+ 		  color:#fff;
+  		 font-weight:bold;
+		 line-height: 130px;
+		 height:90px;
+    }
+    .menuvice a:nth-child(9n+1) 
+    {
+        float:left;
+        margin-left:10px;
+        margin-bottom: 10px;
+}
+    .menuvice a:nth-child(9n+2) {
+     margin: 0px 15px 10px 15px;
+      float:left;
+}
+    .menuvice a:nth-child(9n+3) 
+    {
+        float:right;
+        margin-right:10px;
+        margin-bottom: 10px;
+}
+    .menuvice a:nth-child(9n+4) {
+        float:left;
+        margin-left:10px;
+        margin-bottom: 10px;
+}
+    .menuvice a:nth-child(9n+5) {
+    margin: 0px 15px 10px 15px;
+     float:left;
+}
+ .menuvice a:nth-child(9n+6) {
+
+        float:right;
+        margin-right:10px;
+        margin-bottom: 10px;
+}
+ .menuvice a:nth-child(9n+7) {
+        float:left;
+        margin-left:10px;
+        margin-bottom: 10px;
+}
+    .menuvice a:nth-child(9n+8) {
+
+   margin: 0px 15px 10px 15px;
+    float:left;
+}
+    .menuvice a:nth-child(9n+9) {
+
+        float:right;
+        margin-right:10px;
+        margin-bottom: 10px;
+}

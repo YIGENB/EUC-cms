@@ -1,0 +1,116 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<div id="box_content" style="min-height: 484px;">
+<div name="留言列表" id="elem-Messages_emit01-001" class="columnSpace"> 
+				
+
+
+
+<div class="Messages_emit01-d1_c1" id="Messages_emit01-001">
+
+				
+<!-- 发表留言组件 开始 -->
+<section id="Messages_emit01-001_Messages_emit01-d1_c1" class="Messages_emit01-d1_c1">
+		<div class="relateStyle" id="msgTitle"><!--相关模式改为“normalStyle”-->
+			<div class="z3g-headerSmallNew">
+						<span class="active left">
+							<div class="z3g-btn active btnArrow btnArrowLeft back">
+								<b>
+									<em></em>
+								</b>
+								<span>$Return</span>
+							</div>
+						</span>
+						<span class="center">$Message</span>	
+						<span class="active right" href="">
+
+						</span>
+					</div>
+			<div style="display:none;" class="z3g-headerSmall">
+			<span class="active back" href="javascript:void(0);">
+				<em class="icon" style="color:$!{mstyle.title_content_font_color}">$Return</em>
+			</span>
+			<span class="title" style="color:$!{mstyle.title_content_font_color}">$Message</span>	
+				<span class="active more" id="detail_more" href="javascript:void(0);">
+					<em class="icon"></em>
+				</span>
+			</div>
+			<div class="borderTitle" style="background:$!{mstyle.b_menu_bg_color}">
+				<ul class="titleWrap">
+					<li class="active current" id="emit">
+						<div><span class="text" style="color:$!{mstyle.title_content_font_color}">$Message</span></div>										
+					</li>
+				</ul>
+				<span class="active controlBar">
+					<em class="icon up"></em>
+				</span>
+			</div>
+
+			<!-- 发表留言后的提示框  结束-->
+           <form id="thisForm" onsubmit="return reviewFormsub(this)" method="post" action="/tools/ajax.aspx?act=feedbook" name="thisForm">
+           <input type="hidden" name="type" value="0" />
+			<div id="borderContEmit" class="borderCont z3g-noTouchMoveWrap">
+				<ul>
+					<li class="name">
+						<input type="text" placeholder="$NameTip" maxlength="20" name="name" id="name" class="z3g-input">
+					</li>
+					<li class="email">
+						<input type="email" placeholder="$EmailTip" maxlength="50" name="email" id="email" class="z3g-input">
+					</li>
+					<li class="cont">
+						<textarea placeholder="$ContentTip" id="remark" name="remark" class="z3g-textarea"></textarea>
+					</li>
+					<li class="verificationCode">
+						<input type="text" placeholder="$VerificationCodeTip" maxlength="25" value="" name="captcha" id="captcha" class="z3g-input">
+						<img src="/tools/verifyimagepage.aspx" onclick="this.src='/tools/verifyimagepage.aspx?'+Math.random()" style="vertical-align:bottom;" alt="$CanNoSee"  id="img-captcha"/>
+					</li>
+					<li class="submitBtn">
+						<button type="submit" class="z3g-button active" style="background:$!{mstyle.b_menu_bg_color}">$Submit</button>
+					</li>
+				</ul>
+			</div>
+</form>
+		</div>
+</section>
+</div> 
+				</div>
+
+			</div>
+			<div name="bottom" id="elem-PublicConfig_showBottom01-001" class="columnSpace">
+	#parse("include/addr.html")
+			</div>
+			#parse("include/search.html")
+			</div>
+			<div style="position: absolute; z-index: 100; width: 7px; bottom: 2px; top: 2px; right: 1px; pointer-events: none; transition-property: opacity; overflow: hidden; opacity: 0;"><div style="position: absolute; z-index: 100; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.9); -moz-box-sizing: border-box; width: 100%; border-radius: 3px 3px 3px 3px; pointer-events: none; transition-property: -Moz-transform; transition-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); transform: translate(0px, 0px); height: 586px;"></div></div>
+			</div>
+			#end
+#parse("include/page_foot.html")
+<script type="text/javascript">
+    function reviewFormsub(form) {
+        jQuery(form).ajaxSubmit({
+            dataType: 'json',
+            beforeSubmit: function () {
+                var validator = new Validator("thisForm");
+                validator.required("name", "$NameTip！");
+                validator.required("remark", "$ContentTip！");
+                return validator.passed();
+            },
+            success: function (data) {
+                if (data.error == 1) {
+                    //                    $("#msgFaultAlertInfo").show().find(".infoOther").html(data.message);
+                    //                    $("#borderContEmit").hide();
+                    alert(data.message);
+                    //                    if (data.message == "请先登录，才能提交评论！") {
+                    //                        window.location.href = "/login.aspx?act=login";
+                    //                    }
+                }
+                else {
+                    alert("$SubmitOKTip");
+                    $('#thisForm').resetForm();
+                    ReloadCaptcha();
+                }
+            }
+        });
+        return false;
+    } 
+</script>

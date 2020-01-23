@@ -1,0 +1,135 @@
+﻿#**
+ * 功能描述：配送方式添加修改模板
+ * 创建时间：2010-01-11 12:23:45
+ * 最后修改时间：2010-01-14 9:43:22
+ * 作者：gudufy
+ * ============================================================================
+ * 2009-2015 小K版权所有，并保留所有权利
+ * 联系邮箱：421643133@qq.com、QQ：421643133
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
+ * 使用；不允许对程序代码以任何形式任何目的的再发布。
+ * ============================================================================
+ *#
+#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+          城际快递 -  #if($id == 0)添加#else修改#end配送方式</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>安装支付方式</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">配送方式列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+           
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            配送方式名称：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="delivery_name" name="delivery_name" maxlength="50" type="text" class="form-control" required="" aria-required="true" value="$!{entity.delivery_name}">
+                                        </div>
+                                    </div>
+ 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            配送方式描述：</label>
+                                        <div class="col-sm-9">
+                                        <textarea  name="delivery_desc" class="form-control"  cols="60" rows="4" >$!{entity.delivery_desc}</textarea>
+                                    
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            配送价格：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="delivery_price" name="delivery_price" maxlength="50" type="text" class="form-control number"  value="$SiteUtils.DefaultValue($!{entity.delivery_price},0)" /> 为0则免费
+                                        </div>
+                                    </div>
+                                      <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            快递com：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="com" name="com" maxlength="50" type="text" class="form-control "  value="$!{entity.com}" /> 要查询的快递公司代码
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            排序：</label>
+                                        <div class="col-sm-9">
+                                                    <input id="orderid" name="orderid" maxlength="50" type="text" class="form-control number"  value="$SiteUtils.DefaultValue($!{entity.orderid},0)" /> 
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            支持货到付款：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.support_cod})checked#end $SiteUtils.DefaultValue($!{entity.support_cod},"checked")  value="1" name="support_cod"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.support_cod} == false)checked#end  value="0" name="support_cod"> <i></i> 否</label>
+
+                                        
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否显示：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.is_show})checked#end $SiteUtils.DefaultValue($!{entity.is_show},"checked")  value="1" name="is_show"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.is_show} == false)checked#end  value="0" name="is_show"> <i></i> 否</label>
+
+                                        
+                                        </div>
+                                    </div>
+                         
+                        </div>
+
+
+                           
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+
+
+#parse("pagefooter.html")

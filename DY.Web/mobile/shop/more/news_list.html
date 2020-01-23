@@ -1,0 +1,7 @@
+﻿#foreach($row in $list) #set($index=$velocityCount+1)
+<p class="column-responsive half-bottom">
+    <a href="#CMSLink()">
+        <img alt="img" src="images/general-nature/5s.jpg"></a> <a href="#CMSLink()"><strong>
+            $row.title</strong></a> <em>$SiteUtils.GetTopic($row.des,82)</em>
+</p>
+#end

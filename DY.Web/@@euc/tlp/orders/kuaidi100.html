@@ -1,0 +1,84 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            快递查询</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>快递查询</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="javascript:;" onclick="javascript:history.go(-1)" class="btn btn-primary ">返回</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">物流动态</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!---->
+                <div class="panel-body">
+                    <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                    <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">
+                                    物流动态：</label>
+                                <div class="col-sm-9">
+                                    <table cellpadding="3" cellspacing="1" class="table table-striped table-bordered table-hover" id="list-table">
+
+
+       
+    </table>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end tab form -->
+
+<script>
+    $(document).ready(function () {
+        jQuery.ajax({
+            url: "http://api.kuaidi100.com/api?id=${config.Express_key}&com=${com}&nu=${nu}&show=0&muti=1&order=desc",
+            dataType: 'jsonp',
+            data: '',
+            jsonp: 'callback',
+            success: function (result) {
+                var html = "";
+                if (result.status == 1) {
+                    for (var i = 0; i < data.data.length; i++) {
+                        html += "<tr>";
+                        html += "<td width=25%>" + data.data[i].time + "</td>" + "<td>" + data.data[i].context + "</td>" + "</tr>";
+                    }
+                    $("#list-table").html(html);
+                }
+                else {
+                    html += "<tr>";
+                    html += "<td >" + result.message + "</td></tr>";
+                    $("#list-table").html(html);
+    
+                }
+            }
+        });
+    })
+</script>
+
+
+
+#parse("pagefooter.html")

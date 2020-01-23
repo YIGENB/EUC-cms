@@ -1,0 +1,40 @@
+﻿<div name="广告" id="elem-FrontSlide_listJson01-newsList" xmlns="" class="columnSpace">
+<div class="null" id="FrontSlide_listJson01-newsList">
+<div class="FrontSlide_listJson01-d1_c1">
+	<div class="bannerScrollWrap" style="width: 640px;">
+				<div class="swipe" style="width:100%;">
+				<ul id="slider">
+				    #foreach($row in $Caches.GetAds(3).rows) #set($index=$velocityCount+1)
+					<li #if($index==1) style="display:block" #end><img src="${row.ad_code}" alt="" /></li>
+					#end
+				</ul>
+				<div id="pagenavi">
+				    #foreach($row in $Caches.GetAds(3).rows) #set($index=$velocityCount+1)
+					<a href="javascript:void(0);" #if($index==1) class="active" #end>$index</a>
+					#end
+				</div>
+			</div><!--swipe end-->
+	<script type="text/javascript">
+			    var active = 0,
+	as = document.getElementById('pagenavi').getElementsByTagName('a');
+
+			    for (var i = 0; i < as.length; i++) {
+			        (function() {
+			            var j = i;
+			            as[i].onclick = function() {
+			                t2.slide(j);
+			                return false;
+			            }
+			        })();
+			    }
+			    var t2 = new TouchSlider({ id: 'slider', speed: 600, timeout: 6000, before: function(index) {
+			        as[active].className = '';
+			        active = index;
+			        as[active].className = 'active';
+			    } 
+			    });
+</script>
+	</div>
+</div>
+</div>
+				</div>

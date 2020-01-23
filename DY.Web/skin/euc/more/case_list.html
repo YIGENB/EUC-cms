@@ -1,0 +1,13 @@
+﻿        <div class="case_a_cont">
+                 #foreach($row in $list) #set($index=$velocityCount+1)	
+            	<a href="#CMSLink()">
+                	<img width="238" height="166" src="$row.photo">
+                	<p style="bottom: -65px;">
+                        <span>$row.title</span>
+                        <font>$SiteUtils.GetTopic($row.des,30)</font>
+                    </p> 
+                    <b style="bottom: -65px;"></b>   
+                </a>
+                            #if($index%4==0) </div> <div class="case_a_cont"> #end
+                #end
+            </div>

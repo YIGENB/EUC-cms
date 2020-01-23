@@ -1,0 +1,40 @@
+﻿<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        td{vnd.ms-excel.numberformat:@}
+    </style>
+</head>
+<table width="100%" border="1">
+    <tr>
+        <th filter="all">订单号</th>
+        <th filter="all">下单时间</th>
+        <th filter="all">订单总额</th>
+        <th filter="all">收货人</th>
+        <th filter="all">付款状态</th>
+        <th filter="all">发货状态</th>
+        <th filter="all">配送方式</th>
+        <th filter="all">支付方式</th>
+        <th filter="all">客户备注</th>
+    </tr>
+    #foreach($row in $list)
+    <tr>
+        <td>$row.order_sn</td>
+        <td>$row.add_time</td>
+        <td>$row.order_amount</td>
+        <td>$row.consignee</td>
+        <td>#if(${row.pay_status} == 0)
+            未支付
+            #elseif(${row.pay_status} == 1)
+            已支付
+            #end</td>
+        <td>#if(${row.delivery_status} == 0)
+            未发货
+            #elseif(${row.delivery_status} == 1)
+            已发货
+            #end</td>
+        <td>$row.delivery_name</td>
+        <td>$row.pay_name</td>
+        <td>$row.postscript</td>
+    </tr>
+    #end
+</table>

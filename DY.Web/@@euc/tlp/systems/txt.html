@@ -1,0 +1,9 @@
+﻿#foreach($row in $newslist)
+<a href="http://$config.Sitedomain#CMSLink()">$row.title</a>
+#end
+#foreach($row in $newsCats)
+<a href="http://$config.Sitedomain#CMSCatLink()">$row.cat_name</a> 
+#end
+#foreach($row in $pages)
+<a href="http://$config.Sitedomain#PageLink()">$row.title</a>
+#end

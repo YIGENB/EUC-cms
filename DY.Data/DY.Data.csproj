@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{411F609C-4636-46B5-AE6C-F2A0EFF22F82}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DY.Data</RootNamespace>
+    <AssemblyName>DY.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\CShop.Web\bin\CShop.Data.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DbException.cs" />
+    <Compile Include="DbHelper.cs" />
+    <Compile Include="DbProvider\DatabaseProvider.cs" />
+    <Compile Include="DbProvider\IDataProvider\IAd.cs" />
+    <Compile Include="DbProvider\IDataProvider\IAdminAction.cs" />
+    <Compile Include="DbProvider\IDataProvider\IAdminLog.cs" />
+    <Compile Include="DbProvider\IDataProvider\IAdminMenu.cs" />
+    <Compile Include="DbProvider\IDataProvider\IAdminUser.cs" />
+    <Compile Include="DbProvider\IDataProvider\IAdPosition.cs" />
+    <Compile Include="DbProvider\IDataProvider\IAppstore.cs" />
+    <Compile Include="DbProvider\IDataProvider\IAward.cs" />
+    <Compile Include="DbProvider\IDataProvider\IBonus.cs" />
+    <Compile Include="DbProvider\IDataProvider\IBonusType.cs" />
+    <Compile Include="DbProvider\IDataProvider\ICard.cs" />
+    <Compile Include="DbProvider\IDataProvider\ICart.cs" />
+    <Compile Include="DbProvider\IDataProvider\ICityStation.cs" />
+    <Compile Include="DbProvider\IDataProvider\ICms.cs" />
+    <Compile Include="DbProvider\IDataProvider\ICmsCat.cs" />
+    <Compile Include="DbProvider\IDataProvider\ICmsLink.cs" />
+    <Compile Include="DbProvider\IDataProvider\ICmsPage.cs" />
+    <Compile Include="DbProvider\IDataProvider\IComment.cs" />
+    <Compile Include="DbProvider\IDataProvider\IConfig.cs" />
+    <Compile Include="DbProvider\IDataProvider\ICsh.cs" />
+    <Compile Include="DbProvider\IDataProvider\ICshType.cs" />
+    <Compile Include="DbProvider\IDataProvider\IDelivery.cs" />
+    <Compile Include="DbProvider\IDataProvider\IDeliveryAddress.cs" />
+    <Compile Include="DbProvider\IDataProvider\IDeliveryArea.cs" />
+    <Compile Include="DbProvider\IDataProvider\IDepartureDate.cs" />
+    <Compile Include="DbProvider\IDataProvider\IDiscount.cs" />
+    <Compile Include="DbProvider\IDataProvider\IDownload.cs" />
+    <Compile Include="DbProvider\IDataProvider\IDownloadCategory.cs" />
+    <Compile Include="DbProvider\IDataProvider\IEmailList.cs" />
+    <Compile Include="DbProvider\IDataProvider\IExchange.cs" />
+    <Compile Include="DbProvider\IDataProvider\IExchangeLog.cs" />
+    <Compile Include="DbProvider\IDataProvider\IFavorites.cs" />
+    <Compile Include="DbProvider\IDataProvider\IFeedback.cs" />
+    <Compile Include="DbProvider\IDataProvider\IFormAll.cs" />
+    <Compile Include="DbProvider\IDataProvider\IFormPosition.cs" />
+    <Compile Include="DbProvider\IDataProvider\IFriendLink.cs" />
+    <Compile Include="DbProvider\IDataProvider\IFromvalue.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoods.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsAttr.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsAttribute.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsBrand.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsCat.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsCategory.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsGallery.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsInquiry.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsLink.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsSpec.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsSpecIndex.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsSpecValues.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsType.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsUserPrice.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGoodsVisitStat.cs" />
+    <Compile Include="DbProvider\IDataProvider\IGrab.cs" />
+    <Compile Include="DbProvider\IDataProvider\IInternalLinksInfo.cs" />
+    <Compile Include="DbProvider\IDataProvider\IJobDepartment.cs" />
+    <Compile Include="DbProvider\IDataProvider\IJobPosition.cs" />
+    <Compile Include="DbProvider\IDataProvider\IKeywords.cs" />
+    <Compile Include="DbProvider\IDataProvider\ILbs.cs" />
+    <Compile Include="DbProvider\IDataProvider\IMailTemplates.cs" />
+    <Compile Include="DbProvider\IDataProvider\IMStyle.cs" />
+    <Compile Include="DbProvider\IDataProvider\INavigate.cs" />
+    <Compile Include="DbProvider\IDataProvider\IOauth.cs" />
+    <Compile Include="DbProvider\IDataProvider\IOrderAction.cs" />
+    <Compile Include="DbProvider\IDataProvider\IOrderGoods.cs" />
+    <Compile Include="DbProvider\IDataProvider\IOrderInfo.cs" />
+    <Compile Include="DbProvider\IDataProvider\IPayment.cs" />
+    <Compile Include="DbProvider\IDataProvider\IProducts.cs" />
+    <Compile Include="DbProvider\IDataProvider\IQuickMenu.cs" />
+    <Compile Include="DbProvider\IDataProvider\IReceiving.cs" />
+    <Compile Include="DbProvider\IDataProvider\IRegFields.cs" />
+    <Compile Include="DbProvider\IDataProvider\IRegFieldsValue.cs" />
+    <Compile Include="DbProvider\IDataProvider\IRegion.cs" />
+    <Compile Include="DbProvider\IDataProvider\IRobots.cs" />
+    <Compile Include="DbProvider\IDataProvider\ISearch.cs" />
+    <Compile Include="DbProvider\IDataProvider\ISystem.cs" />
+    <Compile Include="DbProvider\IDataProvider\ITag.cs" />
+    <Compile Include="DbProvider\IDataProvider\ITpcomments.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUserAccount.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUserAddress.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUserDistribution.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUserEmail.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUserFeed.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUserIntegral.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUserRank.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUsers.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUserSign.cs" />
+    <Compile Include="DbProvider\IDataProvider\IUserWithdrawals.cs" />
+    <Compile Include="DbProvider\IDataProvider\IVote.cs" />
+    <Compile Include="DbProvider\IDataProvider\IVoteLog.cs" />
+    <Compile Include="DbProvider\IDataProvider\IVoteOption.cs" />
+    <Compile Include="DbProvider\IDataProvider\IStore.cs" />
+    <Compile Include="DbProvider\IDataProvider\IPromotion.cs" />
+    <Compile Include="DbProvider\IDataProvider\IPromotionLog.cs" />
+    <Compile Include="DbProvider\IDataProvider\IWebAddressInfo.cs" />
+    <Compile Include="DbProvider\IDataProvider\IWeblog.cs" />
+    <Compile Include="DbProvider\IDataProvider\IWeixin.cs" />
+    <Compile Include="DbProvider\IDataProvider\IWeixinMenu.cs" />
+    <Compile Include="DbProvider\IDataProvider\IWeixinNews.cs" />
+    <Compile Include="DbProvider\IDataProvider\IWeixinUser.cs" />
+    <Compile Include="DbProvider\IDataProvider\IWeixinWord.cs" />
+    <Compile Include="DbProvider\IDbProvider.cs" />
+    <Compile Include="DbProvider\IDbProviderFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DY.Common\DY.Common.csproj">
+      <Project>{F468B1C1-6283-44B0-98C0-1EF153B3D003}</Project>
+      <Name>DY.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DY.Entity\DY.Entity.csproj">
+      <Project>{85FF1451-8BFA-4CDB-A1CC-62373FA53E5B}</Project>
+      <Name>DY.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

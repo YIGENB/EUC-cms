@@ -1,0 +1,24 @@
+﻿<dl class="rows">
+    #foreach($row in $list) #set($index=$velocityCount+1)
+    <dd class="active ">
+        <div alt="" data-otherlink="0" data-phref="#GoodsLink()" class="productatag">
+            <div class="imgWrap">
+                <a href="#GoodsLink()">
+                    <img src="$!row.goods_img"></a></div>
+            <div class="infoWrap">
+                <h3 class="productTitle">
+                    <a href="#GoodsLink()"><span class="name ">$!row.goods_name </span></a>
+                </h3>
+                <p class="code ">
+                    $!row.goods_sn
+                </p>
+                <p class="mark">
+                </p>
+            </div>
+        </div>
+    </dd>
+    #if($index%3==0)
+</dl>
+<dl class="rows">
+    #end #end
+</dl>

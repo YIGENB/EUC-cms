@@ -1,0 +1,127 @@
+﻿#**
+ * 功能描述：Tag添加修改模板
+ * 创建时间：2010-01-11 12:23:45
+ * 最后修改时间：2010-01-14 9:43:22
+ * 作者：gudufy
+ * ============================================================================
+ * 2009-2015 小K版权所有，并保留所有权利
+ * 联系邮箱：421643133@qq.com、QQ：421643133
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
+ * 使用；不允许对程序代码以任何形式任何目的的再发布。
+ * ============================================================================
+ *#
+#parse("pageheader.html")
+<script type="text/javascript" src="/include/js/tags.js"></script>
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">#if($id == 0)添加#else修改#end表单框架项</span> 
+    </div>
+    <div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title=""  href="?act=list"><span class="left"></span><em><cite class="icon"></cite><cite>表单框架列表</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>	
+<div class="main-div">
+<form method="post" name="theForm" id="theForm" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">框架名称：</td>
+    <td><input type="text" name="name" maxlength="60" size="40" value="$!{entity.name}" class="required" /><span class="require-field">*</span></td>
+  </tr>
+
+    <tr>
+    <td class="label">表单名称：</td>
+    <td>        <select name="parent_id" >
+         
+            #foreach($row in $Caches.GetForm_Position())
+            <option value="$row.parent_id" #if($!{entity.parent_id}==$row.parent_id)selected="selected"#end>$row.position_name</option>
+            #end
+            </select>
+            
+            </td>
+  </tr>
+    <tr>
+    <td class="label">框架类型：</td>
+    <td>
+     <select name="type" >
+            <option value="text" #if($!{entity.type}=="text")selected="selected"#end>文本</option>
+            <option value="checkbox" #if($!{entity.type}=="checkbox")selected="selected"#end>多选框</option>
+            <option value="radio" #if($!{entity.type}=="radio")selected="selected"#end>单选框</option>
+            <option value="textarea" #if($!{entity.type}=="textarea")selected="selected"#end>多行文本</option>
+            <option value="file" #if($!{entity.type}=="file")selected="selected"#end>文件控件</option>
+            <option value="select" #if($!{entity.type}=="select")selected="selected"#end>下拉框</option>
+            </select>
+            
+          </td>
+  </tr>
+      <tr>
+    <td class="label">文本框大小：</td>
+    <td><input type="text" name="size" maxlength="60" size="40" value="$!{entity.size}" class="required" /></td>
+  </tr>
+    <tr>
+    <td class="label">提示：</td>
+    <td><input type="text" name="tip" maxlength="60" size="40" value="$!{entity.tip}" class="required" /></td>
+  </tr>
+
+    <tr>
+    <td class="label">上传文件夹：</td>
+    <td><input type="text" name="store_dir"  size="100" value="$!{entity.store_dir}" class="required" /></td>
+  </tr>
+       <tr>
+    <td class="label">显示文字：</td>
+    <td><input type="text" name="store_range" id="store_range"  size="100" value="$!{entity.store_range}" class="required" /></td>
+  </tr>
+  <tr>
+    <td class="label">排序：</td>
+    <td><input  name="sort_order" value="$SiteUtils.DefaultValue($!{entity.sort_order},0)" />
+    </td>
+  </tr>
+  <tr>
+        <td class="label">是否显示</td>
+        <td>
+          <input type="radio" name="isshow" value="1" $SiteUtils.DefaultValue($!{entity.isshow},"checked") #if($!entity.isshow)checked#end /> 是
+          <input type="radio" name="isshow" value="0" #if(!$!entity.isshow)checked#end /> 否
+        </td>
+      </tr>
+      <tr>
+        <td class="label">是否验证</td>
+        <td>
+          <input type="radio" name="is_required" value="1" #if($!entity.is_required)checked#end /> 是
+          <input type="radio" name="is_required" value="0" $SiteUtils.DefaultValue($!{entity.is_required},"checked") #if(!$!entity.is_required)checked#end /> 否
+        </td>
+      </tr>
+          <tr>
+        <td class="label">是否启用</td>
+        <td>
+          <input type="radio" name="is_validate" value="1" #if($!entity.is_validate)checked#end /> 是
+          <input type="radio" name="is_validate" value="0" $SiteUtils.DefaultValue($!{entity.is_validate},"checked") #if(!$!entity.is_validate)checked#end /> 否
+        </td>
+      </tr>
+  <tr>
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value=" 确定 " />
+      <input type="reset" class="button" value=" 重置 " />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+<script language="JavaScript"> 
+<!--
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+  validator = new Validator("theForm");
+  validator.required('name', "框架名称不能为空");
+  return validator.passed();
+}
+//-->
+$('#store_range').tagsInput({ defaultText: "添加文字", width: "400px", height: "20px" }); 
+</script>
+#parse("pagefooter.html")

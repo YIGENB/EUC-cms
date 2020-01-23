@@ -1,0 +1,22 @@
+﻿#parse("include/page_head.html")
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+#parse("include/ads.html")
+<div class="content">
+    <div class="container no-bottom">
+    <h4>$pageinfo.title</h4>
+    <div class="decoration"></div>
+        #foreach($row in $Caches.NewNews(10,53)) 
+        <p class="column-responsive half-bottom">
+            <a href ="#CMSLink()"><img alt="$row.title" src='$SiteUtils.DefaultValue($!{row.photo},"/include/images/nopic.png")'></a>
+            <a href ="#CMSLink()"><strong>$SiteUtils.GetTopic($row.title,18)</strong></a>
+            <em>$SiteUtils.GetTopic($row.des,80)</em>
+        </p>
+        #end
+        <div class="clear"></div>
+    </div>
+    <div class="decoration"></div>
+</div>
+#end
+#parse("include/page_foot.html")

@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>$config.Name后台管理中心</title>
+    <base target="mainFrame" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <link href="css/bootstrap.min.css?v=3.3.0" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+    <!-- Morris -->
+    <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=2.0.0" rel="stylesheet">
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js?v=3.3.0"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="js/hplus.js?v=2.0.0"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- GITTER -->
+    <script src="js/plugins/gritter/jquery.gritter.min.js"></script>
+    <!-- Toastr script -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <script src="js/plugins/toastr/toastr.min.js"></script>
+    <!-- Jvectormap -->
+    <script src="js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- EayPIE -->
+    <script src="js/plugins/easypiechart/jquery.easypiechart.js"></script>
+    <!-- Sparkline -->
+    <script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!--Old js-->
+    <script src="js/old/common.js" type="text/javascript"></script>
+    <script src="js/old/default.js" type="text/javascript"></script>
+</head>
+<body style="background-color: #f3f3f4;" class="$skin">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">总</span>
+                        <h5>
+                            产品</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">
+                            $goods_count</h1>
+                        <div class="stat-percent font-bold text-success">
+                            <!-- <i class="fa fa-bolt"></i>-->
+                        </div>
+                        <small>发布总数</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-info pull-right">总</span>
+                        <h5>
+                            信息</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">
+                            $cms_count</h1>
+                        <div class="stat-percent font-bold text-info">
+                            <!--20% <i class="fa fa-level-up"></i>-->
+                        </div>
+                        <small>发布总数</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">总</span>
+                        <h5>
+                            网站运营时长</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">
+                            $siteTime</h1>
+                        <div class="stat-percent font-bold text-navy">
+                            $siteSize <i class="fa"></i>
+                        </div>
+                        <small>天</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">最近一个月</span>
+                        <h5>
+                            活跃用户</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">
+                            $user_ActiveCount</h1>
+                        <div class="stat-percent font-bold text-danger">
+                            <!--38% <i class="fa fa-level-down"></i>-->
+                        </div>
+                        <small>$thisMonth月</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>
+                            $config.Title</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a><a class="close-link"><i
+                                class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table width="100%" cellspacing="0" class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                世界排名
+                                            </td>
+                                            <td>
+                                                三月平均：<span id="alexa_3months" style="font-weight: bold; white-space: nowrap" class="orange"><img
+                                                    src='images/spinner.gif' border='0' /></span>&nbsp;&nbsp;ALEXA数据预估流量：<span id="alexa_IPPV"><img
+                                                        src='images/spinner.gif' border='0' /></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                域名创建时间
+                                            </td>
+                                            <td>
+                                                <span id="domain_date">
+                                                    <img src='images/spinner.gif' border='0' /></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                域名过期时间
+                                            </td>
+                                            <td>
+                                                <span id="domain_expires">
+                                                    <img src='images/spinner.gif' border='0' /></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                PR
+                                            </td>
+                                            <td>
+                                                <span id="main_pr">
+                                                    <img src='images/spinner.gif' border='0' /></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                百度权重
+                                            </td>
+                                            <td>
+                                                <a href="http://baidurank.aizhan.com/baidu/www.ctmon.com/" target="_blank" id="baidu_rank">
+                                                    <img src='images/spinner.gif' border='0' /></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                百度索引量:
+                                            </td>
+                                            <td>
+                                                <span id="baiduindex">
+                                                    <img src='images/spinner.gif' border='0' /></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                首页内链:
+                                            </td>
+                                            <td>
+                                                <span id="seo_link">
+                                                    <img src='images/spinner.gif' border='0' /></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--<div class="col-lg-9">
+                                         <table cellspacing="0" class="table">
+                                         <thead>
+                                            <tr>
+                                              <td class="tablehead">标签</td>
+                                              <td class="tablehead">内容长度</td>
+                                              <td class="tablehead">内容</td>
+                                              <td class="tablehead">优化建议</td>
+                                            </tr>
+                                            </thead>
+                                            <tr>
+                                              <td>网站标题</td>
+                                              <td id="webpage_title_len">$config.Title.length 个字符</td>
+                                              <td id="webpage_title">$config.Title</td>
+                                              <td>一般不超过80个字符</td>
+                                            </tr>
+                                            <tr>
+                                              <td>网站关键词</td>
+                                              <td id="webpage_keywords_len">$config.Keywords.length 个字符</td>
+                                              <td id="webpage_keywords">$config.Keywords</td>
+                                              <td>一般不超过100个字符</td>
+                                            </tr>
+                                            <tr>
+                                              <td>网站描述</td>
+                                              <td id="webpage_description_len">$config.Desc.length 个字符</td>
+                                              <td id="webpage_description">$config.Desc.length</td>
+                                              <td>一般不超过200个字符</td>
+                                            </tr>
+                                          </table>
+                                    </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        关键词排名</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a><a class="close-link"><i
+                            class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="seov2 table table-striped table-bordered table-hover" cellpadding="5"
+                        id="seov2kwsort" cellspacing="0">
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>
+                                网站 <a href="http://${SiteUtils.GetDomain()}" target="_blank">${SiteUtils.GetDomain()}</a>
+                                的收录/反链结果</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a><a class="close-link"><i
+                                    class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table cellspacing="0" class="table table-striped table-bordered table-hover text-center">
+                                        <tr>
+                                            <td>
+                                                搜索引擎
+                                            </td>
+                                            <td>
+                                                <img src="images/ico_baidu.gif" />&nbsp;百度
+                                            </td>
+                                            <td>
+                                                <img src="images/ico_google.gif" />&nbsp;谷歌
+                                            </td>
+                                            <td>
+                                                <img src="images/ico_360so.gif" />&nbsp;360搜索
+                                            </td>
+                                            <td>
+                                                <img src="images/ico_sogou.gif" />&nbsp;搜狗
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                收录数量
+                                            </td>
+                                            <td id="baidu">
+                                                <img src='images/spinner.gif' border='0' />
+                                            </td>
+                                            <td id="google">
+                                                <img src='images/spinner.gif' border='0' />
+                                            </td>
+                                            <td id="360so">
+                                                <img src='images/spinner.gif' border='0' />
+                                            </td>
+                                            <td id="sogou">
+                                                <img src='images/spinner.gif' border='0' />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                反向链接
+                                            </td>
+                                            <td id="baidu_r">
+                                                <img src='images/spinner.gif' border='0' />
+                                            </td>
+                                            <td id="google_r">
+                                                <img src='images/spinner.gif' border='0' />
+                                            </td>
+                                            <td id="360so_r">
+                                                <img src='images/spinner.gif' border='0' />
+                                            </td>
+                                            <td id="sogou_r">
+                                                <img src='images/spinner.gif' border='0' />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>
+                                排名</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a><a class="close-link"><i
+                                    class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table width="100%" cellspacing="0" class="table table-striped table-bordered table-hover"
+                                        style="text-align: center">
+                                        <tr>
+                                            <td class="tablehead" width="96">
+                                                今日排行
+                                            </td>
+                                            <td class="tablehead" width="96">
+                                                排名趋势
+                                            </td>
+                                            <td class="tablehead">
+                                                一周平均排名
+                                            </td>
+                                            <td class="tablehead">
+                                                排名趋势
+                                            </td>
+                                            <td class="tablehead">
+                                                一月平均排名
+                                            </td>
+                                            <td class="tablehead">
+                                                排名趋势
+                                            </td>
+                                            <td class="tablehead">
+                                                三月平均排名
+                                            </td>
+                                            <td class="tablehead" width="96">
+                                                排名趋势
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="alexa_1days_value">
+                                                -
+                                            </td>
+                                            <td id="alexa_1days_change">
+                                                -
+                                            </td>
+                                            <td id="alexa_7days_value">
+                                                -
+                                            </td>
+                                            <td id="alexa_7days_change">
+                                                -
+                                            </td>
+                                            <td id="alexa_1months_value">
+                                                -
+                                            </td>
+                                            <td id="alexa_1months_change">
+                                                -
+                                            </td>
+                                            <td id="alexa_3months_value">
+                                                -
+                                            </td>
+                                            <td id="alexa_3months_change">
+                                                -
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            getSeo('#alexa_3months', '<span id="alexa_3months" style="font-weight:bold;white-space:nowrap" class="orange">', '</span>');
+            getSeo('#alexa_IPPV', '<span id="alexa_IPPV">', '</span>');
+            getSeo('#domain_date', '<td title="域名年龄" style=" width:70px;">', '</td>');
+            getSeo('#domain_owner', '<td id="domain_owner" style="_height:52px">', '</td>');
+            getSeo('#main_pr', '<span id="main_pr">', '</span>');
+            getSeo('#baidu_rank', '<a href="http://baidurank.aizhan.com/baidu/${SiteUtils.GetDomain()}/" target="_blank" id="baidu_rank">', '</span>');
+            getSeo('#baidu_date_old', '<span id="baidu_date_old">', '</span>');
+            getSeo('#baiduindex', '<span id="baiduindex">', '</span>');
+            getSeo('#seo_link', '<span id="seo_link">', '</span>');
+            //网站 的收录/反链结果
+            getSeo('#baidu', '<td id="baidu">', '</td>');
+            getSeo('#google', '<td id="google">', '</td>');
+            getSeo('#360so', '<td id="360so">', '</td>');
+            getSeo('#sogou', '<td id="sogou">', '</td>');
+            getSeo('#baidu_r', '<td id="baidu_r">', '</td>');
+            getSeo('#google_r', '<td id="google_r">', '</td>');
+            getSeo('#360so_r', '<td id="360so_r">', '</td>');
+            getSeo('#sogou_r', '<td id="sogou_r">', '</td>');
+            //加载排名
+            jQuery.post("updatemoreimg/ajax.aspx?act=alexaUsageStatistic", { s: '<script type="text/javascript">set_alexa(', e: ");" }, function (data) {
+                $("#alexa_1days_value").html(data.alexausagestatistic.alexa_1days.value);
+                $("#alexa_1days_change").html(data.alexausagestatistic.alexa_1days.change);
+                $("#alexa_7days_value").html(data.alexausagestatistic.alexa_7days.value);
+                $("#alexa_7days_change").html(data.alexausagestatistic.alexa_7days.change);
+                $("#alexa_1months_value").html(data.alexausagestatistic.alexa_1months.value);
+                $("#alexa_1months_change").html(data.alexausagestatistic.alexa_1months.change);
+                $("#alexa_3months_value").html(data.alexausagestatistic.alexa_3months.value);
+                $("#alexa_3months_change").html(data.alexausagestatistic.alexa_3months.change);
+            }, "json");
+            //加载关键词排名
+            getSeo('#seov2kwsort', '<table cellspacing="1" cellpadding="5" class="seo">', '</table>', 1);
+
+            //加载whois
+            jQuery.post("updatemoreimg/ajax.aspx?act=alexaUsageStatistic", { s: '<script type="text/javascript">set_whois(', e: ");" }, function (data) {
+                $("#domain_date").html(data.created);
+                $("#domain_expires").html(data.expires)
+            }, "json");
+        });
+
+                            </script>
+</body>
+</html>

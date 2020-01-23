@@ -1,0 +1,105 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            职位列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            
+            <li><strong>    职位列表</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+    <form name="searchForm" id="searchForm" onsubmit="return false;">
+<div id="search-box">
+    <div class="col-md-2">
+                <div class="form-group">
+    <select name="cat_id" id="pid" class="form-control m-b">
+    <option value="">所属部门...</option>
+      #foreach($row in $Caches.JobDepartment())
+      <option value="$row.department_id">$row.department_name</option>
+      #end
+    </select>
+    </div>
+    </div>
+          <div class="col-md-2">
+                <div class="form-group">
+    <input type="text"  class="form-control" name="val" id="val" value="" />
+    </div></div>
+          <div class="col-md-2">
+                <div class="form-group">
+    <input type="button" value="搜索"  class="btn btn-primary"  onclick="listTable.searchData()" />
+    </div>
+    </div>
+</div>
+</form>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加职位</a>
+                    </div>
+                    <form method="post" action="" name="listForm" id="listForm">
+                    <div id="listDiv" class="ibox-content">
+                    #end
+                        <table cellpadding="3" cellspacing="1"  class="table table-striped table-bordered table-hover">
+  <tr  class="list_tr">
+    <th>$SiteUtils.GetSortImg("name","职位")</th>
+    <th>$SiteUtils.GetSortImg("en_time","结束日期")</th>
+    <th>$SiteUtils.GetSortImg("number","招聘人数")</th>
+    <th>$SiteUtils.GetSortImg("content","描述")</th>
+    <th>$SiteUtils.GetSortImg("sort_order","排序")</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+    <tr >
+    <td>
+    <span onclick="javascript:listTable.edit(this, 'name', ${row.position_id})">${row.name}</span>
+    </td>
+    <td ><span>${row.en_time}</span></td>
+    <td ><span>${row.number}</span></td>
+    <td >$SiteUtils.GetTopic($SiteUtils.NoHTML(${row.content}),150)</td>
+    <td >
+        <div onclick="javascript:listTable.edit(this, 'sort_order', ${row.position_id})" style="width:100%;">${row.sort_order}</div>
+    </td>
+    <td ><span>  
+      <a href="?act=edit&id=${row.position_id}" title="修改">修改</a>
+      <a href="javascript:;" onclick="listTable.remove(${row.position_id}, '您确认要删除这条记录吗?')" title="删除">删除</a></span>
+    </td>
+  </tr>
+  #end
+</table>
+#if (!$isajax)
+                        <!-- 分页 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info">
+                                    <!--<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选"
+                                        class="selectall" />--></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    ${pager}
+                                </div>
+                            </div>
+                        </div>
+                   
+                      
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html")
+#end

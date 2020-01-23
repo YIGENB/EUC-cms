@@ -1,0 +1,39 @@
+﻿#parse("pageheader.html")
+<h1 id="Menu">
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - <label id="cur_menu">站内链接管理</label> </span>
+<div style="clear:both"></div>
+</h1>
+<script type="text/javascript" src="js/listtable.js"></script>
+<form method="post" action="?act=add" name="listForm">
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>名称</th>
+    <th>描述</th>
+    <th>URL</th>
+    <th>操作</th>
+  </tr>
+  <ad:foreach collection="{$list}" var="row" index="i">
+  <tr>
+    <td><span onclick="listTable.edit(this, 'edit_link_keyword', {$row.link_id})">{$row.link_keyword}</span></td>
+    <td align="left"><span onclick="listTable.edit(this, 'edit_link_des', {$row.link_id})">{$row.link_des}</span></td>
+    <td align="left"><span onclick="listTable.edit(this, 'edit_link_url', {$row.link_id})">{$row.link_url}</span></td>
+    <td><a href="javascript:;" onclick="listTable.remove({$row.link_id}, '您确认要删除这条记录吗?')" title="删除"><img src="images/icon_drop.gif" border="0" height="16" width="16" /></a></span></td>
+  </tr>
+  </ad:foreach>
+    <tr>
+    <td>
+        <input name="link_keyword" maxlength="20" type="text" /></td>
+    <td><input name="link_des" maxlength="50" type="text" /></td>
+    <td><input name="link_url" maxlength="250" type="text" /></td>
+    <td>
+        <input id="Submit1" type="submit" value="添加" /></td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+</form>
+#parse("pagefooter.html")

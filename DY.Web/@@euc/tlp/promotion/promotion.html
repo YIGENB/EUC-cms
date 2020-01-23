@@ -1,0 +1,102 @@
+﻿#parse("pageheader.html")
+<style type="text/css">
+.label{ width:100px; overflow:hidden;}
+</style>
+<h1 id="Menu">
+<span class="action-span"><a href="?act=list">推广计划列表</a></span>
+<span class="action-span1"><a href="main.aspx">管理中心</a>  - 推广统计</span>
+<div style="clear:both"></div>
+</h1>
+<div class="main-div">
+<form method="post" name="theForm" onsubmit="return validate()">
+  <table width="100%" id="general-table" style="text-align:left;">
+    <tr>
+      <td  class="label">
+        推广ID：</td>
+      <td>
+        $!{pid}
+      </td>
+    </tr>
+    <tr>
+      <td  class="label">
+        今天统计人数：</td>
+      <td>
+           $!{daycount}  <a href="PromotionLog.aspx?act=list&pid=${pid}&date=1">[详情]</a>
+      </td>
+      <td  class="label">
+        今天订单数：</td>
+      <td>
+         $!{dayamountcount}  <a href="order.aspx?act=list&pid=${pid}&date=1">[详情]</a>
+      </td>
+      <td  class="label">
+        今天交易金额：</td>
+      <td>
+         $!{dayamount}  <a href="order.aspx?act=list&pid=${pid}&date=1">[详情]</a>
+      </td>
+    </tr>
+    <tr>
+      <td  class="label">
+        本周统计人数：</td>
+      <td>
+          $!{weekcount}  <a href="PromotionLog.aspx?act=list&pid=${pid}&date=2">[详情]</a>
+      </td>
+      
+      <td  class="label">
+       本周订单数：</td>
+      <td>
+         $!{weekamountcount}  <a href="order.aspx?act=list&pid=${pid}&date=2">[详情]</a>
+      </td>
+      
+      <td  class="label">
+        本周交易金额：</td>
+      <td>
+          $!{weekamount}  <a href="order.aspx?act=list&pid=${pid}&date=2">[详情]</a>
+      </td>
+    </tr>
+    
+    <tr>
+    
+      <td  class="label">
+        本月统计人数：</td>
+      <td> $!{monthcount}  <a href="PromotionLog.aspx?act=list&pid=${pid}&date=3">[详情]</a>
+      </td>
+      
+       <td  class="label">
+        本月订单数：</td>
+      <td>
+         $!{monthamountcount}  <a href="order.aspx?act=list&pid=${pid}&date=3">[详情]</a>
+      </td>
+      
+      
+      <td  class="label">
+        本月交易金额：</td>
+      <td>
+          $!{monthamount}  <a href="order.aspx?act=list&pid=${pid}&date=3">[详情]</a>
+      </td>
+      
+    </tr>
+    
+     <tr>
+      <td  class="label">
+        总人数：</td>
+      <td>
+         $!{allcount}  <a href="PromotionLog.aspx?act=list&pid=${pid}">[详情]</a>
+      </td>
+      <td  class="label">
+        总订单数：</td>
+      <td>
+          $!{allamountcount}  <a href="order.aspx?act=list&pid=${pid}">[详情]</a>
+      </td>
+      
+      <td  class="label">
+        总金额：</td>
+      <td>
+          $!{allamount}  <a href="order.aspx?act=list&pid=${pid}">[详情]</a>
+      </td> 
+      
+    </tr>
+ </table>
+
+</form>
+</div>
+#parse("pagefooter.html")

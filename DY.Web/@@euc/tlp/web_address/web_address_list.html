@@ -1,0 +1,85 @@
+﻿#if (!$isajax) #parse("pageheader.html") #TreeFile()
+<script type="text/javascript">
+    //列表生成
+
+    $(function () {
+        $("#maingrid").ligerGrid({
+            columns: [
+                  { display: '编号', name: 'id', width: '10%', type: 'int', align: 'left' },
+                  { display: '栏目名称', name: 'name', width: '25%', align: 'left', render: function (rowdata, rowindex, value) {
+                      var showhtml = "listTable.edit(this, 'name'," + rowdata.id + ")";
+                      var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.name + '</span>';
+                      return isshow;
+                  }
+                  },
+                  { display: '更新日期', name: 'lastmod', width: '10%', align: 'left', render: function (rowdata, rowindex, value) {
+                      var isshow = rowdata.lastmod;
+                      return isshow;
+                  }
+                  },
+                 { display: '优先级', name: 'priority', width: '10%', align: 'left', render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'priority'," + rowdata.id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.priority + '</span>';
+                     return isshow;
+                 }
+                 },
+                 { display: '排序', name: 'orderid', width: '10%', align: 'left', render: function (rowdata, rowindex, value) {
+                     var showhtml = "listTable.edit(this, 'orderid'," + rowdata.id + ")";
+                     var isshow = ' <span onclick="' + showhtml + '" style="">' + rowdata.orderid + '</span>';
+
+                     return isshow;
+                 }
+                 },
+                                  { display: '是否有效', name: 'isenable', width: '10%', align: 'left', render: function (rowdata, rowindex, value) {
+                                      var showhtml = "listTable.toggle(this, 'isenable'," + rowdata.id + ")";
+                                      var isshow = '<img src="images/' + rowdata.isenable + '.gif" onclick="' + showhtml + '" />';
+                                      return isshow;
+                                  }
+                                  },
+                { display: '操作', isSort: false, width: '18%', render: function (rowdata, rowindex, value) {
+                    var h = "";
+                    h += '<a href="?act=edit&id=' + rowdata.id + '" title="修改">修改</a> ';
+                    var delhtml = "'删除的数据不能恢复，确定执行吗？'";
+                    h += '<a href="javascript:;" id="deltr' + rowdata.id + '" onclick="listTable.treeremove(' + rowdata.id + ',' + delhtml + ' )" title="删除">删除</a> ';
+                    return h;
+                }
+                }
+                ], width: '98%', height: 'auto', headerRowHeight: '38px', align: 'left',
+            url: 'tree/treelist.aspx?act=webaddresstree', alternatingRow: false, tree: { columnName: 'name' }, checkbox: false,
+            autoCheckChildren: false, usePager: false, enabledSort: false, isScroll: false
+        }
+            );
+    });
+    </script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            站点地图列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>设置</strong> </li>
+        </ol>
+    </div>
+</div>
+
+                        
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=createzd" class="btn btn-primary ">自动生成站点地图</a> <a href="?act=tohtml"
+                            class="btn btn-primary ">手动生成站点地图</a> <a href="?act=add" class="btn btn-primary ">添加站点地图</a>
+                    </div>
+                    <div id="listDiv" class="ibox-content">
+                        <div id="maingrid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("pagefooter.html") #end 

@@ -1,0 +1,39 @@
+﻿<div class="membersbox pad50">
+    
+	<section class="mintegral_top">消费积分：$userinfo.pay_points</section>
+     #foreach($row in $sign_list)#set($index=$velocityCount+1)
+	<section class="mintegral_content">
+		<section class="mintegral_contentlist" style="border-bottom-width: 0px;">
+			<section class="tit"><span>$row.des</span>
+                <em>+$row.change 消费积分</em>
+            	<b class=""></b>
+            </section>
+			<section class="con" style="display: none;">
+				<p>备注：$row.date.tostring("yyyy-MM-dd")$row.des</p>
+				<p>时间：$row.date</p>
+			</section>
+		</section>	
+        </section>
+        #end
+
+	<!-- load more start-->
+	<!--<a href="javascript:;" class="loadmore j-loadmore"><span>加载更多</span><i class="loadmore-icon"></i></a>
+	<span class="loadmore loadmore-noMoreData j-noMoreData">没有更多数据</span>-->
+    $pager
+
+	<script>
+	    $(function () {
+	        //展开与收缩
+	        $(".mintegral_contentlist .tit").click(function () {
+	            $(this).siblings().toggle();
+	            if ($(this).siblings().css("display") == "none") {
+	                $(this).find('b').removeClass('cur');
+	                $(this).parents('.mintegral_contentlist').css("border-bottom", "0px");
+	            } else {
+	                $(this).find('b').addClass('cur');
+	                $(this).parents('.mintegral_contentlist').css("border-bottom", "#dddddd solid 1px");
+	            }
+	        });
+	    });
+	</script>
+</div>

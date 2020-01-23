@@ -1,0 +1,49 @@
+﻿#parse("include/page_head.html")
+<script type="text/javascript" src="/include/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="/include/js/utils.js"></script>
+<script type="text/javascript" src="/include/js/validator.js"></script>
+<div class="dinzhi">
+	<div class="anli_div mc">
+		<p class="ls_p">
+			<span>
+				您当前的位置：<a href="/">首页</a>   »  <a class="" href="/p_zxly.htm">在线留言</a> 
+			</span>
+		</p>
+		<div class="liuy rel mc">
+			<script type="text/javascript" src="/tools/form.aspx?pid=1"></script>
+		</div>
+	</div>
+</div>
+
+<div>
+
+</div>
+#parse("include/page_foot.html")
+<script>
+    function Insertfeedbook1(form, formnae) {
+        $(form).ajaxSubmit({
+            beforeSubmit: validate1,
+            url: '/fromsubmit.aspx?act=Submit',
+            dataType: 'json',
+            resetForm: true,
+            success: function (data) {
+                if (data.error == 1) {
+                    alert(data.message);
+                }
+                else {
+                    alert("提交成功！");
+
+                }
+            }
+        });
+        return false;
+    }
+    function validate1(formData, jqForm, options) {
+        var validator1 = new Validator("loginForm1");
+        validator1.NOrequired("user_name", "姓名不能为空！");
+        validator1.isEmail("user_email", "邮箱格式错误！", true);
+        validator1.NOrequired("tel", "号码不能为空！");
+
+        return validator1.passed();
+    }
+    </script>

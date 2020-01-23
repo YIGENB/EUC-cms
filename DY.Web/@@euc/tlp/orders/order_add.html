@@ -1,0 +1,118 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            添加订单 - 请选择您要为哪个会员下订单</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>订单</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+                搜索结果只显示前20条记录，如果没有找到相应会员，请更精确地查找。另外，如果该会员是从论坛注册的且没有在商城登录过，也无法找到，需要先在商城登录
+            </div>
+        </div>
+    </div>
+    <form action="" method="post" name="theForm" class="form-horizontal" onsubmit="return checkUser()">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                        <div class="radio i-checks">
+                                <label>
+                                    <input type="radio" value="1" name="anonymous" checked>
+                                    <i></i>匿名用户</label>
+                                <label>
+                                    <input type="radio" value="0" name="anonymous" id="user_useridname">
+                                    <i></i>按会员编号或会员名搜索</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="text" placeholder="输入关键词" class="form-control" name="keyword" value="" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                             <select name="user" id="user" class="form-control m-b"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button class="btn btn-primary " type="button" onclick="searchUser();">
+                                <i class="fa fa-check"></i>&nbsp;搜索</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-2">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fa fa-check"></i>下一步</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<script language="JavaScript">
+
+    function checkUser() {
+        var eles = document.forms['theForm'].elements;
+
+        /* 如果搜索会员，检查是否找到 */
+        if (document.getElementById('user_useridname').checked && eles['user'].options.length == 0) {
+            alert_toastr("请搜索并选择一个会员", "提示", 4);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+    * 按用户编号或用户名搜索用户
+    */
+    function searchUser() {
+        var eles = document.forms['theForm'].elements;
+
+        /* 填充列表 */
+        var idName = Utils.trim(eles['keyword'].value);
+            Ajax.call('users.aspx?act=search_users&q=' + idName, '', searchUserResponse, 'GET', 'JSON');
+    }
+
+    function searchUserResponse(result) {
+        if (result.message.length > 0) {
+            alert(result.message);
+        }
+
+        if (result.error == 0) {
+            var eles = document.forms['theForm'].elements;
+
+            /* 清除列表 */
+            var selLen = eles['user'].options.length;
+            for (var i = selLen - 1; i >= 0; i--) {
+                eles['user'].options[i] = null;
+            }
+            var arr = result.content;
+            var userCnt = arr.length;
+
+            for (var i = 0; i < userCnt; i++) {
+                var opt = document.createElement('OPTION');
+                opt.value = arr[i].user_id;
+                opt.text = arr[i].user_name;
+                eles['user'].options.add(opt);
+            }
+        }
+    }
+</script>
+#parse("pagefooter.html")

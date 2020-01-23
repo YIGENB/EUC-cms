@@ -1,0 +1,213 @@
+﻿#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            #if($id == 0)添加#else修改#end会员账号</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>会员</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight white-bg">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="?act=list" class="btn btn-primary ">会员列表</a>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-lg-12">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#all-tab">基本信息</a></li>
+                         
+                        </ul>
+                    </div>
+                </div>
+
+                <!---->
+                  <div class="panel-body">
+                       <form method="post" class="form-horizontal" name="theForm" id="commentForm">
+                        <div class="tab-content">
+                        <div id="all-tab" class="tab-pane active">
+                                 
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            会员名称：</label>
+                                        <div class="col-sm-9">
+                                                    $!{entity.user_name}<input type="hidden" name="username" value="$!{entity.user_name}" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            可用资金：</label>
+                                        <div class="col-sm-9">
+                                                    ￥$!{entity.user_money}元 <a href="points.aspx?act=list&user_id=$!{entity.user_id}&account_type=user_money">[ 查看明细 ]</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            冻结资金：</label>
+                                        <div class="col-sm-9">
+                                                    ￥$!{entity.frozen_money}元 <a href="points.aspx?act=list&user_id=$!{entity.user_id}&account_type=frozen_money">[ 查看明细 ]</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            等级积分：</label>
+                                        <div class="col-sm-9">
+                                                    $!{entity.rank_points} 分
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            消费积分：</label>
+                                        <div class="col-sm-9">
+                                                    $!{entity.pay_points} <a href="user_sign.aspx?act=list&user_id=$!{entity.user_id}&points_type=0">[ 查看明细 ]</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            邮件地址：</label>
+                                        <div class="col-sm-9">
+                                                    <input  name="email" maxlength="50" type="text" class="form-control" value="$!{entity.email}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            登录密码：</label>
+                                        <div class="col-sm-9">
+                                            <input  name="password" maxlength="50" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            确认密码：</label>
+                                        <div class="col-sm-9">
+                                            <input  name="password" maxlength="50" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                      <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            会员等级：</label>
+                                        <div class="col-sm-9">
+                                           <select name="user_rank" class="form-control" >
+                                          #foreach($row in $User.GetUserGroupList())
+                                        <option value="$!{row.rank_id}">$!{row.rank_name}</option>
+                                        #end
+                                              </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            性别：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.sex})checked#end $SiteUtils.DefaultValue($!{entity.sex},"checked")  value="1" name="sex"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.sex} == false)checked#end  value="0" name="sex"> <i></i> 否</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            出生日期：</label>
+                                        <div class="col-sm-9">
+                                            <input  name="birthday" maxlength="50" type="text"   value="$!{entity.birthday}" class="laydate-icon form-control layer-date" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" >
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            信用额度：</label>
+                                        <div class="col-sm-9">
+                                            <input  name="credit_line" maxlength="50" type="text" class="form-control"  value="$!{entity.credit_line}">
+                                        </div>
+                                    </div>
+                                      #foreach($row in $userFields)
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            $row.reg_field_name：</label>
+                                        <div class="col-sm-9">
+                                            <input type="hidden" name="reg_field_id" value="$row.id" />
+                                            <input name="userFields[$row.id]" class="form-control" type="text" value="" />
+                                        </div>
+                                    </div>
+                                    #end
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            备注：</label>
+                                        <div class="col-sm-9">
+                                              <textarea class="form-control" name="remarks" cols="60" rows="5">$!{entity.remarks}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否有效：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.is_enabled})checked#end $SiteUtils.DefaultValue($!{entity.is_enabled},"checked")  value="1" name="is_enabled"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.is_enabled} == false)checked#end  value="0" name="is_enabled"> <i></i> 否</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">
+                                            是否验证：</label>
+                                        <div class="col-sm-9 radio i-checks">
+                                                   <label>
+                                    <input type="radio" #if($!{entity.is_validated})checked#end $SiteUtils.DefaultValue($!{entity.is_validated},"checked")  value="1" name="is_validated"> <i></i> 是</label>
+                                    <label>
+                                        <input type="radio"  #if($!{entity.is_validated} == false)checked#end  value="0" name="is_validated"> <i></i> 否</label>
+                                        </div>
+                                    </div>
+                                   
+                                   
+                                 
+                                   
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                         <input type="hidden" name="cms_id" value="$!{entity.article_id}" />
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>提交</button>
+                                            <button class="btn btn-white" type="reset">取消</button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                         </div>
+                    </form>
+                </div>
+
+             </div>
+    </div>
+    </div>
+    </div>
+
+
+
+
+<script language="JavaScript">
+<!--
+    var password_not_same = "输入的密码和确认密码不一致。";
+    var invalid_email = "没有输入邮件地址或者输入了一个无效的邮件地址。";
+
+    /**
+    * 检查表单输入的数据
+    */
+    function validate() {
+        validator = new Validator("theForm");
+        validator.required("user_name", "会员登录名不能为空", true);
+        validator.isEmail("email", invalid_email, true);
+        validator.eqaul("password", "confirm_password", password_not_same);
+
+        return validator.passed();
+    }
+//-->
+</script>
+#parse("pagefooter.html")

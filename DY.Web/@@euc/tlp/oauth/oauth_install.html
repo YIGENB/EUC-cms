@@ -1,0 +1,83 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">安装支付方式</span> 
+    </div>
+    <div class="z3g-page-operation">
+		<span class="operation-left">
+			<span class="z3g-btn-positive z3g-btn-add"><a class="z3g-btn25" title="" href="?act=list"><span class="left"></span><em><cite class="icon"></cite><cite>支付方式列表</cite></em></a></span>
+		</span>
+		<div class=" clear-both"></div>
+    </div>	
+<div class="list-div" id="listDiv">
+<table cellspacing='1' cellpadding='3' id='list-table'>
+  <tr class="list_tr">
+    <th>支付方式名称</th>
+    <th>主页</th>
+    <th>支持货到付款</th>
+    <th>支持在线支付</th>
+    <th></th>
+  </tr>
+  #foreach($row in $payment_list)
+  <tr >
+    <td>$row.name</td>
+    <td>$row.website #if($row.website != "")<a href="$row.website" title="预览" target="_blank"><img src="images/url.gif" /></a>#end</td>
+    <td align="center"><img src="images/${row.is_cod}.gif" /></td>
+    <td align="center"><img src="images/${row.is_online}.gif" /></td>
+    <td align="center">#if ($SiteUtils.IsInstallPayment($!row.code))已安装 #else<a href="javascript:InstallPayment('$row.code');">安装</a>#end</td>
+  </tr>
+  #end
+</table>
+</div>
+<form method="post">
+<div class="main-div" id="mainDiv" style=" display:none;">
+#end
+#if ($isajax)
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">前台显示名称：</td>
+    <td><input name="pay_name" type="text" value="$!paymentinfo.name" size="40" /></td>
+  </tr>
+  <tr>
+    <td class="label">前台显示描述：</td>
+    <td><textarea name="pay_desc" cols="60" rows="5">$!paymentinfo.des</textarea></td>
+  </tr>
+  #if($!paymentinfo.config != "")
+  #foreach($str in $SiteUtils.Split($!paymentinfo.config,","))
+  <tr>
+    <td class="label">$str：</td>
+    <td>
+    #if($!paymentinfo.code == "bank")
+    <textarea name="pay_config" rows="8" cols="60"></textarea>
+    #else
+    <input name="pay_config" type="text" value="" size="40" />
+    #end</td>
+  </tr>
+  #end
+  #end
+  <tr align="center">
+    <td colspan="2">
+      <input type="hidden"  name="pay_code"     value="$!{paymentinfo.code}" />
+      <input type="hidden"  name="is_cod"       value="$!{paymentinfo.is_cod}" />
+      <input type="hidden"  name="is_online"    value="$!{paymentinfo.is_online}" />
+      <input type="submit" class="button" name="Submit"       value=" 确定 " />
+      <input type="reset" class="button"  name="Reset"        value=" 重置 " />
+    </td>
+  </tr>
+</table>
+#end
+#if (!$isajax)
+</div>
+</form>
+<script type="text/javascript">
+    function InstallPayment(code) {
+        $('#mainDiv').show();
+        Ajax.call('payment.aspx?act=install_payment', 'is_ajax=1&code=' + code, function (data) {
+            $('#mainDiv').html(data.content);
+        }, 'GET', 'json');
+    }
+</script>
+#parse("pagefooter.html")
+#end

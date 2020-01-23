@@ -1,0 +1,261 @@
+﻿#parse("include/page_head.html") 
+#if(!$uc_ua)
+<!--加载右上角菜单-->
+#parse("include/rightmenu.html")
+#parse("include/ads.html")
+<style>
+li{ list-style:none}
+.cz_wap{ min-width:320px}
+.cz_top{ text-align:center; font-size:14px; padding:20px 0}
+.cz_top p{ font-size:30px; font-weight:bold; text-align:center; line-height:30px; }
+.cz_top1{ height:115px; padding:0 10px; text-align:center; }
+.cz_top1.fen{background:#f3857e;}
+.cz_top1.lan{background:#32c9d5;}
+.cz_top1.red{background:#c9112c;}
+.cz_top1.yellow{background:#ffae00;}
+.cz_top1_c{color:#fff;line-height:15px;display:table-cell;vertical-align: middle;height:115px; width:100%; text-align:left}
+.cz_top1_c p{ font-size:36px; color:#fff; text-align:center; line-height:40px}
+.cz_boxa{ padding:0 10px; margin-bottom:30px}
+.cz_boxa li{margin-top:20px;}
+.cz_boxa li p{display:table-cell;vertical-align: middle;padding-left:77px;}
+.cz_boxa li.cz_boxa11 p{ background:url(/skin/slasher/images/box1.jpg) no-repeat center left; height:44px; }
+.cz_boxa li.cz_boxa22 p{ background:url(/skin/slasher/images/box2.jpg) no-repeat center left; height:33px}
+.cz_boxa li.cz_boxa33 p{ background:url(/skin/slasher/images/box3.jpg) no-repeat center left; height:54px}
+.cz_boxa li.cz_boxa44 p{ background:url(/skin/slasher/images/box4.jpg) no-repeat center left;}
+.cz_top1fz{ display:inline-block}
+.cz_boxb{padding:0 10px 5px;}
+.cz_boxb p{ color:#f3857e; line-height:12px;margin-bottom:8px}
+.cz_boxb ul li{ overflow:hidden; margin-bottom:8px}
+.cz_boxb ul li b{ width:21px; height:21px; border-radius:23px; display:block; margin-right:16px; border:2px solid #f3857e; float:left}
+.cz_boxb ul li span{  line-height:24px; font-size:24px; display:block }
+.cz_boxc{ padding:0 10px}
+.cz_boxct{ font-weight:bold; padding:20px 0 10px 0; font-size:14px}
+.cz_boxca li{ overflow:hidden}
+.cz_boxca li b{ height:12px; width:12px; background:#1f2228; display:block; float:left; margin:4px 4px 0 0 }
+.cz_boxca li p{ float:left; line-height:16px; font-size:14px}
+.cz_boxcb li{ overflow:hidden; margin-bottom:15px}
+.cz_boxcb li b>*{ color:#ffffff}
+.cz_boxcb li b{ float:left; display:block; width:94px; height:65px; background:#32c9d5; text-align:center; position:relative; margin-right:18px; padding-top:5px;}
+.cz_boxcb li b span{ font-size:24px;}
+.cz_boxcb li b i{ font-family:"Myriad Pro"}
+.cz_boxcb li b:after{content: "";  
+  width:0px; 
+  height:0px; 
+  border-bottom:7px solid transparent;  /* left arrow slant */
+  border-top:7px solid transparent; /* right arrow slant */
+  border-left:7px solid #32C9D5; /* bottom, add background color here */
+  font-size:0px;
+  line-height:0px;
+  position:absolute;
+  right:-7px;
+  top:25px;
+  }
+.cz_boxcb{ overflow:hidden}
+.cz_boxcb p{ display:table-cell;vertical-align: middle;height:65px}
+.cz_boxcb p span{ font-size:24px; font-weight:bold; line-height:28px; } 
+.cz_boxcc_a{ padding:0px 0 20px 0; line-height:16px}
+.cz_boxd{ padding:0 10px}
+.cz_boxdt{ padding-top:23px; line-height:16px}
+.cz_boxdt span{ font-weight:bold}
+.cz_boxdca{ max-width:415px; margin:20px 0}
+.cz_boxdcb{ font-size:24px; line-height:28px; margin-bottom:10px}  
+.cz_boxdcc b{ display:block; height:6px; width:6px; background:#666666; float:left; margin:4px 4px 0 0} 
+.cz_boxdcc p{ line-height:14px} 
+.cz_boxdcd { padding:20px 0 5px 0}
+.cz_boxdcd li{ overflow:hidden; margin:0px 0 8px 0}
+.cz_boxdcd b{ margin:0px 10px 0 0; border-radius:16px; height:16px; width:16px; background:#ffae00; text-align:center; line-height:16px; font-size:12px; display:block; color:#fff; float:left}
+.cz_boxdcd p,.cz_boxdcd p span{  font-size:14px; font-weight:bold; line-height:16px; height:16px; display:block}
+.cz_boxe{ padding:20px 10px 0px}
+.cz_boxet{ color:#c9112c; font-size:24px; line-height:24px}
+.cz_boxec{ font-size:14px; margin-bottom:4px}  
+/*.cz_boxea dt b{ height:13px; width:21px}*/
+.cz_boxea dt{ font-size:18px; font-weight:bold; margin-bottom:8px}
+.cz_boxea dt b{ float:left;width: 20px; margin-top:7px; margin-right:20px;     height: 12px;     background: red;     position: relative;; display:block; line-height:12px; font-size:12px; text-align:center; color:#fff } 
+.cz_boxea dt b:before{content: "";     position: absolute;     top: -5px;      left: 0;     width: 0;     height: 0;     
+border-left: 10px solid transparent;     border-right: 10px solid transparent;     border-bottom: 5px solid red; }
+.cz_boxea dt b:after{      content: "";     position: absolute;     bottom: -5px;      left: 0;     width: 0;     height: 0;     
+border-left: 10px solid transparent;     border-right: 10px solid transparent;     border-top: 5px solid red;  }  
+ .cz_boxea dd{ font-size:14px; padding-left:40px} 
+</style>
+<div class="content cimg" style="margin:0">
+    <div class="container no-bottom">
+    <h4>$pageinfo.title</h4>
+        <div class="decoration"></div>
+<div class="cz_wap">
+	<div class="cz_top">
+    	<p>创同盟解决方案</p>
+        SOULUTION
+    </div>
+    <div class="cz_top1 fen">
+    <div class="cz_top1fz">
+        <div class="cz_top1_c">
+            <p>01.互联网思维</p>
+            2013年发生了太多，很多事与互联网密切相关；有一个词汇"互联网思维"成为了2013-2014年网络最热
+            门词汇之一。
+        </div>
+    </div>
+    </div>
+    <div class="cz_boxa">
+    	<ul>
+         	<li class="cz_boxa11"><p>3年后微信全球用户突破6亿。</p></li>
+            <li class="cz_boxa22"><p>3年，5亿，126亿，300亿，这是小米。</p></li>
+            <li class="cz_boxa33"><p>2家店，VC投资6000万，估值4亿，这是雕爷牛腩。</p></li>
+            <li class="cz_boxa44"><p>2012年6月天猫上线，65天后成为中国网络坚果销售第一；2012年"双十一"日销售766万，名列中国电商食品类第一名；2013年1月单月销售额超过2200万；至今一年多时间，累计销售过亿，并再次获得IDG公司600万美元投资。这是三只松鼠。</p></li>
+       </ul>
+    	
+    </div>
+    <div class="cz_boxb">   
+    	<p>这些都是互联网思维下典型的商业案例,这些都有两个共同点</p>
+        <ul>
+        	<li><b></b><span>企业从传统品牌到互联网品牌的转移</span></li>
+            <li><b></b><span>企业从传统品牌到互联网品牌的转移</span></li>
+        </ul>
+    </div>
+    <div class="cz_top1 lan">
+    <div class="cz_top1fz">
+        <div class="cz_top1_c">
+            <p>02.互联网应用</p>
+            未来10年，不会有纯粹的互联网公司，也不会有纯粹的传统企业；21实际要么电子商务，
+            要么无商可务
+        </div>
+    </div>
+    </div>
+    <div class="cz_boxc">
+    	<p class="cz_boxct">传统企业做网络营销会常见的几个误区:</p>
+        <ul class="cz_boxca">
+        	<li><b></b><p>微信微博并不一定就是移动互联网营销；</p></li>
+            <li><b></b><p>做网站不等于网络营销，</p></li>
+            <li><b></b><p>开网店不等于电子商务；</p></li>
+        </ul>
+        <ul class="cz_boxcb">
+        	<li>
+            	<b>
+                	<span>企业</span><br />
+                    <font>互联网化</font><br />
+                    <i>COMPANY</i>
+                </b>
+                <p>
+                	<span>价值链：互联网思维重构</span><br />
+                    组织/流程/经营理念全面互联网
+                </p>
+            </li>
+            <li>
+            	<b>
+                	<span>业务</span><br />
+                    <font>互联网化</font><br />
+                    <i>BUSINESS</i>	
+                </b>
+                <p>
+                	<span>价值链：互联网思维重构</span><br />
+                    组织/流程/经营理念全面互联网
+                </p>
+            </li>
+            <li>
+            	<b>
+                	<span>企业</span><br />
+                    <font>互联网化</font><br />
+                    <i>MAKET</i>
+                </b>
+                <p>
+                	<span>价值链：互联网思维重构</span><br />
+                    组织/流程/经营理念全面互联网
+                </p>
+            </li>
+            <li>
+            	<b>
+                	<span>企业</span><br />
+                    <font>互联网化</font><br />
+                    <i>PROPAGETION</i>
+                </b>
+                <p>
+                	<span>价值链：互联网思维重构</span><br />
+                    组织/流程/经营理念全面互联网
+                </p>
+            </li>
+        </ul>
+        <p class="cz_boxct">互联网之旅</p>
+        <div class="cz_boxcc_a">互联网对传统企业的影响正逐步从传播、渠道层面过滤到供应链及整个价值链，
+从把互联网作为工具，到以互联网思维设计产品进而运营企业。</div>
+    </div>
+    <div class="cz_top1 yellow">
+    <div class="cz_top1fz">
+        <div class="cz_top1_c">
+            <p>03.全网营销</p>
+        </div>
+    </div>
+    </div>
+	<div class="cz_boxd">
+    	<div class="cz_boxdt"><span>企业做网络营销是一件系统化工程</span>、用户也发生了楚河汉界的区分，手机网民、pc网民二分天下。2014年企业应多开展全网的立体式营销。</div>
+        <div class="cz_boxdca"><img src="images/box5.jpg" width="100%" /></div>
+        <div class="cz_boxdcb">用互联网思维帮客户打造企业全网营销解决方案</div>
+        <ul class="cz_boxdcc">
+        	<li><b></b><p>全网营销的覆盖面：pc端、移动端</p></li>
+            <li><b></b><p>注重用户的参与度，体验度；</p></li>
+            <li><b></b><p>利用微信的储存和转化功能做整个全网营销的闭环</p></li>
+        </ul>
+        <ul class="cz_boxdcd">
+        	<li><b>1</b><p>营销型网站的规划和建设</p></li>
+            <li><b>2</b><p>手机网站的搭建</p></li>
+            <li><b>3</b><p>微信公众平台的开发，微信站的搭建</p></li>
+        	<li><b>4</b><p>
+          	    <span>SEM推广计划：</span>
+                <font>第一期做全网营销站的搭建和站内优化；</font>
+                <font>第二期：需另外付费，包含站外链接，软文推广，搜索优化等seo服务项</font>
+            </p></li>
+            <li><b>5</b><p>网站后台统计数据的报告</p></li>
+
+    
+   
+
+        </ul>
+    </div>
+    <div class="cz_top1 red">
+    <div class="cz_top1fz">
+        <div class="cz_top1_c">
+            <p>04.创同盟</p>
+        </div>
+    </div>
+    </div>
+    <div class="cz_boxe">
+    	<p class="cz_boxet">企业应该如何选择供应商?</p>
+        <div class="cz_boxec">────  懂产品、懂行业、懂营销、技术过硬、服务到位的公司！</div>
+        <p class="cz_boxet">为什么选择创同盟?</p>
+        <div class="cz_boxec">营销型网站的搭建是一件系统化工程</div>     
+        <dl class="cz_boxea">
+        	<dt><b>1</b>整个网站内容结构定位清晰</dt>
+            <dd> ● 我们的优势</dd>
+            <dd> ● 业务和服务</dd>
+            <dd>● 为什么选择我们</dd>
+            <dd>● 怎么联系我们</dd>
+   
+        </dl>
+                <dl class="cz_boxea">
+        	<dt><b>1</b>整个网站内容结构定位清晰</dt>
+            <dd> ● 我们的优势</dd>
+            <dd> ● 业务和服务</dd>
+            <dd>● 为什么选择我们</dd>
+            <dd>● 怎么联系我们</dd>
+   
+        </dl>
+                <dl class="cz_boxea">
+        	<dt><b>1</b>整个网站内容结构定位清晰</dt>
+            <dd> ● 我们的优势</dd>
+            <dd> ● 业务和服务</dd>
+            <dd>● 为什么选择我们</dd>
+            <dd>● 怎么联系我们</dd>
+   
+        </dl>        <dl class="cz_boxea">
+        	<dt><b>1</b>整个网站内容结构定位清晰</dt>
+            <dd> ● 我们的优势</dd>
+            <dd> ● 业务和服务</dd>
+            <dd>● 为什么选择我们</dd>
+            <dd>● 怎么联系我们</dd>
+   
+        </dl>
+        
+    </div>
+</div>
+    </div>
+</div>
+#end 
+#parse("include/page_foot.html") 

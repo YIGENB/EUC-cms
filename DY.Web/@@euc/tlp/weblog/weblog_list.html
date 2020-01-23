@@ -1,0 +1,126 @@
+﻿#if (!$isajax) #parse("pageheader.html")
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            博客列表</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            
+            <li><strong>    博客列表</strong> </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-danger alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">
+                    ×</button>
+                1、什么是MetaWeblog API？<br />
+
+MetaWeblog API（MWA）是一个Blog程序接口标准，允许外部程序来获取或者设置Blog的文字和熟悉。他建立在XMLRPC接口之上，并且已经有了很多的实现。<br />
+
+2、基本的函数规范<br />
+
+有三个基本的函数规范：<br />
+
+metaWeblog.newPost (blogid, username, password, struct, publish) 返回一个字符串，可能是Blog的ID。 <br />
+metaWeblog.editPost (postid, username, password, struct, publish) 返回一个Boolean值，代表是否修改成功。 <br />
+metaWeblog.getPost (postid, username, password) 返回一个Struct。<br />
+
+其中blogid、username、password分别代表Blog的id（注释：如果你有两个Blog，blogid指定你需要编辑的blog）、用户名和密码。<br />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+                    <div class="">
+                        <a href="?act=add" class="btn btn-primary ">添加博客</a>
+                    </div>
+                    <form method="post" action="" name="listForm" id="listForm">
+                    <div id="listDiv" class="ibox-content">
+                    #end
+                        <table cellpadding="3" cellspacing="1" id="list-table" class="table table-striped table-bordered table-hover">
+        <tr class="list_tr">
+            <th align="left">编号</th>
+<!--            <th align="left">
+                客服类型
+            </th>-->
+            <th align="left">
+                博客
+            </th>
+            <th>
+                api_url
+            </th>
+            <th>
+                用户名
+            </th>
+            <th>
+                密码
+            </th>
+            <th>排序</th>
+            <th>
+                操作
+            </th>
+        </tr>
+        #foreach($row in $list)
+        <tr style="height:30px">
+            <td align="left">${row.blog_id}</td>
+
+            <td align="left">
+              <span onclick="javascript:listTable.edit(this, 'blog_name', ${row.blog_id})">${row.blog_name}</span>
+           
+            </td>
+            <td>
+               
+                  <span onclick="javascript:listTable.edit(this, 'blog_api_url', ${row.blog_id})">${row.blog_api_url}</span>
+            </td>
+            <td>
+                <div onclick="javascript:listTable.edit(this, 'name', ${row.blog_id})" style="width:100%;">${row.name}</div>
+            </td>
+          <td>
+                <div onclick="javascript:listTable.edit(this, 'password', ${row.blog_id})" style="width:100%;">${row.password}</div>
+            </td>
+            <td>
+                <div onclick="javascript:listTable.edit(this, 'sort', ${row.blog_id})" style="width:100%;">${row.sort}</div>
+            </td>
+            <td>
+                <a href="?act=edit&amp;id=${row.blog_id}" title="修改">修改</a> 
+                <a href="javascript:;" onclick="listTable.remove(${row.blog_id}, '确认删除此博客吗？')" title="删除">删除</a> &nbsp;
+
+            </td>
+        </tr>
+        #end
+    </table>
+#if (!$isajax)
+                        <!-- 分页 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info">
+                                    <!--<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" title="全选\反选"
+                                        class="selectall" />--></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    ${pager}
+                                </div>
+                            </div>
+                        </div>
+                   
+                      
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ #parse("pagefooter.html") #end

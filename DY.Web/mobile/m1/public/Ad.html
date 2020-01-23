@@ -1,0 +1,64 @@
+﻿#foreach($row in $ads)
+##============图片=========================================================================================
+#if ($row.position_type == 1)
+    #if ($row.ad_link.Length > 0)
+    document.write('<a href="$row.ad_link"><img src="$row.ad_code" width="$row.ad_width" height="$row.ad_height"/></a>');
+    #else
+    document.write('<img src="$row.ad_code" width="$row.ad_width" height="$row.ad_height" />');
+    #end
+#end
+##============Flash========================================================================================
+#if ($row.position_type == 2)
+        document.write('<div><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cabversion=6,0,0,0" width="'+ $row.ad_width +'" height="'+ $row.ad_height +'">');
+	    document.write('<param name="movie" value="$row.ad_code">');
+	    document.write('<param name="quality" value="high"><param name="wmode" value="opaque">');
+	    document.write('<embed src="$row.ad_code" quality="high" width="' + $row.ad_width + '" height="' + $row.ad_height + '" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />');
+	    document.write('</object></div>');
+	    var ad_name="$row.ad_name";
+#end
+
+##============文字==========================================================================================
+#if ($row.position_type == 4)
+    document.write('$row.ad_code');
+#end
+#set( $position_type = $row.position_type)
+#end
+
+#if ($position_type == 3)
+##============图片轮播2=====================================================================================
+    var focus_width = 0;
+    var focus_height = 0;
+    var text_height = 0;
+   
+	var pics = "", links = "", texts = "";
+	var istrue=0;
+	#foreach($row in $ads)
+	    #if($velocityCount==0)
+	        pics="$row.ad_code";
+	        links="$row.ad_link";
+	        texts="$row.ad_name";
+	    #else
+	        pics=pics+"|$row.ad_code";
+	        links=links+"|$row.ad_link";
+	        texts=texts+"|$row.ad_name";
+	    #end
+	    focus_width="$row.ad_width";
+	    focus_height="$row.ad_height";
+	    #if($row.is_show_text)text_height=20;#end
+	    #if ($row.position_type == 3)
+	    istrue="1";
+	    #end
+	#end
+	var swf_height=focus_height;
+	if(text_height>0){ focus_height=focus_height-text_height;}
+	
+	if(istrue=="1")
+	{
+        document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="' + focus_width + '" height="' + swf_height + '">');
+        document.write('<param name="movie" value="/include/images/focus1.swf"><param name="bgcolor" value="#F0F0F0">');
+        document.write('<param name="quality" value="high"><param name="wmode" value="opaque">');
+        document.write('<param name="FlashVars" value="pics=' + pics + '&links=' + links + '&texts=' + texts + '&borderwidth=' + focus_width + '&borderheight=' + focus_height + '&textheight=' + text_height + '">');
+        document.write('<embed src="/include/images/focus1.swf" FlashVars="pics=' + pics + '&links=' + links + '&texts=' + texts + '&borderwidth=' + focus_width + '&borderheight=' + focus_height + '&textheight=' + text_height + '" quality="high" width="' + focus_width + '" height="' + swf_height + '" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />');
+        document.write('</object>');
+	}
+#end

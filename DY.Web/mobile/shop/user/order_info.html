@@ -1,0 +1,89 @@
+﻿<div class="content">
+    <div class="particular">
+        <div class="particular_wrap">
+            <dl class="order_detail">
+                <dt class="til_font">订单详情</dt><dt>订单状态</dt><dd>
+                #if($entity.order_status == 1)
+                已确认
+                #elseif($entity.order_status == 0)
+                未确认
+                #elseif($entity.order_status == 2)
+                取消
+                #elseif($entity.order_status == 3)
+                已无效
+                #elseif($entity.order_status == 4)
+                已完成
+                #end,
+                #if($entity.pay_status == 1)已付款#else未付款#end,
+                #if($entity.delivery_status == 1)已发货#else未发货#end
+                </dd>
+                <dt>订单号</dt><dd>${entity.order_sn}</dd>
+                <dt>下单时间</dt><dd>${entity.add_time}</dd>
+                <dt>支付方式</dt><dd>${entity.pay_name}</dd>
+                #if($entity.pay_status == 1)<dt>付款时间</dt><dd>$!{entity.pay_time}</dd>#end
+                #if($entity.delivery_status == 1)<dt>发货时间</dt><dd>$!{entity.delivery_time}</dd>#end
+                </dl>
+            <div class="ware_line">
+                <div class="ware">
+                      #foreach($row in $ordergoodslist)
+                    <div class="ware_list">
+                        <div class="ware_pic">
+                            <img width="50" height="50" src="$SiteUtils.GetGoodsInfo($row.goods_id).original_img"></div>
+                        <div class="ware_text">
+                            <div class="ware_text1">
+                                <a href="#GoodsLink()">$row.goods_name</a><br>
+                                <span></span>
+                            </div>
+                            <div class="ware_text2">
+                                <span>数量:<strong>${row.goods_number}</strong></span><span>价格:<strong>¥$row.goods_price</strong></span></div>
+                        </div>
+                    </div>
+                    #end
+                    <div class="transportation">
+                        <!--优惠打折<span>¥0.00</span><br>-->
+                        卖家包邮
+                        <br>
+                        总价:<b>¥${entity.goods_amount}</b></div>
+                    <ul class="order_detail_list">
+                        <li>配送快递: -</li><li>快递编号:-</li><li>发货时间:-</li></ul>
+                </div>
+            </div>
+            <dl>
+                <dt class="til_font">物流信息</dt>
+                <dt>收货地址</dt><dd>[$SystemConfig.GetRegionNameById($entity.country) 
+    $SystemConfig.GetRegionNameById($entity.province) 
+    $SystemConfig.GetRegionNameById($entity.city) 
+    $SystemConfig.GetRegionNameById($entity.district)] ${entity.address}</dd>
+                <dt>配送方式</dt><dd>$entity.delivery_name</dd>
+                <dt>邮编</dt><dd>$entity.zipcode</dd>
+                <dt>订单附言</dt><dd>$entity.postscript</dd>
+                </dl>
+        </div>
+        <div class="clear">
+        </div>
+        <div class="btn_list">
+               #if($entity.delivery_status == 1&&$entity.order_status == 0)
+               <a href="javascript:;" class="order_pay" onclick="getupdate();">确认收货</a>
+               #else
+                <a href="/user.aspx?act=update_field&id=${entity.order_id}&val=2&fieldName=order_status" class="order_cancel">取消订单</a>
+                <a href="/checkout.aspx?act=payment&order_sn=${entity.order_sn}" class="order_pay">付款</a>
+               #end
+          </div>
+        <div class="adorn_right2">
+        </div>
+        <div class="adorn_right3">
+        </div>
+        <div class="adorn_right4">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<script type="text/javascript">
+    function getupdate() {
+        jQuery.get("/user.aspx?act=update_field", { id: "$entity.order_id", val: 1, fieldName: "order_status" }, function () {
+            alert("提交成功！");
+            location.reload();
+        })
+    }
+</script>

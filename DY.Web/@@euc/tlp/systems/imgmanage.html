@@ -1,0 +1,122 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>
+            文件管理</h2>
+        <ol class="breadcrumb">
+            <li><a href="main.aspx">主页</a> </li>
+            <li><strong>设置</strong> </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content" id="listDiv">
+                    <div class="file-manager">
+                        <h5>
+                            操作：</h5>
+                        <div class="hr-line-dashed">
+                        </div>
+                        <div class="del_button">
+                            <div class="del_all">
+                                <label class="icheckbox_square-green checkbox-inline i-checks">
+                                    <input type="checkbox" name="all" /></label>&nbsp;全选</div>
+                            <button id="del_pic" class="btn btn-primary btn-block">
+                                删除图片</button></div>
+                        <div class="hr-line-dashed">
+                        </div>
+                        <h5>
+                            文件夹</h5>
+                        <ul class="folder-list" style="padding: 0">
+                            <li><a href="?folder="><i class="fa fa-folder"></i>全部</a> </li>
+                            #foreach($row in $folderlist)
+                            <li><a href="?folder=${row.name}"><i class="fa fa-folder"></i>${row.name}</a> </li>
+                            #end
+                          
+                        </ul>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 animated fadeInRight">
+            <div class="row">
+            #end
+                <form method="post" name="theForm" id="commentForm">
+                <div class="col-lg-12">
+                    #foreach($row in $list)
+                    <div class="file-box">
+                        <div class="file">
+                            <span class="corner"></span>
+                            <div class="image">
+                                <img alt="image" class="img-responsive" src="/${row.file_path}">
+                                <label class="icheckbox_square-green checkbox-inline i-checks">
+                                    <input type="checkbox" name="file_path" value="/${row.file_path}" /></label>
+                            </div>
+                            <div class="file-name">
+                                ${row.name}
+                                <br />
+                                <small>添加时间：${row.creatime}</small>
+                            </div>
+                        </div>
+                    </div>
+                    #end
+                </div>
+                </form>
+                #if (!$isajax)
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/plugins/layer/layer.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#del_pic").click(function () {
+            //layer.msg('test');
+            jQuery.layer({
+                shade: [0],
+                area: ['auto', 'auto'],
+                dialog: {
+                    msg: '是否删除图片？删除图片后将无法恢复图片文件！',
+                    btns: 2,
+                    type: 4,
+                    btn: ['是', '否'],
+                    yes: function () {
+                        var options = {
+                            url: '/admin/updatemoreimg/ajax.aspx?act=delpic',
+                            type: 'post',
+                            dataType: 'text',
+                            data: $("#commentForm").serialize(),
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        };
+                        jQuery.ajax(options);
+                        return false;
+                    }, no: function () {
+
+                    }
+                }
+            });
+        });
+        $('.file-box').each(function () {
+            animationHover(this, 'pulse');
+        });
+        $('.del_all .i-checks').on('ifChecked', function (event) {
+            $(".file .i-checks").iCheck('check');
+
+        });
+        $('.del_all .i-checks').on('ifUnchecked', function (event) {
+            $(".file .i-checks").iCheck('uncheck');
+
+        });
+
+    });
+    </script>
+#parse("pagefooter.html")
+#end

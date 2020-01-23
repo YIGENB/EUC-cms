@@ -1,0 +1,32 @@
+﻿<div class="coll_a">
+    <div class="coll_al">
+        <img width="112" height="40" src="images/coll_g.jpg"></div>
+    <div class="coll_ar">
+        <input type="text" value='$SiteUtils.DefaultValue($!{keyword},"快速检索")' id="kword" name="" onkeypress="EnterPress(event)"
+            onkeydown="EnterPress()"><a href="javascript:;" id="button"><img width="16" height="16"
+                src="images/suos.png"></a></div>
+</div>
+            <div class="coll_a_bottom">
+                 #foreach($str in $SiteUtils.Split($config.SearchKeywords,","))
+                    	<a href="/n_search/$!{SiteUtils.UrlEncode($str)}.htm">$str</a>
+                        #end
+            </div>
+<script type="text/javascript">
+    $(function () {
+        $("#button").click(function () {
+            var text = $("#kword").val().trim();
+            if (text == "" || text == "快速检索") { alert("请输入搜索关键字"); return };
+            location.href = "/n_search/" + text + ".htm";
+        })
+
+    })
+
+    function EnterPress(e) {
+        //var e = e || window.event;
+        if (e.keyCode == 13) {
+            var text = $("#kword").val().trim();
+            if (text == "" || text == "快速检索") { return };
+            location.href = "/n_search/" + text + ".htm";
+        }
+    }
+</script>

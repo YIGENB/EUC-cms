@@ -1,0 +1,40 @@
+﻿#if (!$isajax)
+#parse("pageheader.html")
+<div class="z3g-page-title"> 
+		<span class="photo general"></span>
+		<span class="text-left">您正在：浏览 &nbsp;</span>
+		<span class="text-right">插件列表</span> 
+    </div>
+<form method="post" action="" name="listForm">
+<div class="list-div" id="listDiv">
+#end
+<table cellpadding="3" cellspacing="1">
+  <tr class="list_tr">
+    <th>插件名称</th>
+    <th>版本</th>
+    <th>作者</th>
+    <th>描述</th>
+    <th>操作</th>
+  </tr>
+  #foreach($row in $list)
+    <tr >
+    <td align="center">
+    <span><img src="${row.ico}" width="50" height="50" /> <br /> ${row.name}</span>
+    </td>
+    <td>${row.version}</td>
+    <td><a href="${row.from}" target="_blank">${row.author}</a></td>
+    <td>${row.description}</td>
+    <td align="center" nowrap="true"><span>
+      #if($SiteUtils.CheckPluginIntall(${row.filename}))<a href="?act=pluginoutput&t=iframe&name=${row.filename}" title="设置">设置</a>&nbsp;#else<a href="?act=install&t=iframe&name=${row.filename}" title="安装">安装</a>&nbsp;#end
+      #if($SiteUtils.CheckPluginIntall(${row.filename}))
+      <a href="?act=update&t=iframe&name=${row.filename}" title="更新">更新</a>&nbsp;
+      <a href="?act=uninstall&t=iframe&name=${row.filename}" title="卸载">卸载</a>#end</span>
+    </td>
+  </tr>
+  #end
+</table>
+#if (!$isajax)
+</div>
+</form>
+#parse("pagefooter.html")
+#end

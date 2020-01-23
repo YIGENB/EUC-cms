@@ -1,0 +1,33 @@
+﻿#parse("include/page_head.html")
+<div class="about_cont_a">
+    	<div class="about_cont_aa"></div>
+        <div class="about_cont_vc"></div>
+        <div class="main">
+        <div class="about_conta_top">
+            	<div class="about_conta_topl"><img width="330" height="60" src="images/pro_a.jpg" alt="产品中心，产品的交付才是服务的开始"></div>
+                <div class="about_conta_topr">
+                	<div class="about_conta_toprt"><span>当前位置：</span><a href="/">首页</a>  $catnav</div>
+                    <div class="about_conta_toprb a">
+                        #foreach($row in $Caches.AllPage($cat_id)) 
+                    	<a href="#PageLink()" #if($row.page_id==$this_id) class="selected"  #end>$row.title</a>
+                        #end
+                    </div>
+                </div>
+            </div>
+<div class="pro">
+            	<div class="pro_l">
+					<a href="/p_about.htm"><img width="102" height="121" src="images/pro_b.jpg"></a>
+                        #foreach($row in $Caches.AllPage($cat_id)) #set($index=$velocityCount+1)	
+                    	<div><a href="#PageLink()" class="a$index #if($row.page_id==$pageinfo.page_id) cur #end" title="$row.title"></a></div>
+                        #end
+                </div>
+                <div class="pro_r">
+                	<div class="pro_r_cz">
+                       $body
+                    </div>
+                </div>
+                
+            </div>
+       </div>
+    </div>
+#parse("include/page_foot.html")
